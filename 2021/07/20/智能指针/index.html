@@ -1,0 +1,479 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  
+  <title>智能指针 - gys的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gys18007141407.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>gys的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/miku1.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="智能指针">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-20 22:21" pubdate>
+        2021年7月20日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      46
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">智能指针</h1>
+	    <time updated datetime="2021-09-25 10:30"></time>
+            
+            <div class="markdown-body">
+              <h2 id="智能指针"><a href="#智能指针" class="headerlink" title="智能指针"></a>智能指针</h2><h4 id="上一节的一点补充"><a href="#上一节的一点补充" class="headerlink" title="上一节的一点补充"></a>上一节的一点补充</h4><p>左值引用和右值引用</p>
+<p>左值引用就是对一个左值进行引用的类型。右值引用就是对一个右值进行引用的类型，事实上，由于右值通常不具有名字，我们也只能通过引用的方式找到它的存在。</p>
+<p>右值引用和左值引用都是属于引用类型。无论是声明一个左值引用还是右值引用，都必须立即进行初始化。<br>而其原因可以理解为是引用类型本身自己并不拥有所绑定对象的内存，只是该对象的一个别名。左值引用是具名变量值的别名，而右值引用则是不具名（匿名）变量的别名。</p>
+<p>左值引用通常也不能绑定到右值，但常量左值引用是个“万能”的引用类型。它可以接受非常量左值、常量左值、右值对其进行初始化。：<br>不过常量左值所引用的右值在它的“余生”中只能是只读的。相对地，非常量左值只能接受非常量左值对其进行初始化。</p>
+<hr>
+<p>C++ 11中定义了unique_ptr、shared_ptr与weak_ptr三种智能指针(smart pointer)，都包含在&lt;memory&gt;头文件中。<br>智能指针可以对动态分配的资源进行管理(RAII)，保证任何情况下，已构造的对象最终会销毁，即它的析构函数最终会被调用。</p>
+<h3 id="unique-ptr"><a href="#unique-ptr" class="headerlink" title="unique_ptr"></a>unique_ptr</h3><p>unique_ptr<br>独占指针,默认构造是一个空指针.<br>既然是独占,那么必然没有拷贝构造和赋值构造.支持移动构造(右值赋值,原指针变为空指针)<br>任何时刻,只有一个指针指向对应的内存.<br>get()返回控制的指针<br>release()释放控制权,变为空指针.返回前面控制的指针<br>reset(ptr = nullptr)释放内存,并转而控制新内存ptr<br>可以使用模板的第二个参数来自定义该指针析构时的删除函数，该删除器可以是任意的可调用对象</p>
+<hr>
+<h3 id="shared-Ptr"><a href="#shared-Ptr" class="headerlink" title="shared_Ptr"></a>shared_Ptr</h3><p>shared_ptr<br>共享指针,默认构造是一个空指针(引用计数为0)<br>既然是共享,那么必然存在拷贝构造和赋值构造.支持移动构造(右值赋值,原指针变为空指针,引用计数减一)<br>任何时刻,所有指针指向指向同一块内存<br>多个该智能指针共享“拥有”同一堆分配对象的内存通过引用计数（reference counting）实现，会记录有多少个shared_ptr共同指向一个对象，<br>一旦最后一个这样的指针被销毁，也就是一旦某个对象的引用计数变为0，这个对象就会被自动删除。<br>get()返回控制的指针<br>use_count()返回指向对象内存的引用计数<br>reset(ptr = nullptr)使当前指向对象的引用计数减一,并转而控制新内存ptr并重新计数(新的根节点),因为参数是指针类型,不知道该指针指向的对象有多少引用计数.<br>unique()如果当前引用计数为1则返回true,否则返回false<br>owner_before()暂时不太了解，貌似是为了防止重复析构</p>
+<p>注意<br><b>不要使用一个原始指针去初始化多个shared_ptr。（想一想析构！下面的代码中有这种现象，你能找出来吗）</b><br><b>不要再函数参数实参中创建shared_ptr</b><br>f(shared_ptr&lt;int&gt;(new int), g());<br>上面的函数中写法是有缺陷的。这是因为C++的参数计算顺序在不同的编译器不同的调用约定下可能是不一样的，一般是从右到左，但是也有可能是从左到右，所以，可能的过程是先new int，然后调用g()。但是如果恰好g()发生了异常，而shared_ptr&lt;int&gt;还没有创建，则int内存就泄露了，正确的写法应该是这样的<br><b>不要包裹this指针，参考第一点</b><br><b>避免循环引用，见下面weak_ptr</b></p>
+<hr>
+<h3 id="weak-ptr"><a href="#weak-ptr" class="headerlink" title="weak_ptr"></a>weak_ptr</h3><p>weak_ptr(用来解决shared_ptr循环引用的问题)<br>弱引用指针，默认构造是一个空指针。<br>weak_ptr是为配合shared_ptr而引入的一种智能指针来协助shared_ptr工作，它可以从一个shared_ptr或另一个weak_ptr对象构造(默认构造为空指针)<br>weak_ptr构造和析构不会引起引用计数的增加或减少。<br>没有重载 *和 -&gt; 符号!!!向shared_ptr指针指向的对象内存，却并不拥有该内存,可以使用lock获得一个可用的shared_ptr对象,并且在所指对象内存已经无效时，返回指针空值nullptr。<br>weak_ptr并不拥有资源的所有权，所以不能直接使用资源。 但却可以从一个weak_ptr构造一个shared_ptr以取得共享资源的所有权(lock)。<br>weak_ptr中只有函数lock和expired两个函数比较重要，因为它本身不会增加引用计数，所以它指向的对象可能在它用的时候已经被释放了，<br>因此在用之前需要使用expired函数来检测是否过期，然后使用lock函数来获取其对应的shared_ptr对象</p>
+<p>weak_ptr一般应用场景<br><b>解决shared_ptr循环引用的问题</b><br><b>缓存对象</b></p>
+<p>1、考虑一个工厂函数loadWidget，该函数基于唯一ID来创建一些指向只读对象的智能指针。</p>
+<p>2、假设该只读对象需要被频繁使用，而且经常需要从文件或数据库中加载。那么可以考虑将对象缓存起来。同时为了避免过量缓存，当不再使用时，则将该对象删除。</p>
+<p>3、由于带缓存，工厂函数返回unique_ptr类型显然不合适。因为调用者和缓存管理器均需要一个指向这些对象的指针。</p>
+<p>4、当用户用完工厂函数返回的对象后，该对象会被析构，此时相应的缓存条目将会空悬。因为可以考虑将工厂函数的返回值设定为shared_ptr类型，而缓存类型为weak_ptr类型。</p>
+<p><b>观察者模式</b></p>
+<p>5、观察者模式是在subject状态发生改变时，通知观察者的一种设计模式。</p>
+<p>6、在多数实现中，每个subject持有指向观察者的指针，这使得当subject状态改变时可以很容易通知观察者。</p>
+<p>7、subject不会控制其观察者的生存期，因此应该是持有观察者的weak_ptr指针。同时在subject的使用某个指针时，可以先确定是否空悬。</p>
+<p><b>依赖注入，控制反转</b></p>
+<p>8、考虑到一个具体类对另一个类有依赖，可将该依赖设置为weak_ptr，将控制权交给对方。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;memory&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;functional&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">A</span>;</span><br><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">B</span>&#123;</span><br>    shared_ptr&lt;A&gt; sp;<br>    ~<span class="hljs-built_in">B</span>()&#123; cout &lt;&lt; <span class="hljs-string">&quot;B析构&quot;</span> &lt;&lt; endl;&#125;<br>&#125;;  <br><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">C</span>&#123;</span><br>    weak_ptr&lt;A&gt; wp;<br>    ~<span class="hljs-built_in">C</span>()&#123; cout &lt;&lt; <span class="hljs-string">&quot;C析构&quot;</span> &lt;&lt; endl;&#125;<br>&#125;;<br><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">A</span>&#123;</span><br>    shared_ptr&lt;B&gt; spb;<br>    shared_ptr&lt;C&gt; spc;<br>    ~<span class="hljs-built_in">A</span>()&#123; cout &lt;&lt; <span class="hljs-string">&quot;A析构&quot;</span> &lt;&lt; endl;&#125;<br>&#125;;<br><br><span class="hljs-keyword">auto</span> my_deleter = [](A* _pa)&#123;<br>    cout &lt;&lt; <span class="hljs-string">&quot;my lambda deleter called&quot;</span>&lt;&lt; endl;<br>    <span class="hljs-keyword">delete</span> _pa;<br>&#125;;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">fake_deleter</span>&#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">operator</span><span class="hljs-params">()</span><span class="hljs-params">(A* _pa)</span></span>&#123;<br>        cout &lt;&lt; <span class="hljs-string">&quot;my fake func deleter called&quot;</span> &lt;&lt; endl;<br>        <span class="hljs-keyword">delete</span> _pa;<br>    &#125;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">func_deleter</span><span class="hljs-params">(A* _pa)</span></span>&#123;<br>    cout &lt;&lt; <span class="hljs-string">&quot;my func deleter called&quot;</span> &lt;&lt; endl;<br>    <span class="hljs-keyword">delete</span> _pa;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br><br>    <span class="hljs-comment">// int _;</span><br>    <span class="hljs-comment">// const int &amp;__ = _;   # 常量左值引用绑定到常量左值，OK</span><br>    <span class="hljs-comment">// const int &amp;___ = 2;  # 常量左值引用绑定到右值，OK</span><br><br>    &#123;<br><br>        <span class="hljs-function">unique_ptr&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">up1</span><span class="hljs-params">(<span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>(<span class="hljs-number">3</span>))</span></span>;<br>        <span class="hljs-function">unique_ptr&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">up2</span><span class="hljs-params">(<span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>(<span class="hljs-number">5</span>))</span></span>;<br><br>        up2 = <span class="hljs-built_in">move</span>(up1); <span class="hljs-comment">// OK</span><br><br>        <span class="hljs-comment">// cout &lt;&lt; *up1 &lt;&lt; endl;  // 运行时错误.因为up1变成了空指针</span><br>        cout &lt;&lt; *up2 &lt;&lt; endl;     <span class="hljs-comment">// 3</span><br><br>        <span class="hljs-comment">// 可使用make_unique&lt;typename&gt;(args)模板函数来避免显式new</span><br><br>        <span class="hljs-comment">// RVO (return value optimization) 和NRVO (named return value optimization)</span><br>        <span class="hljs-comment">// 是C++在处理一个函数返回类对象并将返回值赋给另一个对象时，为了减少拷贝构造次数以及析构次数而采用的一种编译器优化技术。</span><br>        <span class="hljs-comment">// 例如 TYPE instance = func_return_instance(); 为了避免TYPE的拷贝,最后这里将函数返回值(右值)使用move赋值给instance.</span><br><br>        cout &lt;&lt; is_same&lt;unique_ptr&lt;<span class="hljs-keyword">int</span>&gt;, <span class="hljs-keyword">decltype</span>(make_unique&lt;<span class="hljs-keyword">int</span>&gt;(<span class="hljs-number">3</span>))&gt;::value &lt;&lt; endl;    <span class="hljs-comment">// true</span><br>        cout &lt;&lt; is_same&lt;unique_ptr&lt;<span class="hljs-keyword">int</span>&gt;&amp;&amp;, <span class="hljs-keyword">decltype</span>(make_unique&lt;<span class="hljs-keyword">int</span>&gt;(<span class="hljs-number">3</span>))&gt;::value &lt;&lt; endl;  <span class="hljs-comment">// false. 因为函数返回的是unique&lt;int&gt;类型的右值,等到赋值时才转为了右值引用</span><br><br>        <span class="hljs-comment">// 猜测:编译时检测到make_unique&lt;int&gt;(5)是右值.或者说unique&lt;typename&gt;只能用右值赋值(移动move就是将类型转为右值)</span><br>        <span class="hljs-comment">// unique_ptr&lt;int&gt; up3 = make_unique&lt;int&gt;(5);  // Ok</span><br>        <span class="hljs-keyword">auto</span> up3 = make_unique&lt;<span class="hljs-keyword">int</span>&gt;(<span class="hljs-number">5</span>);                <span class="hljs-comment">// Ok, 这也是非常正确使用make_unique的例子</span><br><br><br>        cout &lt;&lt; *up3 &lt;&lt; endl;    <span class="hljs-comment">// 5</span><br><br>        <span class="hljs-keyword">int</span>* temp;<br>        cout &lt;&lt; up3.<span class="hljs-built_in">get</span>() &lt;&lt; endl;                <span class="hljs-comment">// int*</span><br>        cout &lt;&lt; (temp = up3.<span class="hljs-built_in">release</span>()) &lt;&lt; endl;   <span class="hljs-comment">// int*</span><br>        cout &lt;&lt; up3.<span class="hljs-built_in">get</span>() &lt;&lt; endl;                <span class="hljs-comment">// nullptr</span><br>        <span class="hljs-comment">// cout &lt;&lt; *up3 &lt;&lt; endl;                  // error</span><br>        <span class="hljs-keyword">delete</span> temp;                              <span class="hljs-comment">// OK</span><br><br>        <span class="hljs-function">unique_ptr&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">up4</span><span class="hljs-params">(move(up2))</span></span>;           <span class="hljs-comment">// OK</span><br>        up4.<span class="hljs-built_in">reset</span>(<span class="hljs-keyword">new</span> <span class="hljs-built_in"><span class="hljs-keyword">int</span></span>(<span class="hljs-number">9</span>));                    <span class="hljs-comment">// OK</span><br>        up4.<span class="hljs-built_in">reset</span>(up1.<span class="hljs-built_in">get</span>());                     <span class="hljs-comment">// OK</span><br><br>        <span class="hljs-keyword">auto</span> up5 = unique_ptr&lt;A, fake_deleter&gt;(<span class="hljs-keyword">new</span> A);                          <span class="hljs-comment">// my fake func deleter called</span><br>        <span class="hljs-keyword">auto</span> up6 = unique_ptr&lt;A, <span class="hljs-keyword">decltype</span>(my_deleter)&gt;(<span class="hljs-keyword">new</span> A, my_deleter);      <span class="hljs-comment">// my lambda deleter called</span><br>        <span class="hljs-comment">// auto up7 = unique_ptr&lt;A, decltype(func_deleter)&gt;(new A, func_deleter);  // ERROR</span><br>        <span class="hljs-keyword">auto</span> up8 = unique_ptr&lt;A, std::function&lt;<span class="hljs-built_in"><span class="hljs-keyword">void</span></span>(A*)&gt;&gt;(<span class="hljs-keyword">new</span> A, func_deleter); <span class="hljs-comment">// my func deleter called</span><br><br>    &#125;<br><br>    cout &lt;&lt; endl;<br>    <br>    &#123;<br>        shared_ptr&lt;<span class="hljs-keyword">int</span>&gt; _;<br>        cout &lt;&lt; _.<span class="hljs-built_in">use_count</span>() &lt;&lt; endl;      <span class="hljs-comment">// 0</span><br>        shared_ptr&lt;<span class="hljs-keyword">int</span>&gt; __(<span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>);<br>        cout &lt;&lt; __.<span class="hljs-built_in">use_count</span>() &lt;&lt; endl;     <span class="hljs-comment">// 1</span><br><br>        <span class="hljs-function">shared_ptr&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">sp1</span><span class="hljs-params">(<span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>(<span class="hljs-number">1</span>))</span></span>;    <span class="hljs-comment">// sp1作为根节点</span><br>        shared_ptr&lt;<span class="hljs-keyword">int</span>&gt; sp2 = sp1;          <span class="hljs-comment">// 可直接赋值</span><br>        <span class="hljs-function">shared_ptr&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">sp3</span><span class="hljs-params">(sp2)</span></span>;           <span class="hljs-comment">// 可直接拷贝</span><br><br>        cout &lt;&lt; sp1.<span class="hljs-built_in">use_count</span>() &lt;&lt; endl; <span class="hljs-comment">// 3</span><br><br>        <span class="hljs-function">shared_ptr&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">sp4</span><span class="hljs-params">(move(sp3))</span></span>;<br><br>        cout &lt;&lt; sp1.<span class="hljs-built_in">use_count</span>() &lt;&lt; endl; <span class="hljs-comment">// 3</span><br>        cout &lt;&lt; sp1.<span class="hljs-built_in">get</span>() &lt;&lt; <span class="hljs-string">&quot;\t&quot;</span> &lt;&lt; sp4.<span class="hljs-built_in">get</span>() &lt;&lt; endl; <span class="hljs-comment">// 相同的地址</span><br><br>        <span class="hljs-comment">// sp3 ---&gt; nullptr</span><br>        <span class="hljs-comment">// sp1=sp2=sp4 ---&gt; 1</span><br><br>        sp4.<span class="hljs-built_in">reset</span>(sp2.<span class="hljs-built_in">get</span>());                   <span class="hljs-comment">// sp4将原来管理的对象的引用计数减一,然后指向sp2管理的对象并重新开始计数(sp4作为根节点)</span><br>        <span class="hljs-comment">// sp4 ---&gt; 1</span><br>        <span class="hljs-comment">// sp1=sp2 ---&gt; 1</span><br><br>        cout &lt;&lt; sp4.<span class="hljs-built_in">use_count</span>() &lt;&lt; endl;        <span class="hljs-comment">// 1</span><br>        cout &lt;&lt; sp1.<span class="hljs-built_in">use_count</span>()  &lt;&lt; endl;       <span class="hljs-comment">// 2</span><br>       <br>        <span class="hljs-comment">// 与unique_ptr类似,常用make_shared&lt;typename&gt;(args)模板函数来避免显式new</span><br>        <span class="hljs-keyword">auto</span> sp5 = make_shared&lt;<span class="hljs-keyword">int</span>&gt;(<span class="hljs-number">9</span>);<br>        cout &lt;&lt; *sp5 &lt;&lt; endl;                   <span class="hljs-comment">// 9</span><br><br><br>        <span class="hljs-comment">// owner_before： 防止重复析构，目前对这个不太熟悉</span><br>        &#123;<br>            <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Base</span>&#123;</span><br>                A a;<br>                ~<span class="hljs-built_in">Base</span>()&#123;  cout &lt;&lt; <span class="hljs-string">&quot;Base析构&quot;</span> &lt;&lt; endl;  &#125;<br>            &#125;;<br><br>            <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Derive</span>:</span><span class="hljs-keyword">public</span> Base&#123;<br>                ~<span class="hljs-built_in">Derive</span>()&#123; cout &lt;&lt; <span class="hljs-string">&quot;Derive析构&quot;</span> &lt;&lt; endl; &#125;<br>            &#125;;<br><br>            shared_ptr&lt;Derive&gt; pDerive = make_shared&lt;Derive&gt;(); <span class="hljs-comment">// 派生类指针(owner_ptr)</span><br>            <span class="hljs-comment">// shared_ptr&lt;Base&gt; pa(pDerive.get());                 // 基类指针(stored_ptr)指向派生类。(此处用了原始指针，肯定会引发重复析构问题，但直接使用pDerive则相当于增加引用计数)</span><br>            shared_ptr&lt;Base&gt; pa = pDerive;                         <span class="hljs-comment">// OK</span><br><br>            <span class="hljs-comment">// cout &lt;&lt; pDerive.owner_before(pa) &lt;&lt; endl;        // 1     // error 重复析构</span><br>            cout &lt;&lt; pDerive.<span class="hljs-built_in">owner_before</span>(pa) &lt;&lt; endl;        <span class="hljs-comment">// 0</span><br>            cout &lt;&lt; pa.<span class="hljs-built_in">owner_before</span>(pDerive) &lt;&lt; endl;        <span class="hljs-comment">// 0</span><br><br><br>            <span class="hljs-comment">// // 更简单的例子</span><br>            <span class="hljs-comment">// struct Wrapper&#123;</span><br>            <span class="hljs-comment">//     A a;</span><br>            <span class="hljs-comment">// &#125;;</span><br>            <span class="hljs-comment">// auto pWrap = make_shared&lt;Wrapper&gt;();                // owner_ptr</span><br>            <span class="hljs-comment">// // auto pA = make_shared&lt;A&gt;(pWrap-&gt;a);                 // stored_ptr</span><br>            <span class="hljs-comment">// shared_ptr&lt;A&gt; pA(&amp;pWrap-&gt;a);                        // stored_ptr</span><br>            <br>            <span class="hljs-comment">// // 当pA和pWrap析构时都将尝试去对a进行析构: error</span><br>            <span class="hljs-comment">// cout &lt;&lt; pWrap.owner_before(pA) &lt;&lt; endl;             // 1    pA是指向了pWrap中的一个成员</span><br>            <span class="hljs-comment">// cout &lt;&lt; pA.owner_before(pWrap) &lt;&lt; endl;             // 0</span><br><br><br>        &#125;<br>    &#125;<br><br>    cout &lt;&lt; endl;<br>    <br>    &#123;<br>        weak_ptr&lt;<span class="hljs-keyword">int</span>&gt; wp1;<br>        cout &lt;&lt; wp1.<span class="hljs-built_in">expired</span>() &lt;&lt; endl;          <span class="hljs-comment">// 1 默认为空指针.即wp1管理的shared_ptr不存在</span><br>        shared_ptr&lt;<span class="hljs-keyword">int</span>&gt; sp1 = wp1.<span class="hljs-built_in">lock</span>();       <span class="hljs-comment">// lock获取指向的共享内存的所有权</span><br>        cout &lt;&lt; <span class="hljs-string">&quot;lock success&quot;</span> &lt;&lt; endl;<br>        cout &lt;&lt; sp1.<span class="hljs-built_in">get</span>() &lt;&lt; endl;              <span class="hljs-comment">// 0 nullptr</span><br><br>        shared_ptr&lt;<span class="hljs-keyword">int</span>&gt; sp2 = make_shared&lt;<span class="hljs-keyword">int</span>&gt;(<span class="hljs-number">66</span>);<br>        <span class="hljs-function">weak_ptr&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">wp2</span><span class="hljs-params">(sp2)</span></span>;<br><br>        cout &lt;&lt; wp2.<span class="hljs-built_in">use_count</span>() &lt;&lt; endl;        <span class="hljs-comment">// 1 不增加减少引用计数</span><br>        cout &lt;&lt; *wp2.<span class="hljs-built_in">lock</span>() &lt;&lt; endl;            <span class="hljs-comment">// 66</span><br>        cout &lt;&lt; sp2.<span class="hljs-built_in">use_count</span>() &lt;&lt; endl;        <span class="hljs-comment">// 1 不增加减少引用计数</span><br><br>        <span class="hljs-comment">//（lock可以理解为获取自己管理的shared_ptr对象？即 shared_ptr&lt;int&gt; _ = sp2）</span><br>        shared_ptr&lt;<span class="hljs-keyword">int</span>&gt; _ = wp2.<span class="hljs-built_in">lock</span>();         <span class="hljs-comment">// 赋值构造，这将增加sp2的引用计数，拷贝构造同理。</span><br>        cout &lt;&lt; _.<span class="hljs-built_in">use_count</span>() &lt;&lt; endl;          <span class="hljs-comment">// 2 增加引用计数</span><br>        cout &lt;&lt; wp2.<span class="hljs-built_in">use_count</span>() &lt;&lt; endl;        <span class="hljs-comment">// 2</span><br><br>        _.<span class="hljs-built_in">reset</span>();                              <span class="hljs-comment">// 减少引用计数</span><br>        cout &lt;&lt; wp2.<span class="hljs-built_in">use_count</span>() &lt;&lt; endl;        <span class="hljs-comment">// 1</span><br>        cout &lt;&lt; sp2.<span class="hljs-built_in">use_count</span>() &lt;&lt; endl;        <span class="hljs-comment">// 1</span><br><br><br>        <span class="hljs-comment">// 注意踩雷</span><br>        wp2.<span class="hljs-built_in">lock</span>().<span class="hljs-built_in">reset</span>(<span class="hljs-keyword">new</span> <span class="hljs-built_in"><span class="hljs-keyword">int</span></span>(<span class="hljs-number">77</span>));          <span class="hljs-comment">// 匿名shared_ptr对象指向了77. reset作为新的根节点</span><br>        cout &lt;&lt; wp2.<span class="hljs-built_in">use_count</span>() &lt;&lt; endl;        <span class="hljs-comment">// 1</span><br>        cout &lt;&lt; sp2.<span class="hljs-built_in">use_count</span>() &lt;&lt; endl;        <span class="hljs-comment">// 1</span><br>        cout &lt;&lt; *wp2.<span class="hljs-built_in">lock</span>() &lt;&lt; endl;            <span class="hljs-comment">// 66 wp2并没有reset</span><br>        cout &lt;&lt; *sp2 &lt;&lt; endl;                   <span class="hljs-comment">// 66</span><br><br>        wp2.<span class="hljs-built_in">lock</span>().<span class="hljs-built_in">reset</span>(sp1.<span class="hljs-built_in">get</span>());            <span class="hljs-comment">// 匿名shared_ptr对象指向了sp1指向的对象. reset作为新的根节点。同一个地址初始化多个shared_ptr(析构！)</span><br>        cout &lt;&lt; wp2.<span class="hljs-built_in">use_count</span>() &lt;&lt; endl;        <span class="hljs-comment">// 1</span><br>        cout &lt;&lt; sp2.<span class="hljs-built_in">use_count</span>() &lt;&lt; endl;        <span class="hljs-comment">// 1</span><br>        cout &lt;&lt; *wp2.<span class="hljs-built_in">lock</span>() &lt;&lt; endl;            <span class="hljs-comment">// 66 wp2并没有reset</span><br>        cout &lt;&lt; *sp2 &lt;&lt; endl;                   <span class="hljs-comment">// 66  </span><br><br><br><br>        <span class="hljs-comment">// 循环引用</span><br>        &#123;<br>            <span class="hljs-keyword">auto</span> spB = make_shared&lt;B&gt;();           <span class="hljs-comment">// --&gt;B</span><br>            <span class="hljs-keyword">auto</span> spA = make_shared&lt;A&gt;();           <span class="hljs-comment">// --&gt;A</span><br><br>            spB-&gt;sp = spA;<br>            spA-&gt;spb = spB;<br>            <span class="hljs-comment">// 引用形成环</span><br><br>            cout &lt;&lt; spB.<span class="hljs-built_in">use_count</span>() &lt;&lt; endl;        <span class="hljs-comment">// 2</span><br>            cout &lt;&lt; spA.<span class="hljs-built_in">use_count</span>() &lt;&lt; endl;        <span class="hljs-comment">// 2</span><br>            <span class="hljs-comment">// 因为类内的成员要在类析构的时候才会析构,而类要析构必须要该类的引用计数为0。这就导致矛盾，这两个对象将永远不会被析构，造成了内存泄漏。</span><br>            <span class="hljs-comment">// 程序结束时，析构函数无任何输出，表示这两个对象的确没有被析构！！</span><br>        &#125;<br>        <span class="hljs-comment">// 将其中一个类(C)的成员置为弱引用指针weak_ptr</span><br>        &#123;<br>            <span class="hljs-keyword">auto</span> spC = make_shared&lt;C&gt;();            <span class="hljs-comment">// --&gt;C</span><br>            <span class="hljs-keyword">auto</span> spA = make_shared&lt;A&gt;();            <span class="hljs-comment">// --&gt;A</span><br><br>            spC-&gt;wp = spA;<br>            spA-&gt;spc = spC;<br>            <span class="hljs-comment">// 打破了环，因为环上有一个指针为弱引用指针</span><br><br>            cout &lt;&lt; spC.<span class="hljs-built_in">use_count</span>() &lt;&lt; endl;        <span class="hljs-comment">// 2</span><br>            cout &lt;&lt; spA.<span class="hljs-built_in">use_count</span>() &lt;&lt; endl;        <span class="hljs-comment">// 1</span><br>            <span class="hljs-comment">// spA,spC析构，各自引用计数减一</span><br>            <span class="hljs-comment">// spA.use_count() == 0, spC.use_count() == 1</span><br>            <span class="hljs-comment">// A析构</span><br>            <span class="hljs-comment">// A中成员 spc 析构，C引用计数减一</span><br>            <span class="hljs-comment">// spC.use_count() == 0</span><br>            <span class="hljs-comment">// C析构</span><br>        &#125;<br>        <br>    &#125;<br>    cout &lt;&lt; endl;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br><br><br></code></pre></td></tr></table></figure>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/">智能指针</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/C/">C++</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/C/">C++</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/">智能指针</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-info">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/07/21/%E4%BA%92%E6%96%A5%E9%94%81%E3%80%81%E4%BF%A1%E5%8F%B7%E9%87%8F%E3%80%81%E8%87%AA%E6%97%8B%E9%94%81/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">互斥锁、信号量、自旋锁</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/19/decltype%E3%80%81result-of%E3%80%81auto%E3%80%81declval/">
+                        <span class="hidden-mobile">decltype、result_of、auto、declval</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

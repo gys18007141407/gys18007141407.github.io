@@ -1,0 +1,477 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  
+  <title>建筑结构损伤图像识别-8 - gys的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gys18007141407.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>gys的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/miku7.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="建筑结构损伤图像识别-8">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-17 20:05" pubdate>
+        2021年7月17日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      23
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">建筑结构损伤图像识别-8</h1>
+	    <time updated datetime="2021-07-17 15:45"></time>
+            
+            <div class="markdown-body">
+              <h2 id="PyTorch"><a href="#PyTorch" class="headerlink" title="PyTorch"></a>PyTorch</h2><h3 id="Attention-mechanism"><a href="#Attention-mechanism" class="headerlink" title="Attention mechanism"></a>Attention mechanism</h3><p>步骤：<br>1、计算attention weight: 隐藏状态和encoder的输出encoder_output进行计算(余弦，DNN，矩阵乘法。。。）之后再通过softmax得到<br>2、计算context vector：attention weight和encoder_output进行计算得到<br>3、计算最终结果：把当前的output [batch, 1, hidden_size] 和context vextor拼接，经过变换和tanh处理后的结果作为当前时间步的输出</p>
+<h4 id="soft-attention-和-hard-attention"><a href="#soft-attention-和-hard-attention" class="headerlink" title="soft attention 和 hard attention"></a>soft attention 和 hard attention</h4><p>soft attention在encoder的每一个时间步输出都会计算出一个概率。（常用）<br>hard attention只寻找一个时间步计算概率，认为当前只与那一个时间步相关。（不常用）</p>
+<h4 id="global-attention-和-local-attention"><a href="#global-attention-和-local-attention" class="headerlink" title="global attention 和 local attention"></a>global attention 和 local attention</h4><p>global attention使用encoder的全部时间步上的输入的attention weight<br>local attention使用encoder的部分时间步（如当前时间步上encoder的hidden_state)上的输入的attention weight，以这种方式来减少计算量。</p>
+<hr>
+<h3 id="计算"><a href="#计算" class="headerlink" title="计算"></a>计算</h3><h4 id="local-attention-Bahdanau-Attention"><a href="#local-attention-Bahdanau-Attention" class="headerlink" title="local attention: Bahdanau Attention"></a>local attention: Bahdanau Attention</h4><h5 id="encoder"><a href="#encoder" class="headerlink" title="encoder"></a>encoder</h5><p>使用双向GRU/LSTM编码，将两个方向的output结果拼接起来作为最终结果。</p>
+<h5 id="decoder"><a href="#decoder" class="headerlink" title="decoder"></a>decoder</h5><p>与上一节不同，attention mechanism不再以encoder的最后一个hidden_state来作为decoder的第一个时间步的输入，而是以一个随机初始隐藏状态z0(z0可视为上一次的decoder_hidden_state)来乘以encoder的每个时间步的隐藏状态encoder_hidden_state，从而得到a0, a1, … , a[encoder_hidden_size]。然后将这这些a做softmax，得到attention weight。attention weight与encoder_output进行计算就是context vector，也就是decoder的第一个时间步的输入c1。</p>
+<p>这样一来，接下来的操作就和上一次说的Seq2Seq模型差不多了。有了初始隐藏状态z0，和初始输入c1，很容易得到第一个时间步的输出o1和隐藏状态z1。有了z1之后，与z0类似，z1也分别乘以encoder的每个时间步的隐藏状态encoder_hidden_stateo，从而也能得到a0, a1, … , a[encoder_hidden_size]。然后将这些a做softmax，得到attention weight。attention weight与encoder_output进行计算就是context vector，也就是下一个时间步的输入c2。</p>
+<p>从计算步骤可以看出来，当前时间步的输入需要在计算完attention weight之后得到，于是Bahdanau Attention应该在GRU/LSTM层前面使用。</p>
+<h4 id="global-attention-Luong-Attention"><a href="#global-attention-Luong-Attention" class="headerlink" title="global attention: Luong Attention"></a>global attention: Luong Attention</h4><h5 id="encoder-1"><a href="#encoder-1" class="headerlink" title="encoder"></a>encoder</h5><p>使用单向GRU/LSTM编码，把最后一层的隐藏状态作为最终结果。</p>
+<h5 id="decoder-1"><a href="#decoder-1" class="headerlink" title="decoder"></a>decoder</h5><p>与Bahdanau Attention不同，Luong Attention不是使用decoder上一个时间步的隐藏状态来计算a0, a1, … , a[encoder_hidden_size], 而是使用decoder当前时间步的隐藏状态decoder_hidden_state来进行计算。既然要求先得到当前步的hidden_state，那么Luong Attention应该在GRU/LSTM层后面使用。</p>
+<p>** 他们计算attention weight的方式也不一样 **<br>在Bahdanau Attention中，a[i] = wait_for_training_matrix * tanh(linear_transform_matrix * z, + linear_transform_matrix * encoder_output )<br>在Luong Attention中，使用三种方法来计算权重：<br>    1、dot。直接把 encoder_output * decoder_hidden_state<br>    2、general。先对decoder_hidden_state做线性变换，然后进行矩阵乘法<br>    3、concat。把decoder_hidden_state和encoder_output进行拼接，拼接后通过tanh函数。之后再与encoder_output进行矩阵乘法。</p>
+<hr>
+<p>以上次的seq2seq代码为例，只需要在forward_time_step中增加encoder_output参数即可，因为使用attention需要编码器encoder的输出。<br>然后，就是调用Attention方法获取当前时间步上的编码器权重attention_weight，把权重乘以编码器的输出encoder_output就得到解码器当前时间步的环境context。<br>最后，将LSTM/GRU的输出decoder_output与环境context在最后一维上拼接。为了接下来的计算能够顺利进行，我们需要把拼接后增加的维度用线性变换降下来。这里的self.concat是一个torch.nn.Linear(encoder_hidden_size+decoder_hidden_size, decoder_hidden_size)线性层用来做维度转换。</p>
+<p>从刚才的说明中已经可以看出来:通过attention机制，我们在原先仅仅单独使用decoder_output作为这一个时间步的输出上面，增加了当前时间步的环境context。于是decoder_output中包含了环境信息，也就是说当前时间步的输出要着重注意encoder的哪一些部分。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 当前时间步上的计算,返回改时间步的输出和下一时间步输入的隐藏状态</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward_time_step</span>(<span class="hljs-params">self, decoder_input, decoder_hidden, encoder_output=<span class="hljs-literal">None</span></span>):</span><br>        decoder_input = self.embedding(decoder_input)  <span class="hljs-comment"># [3, 1, 9]</span><br>        decoder_output, decoder_hidden = self.gru(decoder_input, decoder_hidden)  <span class="hljs-comment"># 如LSTM不传递隐藏状态则会有默认的隐藏状态</span><br>        <span class="hljs-comment"># print(decoder_output.size())  # [3, 1, 6]</span><br>        <span class="hljs-comment"># print(decoder_hidden.size())  # [1, 3, 6]</span><br>        <span class="hljs-comment"># print(encoder_output_size())  # [3, 14, 6]</span><br><br>        <span class="hljs-comment">## 开始attention</span><br>        <span class="hljs-keyword">if</span> encoder_output <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>            attention_weight = self.attention(decoder_hidden, encoder_output) <span class="hljs-comment"># [3, 14]</span><br>            context = torch.bmm(attention_weight.unsqueeze(<span class="hljs-number">1</span>), encoder_output) <span class="hljs-comment"># [3, 1, 6]</span><br>            decoder_output = torch.cat((decoder_output, context), dim=-<span class="hljs-number">1</span>)<br><br>        decoder_output = decoder_output.squeeze(dim=<span class="hljs-number">1</span>)<br>        <span class="hljs-comment"># print(decoder_output.size())  # [3, 6] if attention then it will be [3, 6+6]</span><br><br>        <span class="hljs-keyword">if</span> encoder_output <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>            decoder_output = self.concat(decoder_output) <span class="hljs-comment"># [3, 6]</span><br><br><br>        decoder_output = self.fc(decoder_output) <span class="hljs-comment">#[3, 100]</span><br><br>        decoder_output = F.log_softmax(decoder_output, dim=-<span class="hljs-number">1</span>)<br><br>        <span class="hljs-keyword">return</span> decoder_output, decoder_hidden<br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><code class="hljs python"><br><br><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><span class="hljs-keyword">import</span> torch.nn.functional <span class="hljs-keyword">as</span> F<br><br>num_layers = <span class="hljs-number">1</span><br>batch = <span class="hljs-number">2</span><br>seq_len = <span class="hljs-number">14</span><br>encoder_hidden_size = <span class="hljs-number">6</span><br>decoder_hidden_size = <span class="hljs-number">6</span><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LuongAttention</span>(<span class="hljs-params">nn.Module</span>):</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, method=<span class="hljs-string">&quot;dot&quot;</span></span>):</span><br>        <span class="hljs-built_in">super</span>(LuongAttention, self).__init__()<br>        <span class="hljs-keyword">assert</span> method <span class="hljs-keyword">in</span> [<span class="hljs-string">&quot;dot&quot;</span>, <span class="hljs-string">&quot;concat&quot;</span>, <span class="hljs-string">&quot;general&quot;</span>], <span class="hljs-string">&quot;method error&quot;</span><br>        self.method = method<br><br>        <span class="hljs-keyword">if</span> self.method == <span class="hljs-string">&quot;concat&quot;</span>:<br>            self.wa = nn.Linear(encoder_hidden_size+decoder_hidden_size, decoder_hidden_size, bias=<span class="hljs-literal">False</span>)<br>            self.va = nn.Parameter(torch.FloatTensor(batch, decoder_hidden_size, <span class="hljs-number">1</span>))<br>        <span class="hljs-keyword">else</span>:<br>            self.wa = nn.Linear(encoder_hidden_size, decoder_hidden_size, bias=<span class="hljs-literal">False</span>)<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span>(<span class="hljs-params">self, hidden_state, encoder_output</span>):</span><br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        看大部分网上的资料，好像默认encoder_hidden_size == decoder_hidden_size.</span><br><span class="hljs-string">        这样的话dot方法就可以直接进行批量矩阵乘法，general的转换矩阵则是一个方阵</span><br><span class="hljs-string"></span><br><span class="hljs-string">        但是，这里我假设encoder_hidden_size != decoder_hidden_size。如此一来general和dot就没有差别了。</span><br><span class="hljs-string"></span><br><span class="hljs-string">        :param hidden_state: [num_layer*factor, batch, decoder_hidden_size]</span><br><span class="hljs-string">        :param encoder_output: [batch, seq_len, encoder_hidden_size*factor]  batch_first=True</span><br><span class="hljs-string">        :return:</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br><br>        <span class="hljs-comment"># 1、dot</span><br>        <span class="hljs-keyword">if</span> self.method == <span class="hljs-string">&quot;dot&quot;</span>:<br>            hidden_state = hidden_state[-<span class="hljs-number">1</span>, :, :].unsqueeze(<span class="hljs-number">2</span>) <span class="hljs-comment"># [batch, decoder_hidden_size, 1]</span><br>            encoder_output = self.wa(encoder_output) <span class="hljs-comment"># [batch, seq_len, decoder_hidden_size]</span><br><br>            attention_weight = torch.bmm(encoder_output, hidden_state)  <span class="hljs-comment"># [batch, seq_len, 1]</span><br><br>            attention_weight = attention_weight.squeeze(-<span class="hljs-number">1</span>)<br>            attention_weight = F.softmax(attention_weight, dim=-<span class="hljs-number">1</span>)   <span class="hljs-comment"># [batch, seq_len]</span><br><br>        <span class="hljs-comment"># 2、general</span><br>        <span class="hljs-keyword">elif</span> self.method == <span class="hljs-string">&quot;general&quot;</span>:<br>            hidden_state = hidden_state[-<span class="hljs-number">1</span>, :, :].unsqueeze(<span class="hljs-number">2</span>)  <span class="hljs-comment"># [batch, encoder_hidden_size, 1]</span><br>            encoder_output = self.wa(encoder_output)  <span class="hljs-comment"># [batch, seq_len, decoder_hidden_size]</span><br><br>            attention_weight = torch.bmm(encoder_output, hidden_state) <span class="hljs-comment"># [batch, seq_len, 1]</span><br><br>            attention_weight = attention_weight.squeeze(-<span class="hljs-number">1</span>)<br>            attention_weight = F.softmax(attention_weight, dim=-<span class="hljs-number">1</span>)  <span class="hljs-comment"># [batch, seq_len]</span><br>        <span class="hljs-comment"># 3、concat</span><br>        <span class="hljs-keyword">else</span>:<br>            hidden_state = hidden_state.transpose(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>) <span class="hljs-comment"># [batch, num_layers*factor, decoder_hidden_size]</span><br>            hidden_state = hidden_state.expand(-<span class="hljs-number">1</span>, encoder_output.size(<span class="hljs-number">1</span>), -<span class="hljs-number">1</span>) <span class="hljs-comment"># [batch, seq_len, decoder_hidden_size]</span><br><br>            attention_weight = torch.cat((hidden_state, encoder_output), dim=<span class="hljs-number">2</span>)  <span class="hljs-comment"># [batch, seq_len, encoder_hidden_size+decoder_hidden_size]</span><br><br>            attention_weight = self.wa(attention_weight) <span class="hljs-comment"># [batch, seq_len, decoder_hidden_size]</span><br>            attention_weight = torch.bmm(attention_weight, self.va) <span class="hljs-comment"># [batch, seq_len, 1]</span><br><br>            attention_weight = attention_weight.squeeze(<span class="hljs-number">2</span>) <span class="hljs-comment"># [batch, seq_len]</span><br><br>            attention_weight = torch.tanh(attention_weight)<br>            attention_weight = F.softmax(attention_weight, dim=-<span class="hljs-number">1</span>)<br>        <span class="hljs-keyword">return</span> attention_weight<br><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BahdanauAttention</span>(<span class="hljs-params">nn.Module</span>):</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span><br>        <span class="hljs-built_in">super</span>(BahdanauAttention, self).__init__()<br>        self.wa = nn.Linear((encoder_hidden_size*<span class="hljs-number">2</span>)+decoder_hidden_size, decoder_hidden_size, bias=<span class="hljs-literal">False</span>)<br>        self.va = nn.Linear(decoder_hidden_size, <span class="hljs-number">1</span>, bias=<span class="hljs-literal">False</span>)<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span>(<span class="hljs-params">self, hidden_state, encoder_output</span>):</span><br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        通常用Bahdanau Attention时，encoder部分是使用双向RNN的，故这里 factor=2</span><br><span class="hljs-string">        :param hidden_state: [num_layers*factor, batch, decoder_hidden_size]</span><br><span class="hljs-string">        :param encoder_output: [batch, seq_len, encoder_hidden_size*factor]</span><br><span class="hljs-string">        :return:</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br><br>        hidden_state = hidden_state[-<span class="hljs-number">1</span>, :, :] <span class="hljs-comment"># [batch, decoder_hidden_size]</span><br><br>        <span class="hljs-comment"># 对decoder的状态重复seq_len次，用来计算和每个encoder状态的相似度</span><br>        hidden_state = hidden_state.unsqueeze(<span class="hljs-number">1</span>).expand(-<span class="hljs-number">1</span>, seq_len, -<span class="hljs-number">1</span>)  <span class="hljs-comment"># [batch, seq_len, decoder_hidden_size]</span><br><br>        attention_weight = torch.cat((hidden_state, encoder_output), dim=-<span class="hljs-number">1</span>) <span class="hljs-comment"># [batch, seq_len, decoder_hidden_size+encoder_hidden_size*2]</span><br><br>        attention_weight = self.wa(attention_weight) <span class="hljs-comment"># [batch, seq_len, decoder_hidden_size]</span><br>        attention_weight = torch.tanh(attention_weight)<br><br>        attention_weight = self.va(attention_weight) <span class="hljs-comment"># [batch, seq_len, 1]</span><br><br>        attention_weight = attention_weight.squeeze(-<span class="hljs-number">1</span>)<br><br>        <span class="hljs-keyword">return</span> attention_weight<br><br><br>p1 = torch.randint(<span class="hljs-number">1</span>,<span class="hljs-number">10</span>, size=[num_layers, batch, decoder_hidden_size], dtype=torch.float32)<br>p2 = torch.randint(<span class="hljs-number">1</span>,<span class="hljs-number">10</span>, size=[batch, seq_len, encoder_hidden_size], dtype=torch.float32)<br><br>a = LuongAttention(method=<span class="hljs-string">&quot;general&quot;</span>)<br>b = LuongAttention(method=<span class="hljs-string">&quot;concat&quot;</span>)<br>c = BahdanauAttention()<br><br><span class="hljs-built_in">print</span>(a(p1, p2).size()) <span class="hljs-comment"># [batch, seq_len]</span><br><span class="hljs-built_in">print</span>(b(p1, p2).size()) <span class="hljs-comment"># [batch. seq_len]</span><br><br>p2 = torch.randint(<span class="hljs-number">1</span>,<span class="hljs-number">10</span>, size=[batch, seq_len, encoder_hidden_size*<span class="hljs-number">2</span>], dtype=torch.float32)<br><br><span class="hljs-built_in">print</span>(c(p1, p2).size()) <span class="hljs-comment"># [batch, seq_len]</span><br><br><br><br></code></pre></td></tr></table></figure>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/PyTorch/">PyTorch</a>
+                    
+                      <a class="hover-with-bg" href="/categories/PyTorch/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+                    
+                      <a class="hover-with-bg" href="/categories/PyTorch/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/">建筑结构损伤图像识别</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/PyTorch/">PyTorch</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/">建筑结构损伤图像识别</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-info">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/07/18/unordered-map-set%E8%87%AA%E5%AE%9A%E4%B9%89key/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">(unordered_)map/set自定义key</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/16/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB-7/">
+                        <span class="hidden-mobile">建筑结构损伤图像识别-7</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

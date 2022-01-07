@@ -1,0 +1,480 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  
+  <title>虚表 - gys的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gys18007141407.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>gys的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/miku4.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="虚表">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-09 15:37" pubdate>
+        2021年7月9日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      46
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">虚表</h1>
+	    <time updated datetime="2021-11-03 19:23"></time>
+            
+            <div class="markdown-body">
+              <h2 id="虚函数"><a href="#虚函数" class="headerlink" title="虚函数"></a>虚函数</h2><p>C++中的虚函数的作用主要是实现了多态的机制。关于多态，简而言之就是用父类类型的指针指向其子类的实例，然后通过父类的指针调用实际子类的成员函数。这种技术可以让父类的指针有“多种形态”，是一种泛型技术。所谓泛型技术，说白了就是试图使用不变的代码来实现可变的算法。比如：模板技术，RTTI技术(Run Time Type Identification即通过<strong>运行时类型识别</strong>,程序能够使用基类的指针或引用来检查着这些指针或引用所指的对象的实际派生类型。 区分RAII(Resource Acquire Is Initiation)，即<strong>资源获取就是初始化</strong>，是c++等编程语言常用的管理资源、避免内存泄露的方法。它保证在任何情况下，使用对象时先申请资源构造对象，最后析构对象释放资源。)，虚函数技术，要么是试图做到在编译时决议，要么试图做到运行时决议。<br>编译时多态性：通过重载函数实现。<br>运行时多态性：通过虚函数实现。</p>
+<hr>
+<h3 id="（虚继承内存分布跟编译器有关）"><a href="#（虚继承内存分布跟编译器有关）" class="headerlink" title="（虚继承内存分布跟编译器有关）"></a>（虚继承内存分布跟编译器有关）</h3><hr>
+<h2 id="虚表"><a href="#虚表" class="headerlink" title="虚表"></a>虚表</h2><p>虚函数是通过一张虚函数表来实现的。在这个表中，主是要一个类的虚函数的地址表，这张表解决了继承、覆盖的问题，保证其容真实反应实际的函数。这样，在有虚函数的类的实例中这个表被分配在了这个实例的内存中，所以，当我们用父类的指针来操作一个子类的时候，这张虚函数表就显得由为重要了，它就像一个地图一样，指明了实际所应该调用的函数。</p>
+<p>这里我们着重分析虚函数表。C++的编译器应该是保证虚函数表的指针存在于对象实例中最前面的位置（这是为了保证取到虚函数表的有最高的性能——如果有多层继承或是多重继承的情况下）。 这意味着我们通过对象实例的地址得到这张虚函数表，然后就可以遍历其中函数指针，并调用相应的函数。</p>
+<hr>
+<h3 id="虚继承与虚函数"><a href="#虚继承与虚函数" class="headerlink" title="虚继承与虚函数"></a>虚继承与虚函数</h3><p>虚继承和虚函数是完全无相关的两个概念。<br>虚继承是解决C++多重继承问题的一种手段，从不同途径继承来的同一基类，会在子类中存在多份拷贝。这将存在两个问题：<br>1、浪费存储空间。<br>2、存在二义性问题，通常可以将派生类对象的地址赋值给基类对象，实现的具体方式是，将基类指针指向继承类（继承类有基类的拷贝）中的基类对象的地址，但是多重继承可能存在一个基类的多份拷贝，这就出现了二义性。</p>
+<hr>
+<p>虚继承可以解决多种继承前面提到的两个问题：<br>虚继承底层实现原理与编译器相关，一般通过虚基类指针和虚基类表实现，每个虚继承的子类都有一个虚基类指针（占用一个指针的存储空间）和虚基类表（不占用类对象的存储空间）（需要强调的是，虚基类依旧会在子类里面存在拷贝，只是仅仅最多存在一份而已，并不是不在子类里面了）；当虚继承的子类被当做父类继承时，虚基类指针也会被继承。</p>
+<p>实际上，vbptr指的是虚基类表指针（virtual base table pointer），该指针指向了一个虚基类表（virtual table），虚表中记录了虚基类与本类的偏移地址；通过偏移地址，这样就找到了虚基类成员，而虚继承也不用像普通多继承那样维持着公共基类（虚基类）的两份同样的拷贝，节省了存储空间。</p>
+<p>在这里我们可以对比虚函数的实现原理：他们有相似之处，都利用了虚指针（均占用类的存储空间）和虚表（均不占用类的存储空间）。</p>
+<p>虚基类依旧存在继承类中，只占用存储空间；虚函数不占用存储空间。<br>虚基类表存储的是虚基类相对直接继承类的偏移；而虚函数表存储的是虚函数地址。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base1</span>&#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-keyword">int</span> a = <span class="hljs-number">1</span>;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-keyword">int</span> b = <span class="hljs-number">1</span>;<br>&#125;;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base2</span>&#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-keyword">int</span> a = <span class="hljs-number">2</span>;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-keyword">int</span> c = <span class="hljs-number">2</span>;<br>&#125;;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span>:</span><span class="hljs-keyword">public</span> Base1, <span class="hljs-keyword">public</span> Base2&#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-keyword">int</span> b = <span class="hljs-number">3</span>;<br>    <span class="hljs-keyword">int</span> c = <span class="hljs-number">3</span>;<br>    <span class="hljs-keyword">int</span> d = <span class="hljs-number">3</span>;<br>&#125;;<br><br><span class="hljs-comment">// sizeof(A) == 28 ----&gt; 4byte*7</span><br><br>(gdb) x/<span class="hljs-number">32b</span>x &amp;a<br><span class="hljs-number">0x61fe00</span>:       <span class="hljs-number">0x01</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x01</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x61fe08</span>:       <span class="hljs-number">0x02</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x02</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x61fe10</span>:       <span class="hljs-number">0x03</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x03</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x61fe18</span>:       <span class="hljs-number">0x03</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><br><br><span class="hljs-comment">// with virtual derived: class A: virtual public Base1, virtual public Base2</span><br><span class="hljs-comment">// sizeof(A) == 40</span><br><br>(gdb) x/<span class="hljs-number">40b</span>x &amp;a<br><span class="hljs-number">0x61fdf0</span>:       <span class="hljs-number">0x80</span>    <span class="hljs-number">0x45</span>    <span class="hljs-number">0x40</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x61fdf8</span>:       <span class="hljs-number">0x03</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x03</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x61fe00</span>:       <span class="hljs-number">0x03</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x01</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x61fe08</span>:       <span class="hljs-number">0x01</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x02</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x61fe10</span>:       <span class="hljs-number">0x02</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br>(gdb) x/<span class="hljs-number">8b</span>x <span class="hljs-number">0x404580</span><br><span class="hljs-number">0x404580</span> &lt;_ZTV1A+<span class="hljs-number">32</span>&gt;:   <span class="hljs-number">0x47</span>    <span class="hljs-number">0x43</span>    <span class="hljs-number">0x43</span>    <span class="hljs-number">0x3a</span>    <span class="hljs-number">0x20</span>    <span class="hljs-number">0x28</span>    <span class="hljs-number">0x78</span>    <span class="hljs-number">0x38</span><br>(gdb) x/<span class="hljs-number">8b</span>x <span class="hljs-number">0x387828203a434347</span><br><span class="hljs-number">0x387828203a434347</span>:     Cannot access memory at address <span class="hljs-number">0x387828203a434347</span><br><br><br></code></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><br><span class="hljs-comment">// 菱形继承</span><br><span class="hljs-comment">// 虚继承后a只有一份,否则a有多份</span><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span>&#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-keyword">int</span> a = <span class="hljs-number">4</span>;<br>&#125;;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base1</span>:</span> <span class="hljs-keyword">virtual</span> <span class="hljs-keyword">public</span> Base&#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-keyword">int</span> b = <span class="hljs-number">1</span>;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-keyword">int</span> c = <span class="hljs-number">1</span>;<br>&#125;;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base2</span>:</span> <span class="hljs-keyword">virtual</span> <span class="hljs-keyword">public</span> Base&#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-keyword">int</span> b = <span class="hljs-number">2</span>;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-keyword">int</span> d = <span class="hljs-number">2</span>;<br>&#125;;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span>:</span><span class="hljs-keyword">public</span> Base1, <span class="hljs-keyword">public</span> Base2&#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-keyword">int</span> b = <span class="hljs-number">3</span>;<br>    <span class="hljs-keyword">int</span> c = <span class="hljs-number">3</span>;<br>    <span class="hljs-keyword">int</span> d = <span class="hljs-number">3</span>;<br>&#125;;<br><br><span class="hljs-comment">// A a;</span><br><span class="hljs-comment">// sizeof(A) == 48</span><br><br>(gdb) x/<span class="hljs-number">48b</span>x &amp;a<br><span class="hljs-number">0x61fdf0</span>:       <span class="hljs-number">0x28</span>    <span class="hljs-number">0x46</span>    <span class="hljs-number">0x40</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x61fdf8</span>:       <span class="hljs-number">0x01</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x01</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x61fe00</span>:       <span class="hljs-number">0x40</span>    <span class="hljs-number">0x46</span>    <span class="hljs-number">0x40</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x61fe08</span>:       <span class="hljs-number">0x02</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x02</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x61fe10</span>:       <span class="hljs-number">0x03</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x03</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x61fe18</span>:       <span class="hljs-number">0x03</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x04</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br>(gdb) x/<span class="hljs-number">8b</span>x <span class="hljs-number">0x404628</span><br><span class="hljs-number">0x404628</span> &lt;_ZTV1A+<span class="hljs-number">24</span>&gt;:   <span class="hljs-number">0x1c</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>      <span class="hljs-comment">// 0x1c + 0x61fe00 == 0x61fe1c -----&gt; a == 4</span><br>(gdb) x/<span class="hljs-number">8b</span>x <span class="hljs-number">0x404640</span><br><span class="hljs-number">0x404640</span> &lt;_ZTV1A+<span class="hljs-number">48</span>&gt;:   <span class="hljs-number">0x47</span>    <span class="hljs-number">0x43</span>    <span class="hljs-number">0x43</span>    <span class="hljs-number">0x3a</span>    <span class="hljs-number">0x20</span>    <span class="hljs-number">0x28</span>    <span class="hljs-number">0x78</span>    <span class="hljs-number">0x38</span><br>(gdb) x/<span class="hljs-number">8b</span>x <span class="hljs-number">0x387828203a434347</span><br><span class="hljs-number">0x387828203a434347</span>:     Cannot access memory at address <span class="hljs-number">0x387828203a434347</span><br><br><span class="hljs-comment">// 把两个virtual关键字移到放在A继承 class A: virtual public Base1, virtual public Base2</span><br><span class="hljs-comment">// 打印内存后发现，具有与上述完全一模一样的内存分布</span><br><br><br><span class="hljs-comment">// 不移动virtual关键字，而是再加两个virtual关键字 class A: virtual public Base1, virtual public Base2</span><br><span class="hljs-comment">// sizeof(A) == 64</span><br><br>(gdb) x/<span class="hljs-number">64b</span>x &amp;a<br><span class="hljs-number">0x61fde0</span>:       <span class="hljs-number">0x48</span>    <span class="hljs-number">0x46</span>    <span class="hljs-number">0x40</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x61fde8</span>:       <span class="hljs-number">0x03</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x03</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x61fdf0</span>:       <span class="hljs-number">0x03</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x61fdf8</span>:       <span class="hljs-number">0x60</span>    <span class="hljs-number">0x46</span>    <span class="hljs-number">0x40</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x61fe00</span>:       <span class="hljs-number">0x01</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x01</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x61fe08</span>:       <span class="hljs-number">0x04</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x61fe10</span>:       <span class="hljs-number">0x78</span>    <span class="hljs-number">0x46</span>    <span class="hljs-number">0x40</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x61fe18</span>:       <span class="hljs-number">0x02</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x02</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br>(gdb) x/<span class="hljs-number">8b</span>x <span class="hljs-number">0x404648</span><br><span class="hljs-number">0x404648</span> &lt;_ZTV1A+<span class="hljs-number">40</span>&gt;:   <span class="hljs-number">0x10</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>     <span class="hljs-comment">// 0x10 + 0x61fdf8 == 0x61fe08 -----&gt; a == 4</span><br>(gdb) x/<span class="hljs-number">8b</span>x <span class="hljs-number">0x404660</span><br><span class="hljs-number">0x404660</span> &lt;_ZTV1A+<span class="hljs-number">64</span>&gt;:   <span class="hljs-number">0xf8</span>    <span class="hljs-number">0xff</span>    <span class="hljs-number">0xff</span>    <span class="hljs-number">0xff</span>    <span class="hljs-number">0xff</span>    <span class="hljs-number">0xff</span>    <span class="hljs-number">0xff</span>    <span class="hljs-number">0xff</span><br>(gdb) x/<span class="hljs-number">8b</span>x <span class="hljs-number">0x404678</span><br><span class="hljs-number">0x404678</span> &lt;_ZTV1A+<span class="hljs-number">88</span>&gt;:   <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><br><br></code></pre></td></tr></table></figure>
+<hr>
+<h3 id="多重继承-网上收集"><a href="#多重继承-网上收集" class="headerlink" title="多重继承(网上收集)"></a>多重继承(网上收集)</h3><p>测试一：不带虚继承，不带虚函数<br>结果：<br>    1、内存空间只有变量</p>
+<p>测试二：不带虚继承，基类带虚函数<br>结果：<br>    1、基类会带有一个虚函数指针</p>
+<p>测试三：单个虚继承，不带虚函数<br>结果：虚继承与继承的区别<br>    1、多了一个虚基指针<br>    2、虚基类位于派生类存储空间的最末尾</p>
+<p>测试四：单个虚继承，带虚函数<br>结果：<br>    1、如果派生类没有独立的虚函数，此时派生类对象不会产生虚函数指针<br>    2、如果派生类拥有自己的虚函数，此时派生类对象就会产生自己本身的虚函数指针，并且该虚函数指针位于派生类对象存储空间的最开始位置（放在了虚基指针的前面，为了加快虚函数的查找速度）</p>
+<p>测试五：多重继承（带虚函数）<br>结果：<br>    1、每个基类都有自己的虚函数表<br>    2、派生类如果有自己的虚函数，会被加入到第一个虚函数表之中<br>    3、内存布局中，其基类的布局按照基类被声明时的顺序进行排列<br>    4、派生类会覆盖基类的虚函数，只有第一个虚函数表中存放的是真实的被覆盖的函数的地址；其它的虚函数表中存放的并不是真实的对应的虚函数的地址，而只是一条跳转指令</p>
+<p>测试六：菱型虚继承<br>虚基指针所指向的虚基表的内容：<br>    1、虚基指针的第一条内容表示的是该虚基指针距离所在的子对象的首地址的偏移<br>    2、虚基指针的第二条内容表示的是该虚基指针距离虚基类子对象的首地址的偏移</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><br><span class="hljs-comment">// 注意内存对齐</span><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IBase1</span>&#123;</span><br><span class="hljs-keyword">public</span>: <br>    ~<span class="hljs-built_in">IBase1</span>()&#123;&#125;<br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">f</span><span class="hljs-params">()</span> </span>= <span class="hljs-number">0</span>;<br><br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">g</span><span class="hljs-params">()</span></span>&#123;<br>        cout &lt;&lt; <span class="hljs-string">&quot;IBase1::g() call&quot;</span> &lt;&lt; endl;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">specific1</span><span class="hljs-params">()</span></span>&#123;<br>        cout &lt;&lt; <span class="hljs-string">&quot;IBase1::specific1() call&quot;</span> &lt;&lt; endl;<br>    &#125;<br>  <span class="hljs-keyword">int</span> a = <span class="hljs-number">1</span>;<br>&#125;;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IBase2</span>&#123;</span><br><span class="hljs-keyword">public</span>:<br>    ~<span class="hljs-built_in">IBase2</span>()&#123;&#125;<br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">f</span><span class="hljs-params">()</span> </span>= <span class="hljs-number">0</span>;<br><br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">g</span><span class="hljs-params">()</span></span>&#123;<br>        cout &lt;&lt; <span class="hljs-string">&quot;IBase2::g() call&quot;</span> &lt;&lt; endl;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">specific2</span><span class="hljs-params">()</span></span>&#123;<br>        cout &lt;&lt; <span class="hljs-string">&quot;IBase2::specific2() call&quot;</span> &lt;&lt; endl;<br>    &#125;<br>  <span class="hljs-keyword">int</span> a= <span class="hljs-number">2</span>;<br>&#125;;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span>:</span> <span class="hljs-keyword">public</span> IBase1, <span class="hljs-keyword">public</span> IBase2&#123;<br><span class="hljs-keyword">public</span>:<br><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">f</span><span class="hljs-params">()</span></span>&#123;<br>        cout &lt;&lt; <span class="hljs-string">&quot;f() call&quot;</span> &lt;&lt; endl;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">g</span><span class="hljs-params">()</span></span>&#123;<br>        cout &lt;&lt; <span class="hljs-string">&quot;g() call&quot;</span> &lt;&lt; endl;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">h</span><span class="hljs-params">()</span></span>&#123;<br>        cout &lt;&lt; <span class="hljs-string">&quot;h() call&quot;</span> &lt;&lt; endl;<br>    &#125;<br>    <span class="hljs-keyword">int</span> a = <span class="hljs-number">3</span>;<br>&#125;;<br><br>A a;<br><span class="hljs-comment">// sizeof(A) == 32</span><br><br>(gdb) x/<span class="hljs-number">32b</span>x &amp;a<br><span class="hljs-number">0x61fdc0</span>:       <span class="hljs-number">0x60</span>    <span class="hljs-number">0x56</span>    <span class="hljs-number">0x40</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>      <span class="hljs-comment">// vfptr1</span><br><span class="hljs-number">0x61fdc8</span>:       <span class="hljs-number">0x01</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>      <span class="hljs-comment">// &amp;a.IBase1::a == 0x61fdc8</span><br><span class="hljs-number">0x61fdd0</span>:       <span class="hljs-number">0x88</span>    <span class="hljs-number">0x56</span>    <span class="hljs-number">0x40</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>	  <span class="hljs-comment">// vfptr2</span><br><span class="hljs-number">0x61fdd8</span>:       <span class="hljs-number">0x02</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x03</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>      <span class="hljs-comment">// &amp;a.IBase2::a == 0x61fdd8     &amp;a.a == 0x61fddc</span><br>(gdb) x/<span class="hljs-number">32b</span>x <span class="hljs-number">0x0000000000405660</span><br><span class="hljs-number">0x405660</span> &lt;_ZTV1A+<span class="hljs-number">16</span>&gt;:   <span class="hljs-number">0xe0</span>    <span class="hljs-number">0x2f</span>    <span class="hljs-number">0x40</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x405668</span> &lt;_ZTV1A+<span class="hljs-number">24</span>&gt;:   <span class="hljs-number">0x20</span>    <span class="hljs-number">0x30</span>    <span class="hljs-number">0x40</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x405670</span> &lt;_ZTV1A+<span class="hljs-number">32</span>&gt;:   <span class="hljs-number">0xf0</span>    <span class="hljs-number">0x30</span>    <span class="hljs-number">0x40</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x405678</span> &lt;_ZTV1A+<span class="hljs-number">40</span>&gt;:   <span class="hljs-number">0xf0</span>    <span class="hljs-number">0xff</span>    <span class="hljs-number">0xff</span>    <span class="hljs-number">0xff</span>    <span class="hljs-number">0xff</span>    <span class="hljs-number">0xff</span>    <span class="hljs-number">0xff</span>    <span class="hljs-number">0xff</span><br>(gdb) x/<span class="hljs-number">32b</span>x <span class="hljs-number">0x0000000000405688</span><br><span class="hljs-number">0x405688</span> &lt;_ZTV1A+<span class="hljs-number">56</span>&gt;:   <span class="hljs-number">0xf0</span>    <span class="hljs-number">0x31</span>    <span class="hljs-number">0x40</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x405690</span> &lt;_ZTV1A+<span class="hljs-number">64</span>&gt;:   <span class="hljs-number">0x00</span>    <span class="hljs-number">0x32</span>    <span class="hljs-number">0x40</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x405698</span> &lt;_ZTV1A+<span class="hljs-number">72</span>&gt;:   <span class="hljs-number">0x90</span>    <span class="hljs-number">0x31</span>    <span class="hljs-number">0x40</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x4056a0</span> &lt;_ZTV6IBase1&gt;: <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br><br>    A a;<br>    a.<span class="hljs-built_in">f</span>();<br><br>    a.IBase1::<span class="hljs-built_in">g</span>();  <span class="hljs-comment">// 解决办法一: 类名限定。  指定调用哪一个</span><br>    a.<span class="hljs-built_in">g</span>(); <span class="hljs-comment">// 解决方法二：同名覆盖。 如果A中没有重载g()则报错: &#x27;g&#x27; is ambiguous</span><br><br><br>    cout &lt;&lt; <span class="hljs-string">&quot;size of a: &quot;</span> &lt;&lt; <span class="hljs-built_in"><span class="hljs-keyword">sizeof</span></span>(A) &lt;&lt; endl;<br><br>    <span class="hljs-keyword">auto</span> p = &amp;a;<br>    cout &lt;&lt; <span class="hljs-string">&quot;address of a: &quot;</span> &lt;&lt; p &lt;&lt; endl;<br><br>    <span class="hljs-keyword">int64_t</span>* pVTable1 = <span class="hljs-keyword">reinterpret_cast</span>&lt;<span class="hljs-keyword">int64_t</span>*&gt;( *<span class="hljs-keyword">reinterpret_cast</span>&lt;<span class="hljs-keyword">int64_t</span>*&gt;(p) );<br>    <span class="hljs-keyword">int64_t</span>* pVTable2 = <span class="hljs-keyword">reinterpret_cast</span>&lt;<span class="hljs-keyword">int64_t</span>*&gt;( *<span class="hljs-keyword">reinterpret_cast</span>&lt;<span class="hljs-keyword">int64_t</span>*&gt;(<span class="hljs-built_in">int64_t</span>(p)+<span class="hljs-built_in"><span class="hljs-keyword">sizeof</span></span>(IBase1)) );<br><br>    cout &lt;&lt; <span class="hljs-string">&quot;address of variable a.a:&quot;</span> &lt;&lt; &amp;a.a &lt;&lt; endl;<br>    cout &lt;&lt; <span class="hljs-string">&quot;address of virtul table1: &quot;</span> &lt;&lt; pVTable1 &lt;&lt; endl;<br>    cout &lt;&lt; <span class="hljs-string">&quot;address of virtul table2: &quot;</span> &lt;&lt; pVTable2 &lt;&lt; endl;<br><br>    cout &lt;&lt; <span class="hljs-string">&quot;address of IBase1::a: &quot;</span> &lt;&lt; &amp;(a.IBase1::a) &lt;&lt; endl;<br>    cout &lt;&lt; <span class="hljs-string">&quot;address of IBase1::f(): &quot;</span> &lt;&lt;IBase1::f &lt;&lt; endl;<br>    cout &lt;&lt; <span class="hljs-string">&quot;address of IBase1::g(): &quot;</span> &lt;&lt; IBase1::g &lt;&lt; endl;<br>    cout &lt;&lt; <span class="hljs-string">&quot;address of IBase1::specific1(): &quot;</span> &lt;&lt; IBase1::specific1 &lt;&lt; endl;<br><br>    cout &lt;&lt; <span class="hljs-string">&quot;address of IBase2::a: &quot;</span> &lt;&lt; &amp;(a.IBase2::a) &lt;&lt; endl;<br>    cout &lt;&lt; <span class="hljs-string">&quot;address of IBase2::f(): &quot;</span> &lt;&lt; IBase2::f &lt;&lt; endl;<br>    cout &lt;&lt; <span class="hljs-string">&quot;address of IBase2::g(): &quot;</span> &lt;&lt; IBase2::g &lt;&lt; endl;<br>    cout &lt;&lt; <span class="hljs-string">&quot;address of IBase2::specific2(): &quot;</span> &lt;&lt; IBase2::specific2 &lt;&lt; endl;<br><br>    cout &lt;&lt; <span class="hljs-string">&quot;traverse pVTable1:&quot;</span> &lt;&lt; endl;<br>    <span class="hljs-keyword">int</span> funPos1 = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">while</span>( funPos1 &lt; <span class="hljs-number">3</span>)&#123; <span class="hljs-comment">//  reinterpret_cast&lt;void(*)()&gt; (pVTable1[funPos1]) != nullptr</span><br><br>        <span class="hljs-built_in"><span class="hljs-keyword">void</span></span>(*func)() = <span class="hljs-keyword">reinterpret_cast</span>&lt;<span class="hljs-built_in"><span class="hljs-keyword">void</span></span>(*)()&gt; (pVTable1[funPos1]);<br><br>        cout &lt;&lt; <span class="hljs-string">&quot;address of function: &quot;</span> &lt;&lt; (<span class="hljs-keyword">void</span>*)func &lt;&lt; endl;<br><br>        <span class="hljs-built_in">func</span>();<br><br>        ++funPos1;<br>    &#125;<br><br>    cout &lt;&lt; <span class="hljs-string">&quot;traverse pVTable2:&quot;</span> &lt;&lt; endl;<br>    <span class="hljs-keyword">int</span> funPos2 = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">while</span>( funPos2 &lt; <span class="hljs-number">3</span>)&#123; <span class="hljs-comment">//  reinterpret_cast&lt;void(*)()&gt; (pVTable1[funPos1]) != nullptr</span><br><br>        <span class="hljs-built_in"><span class="hljs-keyword">void</span></span>(*func)() = <span class="hljs-keyword">reinterpret_cast</span>&lt;<span class="hljs-built_in"><span class="hljs-keyword">void</span></span>(*)()&gt; (pVTable2[funPos2]);<br><br>        cout &lt;&lt; <span class="hljs-string">&quot;address of function: &quot;</span> &lt;&lt; (<span class="hljs-keyword">void</span>*)func &lt;&lt; endl;<br><br>        <span class="hljs-built_in">func</span>();<br><br>        ++funPos2;<br>    &#125;<br><br><br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">// 如果是虚继承 class A:virtual public IBase1,virtual public IBase2</span><br><span class="hljs-comment">// sizeof(A) == 48</span><br><span class="hljs-comment">// 网上：虚继承时，虚基类指针vbptr指向虚基类表vbtable，虚基类表中存放的就是数据相对于虚基类指针的偏移，从而根据偏移找到数据</span><br><br>(gdb) x/<span class="hljs-number">48b</span>x &amp;a<br><span class="hljs-number">0x61fdb0</span>:       <span class="hljs-number">0x90</span>    <span class="hljs-number">0x56</span>    <span class="hljs-number">0x40</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>      <span class="hljs-comment">// vbptr : 该派生类的虚表指针,从下面内存打印中可以看出包含两个函数</span><br><span class="hljs-number">0x61fdb8</span>:       <span class="hljs-number">0x03</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0xfe</span>    <span class="hljs-number">0x7f</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>	  <span class="hljs-comment">// &amp;a.a == 0x61fdb8</span><br><span class="hljs-number">0x61fdc0</span>:       <span class="hljs-number">0xc8</span>    <span class="hljs-number">0x56</span>    <span class="hljs-number">0x40</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>	  <span class="hljs-comment">// vfptr1</span><br><span class="hljs-number">0x61fdc8</span>:       <span class="hljs-number">0x01</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>      <span class="hljs-comment">// &amp;a.IBase1::a == 0x61fdc8</span><br><span class="hljs-number">0x61fdd0</span>:       <span class="hljs-number">0x08</span>    <span class="hljs-number">0x57</span>    <span class="hljs-number">0x40</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>      <span class="hljs-comment">// vfptr2</span><br><span class="hljs-number">0x61fdd8</span>:       <span class="hljs-number">0x02</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>      <span class="hljs-comment">// &amp;a.IBase2::a == 0x61fdd8</span><br>(gdb) x/<span class="hljs-number">32b</span>x <span class="hljs-number">0x0000000000405690</span><br><span class="hljs-number">0x405690</span> &lt;_ZTV1A+<span class="hljs-number">32</span>&gt;:   <span class="hljs-number">0xd0</span>    <span class="hljs-number">0x2f</span>    <span class="hljs-number">0x40</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x405698</span> &lt;_ZTV1A+<span class="hljs-number">40</span>&gt;:   <span class="hljs-number">0x10</span>    <span class="hljs-number">0x30</span>    <span class="hljs-number">0x40</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x4056a0</span> &lt;_ZTV1A+<span class="hljs-number">48</span>&gt;:   <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x4056a8</span> &lt;_ZTV1A+<span class="hljs-number">56</span>&gt;:   <span class="hljs-number">0xf0</span>    <span class="hljs-number">0xff</span>    <span class="hljs-number">0xff</span>    <span class="hljs-number">0xff</span>    <span class="hljs-number">0xff</span>    <span class="hljs-number">0xff</span>    <span class="hljs-number">0xff</span>    <span class="hljs-number">0xff</span><br>(gdb) x/<span class="hljs-number">32b</span>x <span class="hljs-number">0x00000000004056c8</span><br><span class="hljs-number">0x4056c8</span> &lt;_ZTV1A+<span class="hljs-number">88</span>&gt;:   <span class="hljs-number">0xd0</span>    <span class="hljs-number">0x32</span>    <span class="hljs-number">0x40</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x4056d0</span> &lt;_ZTV1A+<span class="hljs-number">96</span>&gt;:   <span class="hljs-number">0xe0</span>    <span class="hljs-number">0x32</span>    <span class="hljs-number">0x40</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x4056d8</span> &lt;_ZTV1A+<span class="hljs-number">104</span>&gt;:  <span class="hljs-number">0x70</span>    <span class="hljs-number">0x31</span>    <span class="hljs-number">0x40</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x4056e0</span> &lt;_ZTV1A+<span class="hljs-number">112</span>&gt;:  <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br>(gdb) x/<span class="hljs-number">32b</span>x <span class="hljs-number">0x0000000000405708</span><br><span class="hljs-number">0x405708</span> &lt;_ZTV1A+<span class="hljs-number">152</span>&gt;:  <span class="hljs-number">0xd0</span>    <span class="hljs-number">0x32</span>    <span class="hljs-number">0x40</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x405710</span> &lt;_ZTV1A+<span class="hljs-number">160</span>&gt;:  <span class="hljs-number">0xe0</span>    <span class="hljs-number">0x32</span>    <span class="hljs-number">0x40</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x405718</span> &lt;_ZTV1A+<span class="hljs-number">168</span>&gt;:  <span class="hljs-number">0x40</span>    <span class="hljs-number">0x32</span>    <span class="hljs-number">0x40</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><span class="hljs-number">0x405720</span> &lt;_ZTV6IBase1&gt;: <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span>    <span class="hljs-number">0x00</span><br><br><br></code></pre></td></tr></table></figure>
+<hr>
+<p>是不是头晕了？等待再更。。。。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%86%85%E5%AD%98/">内存</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/code/">code</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%86%85%E5%AD%98/">内存</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%99%9A%E5%87%BD%E6%95%B0/">虚函数</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-info">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/07/11/%E4%BA%8C%E5%88%86%E5%9B%BE%E5%8C%B9%E9%85%8D-%E5%8C%88%E7%89%99%E5%88%A9%E7%AE%97%E6%B3%95/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">二分图匹配-匈牙利算法</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/09/strtok%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8D%E5%AE%89%E5%85%A8/">
+                        <span class="hidden-mobile">strtok多线程不安全</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

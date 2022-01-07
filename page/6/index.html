@@ -1,0 +1,945 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  
+  <title>gys的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gys18007141407.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 100vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>gys的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="今天你学习了吗？">
+              
+            </span>
+
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div class="py-5" id="board"
+          style=margin-top:0>
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/07/29/linux%E4%B8%8Bgetopt-%E5%87%BD%E6%95%B0/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="linux下getopt函数">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/29/linux%E4%B8%8Bgetopt-%E5%87%BD%E6%95%B0/" target="_self">
+          linux下getopt函数
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/29/linux%E4%B8%8Bgetopt-%E5%87%BD%E6%95%B0/" target="_self">
+          
+          
+            
+          
+          int getopt(int argc, char* const * argv, const char* option_str)getopt是用来解析命令行选项参数的，但是只能解析短选项: -d 100,不能解析长选项。
+参数argc：函数传递过来的参数的个数argv：函数传递过来的参数的字符串指针数组option_str：选项字符串，告知 getopt()可以处理哪个选项以及哪个选项需要参数
+
+
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-29 15:06" pubdate>
+              2021-07-29
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/C/">C++</a>
+            
+              <a href="/categories/C/code/">code</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/C/">C++</a>
+            
+              <a href="/tags/code/">code</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/07/26/index-sequence/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="index_sequence">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/26/index-sequence/" target="_self">
+          index_sequence
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/26/index-sequence/" target="_self">
+          
+          
+            
+          
+          integer_sequence一个空类，仅为了获得编译时常数。因为模板是编译时多态，而有时候我们需要在编译时获得常数，故可利用模板参数来作为常数使用。
+123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051#include &lt;iostream&gt;#incl
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-26 14:21" pubdate>
+              2021-07-26
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/C/">C++</a>
+            
+              <a href="/categories/C/code/">code</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/C/">C++</a>
+            
+              <a href="/tags/code/">code</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/07/24/%E7%AE%80%E5%8D%95%E5%BA%8F%E5%88%97%E5%8C%96%E5%8F%8A%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="简单序列化及反序列化">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/24/%E7%AE%80%E5%8D%95%E5%BA%8F%E5%88%97%E5%8C%96%E5%8F%8A%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" target="_self">
+          简单序列化及反序列化
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/24/%E7%AE%80%E5%8D%95%E5%BA%8F%E5%88%97%E5%8C%96%E5%8F%8A%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" target="_self">
+          
+          
+            
+          
+          简单序列化在网络上传输数据时，我们经常会需要首先将某个对象序列化为字节流，然后将这个字节流通过网络传输到对端，对端再通过反序列化来重构原先的对象。
+123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-24 16:00" pubdate>
+              2021-07-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/C/">C++</a>
+            
+              <a href="/categories/C/code/">code</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/C/">C++</a>
+            
+              <a href="/tags/code/">code</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/07/23/initializer-list/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="initializer_list">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/23/initializer-list/" target="_self">
+          initializer_list
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/23/initializer-list/" target="_self">
+          
+          
+            
+          
+          initializer_list我常常用 std::vector&lt;int&gt; a = {1, 2, 3}如此来构造一个容器(set、map等等)。一直以来都是这么用的，现在看一下这后面做了什么样的隐式转换。
+initializer_list是C++11提供的新类型，定义在头文件&lt;initializer_list&gt;中, 当然默认容器使用了这个类型作为构造参数，已经包含了该头文件
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-23 22:28" pubdate>
+              2021-07-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/C/">C++</a>
+            
+              <a href="/categories/C/code/">code</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/C/">C++</a>
+            
+              <a href="/tags/code/">code</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/07/23/%E7%BB%A7%E6%89%BF%E6%97%B6%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BA%8B/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="继承时成员函数的一些事">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/23/%E7%BB%A7%E6%89%BF%E6%97%B6%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BA%8B/" target="_self">
+          继承时成员函数的一些事
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/23/%E7%BB%A7%E6%89%BF%E6%97%B6%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BA%8B/" target="_self">
+          
+          
+            
+          
+          继承时成员函数的调用除了两点之外，其余都在猜想之中：1、基类成员函数继承后，基类的该成员函数会有重载版本，能接收派生类的地址作为this参数。而派生类与基类的同名成员函数则必须要派生类的指针才可以调用2、传char*地址做this指针，访问了类中成员，没有报溢出错误
+C++中调用非静态的类成员函数时，采用的调用规范是__thiscall。std::cout中运算符&lt;&lt;没有对void (
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-23 21:12" pubdate>
+              2021-07-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/C/">C++</a>
+            
+              <a href="/categories/C/code/">code</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/C/">C++</a>
+            
+              <a href="/tags/code/">code</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/07/23/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB-10/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="建筑结构损伤图像识别-10">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/23/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB-10/" target="_self">
+          建筑结构损伤图像识别-10
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/23/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB-10/" target="_self">
+          
+          
+            
+          
+          Canny边缘检测算法(转载）1、Canny边缘检测基本原理(1)图象边缘检测必须满足两个条件：一能有效地抑制噪声；二必须尽量精确确定边缘的位置。(2)根据对信噪比与定位乘积进行测度，得到最优化逼近算子。这就是Canny边缘检测算子。(3)类似与Marr（LoG）边缘检测方法，也属于先平滑后求导数的方法。
+2、Canny边缘检测算法：step1:用高斯滤波器平滑图象；step2:用一阶偏导的有限差
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-23 17:02" pubdate>
+              2021-07-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+            
+              <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/">建筑结构损伤图像识别</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+            
+              <a href="/tags/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/">建筑结构损伤图像识别</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/07/22/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB-9/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="建筑结构损伤图像识别-9">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/22/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB-9/" target="_self">
+          建筑结构损伤图像识别-9
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/22/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB-9/" target="_self">
+          
+          
+            
+          
+          图像分割(转载)什么是图像分割图像分割是计算计视觉研究中的经典难题，已成为图像理解领域关注的一个热点，
+图像分割作为图像技术领域的一个经典难题，自上世纪七十年代以来吸引了众多研究人员的研究热情并为之付出了巨大努力，提出了很多图像分割算法。这些分割算法分割性能的优劣，是用相关图像分割质量测度来进行评价的。但由于对算法分割是否成功的客观判定标准至今未得到解决，因此图像分割算法分割质量得评价成为一项颇具
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-22 11:31" pubdate>
+              2021-07-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+            
+              <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/">建筑结构损伤图像识别</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+            
+              <a href="/tags/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/">建筑结构损伤图像识别</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/07/21/%E4%BA%92%E6%96%A5%E9%94%81%E3%80%81%E4%BF%A1%E5%8F%B7%E9%87%8F%E3%80%81%E8%87%AA%E6%97%8B%E9%94%81/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="互斥锁、信号量、自旋锁">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/21/%E4%BA%92%E6%96%A5%E9%94%81%E3%80%81%E4%BF%A1%E5%8F%B7%E9%87%8F%E3%80%81%E8%87%AA%E6%97%8B%E9%94%81/" target="_self">
+          互斥锁、信号量、自旋锁
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/21/%E4%BA%92%E6%96%A5%E9%94%81%E3%80%81%E4%BF%A1%E5%8F%B7%E9%87%8F%E3%80%81%E8%87%AA%E6%97%8B%E9%94%81/" target="_self">
+          
+          
+            
+          
+          互斥锁mutex、信号量semaphore、自旋锁spin_lockmutex主要用来实现互斥，当然也可以用多个mutex实现同步。semaphore主要是用来实现同步，当semaphore=1时退化成互斥锁。自旋锁主要是用来实现对一段代码的原子操作(不能中断)
+互斥锁（Mutex）保证了使用资源线程的唯一性和排他性，但是无法限制资源释放后其他线程申请的顺序问题，所以是无序的。
+而信号量（Sema
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-21 13:26" pubdate>
+              2021-07-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%90%8C%E6%AD%A5%E5%92%8C%E4%BA%92%E6%96%A5/">同步和互斥</a>
+            
+              <a href="/categories/%E5%90%8C%E6%AD%A5%E5%92%8C%E4%BA%92%E6%96%A5/%E9%94%81/">锁</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%90%8C%E6%AD%A5%E5%92%8C%E4%BA%92%E6%96%A5/">同步和互斥</a>
+            
+              <a href="/tags/%E9%94%81/">锁</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/07/20/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="智能指针">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/20/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/" target="_self">
+          智能指针
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/20/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/" target="_self">
+          
+          
+            
+          
+          智能指针上一节的一点补充左值引用和右值引用
+左值引用就是对一个左值进行引用的类型。右值引用就是对一个右值进行引用的类型，事实上，由于右值通常不具有名字，我们也只能通过引用的方式找到它的存在。
+右值引用和左值引用都是属于引用类型。无论是声明一个左值引用还是右值引用，都必须立即进行初始化。而其原因可以理解为是引用类型本身自己并不拥有所绑定对象的内存，只是该对象的一个别名。左值引用是具名变量值的别名，而
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-20 22:21" pubdate>
+              2021-07-20
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/">智能指针</a>
+            
+              <a href="/categories/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/C/">C++</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/C/">C++</a>
+            
+              <a href="/tags/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/">智能指针</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/07/19/decltype%E3%80%81result-of%E3%80%81auto%E3%80%81declval/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="decltype、result_of、auto、declval">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/19/decltype%E3%80%81result-of%E3%80%81auto%E3%80%81declval/" target="_self">
+          decltype、result_of、auto、declval
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/19/decltype%E3%80%81result-of%E3%80%81auto%E3%80%81declval/" target="_self">
+          
+          
+            
+          
+          基于测试的比较学习方式123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-19 15:52" pubdate>
+              2021-07-19
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/C/">C++</a>
+            
+              <a href="/categories/C/code/">code</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/C/">C++</a>
+            
+              <a href="/tags/code/">code</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/page/5/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/#board">4</a><a class="page-number" href="/page/5/#board">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/#board">7</a><a class="page-number" href="/page/8/#board">8</a><a class="page-number" href="/page/9/#board">9</a><a class="extend next" rel="next" href="/page/7/#board"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

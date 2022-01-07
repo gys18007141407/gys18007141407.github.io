@@ -1,0 +1,554 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  
+  <title>istio和k8s - gys的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gys18007141407.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>gys的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/miku1.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="istio和k8s">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-23 08:52" pubdate>
+        2021年8月23日 早上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      22
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">istio和k8s</h1>
+	    <time updated datetime="2021-11-10 14:42"></time>
+            
+            <div class="markdown-body">
+              <h2 id="istio"><a href="#istio" class="headerlink" title="istio"></a>istio</h2><p>Istio 提供一种简单的方式来为已部署的服务建立网络，该网络具有负载均衡、服务间认证、监控等功能，而不需要对服务的代码做任何改动。</p>
+<p>简单来说istio就是用来做service mesh[服务网格]的工具链，istio通常搭配k8s来使用。</p>
+<p>如果只用原生k8s，一般采用service来进行负载均衡，但如果想增加一些功能如熔断，限流，灰度等，这些功能在service层面是做不到的。这些高级功能通常采用service mesh这样一个工具或者说思路来进行实现。</p>
+<h3 id="K8S"><a href="#K8S" class="headerlink" title="K8S"></a>K8S</h3><p>K8S是当前主流的容器编排系统, 服务编排系统要想实现服务的自动化部署和运行离不开容器编排系统。</p>
+<p>容器目的是解决服务器的异构问题, 解决了部署的时候无需在考虑底层系统环境是否能够满足服务的需要.  但是单独的容器并没有生产的价值, 因为他只是提供了底层应用的托管程序, 并没有处理多个容器容器投入生产的问题,  而容器的编排则是处理多个容器投入生产的痛点问题。</p>
+<p>容器编排系统是在大范围,动态环境中管理容器生命周期的工具。</p>
+<p>简单来说，K8S是docker的调度系统。</p>
+<h3 id="K8S集群中的主机"><a href="#K8S集群中的主机" class="headerlink" title="K8S集群中的主机"></a>K8S集群中的主机</h3><p>集群中的主机主要分为两种 Master和Node</p>
+<p><strong>Node</strong> 是运行具体容器的主机,负责提供后具体的服务,并且本身具有自我修复能力  –Data Plane 数据平面<br><strong>Master</strong> 负责管理Node, 控制Node 具体运行什么容器, 同时还承担外部数据访问的角色– Control Plane 控制层面<br>Master<strong>冗余</strong>是为了用作灾备[替换，老大宕机，集群崩溃]，出故障时直接替换，集群中只能有一个Master控制所有Node。</p>
+<p>Node<strong>冗余</strong>是为了做负载均衡。若某个Node故障，则该Node上的所有任务被分配到其他Node上。</p>
+<p><img src="/2021/08/23/istio%E5%92%8Ck8s/image-20210828141928567.png" srcset="/img/loading.gif" lazyload alt="image-20210828141928567"></p>
+<h3 id="主机中的POD"><a href="#主机中的POD" class="headerlink" title="主机中的POD"></a>主机中的POD</h3><p>Pod是K8S平台上的原子单位。当我们在K8S上创建一个Deployment时，它将创建附带容器的POD。每个POD与被调度的Node绑定直到被删除。万一Node故障了，一个新POD会被调度到其它可用的Node上。</p>
+<p>每个Node被Master管理。一个Node能有多个POD,同时Master在集群之上自动调度POD。Master的自动调度考虑到每个Node上的可用资源。</p>
+<p>每个Node至少运行：</p>
+<p>1、Kubelet,一个负责Master和Node之间通讯的进程；它管理着运行在机器上PODs和Containers</p>
+<p>2、容器运行时(比如Docker),负责从registry拉取容器镜像，取出容器，运行应用。</p>
+<h3 id="K8S的service-mesh-istio-："><a href="#K8S的service-mesh-istio-：" class="headerlink" title="K8S的service mesh(istio)："></a>K8S的service mesh(istio)：</h3><p>​    POD里面运行了一个container，称为istio-proxy。该进程是c++写的一个代理进程，任何从其他container发出的流量都会被POD里面的iptables拦截给istio-proxy进程。</p>
+<p>​    istio-proxy解析HTTP请求，获取Header中的Host字段值。istio-proxy知道该Host的HTTP请求应该转发给哪些目标POD，依此进行转发。</p>
+<p>k8s原生service方案：</p>
+<p>​    源POD –&gt; service(Virtual IP) –&gt; 目标POD</p>
+<p>k8s+service mesh方案：</p>
+<p>​    源POD –&gt; iptables REDIRECT(目标改写，流量拦截) –&gt; istio-proxy –&gt; 目标POD</p>
+<hr>
+<p><strong>特性</strong></p>
+<p>istio 适用于容器或虚拟机环境（特别是 k8s），兼容异构架构。istio 使用 sidecar（边车模式）代理服务的网络，不需要对业务代本身做任何的改动。</p>
+<p>HTTP、gRPC、WebSocket 和 TCP 流量的自动负载均衡。</p>
+<p>istio 通过丰富的路由规则、重试、故障转移和故障注入，可以对流量行为进行细粒度控制；支持访问控制、速率限制和配额。</p>
+<p>istio 对出入集群入口和出口中所有流量的自动度量指标、日志记录和跟踪。</p>
+<hr>
+<h3 id="预备工作"><a href="#预备工作" class="headerlink" title="预备工作"></a>预备工作</h3><p><code>额外安装方法可参考</code><a target="_blank" rel="noopener" href="https://blog.csdn.net/CANGYE0504/article/details/106159649/">csdn</a></p>
+<h4 id="安装-minikube"><a href="#安装-minikube" class="headerlink" title="安装 minikube"></a>安装 <a target="_blank" rel="noopener" href="https://minikube.sigs.k8s.io/docs/start/">minikube</a></h4><p><img src="/2021/08/23/istio%E5%92%8Ck8s/image-20210828111221184.png" srcset="/img/loading.gif" lazyload alt="image-20210828111221184"></p>
+<h4 id="启动minikube-minikube-start"><a href="#启动minikube-minikube-start" class="headerlink" title="启动minikube: minikube start"></a>启动minikube: minikube start</h4><p><img src="/2021/08/23/istio%E5%92%8Ck8s/image-20210828144140108.png" srcset="/img/loading.gif" lazyload alt="image-20210828144140108"></p>
+<p>提示需要指定驱动: minikube start –driver=docker</p>
+<p><img src="/2021/08/23/istio%E5%92%8Ck8s/image-20210828144241625.png" srcset="/img/loading.gif" lazyload alt="image-20210828144241625"></p>
+<p>提示需要创建docker组，并将当前用户加入docker组</p>
+<p><img src="/2021/08/23/istio%E5%92%8Ck8s/image-20210828145050863.png" srcset="/img/loading.gif" lazyload alt="image-20210828145050863"></p>
+<p>再次启动minikube：minikube start –driver=docker</p>
+<p><code>minikube start --registry-mirror=https://bmtb46e4.mirror.aliyuncs.com --vm-driver=docker --base-image=&quot;kicbase/stable&quot; --image-repository=registry.cn-hangzhou.aliyuncs.com/google_containers</code></p>
+<p><img src="/2021/08/23/istio%E5%92%8Ck8s/image-20210828145624524.png" srcset="/img/loading.gif" lazyload alt="image-20210828145624524"></p>
+<h4 id="关闭minikube：minikube-stop"><a href="#关闭minikube：minikube-stop" class="headerlink" title="关闭minikube：minikube stop"></a>关闭minikube：minikube stop</h4><p><img src="/2021/08/23/istio%E5%92%8Ck8s/image-20210828165322506.png" srcset="/img/loading.gif" lazyload alt="image-20210828165322506"></p>
+<h4 id="查看当前集群中的所有POD"><a href="#查看当前集群中的所有POD" class="headerlink" title="查看当前集群中的所有POD"></a>查看当前集群中的所有POD</h4><p>kubectl get pods -A (-A所有命名空间，可以-n指定某一个命名空间如-n kube-system)</p>
+<p>由于使用kubectl要额外下载，这里就直接使用minikube了[额外加–]。kubectl实际上就是在和K8S集群中的Master通信，而Master掌管其他Node。</p>
+<p><img src="/2021/08/23/istio%E5%92%8Ck8s/image-20210828145830509.png" srcset="/img/loading.gif" lazyload alt="image-20210828145830509"></p>
+<p><code>kubectl describe pod [pod_name] -n [namespace] -o wide</code>查看详细信息</p>
+<h4 id="查看K8S集群状态"><a href="#查看K8S集群状态" class="headerlink" title="查看K8S集群状态"></a>查看K8S集群状态</h4><p>kubectl cluster-info</p>
+<p><img src="/2021/08/23/istio%E5%92%8Ck8s/image-20210828150822530.png" srcset="/img/loading.gif" lazyload alt="image-20210828150822530"></p>
+<h4 id="查看K8S集群中的宿主机-o-wide更多详细信息"><a href="#查看K8S集群中的宿主机-o-wide更多详细信息" class="headerlink" title="查看K8S集群中的宿主机(-o wide更多详细信息)"></a>查看K8S集群中的宿主机(-o wide更多详细信息)</h4><p>kubectl get nodes</p>
+<p><img src="/2021/08/23/istio%E5%92%8Ck8s/image-20210828151206418.png" srcset="/img/loading.gif" lazyload alt="image-20210828151206418"></p>
+<p><img src="/2021/08/23/istio%E5%92%8Ck8s/image-20210828151308174.png" srcset="/img/loading.gif" lazyload alt="image-20210828151308174"></p>
+<h4 id="在K8S集群中创建一个部署deployment"><a href="#在K8S集群中创建一个部署deployment" class="headerlink" title="在K8S集群中创建一个部署deployment"></a>在K8S集群中创建一个部署deployment</h4><p>1、寻找集群中一个合适的Node[资源足够]。</p>
+<p>2、调度该应用(镜像)到这个Node上。</p>
+<p>3、迁移这个实例到另一个Node上[如果有该配置，默认不迁移]。</p>
+<p>kubectl create deployment my_nginx_deploy_name –image nginx:latest</p>
+<p><img src="/2021/08/23/istio%E5%92%8Ck8s/image-20210828152146620.png" srcset="/img/loading.gif" lazyload alt="image-20210828152146620"></p>
+<h4 id="获取K8S集群中的所有deployment"><a href="#获取K8S集群中的所有deployment" class="headerlink" title="获取K8S集群中的所有deployment"></a>获取K8S集群中的所有deployment</h4><p>kubectl get deployments</p>
+<p><img src="/2021/08/23/istio%E5%92%8Ck8s/image-20210828152323403.png" srcset="/img/loading.gif" lazyload alt="image-20210828152323403"></p>
+<p>可以看到没有正确运行！但前面又说created这是为什么呢？因为k8S是声明式设计，所以提交任务后，K8S的Created意味着K8S知道要做这个任务，但不意味着任务已经完成了。前面提到容器是运行在POD上的，所以我们看看POD有什么信息。</p>
+<p><img src="/2021/08/23/istio%E5%92%8Ck8s/image-20210828152948764.png" srcset="/img/loading.gif" lazyload alt="image-20210828152948764"></p>
+<p>原来是镜像拉取失败了。</p>
+<p><code>后面网络较好拉取成功的示例</code></p>
+<p><img src="/2021/08/23/istio%E5%92%8Ck8s/image-20210922140123097.png" srcset="/img/loading.gif" lazyload alt="image-20210922140123097"></p>
+<h4 id="使用配置文件来创建deployment"><a href="#使用配置文件来创建deployment" class="headerlink" title="使用配置文件来创建deployment"></a>使用配置文件来创建deployment</h4><p>编辑deployment配置文件</p>
+<p><img src="/2021/08/23/istio%E5%92%8Ck8s/image-20210828160438608.png" srcset="/img/loading.gif" lazyload alt="image-20210828160438608"></p>
+<p>或者保存deployment为yaml文件到本地，然后apply修改后的yaml文件。</p>
+<p><code>kubectl get deployment nginx1 -o yaml &gt; nginx.config.yaml</code></p>
+<p><img src="/2021/08/23/istio%E5%92%8Ck8s/image-20210828161235330.png" srcset="/img/loading.gif" lazyload alt="image-20210828161235330"></p>
+<h4 id="删除deployment"><a href="#删除deployment" class="headerlink" title="删除deployment"></a>删除deployment</h4><p><img src="/2021/08/23/istio%E5%92%8Ck8s/image-20210828155942783.png" srcset="/img/loading.gif" lazyload alt="image-20210828155942783"></p>
+<p>1、deployment(配置文件中replicas=N)就创建N个POD</p>
+<p>2、K8S中每个Node运行一个kubelet-&gt;控制dockerd-&gt;控制docker</p>
+<p>3、kubectl与Master通信，Master控制Node(kubelet)。</p>
+<p>4、每个POD都有一个被称为pause的container，这是POD的第一个容器。</p>
+<p>5、提交deployment(如减少POD数量)实际提交到了ETCD，然后Master感知到变化，就去ETCD里面修改对应POD的状态为terminating。对应Node上的kubelet感知到POD变化，通过dockerd杀死该POD。</p>
+<h4 id="创建命名空间"><a href="#创建命名空间" class="headerlink" title="创建命名空间"></a>创建命名空间</h4><p><img src="/2021/08/23/istio%E5%92%8Ck8s/image-20211109205600518.png" srcset="/img/loading.gif" lazyload alt="image-20211109205600518"></p>
+<h4 id="安装istio"><a href="#安装istio" class="headerlink" title="安装istio"></a>安装<a target="_blank" rel="noopener" href="https://istio.io/">istio</a></h4><p><strong>由于istio下载失败，istio部分后面再来继续学习。</strong></p>
+<p>在安装 istio 之前，需要一个运行着 <a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?from=pc_blog_highlight&q=Kubernetes">Kubernetes</a> 的兼容版本的 cluster。【k8s集群部署之后】</p>
+<p>官方下载命令<code>curl -L https://istio.io/downloadIstio | sh - </code></p>
+<hr>
+<p>参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/shykevin/article/details/112256807">这里</a>和<a target="_blank" rel="noopener" href="https://developer.51cto.com/art/202109/681969.htm">这里</a></p>
+<p>直接从github上下载istio，解压缩后设置好环境变量。x.x.x代表要下载的版本号。</p>
+<p>1、<code>wget https://github.com/istio/istio/releases/download/x.x.x/istio-x.x.x-linux-amd64.tar.gz</code><br>2、<code>tar zxvf istio-x.x.x-linux-amd64.tar.gz -C /usr/local/</code><br>3、<code>export PATH=$PATH:/usr/local/istio-x.x.x/bin</code></p>
+<p>安装istio</p>
+<p><img src="/2021/08/23/istio%E5%92%8Ck8s/image-20211101165546389.png" srcset="/img/loading.gif" lazyload alt="image-20211101165546389"></p>
+<p>查看istio相应的namespace、pods和service是否已经创建成功</p>
+<p><img src="/2021/08/23/istio%E5%92%8Ck8s/image-20211101165736823.png" srcset="/img/loading.gif" lazyload alt="image-20211101165736823"></p>
+<p>可以看到istio-system命名空间下的LoadBalancer的外部IP一直处于pending状态。</p>
+<h4 id="istio注入"><a href="#istio注入" class="headerlink" title="istio注入"></a>istio注入</h4><p><img src="/2021/08/23/istio%E5%92%8Ck8s/image-20211109211951027.png" srcset="/img/loading.gif" lazyload alt="image-20211109211951027"></p>
+<p><img src="/2021/08/23/istio%E5%92%8Ck8s/image-20211109213736494.png" srcset="/img/loading.gif" lazyload alt="image-20211109213736494"></p>
+<p><img src="/2021/08/23/istio%E5%92%8Ck8s/image-20211109211533025.png" srcset="/img/loading.gif" lazyload alt="image-20211109211533025"></p>
+<p>查看注入后的yaml文件，比原先的yaml文件多了很多其他的内容【多了istio-proxy的pod】</p>
+<p><img src="/2021/08/23/istio%E5%92%8Ck8s/image-20211109211647628.png" srcset="/img/loading.gif" lazyload alt="image-20211109211647628"></p>
+<p><img src="/2021/08/23/istio%E5%92%8Ck8s/image-20211109211847226.png" srcset="/img/loading.gif" lazyload alt="image-20211109211847226"></p>
+<p>查看pod中两个container的ip【-c指定】，发现是一样的</p>
+<p><img src="/2021/08/23/istio%E5%92%8Ck8s/image-20211109213233089.png" srcset="/img/loading.gif" lazyload alt="image-20211109213233089"></p>
+<p>比之前多了很多服务端口，但多出来的都是istio-proxy开放的端口。</p>
+<p><img src="/2021/08/23/istio%E5%92%8Ck8s/image-20211109213547051.png" srcset="/img/loading.gif" lazyload alt="image-20211109213547051"></p>
+<p><img src="/2021/08/23/istio%E5%92%8Ck8s/image-20211109213935811.png" srcset="/img/loading.gif" lazyload alt="image-20211109213935811"></p>
+<p>想象一下，如果每次部署都要手动输入istio注入命令，这显然是不必要的。因此，我们可以添加一个命名空间标签，让istio在该命名空间部署应用程序时自动注入【添加标签之后】 Envoy 的 SideCar 代理。</p>
+<p><code>kubectl label ns gys-ns istio-injection=enabled</code></p>
+<p> <img src="/2021/08/23/istio%E5%92%8Ck8s/image-20211110123712023.png" srcset="/img/loading.gif" lazyload alt="image-20211110123712023"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/istio/">istio</a>
+                    
+                      <a class="hover-with-bg" href="/categories/istio/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/istio/">istio</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-info">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/08/23/session%E4%B8%80%E8%87%B4%E6%80%A7/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">session一致性</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/19/docker%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">
+                        <span class="hidden-mobile">docker简单使用</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

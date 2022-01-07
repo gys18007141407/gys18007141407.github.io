@@ -1,0 +1,476 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  
+  <title>linux内核 - gys的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gys18007141407.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>gys的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/miku5.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="linux内核">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-11-28 17:23" pubdate>
+        2021年11月28日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      39
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">linux内核</h1>
+	    <time updated datetime="2021-12-08 17:03"></time>
+            
+            <div class="markdown-body">
+              <h4 id="操作体系结构"><a href="#操作体系结构" class="headerlink" title="操作体系结构"></a>操作体系结构</h4><img src="/2021/11/28/linux%E5%86%85%E6%A0%B8/image-20211129103555008.png" srcset="/img/loading.gif" lazyload alt="image-20211129103555008" style="zoom:25%;">
+
+<img src="/2021/11/28/linux%E5%86%85%E6%A0%B8/image-20211129105115274.png" srcset="/img/loading.gif" lazyload alt="image-20211129105115274" style="zoom:25%;">
+
+<p>操作系统内核提供内存管理(分配、回收、溢出)、进程管理(创建、切换、调度、销毁)、文件管理(打开、读写、关闭。提供虚拟文件系统VFS，把硬件当成文件来处理)、设备管理(也即驱动管理，分为3类：字符型设备管理、块设备管理、网络设备管理。这里没有实现驱动， 设备驱动的实现当作操作系统的下一层即硬件系统，硬件系统与物理硬件通信。这里主要是查看设备状态、设备地址识别)。<strong>计算机资源的管理者是对操作系统所起作用最直观的理解，管理和实现是分开的</strong></p>
+<p>用户程序不可以直接调用内核函数，但是内核会在上面抽象一层操作系统的服务层，这样用户程序可以通过服务层来调用(比如sys_call)操作系统提供的各种服务。</p>
+<h4 id="中断机制"><a href="#中断机制" class="headerlink" title="中断机制"></a>中断机制</h4><h5 id="区分异常："><a href="#区分异常：" class="headerlink" title="区分异常："></a>区分异常：</h5><p>异常是指CPU内部出现的中断，即在CPU执行特定指令时出现的非法情况，如整数除0，引发异常是与正在执行的指令相关的，而引发中断是与当前正在执行的指令无关的。同时异常也称为同步中断，因此只有在一条指令执行后才会发出中断，不可能在指令执行期间发生异常。</p>
+<h5 id="中断分类："><a href="#中断分类：" class="headerlink" title="中断分类："></a>中断分类：</h5><p>1、硬件中断。（键盘、鼠标）</p>
+<p>2、软件中断。（系统调用sys_call）</p>
+<h5 id="软中断、硬中断、信号的区别"><a href="#软中断、硬中断、信号的区别" class="headerlink" title="软中断、硬中断、信号的区别:"></a>软中断、硬中断、信号的区别:</h5><p>硬中断是外部设备对CPU的中断。软中断通常是硬中断服务程序对内核的中断。信号是内核(或其他进程)对某个进程的中断。</p>
+<h5 id="中断流程："><a href="#中断流程：" class="headerlink" title="中断流程："></a>中断流程：</h5><p>用户态切换到内核态=&gt;设置中断向量表=&gt;保存现场(各寄存器、当前中断码(由中断码确定服务函数)、中断代码的位置)以待后续返回来继续执行=&gt;跳转执行对应的中断服务函数(中断码)=&gt;恢复中断前的现场=&gt;内核态切换到用户态</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1mw411R7LY?from=search&seid=12549174298096717010&spm_id_from=333.337.0.0">函数运行时栈</a>：rbp压栈(当前函数栈帧的基地址保存到栈中，同时将rsp下移)，将rsp赋值给rbp(将栈顶rsp也就是新的函数栈帧的基地址赋值给rbp)，为新函数的栈帧分配空间， 将新的函数的参数压栈(少量参数只用寄存器保存即可，额外多的参数压入栈中)，调用新的函数(将返回位置压栈，执行完新函数之后可以继续执行当前函数)，新函数执行完后在返回前清除栈帧(rbp复制给rsp，将rsp的内容赋值给rbp，恢复到了原函数栈帧)， 函数返回(当前栈顶是原函数的返回位置，出栈后跳转到相应位置继续执行)。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span></span>&#123;<br>        <span class="hljs-keyword">int</span> c = a+b;<br>        <span class="hljs-keyword">return</span> c;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-keyword">int</span> x = <span class="hljs-number">2</span>;<br>        <span class="hljs-keyword">int</span> y = <span class="hljs-number">3</span>;<br>        <span class="hljs-keyword">int</span> z = add(x, y);<br>        <span class="hljs-keyword">return</span> z;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>看汇编代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><code class="hljs assembly">;lea “load effective address”，即取有效地址<br><br>add:<br>	1129:	f3 0f 1e fa          	endbr64 <br>    112d:	55                   	push   %rbp<br>;栈基址压栈,此时main函数的栈帧基址被保存在栈中<br>    112e:	48 89 e5             	mov    %rsp,%rbp<br>;将栈顶rsp复制给栈基址rbp<br>    1131:	89 7d ec             	mov    %edi,-0x14(%rbp)<br>;将edi中的内容 0x2 移动到rbp指向地址减去20个字节的地址处<br>    1134:	89 75 e8             	mov    %esi,-0x18(%rbp)<br>;将esi中的内容 0x3 移动到rbp指向地址减去24个字节的地址处<br>    1137:	8b 55 ec             	mov    -0x14(%rbp),%edx<br>;将rbp指向地址减去20个字节的地址处的内容 0x2 移动到edx中<br>    113a:	8b 45 e8             	mov    -0x18(%rbp),%eax<br>;将rbp指向地址减去24个字节的地址处的内容 0x3 移动到eax中<br>    113d:	01 d0                	add    %edx,%eax<br>;将edx中的内容 0x2 加到eax中，eax中的内容是 0x5<br>    113f:	89 45 fc             	mov    %eax,-0x4(%rbp)<br>;将eax中的内容 0x5 移动到rbp指向地址减去4个字节的地址处<br>    1142:	8b 45 fc             	mov    -0x4(%rbp),%eax<br>;将rbp指向地址减去4个字节的地址处的内容 0x5 移动到eax中<br>    1145:	5d                   	pop    %rbp<br>;将栈顶元素出栈rsp上移，并该元素保存到rbp中。注意这里没有和main一样下移rsp，rsp与rbp相同<br>;栈顶元素是main函数的栈帧基址<br>    1146:	c3                   	retq <br>;将栈顶记录的位置信息1170出栈，跳转到1170处执行。<br>;RET指令则是将栈顶的返回地址弹出,然后按照指示的指令地址继续执行程序。ret = pop + jump<br>main:<br>	1147:	f3 0f 1e fa          	endbr64 <br>    114b:	55                   	push   %rbp<br>;栈基址压栈<br>    114c:	48 89 e5             	mov    %rsp,%rbp<br>;将栈顶rsp复制给栈基址rbp<br>    114f:	48 83 ec 10          	sub    $0x10,%rsp<br>;将栈顶往下移16字节<br>    1153:	c7 45 f4 02 00 00 00 	movl   $0x2,-0xc(%rbp)<br>;将0x2复制到 rbp指向地址减去0xc 的地址处，l即为long表示4个字节<br>;将0x2复制到 rbp指向地址减去12个字节的地址处<br>    115a:	c7 45 f8 03 00 00 00 	movl   $0x3,-0x8(%rbp)<br>;将0x3复制到 rbp指向地址减去8个字节的地址处<br>    1161:	8b 55 f8             	mov    -0x8(%rbp),%edx<br>;将rbp指向地址减去8个字节的地址处的内容，即0x3 复制到edx中<br>    1164:	8b 45 f4             	mov    -0xc(%rbp),%eax<br>;将rbp指向地址减去12个字节的地址处的内容，即0x2 复制到eax中<br>    1167:	89 d6                	mov    %edx,%esi<br>;将edx中的内容 0x3 移动到 esi中<br>    1169:	89 c7                	mov    %eax,%edi<br>;将eax中的内容 0x2 移动到 edi中<br>    116b:	e8 b9 ff ff ff       	callq  1129 &lt;_Z3addii&gt;<br>;跳转到1129执行add函数【到此处时,发现只用了rbp和rsp相隔16字节，但只使用了8个字节来保存0x3和0x2】<br>;call首先将返回地址1170压入栈顶,然后跳转到1129行执行指令。call = push + jump<br>    1170:	89 45 fc             	mov    %eax,-0x4(%rbp)<br>;add函数执行完毕，继续执行1170行的指令。<br>;将eax中的内容 0x5 移动到rbp指向地址减去4个字节的地址处<br>    1173:	8b 45 fc             	mov    -0x4(%rbp),%eax<br>;将rbp指向地址减去4个字节的地址处的内容 0x5 移动到eax中<br>    1176:	c9                   	leaveq <br>;将栈基指针rbp赋值给栈顶指针rsp,将栈顶元素出栈赋值给栈基指针rbp<br>;leave = mov rbp,rsp 加上 pop %rbp<br>    1177:	c3                   	retq   <br>;将栈顶记录的位置信息****(main函数调用者)出栈，跳转到****处执行。<br>    1178:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)<br>    117f:	00<br></code></pre></td></tr></table></figure>
+
+<h5 id="中断处理程序"><a href="#中断处理程序" class="headerlink" title="中断处理程序"></a>中断处理程序</h5><p>在响应一个特定中断的时候，内核会执行一个函数，该函数叫做中断处理程序或中断服务例程。产生中断的每个设备都有一个相应的中断处理程序，如果一个设备可以产生多种不同的中断，那么该设备就可以对应多个中断处理程序。一个设备的中断处理程序是它设备驱动程序的一部分（在驱动模块insmod安装时，注册中断事件、注册file_options的各回调函数）。</p>
+<h5 id="中断上下部："><a href="#中断上下部：" class="headerlink" title="中断上下部："></a>中断上下部：</h5><p>中断处理一般分为两个部分，中断处理程序是上半部：接收到一个中断就立即执行，但只做有严格时限的工作，这些工作都是在所有中断被禁止的情况下完成的。能够被允许稍后完成的工作被推迟到下半部去。通常情况下，下半部会在中断处理程序返回时立即执行。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">示例：linux驱动的中断<br><br>注册中断<br><span class="hljs-built_in">int</span> request<span class="hljs-constructor">_irq(<span class="hljs-params">unsigned</span> <span class="hljs-params">int</span> <span class="hljs-params">irq</span>, <span class="hljs-params">irq_handler_t</span> <span class="hljs-params">handler</span>, <span class="hljs-params">unsigned</span> <span class="hljs-params">long</span> <span class="hljs-params">flags</span>, <span class="hljs-params">const</span> <span class="hljs-params">char</span> <span class="hljs-operator">*</span> <span class="hljs-params">name</span>, <span class="hljs-params">void</span> <span class="hljs-operator">*</span> <span class="hljs-params">dev</span>)</span><br>     参数<span class="hljs-number">1</span>： irq     	  设备对应的中断号(逻辑/软件中断号，/proc/interrupts)<br>			 <span class="hljs-number">1</span>）宏定义：在没有设备树的内核中，软件中断号用宏函数IRQ_EINT获取<br>			 <span class="hljs-number">2</span>）设备树：通过节点去获取到软件中断号<br>     		 若用系统定义的宏函数<span class="hljs-constructor">IRQ_EINT(<span class="hljs-params">int</span> <span class="hljs-params">hard_interruptr_no</span>)</span>来获取对应的软中断号<br>     		 假设定义了<span class="hljs-number">16</span>是外部中断，则用<span class="hljs-constructor">IRQ_EINT(16)</span>可以获得该外部中断对应的软件中断号<br>     		 如果不小心设置成一样的中断号，则会引发一些错误。<br>     参数<span class="hljs-number">2</span>： handler     中断的处理函数<br>             typedef irqreturn_t (*irq_handler_t)(<span class="hljs-built_in">int</span>, void *);<br>             【中断上半部】<br>     参数<span class="hljs-number">3</span>：flags     触发方式<br>             #define IRQF_TRIGGER_NONE    <span class="hljs-number">0x00000000</span>  <span class="hljs-comment">//内部控制器触发中断的时候的标志</span><br>             #define IRQF_TRIGGER_RISING    <span class="hljs-number">0x00000001</span> <span class="hljs-comment">//上升沿</span><br>             #define IRQF_TRIGGER_FALLING    <span class="hljs-number">0x00000002</span> <span class="hljs-comment">//下降沿</span><br>             #define IRQF_TRIGGER_HIGH    <span class="hljs-number">0x00000004</span>  <span class="hljs-comment">// 高点平</span><br>             #define IRQF_TRIGGER_LOW    <span class="hljs-number">0x00000008</span> <span class="hljs-comment">//低电平触发</span><br>     参数<span class="hljs-number">4</span>：name     中断的描述，自定义,主要是给用户查看的<br>             /proc/interrupts<br>     参数<span class="hljs-number">5</span>：dev     传递给参数<span class="hljs-number">2</span>中函数指针的值，可作为共享中断时的中断区别参数<br>     返回值： 正确为<span class="hljs-number">0</span>，错误非<span class="hljs-number">0</span><br><br>销毁中断<br>void free<span class="hljs-constructor">_irq(<span class="hljs-params">unsigned</span> <span class="hljs-params">int</span> <span class="hljs-params">irq</span>, <span class="hljs-params">void</span> <span class="hljs-operator">*</span><span class="hljs-params">dev_id</span>)</span><br>	 参数<span class="hljs-number">1</span>： 设备对应的中断号<br>     参数<span class="hljs-number">2</span>：与request_irq中第<span class="hljs-number">5</span>个参数保持一致<br><br>中断下半部有两种方式实现：<br><span class="hljs-number">1</span>、tasklet【将耗时任务封装成tasklet的处理程序，在request_irq的中断处理函数中使用tasklet<span class="hljs-constructor">_schedule(&amp;<span class="hljs-params">cur_tasklet</span>)</span>来将耗时程序延后执行】<br>tasklet是利用软中断实现的一种下半部机制。tasklet和软中断在本质上很相似，行为表现也相近。tasklet有两类中断代表：HI_SOFTIRQ和TASKLET_SOFTIRQ。这两者之间唯一的区别在于HI_SOFTIRQ类型的软中断先于TASKLET_SOFTIRQ类型的软中断执行。<br><span class="hljs-comment">// tasklet_struct的定义</span><br><span class="hljs-keyword">struct</span> tasklet_struct<br>&#123;<br>	<span class="hljs-keyword">struct</span> tasklet_struct *next;	<span class="hljs-comment">// 链表中的下一个tasklet;</span><br>	unsigned long state;			<span class="hljs-comment">// tasklet的状态。有三个取值：0、TASKLET_STATE_SCHED、TASKLET_STATE_RUN。TASKLET_STATE_SCHED表明tasklet已经被调度，正准备投入运行，TASKLET_STATE_RUN表示该tasklet正在运行。	</span><br>	atomic_t count;					<span class="hljs-comment">// tasklet的引用计数，如果它不为0，则tasklet被禁止，不允许执行；只有当它为0时，tasklet才被激活，并且在被设置为挂起（TASKLET_STATE_SCHED）状态时，该tasklet才能够被执行。</span><br>	void (*func)(unsigned long);	<span class="hljs-comment">// tasklet的处理程序</span><br>	unsigned long data;				<span class="hljs-comment">// func的参数</span><br>&#125;;<br><br><span class="hljs-comment">// tasklet被调度</span><br>内核使用tasklet<span class="hljs-constructor">_schedule()</span>函数来执行tasklet的调度，已调度的tasklet存放在两个单处理器数据结构：tasklet<span class="hljs-constructor">_vec(普通的<span class="hljs-params">tasklet</span>)</span>和tasklet<span class="hljs-constructor">_hi_vec(高优先级的<span class="hljs-params">tasklet</span>)</span>。这两个数据结构都是由tasklet_struct结构体构成的链表。链表中的每个tasklet_struct 代表一个不同的tasklet。<br>tasklet是由tasklet<span class="hljs-constructor">_schedule()</span>和tasklet<span class="hljs-constructor">_hi_shedule()</span>函数进行调度的，它们接受一个指向tasklet_struct结构的指针作为参数。两个函数非常相似【区别在于一个使用TASKLET_SOFTIRQ，一个使用<span class="hljs-constructor">HI_SOFTIRQ()</span>】。<br>tasklet<span class="hljs-constructor">_schedule()</span>函数还会为该tasklet分配per_cpu变量，每次中断只会向其中的一个cpu注册，而不是所有的cpu。完成注册后的tasklet由tasklet<span class="hljs-constructor">_action()</span>函数来执行。<br><br><span class="hljs-comment">// tasklet被执行</span><br>前面说过tasklet被放在一个全局的tasklet_vec的链表中，链表中的元素是tasklet_struct结构体。内核中有个ksoftirqd<span class="hljs-literal">()</span>的内核线程，它会周期的遍历软中断的向量列表，如果发现哪个软中断向量被挂起了（pending）,就执行相应的处理函数。tasklet对应的处理函数就是tasklet_action,这个函数在系统启动初始化软中断时，就在软中断向量表中注册。tasklet<span class="hljs-constructor">_action()</span>遍历全局的tasklet_vec链表。链表中的元素为tasklet_struct结构体<br><br>Linux 中的软中断包括网络收发、定时、调度、RCU 锁等各种类型，可以通过查看 /proc/softirqs 来观察软中断的运行情况。<br><span class="hljs-literal">[<span class="hljs-identifier">root</span>@<span class="hljs-identifier">k8s</span> <span class="hljs-operator">/</span><span class="hljs-identifier">proc</span>]</span># cat softirqs<br>                    CPU0       CPU1<br>          HI:          <span class="hljs-number">5</span>          <span class="hljs-number">1</span><br>       TIMER:  <span class="hljs-number">444492709</span>  <span class="hljs-number">271957759</span><br>      NET_TX:      <span class="hljs-number">18937</span>      <span class="hljs-number">15860</span><br>      NET_RX:   <span class="hljs-number">34769092</span>  <span class="hljs-number">430587974</span><br>       BLOCK:   <span class="hljs-number">12265925</span>          <span class="hljs-number">0</span><br>BLOCK_IOPOLL:          <span class="hljs-number">0</span>          <span class="hljs-number">0</span><br>     TASKLET:        <span class="hljs-number">853</span>        <span class="hljs-number">592</span><br>       SCHED:    <span class="hljs-number">4489427</span>   <span class="hljs-number">66716813</span><br>     HRTIMER:          <span class="hljs-number">0</span>          <span class="hljs-number">0</span><br>         RCU:  <span class="hljs-number">151213683</span>  <span class="hljs-number">128619479</span><br>         <br>内核线程ksoftirqd周期性地遍历软中断向量表，而tasklet在软中断向量表中占了一项，这个软中断的中断执行句柄tasklet_action就是遍历tasklet_vec链表，然后将执行其中挂起状态的tasklet的处理程序。<br><br><span class="hljs-number">2</span>、工作队列【将耗时任务封装成work的处理程序，在request_irq的中断处理函数中使用schedule<span class="hljs-constructor">_work(&amp;<span class="hljs-params">cur_work</span>)</span>来将耗时程序延后执行】<br>工作队列（workqueue）是另外一种将工作推后执行的形式，它和tasklet有所不同。工作队列可以把工作推后，交由一个【内核线程】去执行，也就是说，这个下半部分可以在进程上下文中执行。这样，通过工作队列执行的代码能占尽进程上下文的所有优势。最重要的就是工作队列允许被重新调度甚至是睡眠。<br><span class="hljs-comment">// work_struct结构定义</span><br><span class="hljs-keyword">struct</span> work_struct&#123;  <br>	unsigned long pending; 			<span class="hljs-comment">// 这个工作正在等待处理吗？</span><br>	<span class="hljs-keyword">struct</span> list_head entry; 		<span class="hljs-comment">// 连接所有工作的链表   </span><br>	void (*func) (void *); 			<span class="hljs-comment">// 要执行的处理函数   </span><br>	void *data; 					<span class="hljs-comment">// 传递给函数的参数   </span><br>	void *wq_data; 					<span class="hljs-comment">// 内部使用   </span><br>	<span class="hljs-keyword">struct</span> timer_list timer; 		<span class="hljs-comment">// 延迟的工作队列所用到的定时器  </span><br>&#125;;<br><br><span class="hljs-comment">// 创建工作（宏函数INIT_WORK）</span><br><span class="hljs-constructor">INIT_WORK(<span class="hljs-params">struct</span> <span class="hljs-params">work_struct</span> <span class="hljs-operator">*</span><span class="hljs-params">work</span>, <span class="hljs-params">void</span>(<span class="hljs-operator">*</span><span class="hljs-params">func</span>)</span> (void *), void *data);<br><br><span class="hljs-comment">// 调度工作</span><br><span class="hljs-built_in">int</span> schedule<span class="hljs-constructor">_work(<span class="hljs-params">struct</span> <span class="hljs-params">work_struct</span> <span class="hljs-operator">*</span><span class="hljs-params">work</span>)</span><br>该工作马上会被调度，一旦其所在的处理器上的内核线程被唤醒，这个工作就会被执行。<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/28/linux%E5%86%85%E6%A0%B8/image-20211202193353961.png" srcset="/img/loading.gif" lazyload alt="image-20211202193353961"></p>
+<h5 id="分析内核代码："><a href="#分析内核代码：" class="headerlink" title="分析内核代码："></a>分析内核代码：</h5><p>中断类型：中断前的处理和执行完中断的恢复过程                    中断执行过程</p>
+<p>硬件中断：asm.s                                                                            traps.c</p>
+<p>软件中断：system_call.s                                                               fork.c signal.c exit.c sys.c </p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Linux/">Linux</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Linux/">Linux</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-info">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/12/08/%E5%9F%BA%E4%BA%8Ec++11%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/11/23/%E6%97%A0%E9%94%81%E9%98%9F%E5%88%97/">
+                        <span class="hidden-mobile">无锁队列</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

@@ -1,0 +1,502 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  
+  <title>欧拉函数 - gys的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gys18007141407.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>gys的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/miku6.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="欧拉函数">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-10-11 19:37" pubdate>
+        2021年10月11日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      34
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">欧拉函数</h1>
+	    <time updated datetime="2021-12-09 15:09"></time>
+            
+            <div class="markdown-body">
+              <h4 id="常见的数论函数"><a href="#常见的数论函数" class="headerlink" title="常见的数论函数"></a>常见的数论函数</h4><img src="/2021/10/11/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/image-20211209092722902.png" srcset="/img/loading.gif" lazyload alt="image-20211209092722902" style="zoom:50%;">
+
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs gcode">这<span class="hljs-number">5</span>个都是积性函数，前三个为完全积性函数。<br>积性函数是指：当x与y互质时,f<span class="hljs-comment">(x*y)</span>=f<span class="hljs-comment">(x)</span>*f<span class="hljs-comment">(y)</span>。<br>完全积性函数是指：对任意x和y,f<span class="hljs-comment">(x*y)</span>=f<span class="hljs-comment">(x)</span>*f<span class="hljs-comment">(y)</span>。<br></code></pre></td></tr></table></figure>
+
+<h4 id="欧拉函数"><a href="#欧拉函数" class="headerlink" title="欧拉函数"></a>欧拉函数</h4><p>1∼N 中与 N 互质的数的个数被称为为欧拉函数, 记为 φ(N)。</p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs excel">// φ(<span class="hljs-built_in">n</span>)：<span class="hljs-number">1</span>到<span class="hljs-built_in">n</span>中与<span class="hljs-built_in">n</span>互质的数的个数(模<span class="hljs-built_in">n</span>意义下该乘法群的幺元)<br>// 约定：φ(<span class="hljs-number">1</span>) = <span class="hljs-number">1</span><br>// 对于质数p显然有：φ(p) = p-<span class="hljs-number">1</span><br>// 对于任意互质的数p、q有：φ(pq) = φ(p)φ(q)<br>// 对于质数p、q有：φ(pq) = φ(p)φ(q) = (p-<span class="hljs-number">1</span>)(q-<span class="hljs-number">1</span>)<br>// 对于质数p的m次方有：φ(p^m) = p^m - (p,<span class="hljs-number">2</span>p,<span class="hljs-number">3</span>p,...,p^m) = p^m - p^(m-<span class="hljs-number">1</span>) = p^(m-<span class="hljs-number">1</span>)(p-<span class="hljs-number">1</span>)<br>// 对于任意数<span class="hljs-built_in">n</span>有：φ(<span class="hljs-built_in">n</span>) = φ(<span class="hljs-symbol">p1</span>^(<span class="hljs-symbol">n1</span>)*<span class="hljs-symbol">p2</span>^(<span class="hljs-symbol">n2</span>)*...*pk^(nk)) = φ(<span class="hljs-symbol">p1</span>^(<span class="hljs-symbol">n1</span>))*φ(<span class="hljs-symbol">p2</span>^(<span class="hljs-symbol">n2</span>))*...*φ(pk^(nk))<br>// φ(<span class="hljs-built_in">n</span>) = <span class="hljs-symbol">p1</span>^(<span class="hljs-symbol">n1</span>-<span class="hljs-number">1</span>)(<span class="hljs-symbol">p1</span>-<span class="hljs-number">1</span>) * <span class="hljs-symbol">p2</span>^(<span class="hljs-symbol">n2</span>-<span class="hljs-number">1</span>)(<span class="hljs-symbol">p2</span>-<span class="hljs-number">1</span>) * ... * pk^(nk-<span class="hljs-number">1</span>)(pk-<span class="hljs-number">1</span>) = <span class="hljs-built_in">n</span>*(<span class="hljs-number">1</span>-<span class="hljs-number">1</span>/<span class="hljs-symbol">p1</span>)*(<span class="hljs-number">1</span>-<span class="hljs-number">1</span>/<span class="hljs-symbol">p2</span>)*...*(<span class="hljs-number">1</span>-<span class="hljs-number">1</span>/pk)<br><br>// <span class="hljs-number">1</span>∼<span class="hljs-built_in">n</span>中与<span class="hljs-built_in">n</span>互质的数的和为 <span class="hljs-built_in">n</span>∗φ(<span class="hljs-built_in">n</span>)/<span class="hljs-number">2</span>.<br>// 因为<span class="hljs-built_in">gcd</span>(<span class="hljs-built_in">n</span>,x)=<span class="hljs-built_in">gcd</span>(<span class="hljs-built_in">n</span>,<span class="hljs-built_in">n</span>−x), 所以<span class="hljs-number">1</span>∼<span class="hljs-built_in">n</span>中与<span class="hljs-built_in">n</span>互质的数是成对存在的, 共有φ(<span class="hljs-built_in">n</span>)/<span class="hljs-number">2</span> 对,每一对的和为<span class="hljs-built_in">n</span>,总和为<span class="hljs-built_in">n</span>∗φ(<span class="hljs-built_in">n</span>)/<span class="hljs-number">2</span>.<br><br>// ∑(d|<span class="hljs-built_in">n</span>) φ(d) = <span class="hljs-built_in">n</span><br>// 即∑(d|<span class="hljs-built_in">n</span>) φ(d) = id(<span class="hljs-built_in">n</span>)。该定理用莫比乌斯反演=&gt; φ(<span class="hljs-built_in">n</span>) = ∑(d|<span class="hljs-built_in">n</span>)μ(d)id(<span class="hljs-built_in">n</span>/d)<br></code></pre></td></tr></table></figure>
+
+<p><strong>线性筛求法</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">1e7</span>+<span class="hljs-number">5</span>;<br><span class="hljs-keyword">int</span> prime[N], tot;<br><span class="hljs-keyword">int</span> Euler[N];<br><span class="hljs-keyword">bool</span> vis[N];<br><span class="hljs-comment">// 利用欧拉函数是积性函数</span><br><span class="hljs-comment">// 类似筛选质数</span><br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Phi</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span></span><br><span class="hljs-function"></span>&#123;<br>	Euler[<span class="hljs-number">1</span>] = <span class="hljs-number">1</span>;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= n; i++)&#123;<br>        <span class="hljs-comment">// 如果当前数是质数。</span><br>		<span class="hljs-keyword">if</span>(!vis[i]) &#123; <br>            prime[tot++] = i, <br>            Euler[i] = i<span class="hljs-number">-1</span>;  <br>        &#125;<br>		<span class="hljs-comment">// 否则当前数的Euler值被之前的数更新过了</span><br>		<br>		<span class="hljs-comment">// 如果i%prime[j]!=0,那么(i,prime[j])==1, 则有φ(i∗prime[j])=φ(i)∗(prime[j]−1)</span><br>		<span class="hljs-comment">// 该式子很容易证明</span><br>        <span class="hljs-comment">// 如果i%prime[j]==0,则φ(i∗prime[j])=φ(i)∗prime[j] </span><br>        <span class="hljs-comment">// 不如设p=prime[j], i = A*(p^m), φ(i) = φ(A*(p^m)) = φ(A)*φ(p^m) = φ(A)*(p^(m-1))*(p-1)</span><br>        <span class="hljs-comment">// φ(i*p) = φ(A*(p^(m+1))) = φ(A)*(p^m)*(p-1) = φ(i)*p。即得证</span><br>		<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; tot &amp;&amp; i*prime[j] &lt;= n; j++)&#123;<br>		    <span class="hljs-comment">// 更新非质数位置</span><br>			vis[i*prime[j]] = <span class="hljs-literal">true</span>;<br>			<span class="hljs-keyword">if</span>(i % prime[j] == <span class="hljs-number">0</span>)<br>			&#123;<br>				Euler[i*prime[j]] = Euler[i]*prime[j];<br>				<span class="hljs-keyword">break</span>;<br>			&#125;<br>			<br>            Euler[i*prime[j]] = Euler[i]*(prime[j]<span class="hljs-number">-1</span>);<br>		&#125;<br>	&#125;<br>&#125; <br></code></pre></td></tr></table></figure>
+
+<h4 id="欧拉定理"><a href="#欧拉定理" class="headerlink" title="欧拉定理"></a>欧拉定理</h4><p>若a,m互质，<code>a^φ(m) ≡ 1 | m</code>。费马小定理则是m为质数时的特殊情况。</p>
+<h4 id="莫比乌斯函数和莫比乌斯反演定理"><a href="#莫比乌斯函数和莫比乌斯反演定理" class="headerlink" title="莫比乌斯函数和莫比乌斯反演定理"></a>莫比乌斯函数和莫比乌斯反演定理</h4><p><strong>莫比乌斯函数(属于积性函数)</strong></p>
+<img src="/2021/10/11/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/20160309190249569.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom: 80%;">
+
+<p><img src="/2021/10/11/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/20160309190929213.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="/2021/10/11/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/20160309190941197.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs gcode">μ<span class="hljs-comment">(1)</span>=<span class="hljs-number">1</span>。<br>当d存在一个因子为质数p的平方时,则μ<span class="hljs-comment">(d)</span>=<span class="hljs-number">0</span>。<br>否则d是不同质数的连乘积,当d是奇数个质数连乘时,μ<span class="hljs-comment">(d)</span>=<span class="hljs-number">-1</span>,当d是偶数个质数连乘时，μ<span class="hljs-comment">(d)</span>=<span class="hljs-number">1</span>。<br></code></pre></td></tr></table></figure>
+
+<p><strong>莫比乌斯反演定理</strong></p>
+<img src="/2021/10/11/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/image-20211209090311997.png" srcset="/img/loading.gif" lazyload alt="image-20211209090311997" style="zoom:50%;">
+
+<p><strong>线性筛求法</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">1e7</span>+<span class="hljs-number">5</span>;<br><span class="hljs-keyword">int</span> prime[N], tot;<br><span class="hljs-keyword">int</span> mu[N];<br><span class="hljs-keyword">bool</span> vis[N];<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Moblus</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span></span><br><span class="hljs-function"></span>&#123;<br>    mu[<span class="hljs-number">1</span>] = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= n; i++)&#123;<br>    	<span class="hljs-comment">// 如果当前数是质数</span><br>        <span class="hljs-keyword">if</span> (!vis[i])&#123;<br>            prime[tot++] = i;<br>            mu[i] = <span class="hljs-number">-1</span>;<br>        &#125;<br>        <span class="hljs-comment">// 否则当前数的Euler值被之前的数更新过了</span><br>        <br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; tot &amp;&amp; i*prime[j] &lt;= n; j++)&#123;<br>            vis[i * prime[j]] = <span class="hljs-literal">true</span>;<br>            <span class="hljs-keyword">if</span> (i % prime[j] == <span class="hljs-number">0</span>)<br>            &#123;<br>            	<span class="hljs-comment">// i*prime[j]存在平方因子 prime[j]*prime[j]</span><br>                mu[i * prime[j]] = <span class="hljs-number">0</span>;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br><br>            <span class="hljs-comment">// 如果mu[i] == 0，那么mu[i*prime[j]] == 0</span><br>            <span class="hljs-comment">// 否则i是不同质数的连乘积，i*prime[j]也是不同质数的连乘积</span><br>            <span class="hljs-comment">// 则mu[i*prime[j]] == -mu[i]</span><br>            mu[i * prime[j]] = -mu[i];<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="迪利克雷卷积"><a href="#迪利克雷卷积" class="headerlink" title="迪利克雷卷积"></a>迪利克雷卷积</h4><img src="/2021/10/11/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/image-20211208200344799.png" srcset="/img/loading.gif" lazyload alt="image-20211208200344799" style="zoom:50%;">
+
+<h5 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h5><p><strong>题目解析：</strong>比如求下述式子的结果，即求：i在[1,n]范围内，j在[1,m]范围内，i和j互质的数量。 由以上分析可知，前二步中因为d整除最大公约数，所以d整除i并且d整除j。后面更换枚举方式，先枚举d【d整除i和j，1<del>gcd(i,j)】，再枚举i【i是d的几倍, 1</del>n/d】，再枚举j【j是d的几倍，1~m/d】，组合起来有n/d * m/d种方式。又 φ(d)与i、j无关，故可以把 φ(d)提到前面，如此就得到第三步。</p>
+<p><img src="/2021/10/11/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/image-20211209100937863.png" srcset="/img/loading.gif" lazyload alt="image-20211209100937863"></p>
+<p><strong>题目解析：</strong>再比如求下面式子的结果，所有最大公约数的和，同样的我们更换枚举方式，先枚举d【d整除i和j，1<del>gcd(i,j)】，再枚举i【i是d的几倍, 1</del>n/d】，再枚举j【j是d的几倍，1<del>m/d】。<code>gcd(i, j)</code>可以转为<code>Σ[gcd(i,j)=d]*d</code>，而 <code>gcd(i,j)=d可以转化为gcd(i/d, j/d) = 1</code>，令i = i/d, j = j/d。则i的枚举范围变为【1</del>n/d]，j的枚举范围变为【1~m/d】。此时就转化为了多个【要枚举d累加】例一的情形，i在[1,n/d]范围内，j在[1,m/d]范围内，i和j互质的数量。最后整理式子发现与例一的区别就是结果式中moblus变为了Euler【求数量变为求值的和】。</p>
+<p><img src="/2021/10/11/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/image-20211209100825255.png" srcset="/img/loading.gif" lazyload alt="image-20211209100825255"></p>
+<p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/203/">题目链接1</a></p>
+<p><img src="/2021/10/11/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/image-20211208212903887.png" srcset="/img/loading.gif" lazyload alt="image-20211208212903887"></p>
+<p><img src="/2021/10/11/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/image-20211208212923365.png" srcset="/img/loading.gif" lazyload alt="image-20211208212923365"></p>
+<p><strong>思考：</strong>没有经过任何点表示(x,y)坐标点x和y互质。因为该线的方程Y = (y/x) X，在(0,x)只经过了这一点，表示x和y不可以约分。即求哪两个数是互质的。但是该题</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstring&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;algorithm&gt;</span></span><br><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;numeric&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">1010</span>;<br><span class="hljs-keyword">int</span> prime[N], tot;<br><span class="hljs-keyword">int</span> Euler[N];<br><span class="hljs-keyword">bool</span> vis[N];<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Phi</span><span class="hljs-params">()</span></span>&#123;<br>    Euler[<span class="hljs-number">1</span>] = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt; N; ++i)&#123;<br>        <span class="hljs-keyword">if</span>(!vis[i]) prime[tot++] = i, Euler[i] = i<span class="hljs-number">-1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; tot &amp;&amp; i*prime[j] &lt; N; ++j)&#123;<br>            vis[i*prime[j]] = <span class="hljs-literal">true</span>;<br>            <span class="hljs-keyword">if</span>(i%prime[j] == <span class="hljs-number">0</span>)&#123;<br>                Euler[i*prime[j]] = Euler[i]*prime[j];<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            Euler[i*prime[j]] = Euler[i]*(prime[j]<span class="hljs-number">-1</span>);<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">cal</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span></span>&#123;<br>    <span class="hljs-comment">// 方法一：</span><br>    <span class="hljs-comment">// 累加Euler[1]~Euler[n]</span><br>    <span class="hljs-comment">// 由对称性可得以下式子</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>*<span class="hljs-built_in">accumulate</span>(Euler+<span class="hljs-number">1</span>, Euler+n+<span class="hljs-number">1</span>, <span class="hljs-number">0</span>) + <span class="hljs-number">1</span>;<br>    <br>    <span class="hljs-comment">// 方法二：</span><br>    <span class="hljs-comment">// 利用莫比乌斯反演：后面的整除直接可以在前缀和中进行</span><br>    <span class="hljs-comment">// prefix[0] = 0;</span><br>    <span class="hljs-comment">// prefix[i] = prefix[i-1]+mu[i]*(n/i)*(m/i)</span><br>    <span class="hljs-comment">// return prefix[n];</span><br>    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> d = <span class="hljs-number">1</span>; d &lt;= n; d ++ )&#123;<br>        res += mu[d]*(n/d)*(n/d);<br>    &#125;<br>    <span class="hljs-comment">// 还有(1,0)和(0,1)两个特殊点</span><br>    <span class="hljs-keyword">return</span> res+<span class="hljs-number">2</span>;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">Phi</span>();<br>    <br>    <span class="hljs-keyword">int</span> T, n;<br>    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>, &amp;T);<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> idx = <span class="hljs-number">1</span>; idx &lt;= T; ++idx)&#123;<br>        <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>, &amp;n);<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d %d %d\n&quot;</span>, idx, n, <span class="hljs-built_in">cal</span>(n));<br>    &#125;<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/222/">题目链接2</a></p>
+<p><img src="/2021/10/11/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/image-20211208212955354.png" srcset="/img/loading.gif" lazyload alt="image-20211208212955354"></p>
+<p>解法：</p>
+<img src="/2021/10/11/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/image-20211209111321824.png" srcset="/img/loading.gif" lazyload alt="image-20211209111321824" style="zoom: 33%;">
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstring&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;algorithm&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;numeric&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-comment">// 该题题意是求i与j的最大公约数为质数的情形</span><br><span class="hljs-comment">// i与j互质是特殊情形</span><br><span class="hljs-comment">// 但该题仍然可以转化为i与j互质的情形</span><br><span class="hljs-comment">// gcd(x,y)=p 转为 gcd(x/p, y/p)=1</span><br><br><span class="hljs-comment">// Σ(p)ΣΣ[gcd(x, y) = p]</span><br><span class="hljs-comment">// Σ(p)ΣΣ[gcd(x, y) = 1]   // 枚举上限除以p</span><br><br><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">1e7</span>+<span class="hljs-number">5</span>;<br><span class="hljs-keyword">int</span> prime[N], tot;<br><span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> Euler[N];<br><span class="hljs-keyword">bool</span> vis[N];<br><br><span class="hljs-comment">// 利用欧拉函数是积性函数</span><br><span class="hljs-comment">// 类似筛选质数</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Phi</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span></span><br><span class="hljs-function"></span>&#123;<br>    Euler[<span class="hljs-number">1</span>] = <span class="hljs-number">1</span>;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= n; i++)<br>	&#123;<br>		<span class="hljs-keyword">if</span>(!vis[i]) prime[tot++] = i, Euler[i] = i<span class="hljs-number">-1</span>;  <span class="hljs-comment">// 如果当前数是质数。</span><br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt;= tot &amp;&amp; i*prime[j] &lt;= n; j++)<br>		&#123;<br>		    <span class="hljs-comment">// 更新非质数位置</span><br>			vis[i*prime[j]] = <span class="hljs-literal">true</span>;<br>			<span class="hljs-keyword">if</span>(i % prime[j] == <span class="hljs-number">0</span>)<br>			&#123;<br>				Euler[i*prime[j]] = Euler[i]*prime[j];<br>				<span class="hljs-keyword">break</span>;<br>			&#125;<br>			Euler[i*prime[j]] = Euler[i]*(prime[j]<span class="hljs-number">-1</span>);<br>		&#125;<br>	&#125;<br>&#125; <br><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> n;<br>    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>, &amp;n);<br>    <span class="hljs-built_in">Phi</span>(n);<br>    <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> res = <span class="hljs-number">0</span>;<br>    <br>    <span class="hljs-comment">// 枚举质数p，求和</span><br>    <span class="hljs-comment">// 可以在计算Euler时直接计算前缀和,不用每次都accumulate，这里只是为了方便理解。</span><br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> d = <span class="hljs-number">0</span>; d &lt; tot; ++d)&#123;<br>        <span class="hljs-keyword">int</span> cur_n = n / prime[d];<br>        res += <span class="hljs-number">2</span>*<span class="hljs-built_in">accumulate</span>(Euler+<span class="hljs-number">1</span>, Euler+cur_n+<span class="hljs-number">1</span>, <span class="hljs-number">0ll</span>) - <span class="hljs-number">1</span>; <span class="hljs-comment">// 减一是因为(1,1)重复</span><br>    &#125;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%lld\n&quot;</span>, res);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/description/978/">题目链接3</a></p>
+<p><img src="/2021/10/11/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/image-20211209145417757.png" srcset="/img/loading.gif" lazyload alt="image-20211209145417757"></p>
+<img src="/2021/10/11/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/image-20211209145442181.png" srcset="/img/loading.gif" lazyload alt="image-20211209145442181" style="zoom:50%;">
+
+<p><img src="/2021/10/11/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/image-20211209145508169.png" srcset="/img/loading.gif" lazyload alt="image-20211209145508169"></p>
+<p><img src="/2021/10/11/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/image-20211209145523137.png" srcset="/img/loading.gif" lazyload alt="image-20211209145523137"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstring&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;algorithm&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><br><span class="hljs-comment">// 互质的数,gcd(x,y)==1表示该线上只有一个点(不包含原点),能量损失1===&gt;2*1-1</span><br><span class="hljs-comment">// gcd(x,y)==d表示该线上共有d个点(不包含原点),能量损失2*(d-1)+1===&gt;2*d-1</span><br><span class="hljs-comment">// 题意即为:求i在[1,n],j在[1,m]内所有点2*d-1的和</span><br><span class="hljs-comment">// 2ΣΣgcd(i,j) - m*n</span><br><br><span class="hljs-comment">// 为什么gcd(x,y)表示直线 Y = y/x * X上的正点数？</span><br><span class="hljs-comment">// 最大公约数d意味着d|y并且d|x，也就是说y能分成d份，x也能分成d份。【长方形等分为d*d的网格】</span><br><span class="hljs-comment">// 相等等分点恰好在该直线上:(x/d,y/d),(x/d*2,y/d*2),...,(x/d*d,y/d*d)</span><br><br><span class="hljs-keyword">using</span> ll = <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span>;<br><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">100010</span>;<br><span class="hljs-keyword">int</span> prime[N], tot;<br><span class="hljs-keyword">int</span> Euler[N];<br><span class="hljs-keyword">bool</span> vis[N];<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Phi</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span></span>&#123;<br>    Euler[<span class="hljs-number">1</span>] = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= n; ++i)&#123;<br>        <span class="hljs-keyword">if</span>(!vis[i])&#123;<br>            prime[tot++] = i;<br>            Euler[i] = i<span class="hljs-number">-1</span>;<br>        &#125;<br>        <br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; tot &amp;&amp; i*prime[j] &lt;= n; ++j)&#123;<br>            vis[i*prime[j]] = <span class="hljs-literal">true</span>;<br>            <span class="hljs-keyword">if</span>(i%prime[j] == <span class="hljs-number">0</span>)&#123;<br>                Euler[i*prime[j]] = Euler[i]*prime[j];<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            Euler[i*prime[j]] = Euler[i]*(prime[j]<span class="hljs-number">-1</span>);<br>        &#125;<br>        <br>    &#125;<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    ll n, m;<br>    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%lld%lld&quot;</span>, &amp;n, &amp;m);<br>    <br>    <span class="hljs-built_in">Phi</span>(<span class="hljs-built_in">max</span>(n, m));<br>    <br>    <span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> res = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> d = <span class="hljs-number">1</span>; d &lt;= <span class="hljs-built_in">min</span>(n, m); ++d)&#123;<br>        res += <span class="hljs-number">1ll</span>*Euler[d]*(n/d)*(m/d);<br>    &#125;<br>    <br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%lld\n&quot;</span>, <span class="hljs-number">2</span>*res-m*n);<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-info">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/10/15/mysql%E4%B8%BB%E4%BB%8E%E7%83%AD%E5%A4%87/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">mysql主从热备</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/10/11/LVS+keepalived%E9%85%8D%E7%BD%AE/">
+                        <span class="hidden-mobile">LVS+keepalived</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

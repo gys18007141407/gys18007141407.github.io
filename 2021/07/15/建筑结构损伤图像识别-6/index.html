@@ -1,0 +1,466 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  
+  <title>建筑结构损伤图像识别-6 - gys的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gys18007141407.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>gys的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="建筑结构损伤图像识别-6">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-15 13:14" pubdate>
+        2021年7月15日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      16
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">建筑结构损伤图像识别-6</h1>
+	    <time updated datetime="2021-07-15 20:53"></time>
+            
+            <div class="markdown-body">
+              <h2 id="PyTorch的序列化容器以及卷积层"><a href="#PyTorch的序列化容器以及卷积层" class="headerlink" title="PyTorch的序列化容器以及卷积层"></a>PyTorch的序列化容器以及卷积层</h2><h3 id="torch-nn-sequential"><a href="#torch-nn-sequential" class="headerlink" title="torch.nn.sequential"></a>torch.nn.sequential</h3><p>torch.nn.sequential是一个有序的容器，传入其中的是构造器类，通过该容器的输入会依次通过该容器中的构造器，如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><br>self.layer = torch.nn.sequential(<br>			torch.nn.Linear(input_dim, hidden_dim1),<br>			torch.nn.ReLU(<span class="hljs-literal">True</span>),<br>			torch.nn.BatchNorm1d(hidden_dim1), <span class="hljs-comment"># 参数是输入最后一个维度的大小</span><br>			torch.nn.Dropout(<span class="hljs-number">0.3</span>) <span class="hljs-comment"># 参数是随机失活的几率，默认0.5</span><br>			torch.nn.Linear(hidden_dim1, hidden_dim2),<br>			torch.nn.ReLU(<span class="hljs-literal">True</span>),<br>			torch.nn.BatchNorm1d(hidden_dim2)<br>			torch.nn.Dropout(<span class="hljs-number">0.3</span>)<br>			torch.nn.Linear(hidden_dim2, output_dim)<br>				)<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span>(<span class="hljs-params">self, <span class="hljs-built_in">input</span></span>):</span><br>	output = self.layer(<span class="hljs-built_in">input</span>)<br>	<span class="hljs-keyword">return</span> output<br><br></code></pre></td></tr></table></figure>
+
+<p>torch.nn.BatchNorm1d顾名思义是常说的批标准化，用来解决梯度消失的问题，加速训练，一般在激活层之后设置标准化层。</p>
+<p>torch.nn.Dropout是对参数进行随机失活，增加模型的健壮性和泛化性，解决模型过拟合问题，可以理解为最终模型是多个模型组合而成的，类似于随机森林(boosting)。一般在标准化层之后设置Dropout层。</p>
+<hr>
+<h3 id="torch-nn-ConvXd"><a href="#torch-nn-ConvXd" class="headerlink" title="torch.nn.ConvXd"></a>torch.nn.ConvXd</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><code class="hljs python"><br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">一般来说，一维卷积nn.Conv1d用于文本数据，只对宽度进行卷积，对高度不卷积。</span><br><span class="hljs-string">通常，输入大小为word_embedding_dim * max_length，其中，word_embedding_dim为词向量的维度，max_length为句子的最大长度。</span><br><span class="hljs-string">卷积核窗口在句子长度的方向上滑动，进行卷积操作。</span><br><span class="hljs-string"></span><br><span class="hljs-string">torch.nn.Conv1d(in_channels,</span><br><span class="hljs-string">                out_channels,</span><br><span class="hljs-string">                kernel_size,</span><br><span class="hljs-string">                stride=1,</span><br><span class="hljs-string">                padding=0,</span><br><span class="hljs-string">                dilation=1,</span><br><span class="hljs-string">                groups=1,</span><br><span class="hljs-string">                bias=True)</span><br><span class="hljs-string"></span><br><span class="hljs-string">主要参数说明：</span><br><span class="hljs-string"></span><br><span class="hljs-string">in_channels：在文本应用中，即为词向量的维度</span><br><span class="hljs-string">out_channels：卷积产生的通道数，有多少个out_channels，就需要多少个一维卷积（也就是卷积核的数量）</span><br><span class="hljs-string">kernel_size：卷积核的尺寸；卷积核的第二个维度由in_channels决定，所以实际上卷积核的大小为kernel_size * in_channels</span><br><span class="hljs-string">padding：对输入的每一条边，补充0的层数</span><br><span class="hljs-string"></span><br><span class="hljs-string"></span><br><span class="hljs-string"></span><br><span class="hljs-string">一般来说，二维卷积nn.Conv2d用于图像数据，对宽度和高度都进行卷积。</span><br><span class="hljs-string"></span><br><span class="hljs-string">torch.nn.Conv2d(in_channels,</span><br><span class="hljs-string">                out_channels,</span><br><span class="hljs-string">                kernel_size,</span><br><span class="hljs-string">                stride=1,</span><br><span class="hljs-string">                padding=0,</span><br><span class="hljs-string">                dilation=1,</span><br><span class="hljs-string">                groups=1,</span><br><span class="hljs-string">                bias=True)</span><br><span class="hljs-string"></span><br><span class="hljs-string">代码示例</span><br><span class="hljs-string">假设现有大小为32 x 32的图片样本，输入样本的channels为1，该图片可能属于10个类中的某一类。CNN框架定义如下：</span><br><span class="hljs-string"></span><br><span class="hljs-string">class CNN(nn.Module):</span><br><span class="hljs-string">    def __init__(self):</span><br><span class="hljs-string">        nn.Model.__init__(self)</span><br><span class="hljs-string"></span><br><span class="hljs-string">        self.conv1 = nn.Conv2d(1, 6, 5)  # 输入通道数为1，输出通道数为6</span><br><span class="hljs-string">        self.conv2 = nn.Conv2d(6, 16, 5)  # 输入通道数为6，输出通道数为16</span><br><span class="hljs-string">        self.fc1 = nn.Linear(5 * 5 * 16, 120)</span><br><span class="hljs-string">        self.fc2 = nn.Linear(120, 84)</span><br><span class="hljs-string">        self.fc3 = nn.Linear(84, 10)</span><br><span class="hljs-string"></span><br><span class="hljs-string">    def forward(self,x):</span><br><span class="hljs-string">        # 输入x -&gt; conv1 -&gt; relu -&gt; 2x2窗口的最大池化</span><br><span class="hljs-string">        x = self.conv1(x)</span><br><span class="hljs-string">        x = F.relu(x)</span><br><span class="hljs-string">        x = F.max_pool2d(x, 2)</span><br><span class="hljs-string"></span><br><span class="hljs-string">        # 输入x -&gt; conv2 -&gt; relu -&gt; 2x2窗口的最大池化</span><br><span class="hljs-string">        x = self.conv2(x)</span><br><span class="hljs-string">        x = F.relu(x)</span><br><span class="hljs-string">        x = F.max_pool2d(x, 2)</span><br><span class="hljs-string"></span><br><span class="hljs-string">        # view函数将张量x变形成一维向量形式，总特征数不变，为全连接层做准备</span><br><span class="hljs-string">        x = x.view(x.size()[0], -1)</span><br><span class="hljs-string">        x = F.relu(self.fc1(x))</span><br><span class="hljs-string">        x = F.relu(self.fc2(x))</span><br><span class="hljs-string">        x = self.fc3(x)</span><br><span class="hljs-string">        return x</span><br><span class="hljs-string"></span><br><span class="hljs-string">网络整体结构：[conv + relu + pooling] * 2 + FC * 3</span><br><span class="hljs-string">原始输入样本的大小：32 x 32 x 1</span><br><span class="hljs-string"></span><br><span class="hljs-string">第一次卷积：使用6个大小为5 x 5的卷积核，故卷积核的规模为(5 x 5) x 6；卷积操作的stride参数默认值为1 x 1，32 - 5 + 1 = 28，并且使用ReLU对第一次卷积后的结果进行非线性处理，输出大小为28 x 28 x 6；</span><br><span class="hljs-string">第一次卷积后池化：kernel_size为2 x 2，输出大小变为14 x 14 x 6；</span><br><span class="hljs-string">第二次卷积：使用16个卷积核，故卷积核的规模为(5 x 5 x 6) x 16；使用ReLU对第二次卷积后的结果进行非线性处理，14 - 5 + 1 = 10，故输出大小为10 x 10 x 16；</span><br><span class="hljs-string">第二次卷积后池化：kernel_size同样为2 x 2，输出大小变为5 x 5 x 16；</span><br><span class="hljs-string">第一次全连接：将上一步得到的结果铺平成一维向量形式，5 x 5 x 16 = 400，即输入大小为400 x 1，W大小为120 x 400，输出大小为120 x 1；</span><br><span class="hljs-string">第二次全连接，W大小为84 x 120，输入大小为120 x 1，输出大小为84 x 1；</span><br><span class="hljs-string">第三次全连接：W大小为10 x 84，输入大小为84 x 1，输出大小为10 x 1，即分别预测为10类的概率值。</span><br><span class="hljs-string"></span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br><br><br><span class="hljs-comment"># 从下面示例理解参数</span><br><br><br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> torch<br><br>s = torch.tensor(np.arange(<span class="hljs-number">128</span>).reshape(<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">16</span>)).<span class="hljs-built_in">float</span>() <span class="hljs-comment"># [batch, seq_len, embedding_dim]</span><br>t = torch.tensor(np.arange(<span class="hljs-number">5376</span>).reshape(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">32</span>, <span class="hljs-number">28</span>)).<span class="hljs-built_in">float</span>() <span class="hljs-comment"># [batch, channel, hight, width]</span><br><br><br><span class="hljs-comment"># input [batch, embedding_dim(in_channels), seq_len]</span><br>cov1 = torch.nn.Conv1d(in_channels=<span class="hljs-number">16</span>, out_channels=<span class="hljs-number">5</span>, kernel_size=<span class="hljs-number">2</span>, stride=<span class="hljs-number">1</span>)<br><span class="hljs-comment"># output [batch, out_channels, after_conv]</span><br><span class="hljs-comment"># after_conv = [ seq_len + 2*pad - dilation*(kernel_size-1) - 1 ] / stride + 1</span><br><br><br>cov2 = torch.nn.Conv2d(in_channels=<span class="hljs-number">3</span>, out_channels=<span class="hljs-number">6</span>, kernel_size=<span class="hljs-number">3</span>)<br><br><br><span class="hljs-comment"># s: [2, 4, 16]</span><br>s = cov1(s.transpose(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>))  <span class="hljs-comment"># 当成图像，第二维是channels</span><br><span class="hljs-comment"># s: [2, 5, 3]</span><br><br><span class="hljs-comment"># t: [2, 3, 32, 28]</span><br>t = cov2(t)<br><span class="hljs-comment"># t: [2, 6, 30, 26]</span><br><br><br></code></pre></td></tr></table></figure>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/PyTorch/">PyTorch</a>
+                    
+                      <a class="hover-with-bg" href="/categories/PyTorch/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+                    
+                      <a class="hover-with-bg" href="/categories/PyTorch/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/">建筑结构损伤图像识别</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/PyTorch/">PyTorch</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/">建筑结构损伤图像识别</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-info">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/07/16/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB-7/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">建筑结构损伤图像识别-7</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/15/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB-5/">
+                        <span class="hidden-mobile">建筑结构损伤图像识别-5</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

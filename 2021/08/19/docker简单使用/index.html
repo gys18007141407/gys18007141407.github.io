@@ -1,0 +1,508 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  
+  <title>docker简单使用 - gys的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gys18007141407.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>gys的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/miku1.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="docker简单使用">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-19 08:52" pubdate>
+        2021年8月19日 早上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      964 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      11
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">docker简单使用</h1>
+	    <time updated datetime="2021-10-29 13:20"></time>
+            
+            <div class="markdown-body">
+              <h2 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h2><p>docker是运行在linux环境下的一个应用容器引擎，对于运行在容器中的应用来说，容器就是他们在运行时的虚拟机。</p>
+<p>image是容器镜像，简单来说就是对应虚拟机的snapshot快照功能。docker能够让开发者们打包应用到这个可移植的image中，然后通过该image即可恢复容器。image是分层的，这里暂不多说，主要是为了复用性，比如说image操作系统层是一致的，那么下载两个不同版本的nginx镜像时，最下层操作系统层是共享的，不用下载两遍。</p>
+<p>容器本身就是一个小型虚拟机，容器之间完全使用沙箱机制，相互之间没有任何接口。一般来说，一个容器中只运行一个应用，如nginx。</p>
+<p>比起虚拟机来，docker容器本身没有内核，而是共享宿主机的内核资源，故而轻量许多。</p>
+<h3 id="docker安装"><a href="#docker安装" class="headerlink" title="docker安装"></a>docker安装</h3><p>参考<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/ubuntu/">docker官网安装步骤</a>即可。下载社区ce版(community edition), 包含下载<code>docker-ce, docker-cli-ce,container-io</code></p>
+<h5 id="自动安装"><a href="#自动安装" class="headerlink" title="自动安装"></a>自动安装</h5><p><code>curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun</code></p>
+<h5 id="手动安装"><a href="#手动安装" class="headerlink" title="手动安装"></a>手动安装</h5><p>安装 apt 依赖包，用于通过HTTPS来获取仓库</p>
+<p><code>sudo apt install apt-transport-https ca-certificates curl gnupg-agent software-properties-common</code></p>
+<p>添加 Docker 的官方 GPG 密钥</p>
+<p><code>curl -fsSL https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu/gpg | sudo apt-key add -</code></p>
+<p>添加docker源</p>
+<p><code>sudo add-apt-repository &quot;deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable&quot;</code></p>
+<p>安装</p>
+<p><code>sudo apt update</code></p>
+<p><code>sudo apt install docker-ce docker-ce-cli containerd.io</code></p>
+<h3 id="docker守护进程dockerd"><a href="#docker守护进程dockerd" class="headerlink" title="docker守护进程dockerd"></a>docker守护进程dockerd</h3><p>terminal实际上是在和dockerd通信，dockerd负责管理所有的有关docker事务。</p>
+<p><img src="/2021/08/19/docker%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210828095411713.png" srcset="/img/loading.gif" lazyload alt="image-20210828095411713"></p>
+<h3 id="下载容器-镜像"><a href="#下载容器-镜像" class="headerlink" title="下载容器(镜像)"></a>下载容器(镜像)</h3><p>docker pull  [option] image:version</p>
+<p><img src="/2021/08/19/docker%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210828093304619.png" srcset="/img/loading.gif" lazyload alt="image-20210828093304619"></p>
+<p><img src="/2021/08/19/docker%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210828093343291.png" srcset="/img/loading.gif" lazyload alt="image-20210828093343291"></p>
+<h3 id="查看镜像"><a href="#查看镜像" class="headerlink" title="查看镜像"></a>查看镜像</h3><p>docker images [option]</p>
+<p><img src="/2021/08/19/docker%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210828094615156.png" srcset="/img/loading.gif" lazyload alt="image-20210828094615156"></p>
+<h3 id="创建容器并且运行对应镜像"><a href="#创建容器并且运行对应镜像" class="headerlink" title="创建容器并且运行对应镜像"></a>创建容器并且运行对应镜像</h3><p>docker run [option] image_name [cmd] [args]</p>
+<p><img src="/2021/08/19/docker%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210828095938715.png" srcset="/img/loading.gif" lazyload alt="image-20210828095938715"></p>
+<p><code>-d指定容器运行方式为后台运行，并且返回容器id </code></p>
+<h3 id="显示正在运行的docker容器"><a href="#显示正在运行的docker容器" class="headerlink" title="显示正在运行的docker容器"></a>显示正在运行的docker容器</h3><p>docker ps [option]</p>
+<p><img src="/2021/08/19/docker%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210828100122532.png" srcset="/img/loading.gif" lazyload alt="image-20210828100122532"></p>
+<p><img src="/2021/08/19/docker%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210828100235182.png" srcset="/img/loading.gif" lazyload alt="image-20210828100235182"></p>
+<p>可以看到，terminal也能查到nginx运行的进程。因为docker本身就是一个虚拟化技术，docker本身没有内核，而是共享宿主机的内核资源。因此对于宿主机来说，运行在docker容器中的nginx就是一个非常普通的进程而已，只是所占的资源[cpu,内存，…]被隔离了，但还是依赖宿主机来对该进程进行调度[进程管理]。</p>
+<h3 id="虚拟化"><a href="#虚拟化" class="headerlink" title="虚拟化"></a>虚拟化</h3><p>容器中的nginx是运行在虚拟化的环境中，nginx的80端口与宿主机的80端口不是一样的。</p>
+<p><img src="/2021/08/19/docker%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210828100943745.png" srcset="/img/loading.gif" lazyload alt="image-20210828100943745"></p>
+<p>再看一下ifconfig。</p>
+<p><img src="/2021/08/19/docker%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210828101304125.png" srcset="/img/loading.gif" lazyload alt="image-20210828101304125"></p>
+<p><strong>docker0相当于是所有容器的网桥，docker已经帮助我们做了转发[route、iptables]，也就是说宿主机可以ping到docker中的容器。每在docker中创建一个网段时，都会创建一个新的虚拟网桥(网桥一般命名以br开头，docker0是安装docker后自动创建的第一个网桥)。一个veth pair就相当于网桥的一个lan口， 每运行一个container就生成一个veth pair。</strong></p>
+<p><img src="/2021/08/19/docker%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20211029131503419.png" srcset="/img/loading.gif" lazyload alt="image-20211029131503419"></p>
+<p><img src="/2021/08/19/docker%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210828102226827.png" srcset="/img/loading.gif" lazyload alt="image-20210828102226827"></p>
+<h3 id="查看容器具体信息"><a href="#查看容器具体信息" class="headerlink" title="查看容器具体信息"></a>查看容器具体信息</h3><p>docker inspect container_id</p>
+<p>输出json格式文件，截取Networks部分查看信息</p>
+<p><img src="/2021/08/19/docker%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210828101826175.png" srcset="/img/loading.gif" lazyload alt="image-20210828101826175"></p>
+<h3 id="宿主机连接容器中nginx"><a href="#宿主机连接容器中nginx" class="headerlink" title="宿主机连接容器中nginx"></a>宿主机连接容器中nginx</h3><p>有了上述信息，我们可以连接到运行在容器中的nginx。</p>
+<p><img src="/2021/08/19/docker%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210828102431453.png" srcset="/img/loading.gif" lazyload alt="image-20210828102431453"></p>
+<h3 id="关闭容器"><a href="#关闭容器" class="headerlink" title="关闭容器"></a>关闭容器</h3><p>docker kill container_id 与 docker stop container_id</p>
+<p>kill是不管容器同不同意,直接执行kill -9,强行终止;</p>
+<p>stop的话,首先给容器发送一个TERM信号,让容器做一些退出前必须的保护性、安全性操作,然后让容器自动停止运行,如果在一段时间内,容器还是没有停止,再进行kill -9,强行终止。</p>
+<p><img src="/2021/08/19/docker%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210828102843064.png" srcset="/img/loading.gif" lazyload alt="image-20210828102843064"></p>
+<h3 id="删除容器"><a href="#删除容器" class="headerlink" title="删除容器"></a>删除容器</h3><p>docker rm container_id</p>
+<p><img src="/2021/08/19/docker%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210828103046778.png" srcset="/img/loading.gif" lazyload alt="image-20210828103046778"></p>
+<h3 id="删除镜像"><a href="#删除镜像" class="headerlink" title="删除镜像"></a>删除镜像</h3><p>docker rmi image_name</p>
+<h3 id="在容器中执行命令"><a href="#在容器中执行命令" class="headerlink" title="在容器中执行命令"></a>在容器中执行命令</h3><p>docker exec [option] container_id cmd [arg]</p>
+<p><img src="/2021/08/19/docker%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210828105115438.png" srcset="/img/loading.gif" lazyload alt="image-20210828105115438"></p>
+<p>使用 -it表示进入交互模式[interact terminal]</p>
+<p><img src="/2021/08/19/docker%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210828105456444.png" srcset="/img/loading.gif" lazyload alt="image-20210828105456444"></p>
+<p>bash指定在容器内执行bash指令</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/docker/">docker</a>
+                    
+                      <a class="hover-with-bg" href="/categories/docker/linux/">linux</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/docker/">docker</a>
+                    
+                      <a class="hover-with-bg" href="/tags/linux/">linux</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-info">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/08/23/istio%E5%92%8Ck8s/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">istio和k8s</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/19/go-micro%E6%A1%86%E6%9E%B6V3.0.0/">
+                        <span class="hidden-mobile">go-micro框架v3</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

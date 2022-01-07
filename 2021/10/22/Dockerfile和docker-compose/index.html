@@ -1,0 +1,499 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  
+  <title>Dockerfile和docker-compose - gys的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gys18007141407.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>gys的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/miku6.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Dockerfile和docker-compose">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-10-22 20:07" pubdate>
+        2021年10月22日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      31
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Dockerfile和docker-compose</h1>
+	    <time updated datetime="2021-11-20 15:33"></time>
+            
+            <div class="markdown-body">
+              <h3 id="预备"><a href="#预备" class="headerlink" title="预备"></a>预备</h3><p>1、什么时候使用Dockerfile</p>
+<p>通常我们直接使用命令<code>docker pull [image_name]</code>来拉取一个镜像到本地。但是有些时候，我们所需要的应用程序没有对应的镜像可供下载，于是乎，聪明的人们使用Dockerfile将该应用程序描述清楚，然后将Dockerfile和其描述信息中提到的(依赖的)数据一并打包发送给别人，别人收到这个打包数据后，使用命令<code>docker build -f [Dockerfile_path] -t [image_name:tag] .</code>(不要忽略最后的点，那个点是指Dockerfile中本机文件的当前路径)就可以创建出镜像。也就是说使用 <strong>Dockerfile 创建一个镜像</strong>，Dockerfile文件中描述了该镜像安装运行所需的环境、程序代码等相关依赖数据。</p>
+<p>2、什么时候使用docker-compose</p>
+<p>有了镜像之后，我们只需要使用命令<code>docker run [image_name]</code>即可在一个容器中运行该镜像，当然<code>docker run</code>命令可以使用参数来指定容器名称、容器环境变量、容器文件映射、容器端口映射等等。但是有些时候，我们的一个项目要同时运行很多个容器，如果还是逐个镜像执行<code>docker run</code>命令无疑是十分繁琐的，而且难以维护每次执行时的命令行参数。聪明的人们又很快想到使用<strong>docker-compose来编排这些容器</strong>(每个镜像运行在一个容器中)，只需要编写好docker-compose.yaml文件，docker就能按照在docker-compose.yaml文件中配置的那样帮助我们运行调控多个容器。</p>
+<p><strong>docker-compose只能管理【当前主机】上的容器，如果要管理【其他主机】上的容器则需要使用docker-swarm或者kubernetes。</strong></p>
+<h3 id="Dockerfile编写"><a href="#Dockerfile编写" class="headerlink" title="Dockerfile编写"></a>Dockerfile编写</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-comment">####### 打包阶段</span><br><br><span class="hljs-comment"># 基础镜像</span><br>FROM golang:<span class="hljs-number">1.16</span> as build<br><br><span class="hljs-comment"># 环境变量</span><br>ENV GO111MODULE=on 			\<br>    GOPROXY=https:<span class="hljs-regexp">//g</span>oproxy.cn,direct 	\<br>    CGO_ENABLED=<span class="hljs-number">0</span> 			\<br>    GOOS=linux 				\<br>    GOARCH=amd64 <br><br><span class="hljs-comment"># 工作目录(如果不存在则同时创建该目录)</span><br>WORKDIR <span class="hljs-regexp">/app/</span>cache<br><br><span class="hljs-comment"># 依赖文件复制</span><br>COPY ./go.mod .<br>COPY ./go.sum .<br><br><span class="hljs-comment"># 下载编译时该应用程序所需要的包</span><br>RUN go mod download<br><br><span class="hljs-comment"># 工作目录</span><br>WORKDIR <span class="hljs-regexp">/app/</span>cron_master<br><br><span class="hljs-comment"># 依赖文件复制(从本地复制文件)</span><br>COPY . .<br><br><span class="hljs-comment"># 编译go程序[当前在工作目录下]</span><br><span class="hljs-comment"># RUN一次就会多生成一层，故因尽量使用 &amp;&amp; 合并RUN语句</span><br>RUN go build -o master .<span class="hljs-regexp">/src/m</span>ain.go<br><br><span class="hljs-comment">####### 运行阶段</span><br><br><span class="hljs-comment"># 基础镜像</span><br>FROM alpine as product<br><br><span class="hljs-comment"># 从指定阶段复制文件(从build阶段复制可执行文件过来)</span><br>COPY --from=build <span class="hljs-regexp">/app/</span>cron_master/master .<br>COPY --from=build <span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/zoneinfo/</span>Asia<span class="hljs-regexp">/Shanghai /</span>etc/localtime<br>COPY --from=build <span class="hljs-regexp">/app/</span>cron_master<span class="hljs-regexp">/src/</span>config<span class="hljs-regexp">/config.ini /</span>etc<span class="hljs-regexp">/cron_master/</span>config.ini<br><br><span class="hljs-comment"># ARG设置参数(ARG仅在构建Docker映像期间可用，而在创建映像并从其启动容器)</span><br><span class="hljs-comment"># ARG CONFIGPATH=/etc/cron_master/config.ini</span><br><br>ENV CONFIGPATH=<span class="hljs-regexp">/etc/</span>cron_master/config.ini<br><br><span class="hljs-comment"># 启动命令(该命令ARG参数不可用)</span><br>CMD [<span class="hljs-string">&quot;sh&quot;</span>, <span class="hljs-string">&quot;-c&quot;</span>, <span class="hljs-string">&quot;./master --config $CONFIGPATH&quot;</span>]<br></code></pre></td></tr></table></figure>
+
+<p>创建镜像<code>docker build -f Dockerfile.master -t cron_master:v1.0.0 ./cron_master/</code></p>
+<p><img src="/2021/10/22/Dockerfile%E5%92%8Cdocker-compose/image-20211023171709503.png" srcset="/img/loading.gif" lazyload alt="image-20211023171709503"></p>
+<p><img src="/2021/10/22/Dockerfile%E5%92%8Cdocker-compose/image-20211023171801921.png" srcset="/img/loading.gif" lazyload alt="image-20211023171801921"></p>
+<p>可以看到最终的cron_master:v1.0.0镜像只有<strong>32.8MB</strong>。</p>
+<p><img src="/2021/10/22/Dockerfile%E5%92%8Cdocker-compose/image-20211023172025018.png" srcset="/img/loading.gif" lazyload alt="image-20211023172025018"></p>
+<p>重新编写配置文件<code>master.config</code>，并在镜像运行时映射到对应的配置文件</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-comment"># web相关配置</span><br><span class="hljs-section">[web]</span><br><span class="hljs-attr">ip</span>=<span class="hljs-number">0.0</span>.<span class="hljs-number">0.0</span><br><span class="hljs-attr">port</span>=<span class="hljs-number">9090</span><br><br><span class="hljs-comment"># logger相关配置</span><br><span class="hljs-section">[logger]</span><br><span class="hljs-attr">LogFilePath</span>=/tmp/cron_master/<br><span class="hljs-attr">LogFileName</span>=log<br><span class="hljs-comment"># trace debug info warn fatal panic</span><br><span class="hljs-attr">LogLevel</span>=info<br><br><span class="hljs-comment"># etcd相关配置</span><br><span class="hljs-section">[etcd]</span><br><span class="hljs-comment"># 集群节点(如有多个节点则以逗号分隔开)</span><br><span class="hljs-attr">Endpoints</span>=<span class="hljs-number">192.168</span>.<span class="hljs-number">162.128</span>:<span class="hljs-number">2379</span><br><span class="hljs-comment"># 连接超时时间</span><br><span class="hljs-attr">DialTimeout</span>=<span class="hljs-number">5000</span><br><br><span class="hljs-comment"># task相关配置</span><br><span class="hljs-section">[task]</span><br><span class="hljs-comment"># 任务目录</span><br><span class="hljs-attr">BaseDir</span>=/cron/tasks/<br><span class="hljs-comment"># 强杀目录</span><br><span class="hljs-attr">KillerDir</span>=/cron/killer/<br><span class="hljs-comment"># 警报目录</span><br><span class="hljs-attr">WarnDir</span>=/cron/warn/<br><br><span class="hljs-comment"># worker相关配置(服务注册、服务发现)</span><br><span class="hljs-section">[worker]</span><br><span class="hljs-attr">WorkersDir</span>=/cron/workers/<br><br><span class="hljs-comment"># master相关配置(选主)</span><br><span class="hljs-section">[master]</span><br><span class="hljs-comment"># master注册目录</span><br><span class="hljs-attr">MastersDir</span>=/corn/masters/<br><span class="hljs-comment"># 主master抢锁的key</span><br><span class="hljs-attr">LeaderKey</span>=/cron/leader<br><br><span class="hljs-comment"># mongodb相关配置</span><br><span class="hljs-section">[database]</span><br><span class="hljs-comment"># 数据库地址</span><br><span class="hljs-attr">DatabaseURI</span>=mongodb://<span class="hljs-number">192.168</span>.<span class="hljs-number">162.128</span>:<span class="hljs-number">27017</span><br><span class="hljs-comment"># 连接超时时间(ms)</span><br><span class="hljs-attr">ConnectTimeOut</span>=<span class="hljs-number">5000</span><br><span class="hljs-comment"># 数据库名称</span><br><span class="hljs-attr">DatabaseName</span>=cron<br><span class="hljs-comment"># 表名</span><br><span class="hljs-attr">Collection</span>=log<br></code></pre></td></tr></table></figure>
+
+<p>运行命令, 指定容器名称为master_1，指定网段为静态网段diy-static-net【consul简单使用那一节有讲过怎么设置】，指定容器ip为该静态网段下的172.20.0.11，指定端口映射为本机9090:容器9090，指定文件映射为本机master.config:容器/etc/cron_master/config.ini，指定运行的镜像和版本(tag)为 cron_master:v1.0.0 </p>
+<p><code>docker run -d --name master_1 --net diy-static-net --ip 172.20.0.11 -p 9090:9090 -v /home/gys/go/src/cron/master.config:/etc/cron_master/config.ini cron_master:v1.0.0</code></p>
+<p>Waawoooooo,成功了！</p>
+<p><img src="/2021/10/22/Dockerfile%E5%92%8Cdocker-compose/image-20211023173015928.png" srcset="/img/loading.gif" lazyload alt="image-20211023173015928"></p>
+<p>类似地，用docker部署cron_worker的部分【注意kafka要启动，这里是直接连接本机的kafka，也可以使用docker镜像的kafka(docker pull bitnami/kafka:3.0.0)】就不赘述了，在本文结尾部分，我们将测试master集群和worker集群能否正常协同配合工作。</p>
+<p><img src="/2021/10/22/Dockerfile%E5%92%8Cdocker-compose/image-20211023173952084.png" srcset="/img/loading.gif" lazyload alt="image-20211023173952084"></p>
+<p><strong>注：</strong>若images创建失败、覆盖镜像、或者创建了一些匿名的中间镜像时会生成&lt;none&gt;:&lt;none&gt;镜像，这时可以使用<code>/home/gys/go/src/cron# docker images | grep none | awk &#39;&#123;print $3&#125;&#39; | xargs -I&#123;&#125; docker rmi &#123;&#125;</code>进行批量删除。</p>
+<p><img src="/2021/10/22/Dockerfile%E5%92%8Cdocker-compose/image-20211023175012412.png" srcset="/img/loading.gif" lazyload alt="image-20211023175012412"></p>
+<p><img src="/2021/10/22/Dockerfile%E5%92%8Cdocker-compose/image-20211023175038571.png" srcset="/img/loading.gif" lazyload alt="image-20211023175038571"></p>
+<h3 id="docker-compose-yaml编写"><a href="#docker-compose-yaml编写" class="headerlink" title="docker-compose.yaml编写"></a>docker-compose.yaml编写</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># 指定版本</span><br><span class="hljs-attr">version:</span> <span class="hljs-string">&#x27;3&#x27;</span><br><br><span class="hljs-comment"># 指定要运行的服务(镜像/Dockerfile)</span><br><span class="hljs-attr">services:</span><br>  <span class="hljs-attr">master1:</span><br>    <span class="hljs-comment"># 服务除了可以基于指定的镜像，还可以基于一份 Dockerfile</span><br>    <span class="hljs-comment"># image 前增加 build</span><br>    <span class="hljs-comment"># build:</span><br>    <span class="hljs-comment">#   context: ./cron_master</span><br>    <span class="hljs-comment">#   dockerfile: Dockerfile.master</span><br>    <span class="hljs-comment">#   args:</span><br>    <span class="hljs-comment">#     args1: 1</span><br>    <span class="hljs-comment">#     params2: 4</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">cron_master:v1.0.0</span><br>    <span class="hljs-comment"># 如果指定容器名称，则replicas不能超过1</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">cron_master_1</span><br>    <span class="hljs-comment"># 启动依赖(启动顺序)</span><br>    <span class="hljs-comment"># depends_on:</span><br>      <span class="hljs-comment"># - etcd</span><br>      <span class="hljs-comment"># - mongodb</span><br>    <span class="hljs-comment"># 端口映射(如果配置此项，一般来说replicas不超过1，否则bind error)</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;7071:9090&#x27;</span><br>    <span class="hljs-comment"># 文件映射(挂载)</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;./master.config:/etc/cron_master/config.ini&#x27;</span><br>    <span class="hljs-comment"># 网络配置</span><br>    <span class="hljs-attr">networks:</span><br>      <span class="hljs-attr">mynet:</span><br>        <span class="hljs-attr">ipv4_address:</span> <span class="hljs-number">172.20</span><span class="hljs-number">.0</span><span class="hljs-number">.11</span><br>    <span class="hljs-comment"># 部署配置</span><br>    <span class="hljs-attr">deploy:</span><br>      <span class="hljs-comment"># 指定同时运行的数量</span><br>      <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">description:</span> <span class="hljs-string">&#x27;This is a cron master id=1&#x27;</span><br>      <span class="hljs-comment"># 资源限制(如果没有使用swarm, 启动时要加上--compatibility参数)</span><br>      <span class="hljs-attr">resources:</span><br>        <span class="hljs-attr">limits:</span><br>          <span class="hljs-comment"># cpu 25%</span><br>          <span class="hljs-attr">cpus:</span> <span class="hljs-string">&#x27;0.25&#x27;</span><br>          <span class="hljs-comment"># 内存 100M</span><br>          <span class="hljs-attr">memory:</span> <span class="hljs-string">100M</span><br>      <span class="hljs-comment"># 重启设置</span><br>      <span class="hljs-attr">restart_policy:</span><br>        <span class="hljs-attr">condition:</span> <span class="hljs-string">on-failure</span><br>        <span class="hljs-comment"># 多久之后重启</span><br>        <span class="hljs-attr">delay:</span> <span class="hljs-string">10s</span><br>        <span class="hljs-attr">max_attempts:</span> <span class="hljs-number">2</span><br>        <span class="hljs-comment"># 重启成功时间(启动时间超过window则认为启动成功)</span><br>        <span class="hljs-attr">window:</span> <span class="hljs-string">30s</span><br><br>  <span class="hljs-attr">master2:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">cron_master:v1.0.0</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">cron_master_2</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;7072:9090&#x27;</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;./master.config:/etc/cron_master/config.ini&#x27;</span><br>    <span class="hljs-attr">networks:</span><br>      <span class="hljs-attr">mynet:</span><br>        <span class="hljs-attr">ipv4_address:</span> <span class="hljs-number">172.20</span><span class="hljs-number">.0</span><span class="hljs-number">.12</span><br>    <span class="hljs-attr">deploy:</span><br>      <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">description:</span> <span class="hljs-string">&#x27;This is a cron master id=2&#x27;</span><br>      <span class="hljs-attr">resources:</span><br>        <span class="hljs-attr">limits:</span><br>          <span class="hljs-attr">cpus:</span> <span class="hljs-string">&#x27;0.25&#x27;</span><br>          <span class="hljs-attr">memory:</span> <span class="hljs-string">100M</span><br>      <span class="hljs-attr">restart_policy:</span><br>        <span class="hljs-attr">condition:</span> <span class="hljs-string">on-failure</span><br>        <span class="hljs-attr">delay:</span> <span class="hljs-string">10s</span><br>        <span class="hljs-attr">max_attempts:</span> <span class="hljs-number">2</span><br>        <span class="hljs-attr">window:</span> <span class="hljs-string">30s</span><br><br>  <span class="hljs-attr">master3:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">cron_master:v1.0.0</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">cron_master_3</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;7073:9090&#x27;</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;./master.config:/etc/cron_master/config.ini&#x27;</span><br>    <span class="hljs-attr">networks:</span><br>      <span class="hljs-attr">another:</span><br>        <span class="hljs-attr">ipv4_address:</span> <span class="hljs-number">172.20</span><span class="hljs-number">.1</span><span class="hljs-number">.13</span><br>    <span class="hljs-attr">deploy:</span><br>      <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">description:</span> <span class="hljs-string">&#x27;This is a cron master id=3&#x27;</span><br>      <span class="hljs-attr">resources:</span><br>        <span class="hljs-attr">limits:</span><br>          <span class="hljs-attr">cpus:</span> <span class="hljs-string">&#x27;0.25&#x27;</span><br>          <span class="hljs-attr">memory:</span> <span class="hljs-string">100M</span><br>      <span class="hljs-attr">restart_policy:</span><br>        <span class="hljs-attr">condition:</span> <span class="hljs-string">on-failure</span><br>        <span class="hljs-attr">delay:</span> <span class="hljs-string">10s</span><br>        <span class="hljs-attr">max_attempts:</span> <span class="hljs-number">2</span><br>        <span class="hljs-attr">window:</span> <span class="hljs-string">30s</span><br><br>  <span class="hljs-attr">worker1:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">cron_worker:v1.0.0</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">cron_worker_1</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;./worker.config:/etc/cron_worker/config.ini&#x27;</span><br>    <span class="hljs-attr">networks:</span><br>      <span class="hljs-attr">mynet:</span><br>        <span class="hljs-attr">ipv4_address:</span> <span class="hljs-number">172.20</span><span class="hljs-number">.0</span><span class="hljs-number">.101</span><br>    <span class="hljs-attr">deploy:</span><br>      <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">description:</span> <span class="hljs-string">&#x27;This is a cron worker&#x27;</span><br><br>  <span class="hljs-attr">worker2:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">cron_worker:v1.0.0</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">cron_worker_2</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;./worker.config:/etc/cron_worker/config.ini&#x27;</span><br>    <span class="hljs-attr">networks:</span><br>      <span class="hljs-attr">mynet:</span><br>        <span class="hljs-attr">ipv4_address:</span> <span class="hljs-number">172.20</span><span class="hljs-number">.0</span><span class="hljs-number">.102</span><br>    <span class="hljs-attr">deploy:</span><br>      <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">description:</span> <span class="hljs-string">&#x27;This is a cron worker&#x27;</span><br><br>  <span class="hljs-attr">worker3:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">cron_worker:v1.0.0</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">cron_worker_3</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;./worker.config:/etc/cron_worker/config.ini&#x27;</span><br>    <span class="hljs-attr">networks:</span><br>      <span class="hljs-attr">another:</span><br>        <span class="hljs-attr">ipv4_address:</span> <span class="hljs-number">172.20</span><span class="hljs-number">.1</span><span class="hljs-number">.103</span><br>    <span class="hljs-attr">deploy:</span><br>      <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">description:</span> <span class="hljs-string">&#x27;This is a cron worker&#x27;</span><br><br>  <span class="hljs-attr">worker4:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">cron_worker:v1.0.0</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">cron_worker_4</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;./worker.config:/etc/cron_worker/config.ini&#x27;</span><br>    <span class="hljs-attr">networks:</span><br>      <span class="hljs-attr">another:</span><br>        <span class="hljs-attr">ipv4_address:</span> <span class="hljs-number">172.20</span><span class="hljs-number">.1</span><span class="hljs-number">.104</span><br>    <span class="hljs-attr">deploy:</span><br>      <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">description:</span> <span class="hljs-string">&#x27;This is a cron worker&#x27;</span><br><br>  <span class="hljs-attr">worker5:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">cron_worker:v1.0.0</span><br>    <span class="hljs-attr">container_name:</span> <span class="hljs-string">cron_worker_5</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;./worker.config:/etc/cron_worker/config.ini&#x27;</span><br>    <span class="hljs-attr">networks:</span><br>      <span class="hljs-attr">another:</span><br>        <span class="hljs-attr">ipv4_address:</span> <span class="hljs-number">172.20</span><span class="hljs-number">.1</span><span class="hljs-number">.105</span><br>    <span class="hljs-attr">deploy:</span><br>      <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">description:</span> <span class="hljs-string">&#x27;This is a cron worker&#x27;</span><br><br><br><span class="hljs-comment">#volumes:</span><br><span class="hljs-comment">#  local:</span><br><br><br><span class="hljs-comment"># 如果不指定网络，默认情况下docker-compose会建立一个默认的网络【名称为docker-compose.yml所在目录名称小写形式加上“_default”】</span><br><span class="hljs-comment"># 这个默认网络会对所有services下面的服务生效，所以services下面的各个服务之间才能够通过service名称互相访问。</span><br><span class="hljs-comment">#  因为有默认网络的存在，所以我们什么都不配置，在services下面的服务的容器里面都可以通过service名称访问其端口，前提是service需要通过ports发布它的端口出来。</span><br><span class="hljs-comment"># 如果要自定义默认网络可以针对“default”网络进行设置，这样就会影响默认网络了。</span><br><br><span class="hljs-comment"># 需要注意的是，指定特殊网络后则默认网络失效，前面services中如果要使用默认网络则必须显示指定网络为default</span><br><span class="hljs-attr">networks:</span><br>  <span class="hljs-comment"># 使用已经存在的网络 diy-static-net</span><br>  <span class="hljs-attr">mynet:</span><br>    <span class="hljs-attr">external:</span><br>      <span class="hljs-attr">name:</span> <span class="hljs-string">diy-static-net</span><br><br>  <span class="hljs-comment"># 创建一个新网络, docker-compose up 后,docker network ls可以看到多了一个新网络 cron_another【当前在cron目录下,故命名为了cron_another】</span><br>  <span class="hljs-attr">another:</span><br>    <span class="hljs-attr">ipam:</span><br>      <span class="hljs-attr">driver:</span> <span class="hljs-string">default</span><br>      <span class="hljs-attr">config:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">subnet:</span> <span class="hljs-number">172.20</span><span class="hljs-number">.1</span><span class="hljs-number">.0</span><span class="hljs-string">/24</span><br></code></pre></td></tr></table></figure>
+
+<h5 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h5><p>使用<code>docker-compose --compatibility -f docker-compose.yaml up</code>即可拉起全部镜像。</p>
+<p>Waawoooooo,成功了！</p>
+<p><img src="/2021/10/22/Dockerfile%E5%92%8Cdocker-compose/image-20211023175446542.png" srcset="/img/loading.gif" lazyload alt="image-20211023175446542"></p>
+<p><img src="/2021/10/22/Dockerfile%E5%92%8Cdocker-compose/image-20211023175745348.png" srcset="/img/loading.gif" lazyload alt="image-20211023175745348"></p>
+<h5 id="查看日志"><a href="#查看日志" class="headerlink" title="查看日志"></a>查看日志</h5><p>接下来看看各个容器的日志，看是否正常工作！</p>
+<p><strong>3个master</strong></p>
+<p>1、只有leader才会给管理人员发送报警信息。</p>
+<p>2、报警信息的时间正好是对应定时任务的执行周期，既没有重复报警也没用丢失报警信息。</p>
+<p>master正常工作</p>
+<p><img src="/2021/10/22/Dockerfile%E5%92%8Cdocker-compose/image-20211023180054778.png" srcset="/img/loading.gif" lazyload alt="image-20211023180054778"></p>
+<p><strong>5个worker</strong></p>
+<p>1、每个定时任务在对应执行时刻只有一个worker执行了，其他worker均处于加锁失败状态。</p>
+<p>2、推送报警信息时，由master日志可以看出来，只对一个报警信息推送一次，所有worker不重复消费消息队列中的报警消息。</p>
+<p>worker正常工作</p>
+<p><img src="/2021/10/22/Dockerfile%E5%92%8Cdocker-compose/image-20211023180326510.png" srcset="/img/loading.gif" lazyload alt="image-20211023180326510"></p>
+<p><img src="/2021/10/22/Dockerfile%E5%92%8Cdocker-compose/image-20211023180420105.png" srcset="/img/loading.gif" lazyload alt="image-20211023180420105"></p>
+<p><img src="/2021/10/22/Dockerfile%E5%92%8Cdocker-compose/image-20211023180510148.png" srcset="/img/loading.gif" lazyload alt="image-20211023180510148"></p>
+<p><img src="/2021/10/22/Dockerfile%E5%92%8Cdocker-compose/image-20211023180548757.png" srcset="/img/loading.gif" lazyload alt="image-20211023180548757"></p>
+<p><img src="/2021/10/22/Dockerfile%E5%92%8Cdocker-compose/image-20211023180621574.png" srcset="/img/loading.gif" lazyload alt="image-20211023180621574"></p>
+<h5 id="关闭"><a href="#关闭" class="headerlink" title="关闭"></a>关闭</h5><p>使用<code>docker-compose down</code></p>
+<p><img src="/2021/10/22/Dockerfile%E5%92%8Cdocker-compose/image-20211023180754616.png" srcset="/img/loading.gif" lazyload alt="image-20211023180754616"></p>
+<p><img src="/2021/10/22/Dockerfile%E5%92%8Cdocker-compose/image-20211023180845050.png" srcset="/img/loading.gif" lazyload alt="image-20211023180845050"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/docker/">docker</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/docker/">docker</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-info">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/10/24/%E8%B4%B9%E9%A9%AC%E5%B0%8F%E5%AE%9A%E7%90%86%E6%B1%82%E9%80%86%E5%85%83(%E7%BB%84%E5%90%88%E6%95%B0)/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">费马小定理求逆元(组合数)</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/10/20/Kafka/">
+                        <span class="hidden-mobile">Kafka</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

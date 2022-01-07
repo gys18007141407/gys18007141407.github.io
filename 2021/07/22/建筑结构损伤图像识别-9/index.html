@@ -1,0 +1,479 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  
+  <title>建筑结构损伤图像识别-9 - gys的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gys18007141407.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>gys的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/miku7.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="建筑结构损伤图像识别-9">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-22 11:31" pubdate>
+        2021年7月22日 中午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      27
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">建筑结构损伤图像识别-9</h1>
+	    <time updated datetime="2021-07-23 17:02"></time>
+            
+            <div class="markdown-body">
+              <h2 id="图像分割-转载"><a href="#图像分割-转载" class="headerlink" title="图像分割(转载)"></a>图像分割(转载)</h2><h3 id="什么是图像分割"><a href="#什么是图像分割" class="headerlink" title="什么是图像分割"></a>什么是图像分割</h3><p>图像分割是计算计视觉研究中的经典难题，已成为图像理解领域关注的一个热点，</p>
+<p>图像分割作为图像技术领域的一个经典难题，自上世纪七十年代以来吸引了众多研究人员的研究热情并为之付出了巨大努力，提出了很多图像分割算法。这些分割算法分割性能的优劣，是用相关图像分割质量测度来进行评价的。但由于对算法分割是否成功的客观判定标准至今未得到解决，因此图像分割算法分割质量得评价成为一项颇具研究意义的课题。有关图像分割评价的方法已有少数的初步探讨，但目前仍未有很好的归纳和整理。这不仅和图像分割技术的研究应用现状不相称，也不利于图像分割技术的发展。</p>
+<p>图像分割是图像分析的第一步，是计算机视觉的基础，是图像理解的重要组成部分，同时也是图像处理中最困难的问题之一。所谓图像分割是指根据灰度、彩色、空间纹理、几何形状等特征把图像划分成若干个互不相交的区域，使得这些特征在同一区域内表现出一致性或相似性，而在不同区域间表现出明显的不同。简单的说就是在一副图像中，把目标从背景中分离出来。对于灰度图像来说，区域内部的像素一般具有灰度相似性，而在区域的边界上一般具有灰度不连续性。 关于图像分割技术，由于问题本身的重要性和困难性，从20世纪70年代起图像分割问题就吸引了很多研究人员为之付出了巨大的努力。虽然到目前为止，还不存在一个通用的完美的图像分割的方法，但是对于图像分割的一般性规律则基本上已经达成的共识，已经产生了相当多的研究成果和方法。</p>
+<p>图像分割是指将图像中感兴趣区域（ROI）的边界找到，使得边界内部和外部的像素分别具备相似的特征（强度、纹理等）。医学图像分割是对医学图像进行其他后续处理的基础。对图像中目标区域的准确分割对于计算机辅助诊断、制订手术计划、目标3维重建以及放射性治疗评价等都具有重要意义。近几十年来，随着医学成像设备的不断完善，医学图像的分割算法也层出不穷，但是很少能够在临床上得到广泛应用。用一个全面的医学图像数据集合来客观评价医学图像分割算法是将该算法向临床应用推进的关键一步</p>
+<hr>
+<h3 id="常用的图像分割方法"><a href="#常用的图像分割方法" class="headerlink" title="常用的图像分割方法"></a>常用的图像分割方法</h3><h4 id="基于边缘检测"><a href="#基于边缘检测" class="headerlink" title="基于边缘检测"></a>基于边缘检测</h4><p>基于边缘检测的分割方法试图通过检测包含不同区域的边缘来解决分割问题，它可以说是人们研究的最多的方法之一。通常不同的区域之间的边缘上像素灰度值的变化往往比较剧烈，这是边缘检测方法得以实现的主要假设之一。边缘检测方法一般利用图像一阶导数的极大值或二阶导数的过零点信息来提供判断边缘点的基本依据。</p>
+<p>边缘检测技术通常可以按照处理的技术分为串行边缘检测和并行边缘检测。串行边缘检测是要想确定当前像素点是否属于检测边缘上的一点，取决于先前像素的验证结果。并行边缘检测是一个像素点是否属于检测边缘上的一点取决于当前正在检测的像素点以及与该像素点的一些相邻像素点。</p>
+<p>最简单的边缘检测方法是并行微分算子法，它利用相邻区域的像素值不连续的性质，采用一阶或二阶导数来检测边缘点。近年来还提出了基于曲面拟合的方法、基于边界曲线拟合的方法、基于反应-扩散方程的方法、串行边界查找、基于变形模型的方法。</p>
+<p>常用的一阶导数算子有梯度算子、Prewitt算子和Sobel算子。二阶导数算子有Laplacian算子、Kirsch算子和Wallis算子。</p>
+<p>虽然边缘检测的优点是边缘定位准确、运算速度快，但它有两大难点限制了其在图像分割中的应用，即：<br>a、不能保证边缘的连续性和封闭性；<br>b、在高细节区存在大量的碎边缘，难以形成一个大区域，但是又不宜将高细节区分为小碎片。<br>由于上述两个难点，因此无论采用什么方法，单独的边缘检测只能产生边缘点，而不是完整意义上的图像分割过程。这也就是说，边缘点信息需要后续处理或与其它相关算法相结合，才能完成分割任务。常用的方法是边缘生长技术最大程度的保证边缘的封闭性，或用有向势能函数（DPF）将有缺口的两边缘强制连接，得到封闭边缘图。</p>
+<p>在未来的研究中，用于提取初始边缘点的自适应阀值选取、用于图像的层次分割的更大区域的选取以及如何确认重要边缘以去除假边缘将变得非常重要。</p>
+<hr>
+<h4 id="基于阈值"><a href="#基于阈值" class="headerlink" title="基于阈值"></a>基于阈值</h4><p>阀值分割法是一种传统的图像分割方法，因其实现简单、计算量小、性能较稳定而成为图像分割中最基本和应用最广泛的分割技术。阀值分割法的基本原理是通过设定不同的特征阀值，把图像像素点分为具有不同灰度级的目标区域和背景区域的若干类。它特别适用于目标和背景占据不同灰度级范围的图，目前在图像处理领域被广泛应用，其中阀值的选取是图像阀值分割中的关键技术。</p>
+<p>灰度阀值分割方法是一种最常用的并行区域技术，是图像分割中应用数量最多的一类。图像若只用目标和背景两大类，那么只需要选取一个阀值，此分割方法称为单阀值分割。</p>
+<p>在很多情况下，目标物体和背景的对比度在图像的不同位置并不是一样的，这是如果用一个统一的单阀值将目标与背景分开，效果是不理想的。如果根据图像的局部特征分别用不同的阀值对图像进行分割，即局部阀值分割，则效果要比单阀值分割要好得多。</p>
+<p>阀值分割方法的优点是图像分割的速度快，计算简单，效率较高。但是这种方法只考虑像素点灰度值本身的特征，一般不考虑空间特征，因此对噪声比较敏感。虽然目前出现了各种基于阀值分割的改进算法，图像分割的效果有所改进，但在阀值的设置上还是没有很好的解决方法，若将智能遗传算法应用在阀值筛选上，选取能最优分割图像的阀值，这可能是基于阀值分割的图像分割法的发展趋势。</p>
+<hr>
+<h4 id="基于区域"><a href="#基于区域" class="headerlink" title="基于区域"></a>基于区域</h4><p>基于区域的分割方法是以直接寻找区域为基础的分割技术，具体算法有区域生长和区域分离与合并算法。基于区域提取方法有两种基本形式：一种是区域生长，从单个像素出发，逐步合并以形成所需要的分割区域；另一种是从全局出发，逐步切割至所需的分割区域。</p>
+<p>区域生长是串行区域技术，其分割过程后续步骤的处理要根据前面步骤的结果进行判断而确定。常见的区域生长算法包括：同伦的区域生长方式、对称区域生长方式和模糊连接度方法与区域生长相结合等算法。</p>
+<p>区域生长的基本思想是将具有相似性质的像素集合起来构成区域。具体是先对每个需要分割的区域找一个种子像素点作为生长的起点，然后将种子像素周围领域中与种子像素有相同或相似性质的像素合并到种子像素所在的区域中。将这些新像素当作新的种子像素继续进行上面的过程，直到再没有满足条件的像素可被包括进来。这样一个区域就长成了。</p>
+<p>区域生长的优点是计算简单，对于较均匀的连通目标有较好的分割效果。它的缺点是需要人为的选取种子，对噪声较敏感，可能会导致区域内有空洞。另外它是一种串行算法，当目标较大时分割速度较慢，因此在算法设计时应尽量提高运行效率。</p>
+<p>区域生长是从某个或者某些像素点出发，最后得到整个区域，进而实现目标的提取。而分裂合并可以说是区域生长的逆过程。它是从整个图像出发，不断分裂得到各个子区域，然后再把前景区域合并，得到前景目标，继而实现目标的提取。分裂合并的假设是对于一幅图像，前景区域是由一些相互连通的像素组成的，因此如果把一幅图像分裂到像素级，那么就可以判定该像素是否为前景像素。当所有像素点或者子区域完成判断以后，把前景区域或者像素合并就可以得到前景目标。</p>
+<p>在实际应用中，通常是将区域生长算法和区域分裂合并算法这两种基本形式结合使用。该类算法对某些复杂物体定义的复杂场景的分割或者对某些自然景物的分割等类似先验知识不足的图像分割，效果较为理想。</p>
+<hr>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/">建筑结构损伤图像识别</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/">建筑结构损伤图像识别</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-info">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/07/23/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB-10/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">建筑结构损伤图像识别-10</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/21/%E4%BA%92%E6%96%A5%E9%94%81%E3%80%81%E4%BF%A1%E5%8F%B7%E9%87%8F%E3%80%81%E8%87%AA%E6%97%8B%E9%94%81/">
+                        <span class="hidden-mobile">互斥锁、信号量、自旋锁</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

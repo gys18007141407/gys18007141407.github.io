@@ -1,0 +1,478 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  
+  <title>mongoDB安装 - gys的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gys18007141407.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>gys的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/miku3.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="mongoDB安装">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-09-27 20:38" pubdate>
+        2021年9月27日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      912 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      15
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">mongoDB安装</h1>
+	    <time updated datetime="2021-09-28 18:50"></time>
+            
+            <div class="markdown-body">
+              <p><a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/administration/install-on-linux/">安装步骤链接</a></p>
+<p><code>systemctl start mongod</code>启动mongoDB，默认监听127.0.0.1:27017</p>
+<p>连接数据库</p>
+<p><img src="/2021/09/27/mongoDB%E5%AE%89%E8%A3%85/image-20210927204152882.png" srcset="/img/loading.gif" lazyload alt="image-20210927204152882"></p>
+<p><img src="/2021/09/27/mongoDB%E5%AE%89%E8%A3%85/image-20210927204215785.png" srcset="/img/loading.gif" lazyload alt="image-20210927204215785"></p>
+<p><code>show databases</code>和mysql一样展示所有数据库。</p>
+<p>mongoDB不需要创建database</p>
+<p><code>use db1</code>和mysql一样使用db1数据库。需要注意的是，mongoDB这里的数据库只是一个命名空间而已。</p>
+<p><code>db.createCollection(&quot;table1&quot;)</code>创建表，由于是非关系型数据库，建表时并不需要指定表结构。</p>
+<p><code>show collections</code>展示所有表</p>
+<p><code>db.table1.drop()</code>删除表</p>
+<p><img src="/2021/09/27/mongoDB%E5%AE%89%E8%A3%85/image-20210927215224844.png" srcset="/img/loading.gif" lazyload alt="image-20210927215224844"></p>
+<p><code>db.table1.insert()</code>插入一个(返回<a target="_blank" rel="noopener" href="https://docs.mongodb.org/manual/reference/method/db.collection.insert/#writeresults-insert">WriteResult</a>对象)或者多个(返回<a target="_blank" rel="noopener" href="https://docs.mongodb.org/manual/reference/method/db.collection.insert/#bulkwriteresults-insert">BulkWriteResult</a>对象)</p>
+<p><code>db.table1.insertOne(&#123;&#125;)</code>插入一个</p>
+<p><code>db.insertMany([&#123;&#125;,...,&#123;&#125;])</code>插入多个</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs tex"><span class="hljs-built_in">_</span>id是mongoDB的默认主键。<br>插入多个时使用数组。<br>`insert()`方法在主要驱动程序中已弃用，因此，如果要将单个文档插入集合中，则应使用`.insertOne()`方法;如果要将多个文档插入集合中，则应使用`.insertMany`。<br></code></pre></td></tr></table></figure>
+
+<p><code>db.table1.find()</code>查询表，相当于<code>select * from table1;</code></p>
+<p><code>db.table1.find(&#123;name: &quot;gys&quot;&#125;)</code>查询表，相当于<code>select * from table1 where name = &quot;gys&quot;;</code></p>
+<p><code>db.table1.remove(&#123;name: &quot;gys&quot;&#125;)</code>删除记录，相当于<code>delete from table1 where name = &quot;gys&quot;;</code></p>
+<p><img src="/2021/09/27/mongoDB%E5%AE%89%E8%A3%85/image-20210927215521279.png" srcset="/img/loading.gif" lazyload alt="image-20210927215521279"></p>
+<p><code>db.table1.createIndex(&#123;uid:-1&#125;)</code>创建索引, 1代表正向索引，-1代表反向索引</p>
+<p><img src="/2021/09/27/mongoDB%E5%AE%89%E8%A3%85/image-20210927215734255.png" srcset="/img/loading.gif" lazyload alt="image-20210927215734255"></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;context&quot;</span><br>	<span class="hljs-string">&quot;github.com/sirupsen/logrus&quot;</span><br>	<span class="hljs-string">&quot;go.mongodb.org/mongo-driver/bson&quot;</span><br>	<span class="hljs-string">&quot;go.mongodb.org/mongo-driver/bson/primitive&quot;</span><br>	<span class="hljs-string">&quot;go.mongodb.org/mongo-driver/mongo&quot;</span><br>	<span class="hljs-string">&quot;go.mongodb.org/mongo-driver/mongo/options&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> TimeStamp <span class="hljs-keyword">struct</span> &#123;<br>	StartTime 				<span class="hljs-keyword">int64</span>		<span class="hljs-string">`bson:&quot;start_time&quot;`</span><br>	FinishTime 				<span class="hljs-keyword">int64</span>		<span class="hljs-string">`bson:&quot;finish_time&quot;`</span><br>&#125;<br><br><span class="hljs-keyword">type</span> TaskLog <span class="hljs-keyword">struct</span> &#123;<br>	TaskName 				<span class="hljs-keyword">string</span>		<span class="hljs-string">`bson:&quot;task_name&quot;`</span><br>	TaskCommand 			<span class="hljs-keyword">string</span>		<span class="hljs-string">`bson:&quot;task_command&quot;`</span><br>	TaskErrMsg				<span class="hljs-keyword">string</span>		<span class="hljs-string">`bson:&quot;task_err_msg&quot;`</span><br>	TaskOutput				<span class="hljs-keyword">string</span>		<span class="hljs-string">`bson:&quot;task_output&quot;`</span><br>	TaskTimestamp			TimeStamp	<span class="hljs-string">`bson:&quot;task_timestamp&quot;`</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>	<span class="hljs-keyword">var</span>(<br>		err 						error<br>		mongoClient					*mongo.Client<br>		ctx							context.Context<br>		cancelFunc					context.CancelFunc<br>		db							*mongo.Database<br>		collection					*mongo.Collection<br><br>		insertOneResult				*mongo.InsertOneResult<br>		cursor						*mongo.Cursor<br>		documentID					primitive.ObjectID<br><br>		updateResult				*mongo.UpdateResult<br>		deleteResult				*mongo.DeleteResult<br><br>		taskLog						*TaskLog<br>	)<br><br>	ctx, cancelFunc = context.WithTimeout(context.Background(), <span class="hljs-number">5</span>*time.Second)<br>	<span class="hljs-keyword">defer</span> cancelFunc()<br><br>	<span class="hljs-comment">// 连接数据库</span><br>	<span class="hljs-keyword">if</span> mongoClient, err = mongo.Connect(ctx, options.Client().ApplyURI(<span class="hljs-string">&quot;mongodb://127.0.0.1:27017&quot;</span>)); err != <span class="hljs-literal">nil</span>&#123;<br>		logrus.Infoln(err)<br>		<span class="hljs-keyword">return</span><br>	&#125;<br><br>	<span class="hljs-keyword">if</span> err = mongoClient.Ping(ctx, <span class="hljs-literal">nil</span>); err != <span class="hljs-literal">nil</span>&#123;<br>		logrus.Infoln(err)<br>		<span class="hljs-keyword">return</span><br>	&#125;<span class="hljs-keyword">else</span>&#123;<br>		logrus.Infoln(<span class="hljs-string">&quot;连接成功&quot;</span>)<br>	&#125;<br>	<span class="hljs-keyword">defer</span> mongoClient.Disconnect(ctx)<br><br>	<span class="hljs-comment">// 选择数据库</span><br>	db = mongoClient.Database(<span class="hljs-string">&quot;db1&quot;</span>)<br><br>	<span class="hljs-comment">// 选择表（collection）</span><br>	collection = db.Collection(<span class="hljs-string">&quot;table1&quot;</span>)<br><br>	<span class="hljs-comment">// CRUD</span><br><br>	<span class="hljs-comment">// Create</span><br>	taskLog = &amp;TaskLog&#123;<br>		TaskName:      <span class="hljs-string">&quot;打印hello&quot;</span>,<br>		TaskCommand:   <span class="hljs-string">&quot;echo hello&quot;</span>,<br>		TaskErrMsg:    <span class="hljs-string">&quot;&quot;</span>,<br>		TaskOutput:    <span class="hljs-string">&quot;hello&quot;</span>,<br>		TaskTimestamp: TimeStamp&#123;<br>			StartTime:  time.Now().Unix(),<br>			FinishTime: time.Now().Unix()+<span class="hljs-number">10</span>,<br>		&#125;,<br>	&#125;<br>	<span class="hljs-keyword">if</span> insertOneResult, err = collection.InsertOne(ctx, taskLog); err != <span class="hljs-literal">nil</span>&#123;<br>		logrus.Infoln(err)<br>		<span class="hljs-keyword">return</span><br>	&#125;<span class="hljs-keyword">else</span>&#123;<br>		logrus.Infoln(<span class="hljs-string">&quot;_id =&quot;</span>, insertOneResult.InsertedID)<br><br>		<span class="hljs-comment">// 接口反射，我们知道InsertID是primitive.ObjectID类型[12字节的数组]</span><br>		documentID = insertOneResult.InsertedID.(primitive.ObjectID)<br>		logrus.Infoln(<span class="hljs-string">&quot;documentID =&quot;</span>, documentID)<br>	&#125;<br><br>	<span class="hljs-comment">// Retrieve</span><br>	<span class="hljs-keyword">if</span> cursor, err = collection.Find(ctx, bson.D&#123;&#123;<span class="hljs-string">&quot;task_output&quot;</span>, bson.D&#123;&#123;<span class="hljs-string">&quot;$in&quot;</span>,bson.A&#123;<span class="hljs-string">&quot;hello&quot;</span>&#125;&#125;&#125;&#125;&#125;, &amp;options.FindOptions&#123;Limit: <span class="hljs-literal">nil</span>&#125;); err != <span class="hljs-literal">nil</span>&#123;<br>		logrus.Infoln(err)<br>		<span class="hljs-keyword">return</span><br>	&#125;<br>	<span class="hljs-keyword">defer</span> cursor.Close(ctx)<br><br>	<span class="hljs-comment">// cursor.Next()返回一个记录传给cursor</span><br>	<span class="hljs-keyword">for</span> cursor.Next(ctx) &#123;<br>		<span class="hljs-comment">// 反序列化</span><br>		<span class="hljs-keyword">var</span> cursorItem = &amp;TaskLog&#123;&#125;<br>		<span class="hljs-keyword">if</span> err = cursor.Decode(cursorItem); err != <span class="hljs-literal">nil</span> &#123;<br>			logrus.Infoln(err)<br>			<span class="hljs-keyword">break</span><br>		&#125; <span class="hljs-keyword">else</span> &#123;<br>			logrus.Infoln(*cursorItem)<br>		&#125;<br>	&#125;<br><br>	<span class="hljs-comment">// Update</span><br>	<span class="hljs-keyword">if</span> updateResult, err = collection.UpdateMany(ctx, bson.D&#123;&#123;<span class="hljs-string">&quot;task_output&quot;</span>, <span class="hljs-string">&quot;hello&quot;</span>&#125;&#125;, bson.D&#123;&#123;<span class="hljs-string">&quot;$set&quot;</span>,bson.M&#123;<span class="hljs-string">&quot;task_output&quot;</span>:<span class="hljs-string">&quot;gys&quot;</span>&#125;&#125;&#125;); err != <span class="hljs-literal">nil</span>&#123;<br>		logrus.Infoln(err)<br>		<span class="hljs-keyword">return</span><br>	&#125;<br>	logrus.Infoln(*updateResult)<br><br>	<span class="hljs-keyword">if</span> updateResult, err = collection.UpdateMany(ctx, bson.D&#123;&#123;<span class="hljs-string">&quot;task_output&quot;</span>, <span class="hljs-string">&quot;gys&quot;</span>&#125;&#125;, bson.D&#123;&#123;<span class="hljs-string">&quot;$inc&quot;</span>,bson.M&#123;<span class="hljs-string">&quot;task_timestamp.finish_time&quot;</span>: <span class="hljs-number">-5</span>&#125;&#125;&#125;); err != <span class="hljs-literal">nil</span>&#123;<br>		logrus.Infoln(err)<br>		<span class="hljs-keyword">return</span><br>	&#125;<br>	logrus.Infoln(*updateResult)<br><br>	<span class="hljs-comment">// Delete</span><br>	<span class="hljs-keyword">if</span> deleteResult, err = collection.DeleteMany(ctx, bson.D&#123;&#123;<span class="hljs-string">&quot;task_timestamp.start_time&quot;</span>, bson.M&#123;<span class="hljs-string">&quot;$lt&quot;</span>: time.Now().Unix()&#125;&#125;&#125;); err != <span class="hljs-literal">nil</span>&#123;<br>		logrus.Infoln(err)<br>		<span class="hljs-keyword">return</span><br>	&#125;<br>	logrus.Infoln(*deleteResult)<br><br>	<span class="hljs-keyword">if</span> deleteResult, err = collection.DeleteMany(ctx, bson.D&#123;&#123;<span class="hljs-string">&quot;task_command&quot;</span>, <span class="hljs-string">&quot;echo hell&quot;</span>&#125;&#125;); err != <span class="hljs-literal">nil</span>&#123;<br>		logrus.Infoln(err)<br>		<span class="hljs-keyword">return</span><br>	&#125;<br>	logrus.Infoln(*deleteResult)<br>	<br>	<br><span class="hljs-comment">// 	$修饰器======&gt; $set,$inc,$unset,$push,$pull,$pop,$lt,$gt,$lte,&amp;gte</span><br><br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                    
+                      <a class="hover-with-bg" href="/tags/mongoDB/">mongoDB</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-info">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/09/28/%E8%99%9A%E6%8B%9F%E6%9C%BAUbuntu%E7%AA%81%E7%84%B6%E6%97%A0%E6%B3%95DNS/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">虚拟机Ubuntu突然无法DNS</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/09/27/etcd%E5%AE%A2%E6%88%B7%E7%AB%AFclientv3%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8demo/">
+                        <span class="hidden-mobile">go的etcd客户端API</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

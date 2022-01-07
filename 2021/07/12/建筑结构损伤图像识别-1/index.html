@@ -1,0 +1,477 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  
+  <title>建筑结构损伤图像识别-1 - gys的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gys18007141407.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>gys的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/miku7.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="建筑结构损伤图像识别-1">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-12 15:54" pubdate>
+        2021年7月12日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      17
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">建筑结构损伤图像识别-1</h1>
+	    <time updated datetime="2021-07-23 08:41"></time>
+            
+            <div class="markdown-body">
+              <h2 id="PyTorch"><a href="#PyTorch" class="headerlink" title="PyTorch"></a>PyTorch</h2><h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><p>1、torch的api来初始化tensor，参数是列表或者序列表示各个维度上的大小: torch.randn([1,2,3])——-&gt;torch.dim() == 3<br>2、数组或者numpy数组来初始化tensor: torch.tensor([1,2,3], dtype=torch.int32)—–&gt;torch.dim() == 1<br>3、使用参数dtype指定tensor中数据的数据类型，device来指定tensor放在cpu/gpu上</p>
+<h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><p>(torch.tensor(1,2,3)报错，torch.Tensor(1,2,3)创建一个3维tensor)<br>(可以通过tensor.float(),tensor.int(),tensor.long()来获取原tensor的不同数据类型的tensor)<br>(当require_grad=true时，要得到numpyArray要先detach(): tensor.detach().numpay())</p>
+<p>(torch.Tensor()是Python类，更明确的说，是默认张量类型torch.FloatTensor()的别名)<br>(torch.tensor(data, dtype=None, device=None, requires_grad=False)仅仅是Python的函数。其中data可以是：list, tuple, array, scalar等类型，可以从data中的数据部分做拷贝[不是直接引用]，根据原始数据类型生成相应的torch.LongTensor，torch.FloatTensor，torch.DoubleTensor。)</p>
+<hr>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><p>4、tensor.view()和numpy.reshape()是浅拷贝<br>5、tensor.item()获取只有一个元素的tensor的值<br>6、tensor.transpose(a, b)转置tensor的a，b维<br>7、tensor.permuta(n-1, 3, n-4, … , 0, 1)重排tensor的各个维度的大小<br>8、tensor.size()获取tensor的shape，tensor.size(x)获取x维上的大小<br>9、tensor.dim()获取tensor的维度<br>10、tensor.type()获取tensor的数据类型,tensor.dtype获取tensor中的数据的数据类型<br>11、tensor.add(other), tensor.sub(other),tensor.mul(other),tensor.div(other)来对tensor的对应元素做四则运算，等同于tensor+tensor,tensor-tensor,tensor*tensor,tensor/tensor。tensor.mm(other)是矩阵乘法。tensor.min(),tensor.max(),tensor.mean(),tensor.norm(x)取tensor的x范数，默认2范数。<br>12、tensor.to(device)来转移tensor到cpu/gpu上<br>13、tensor.expand([3,2,1])和tensor.expand_as(tensor)来扩展某一为1的维度(类似两个tensor之间进行广播)。内存不共享，如果维度不是1则报错。<br>14、tensor.where(condition, true_tensor, false_tensor)按照condition来合并两个tensor</p>
+<h4 id="注意事项-1"><a href="#注意事项-1" class="headerlink" title="注意事项"></a>注意事项</h4><p>(带下划线的方法表示原地操作)<br>(torch的矩阵运算: torch.dot(a,b)是一维tensor的内积，torch.mm(a,b)是矩阵的乘法，torch.mv(a,b)是矩阵乘向量[将矩阵看成多个向量后进行向量内积计算]，torch.bmm(a,b)是批量矩阵乘法[3维矩阵的乘法]，torch.addmm(input,a,b,beta,alpha)是矩阵相乘后相加[alpha*a.mm(b)+beta*input, input是向量，将矩阵每行加上input]，torch.addbmm(input,a,b,beta,alpha)是批量矩阵相乘后相加[input是矩阵，批量矩阵相乘后的多个矩阵先加起来，最后再与input矩阵相加])</p>
+<h4 id="tensor的广播-兼容"><a href="#tensor的广播-兼容" class="headerlink" title="tensor的广播(兼容)"></a>tensor的广播(兼容)</h4><p>从后往前比较两个tensor的维度，要么两个tensor在该维度上的大小相等，要么两个tensor有一个在该维度上的大小为1，则称这两个tensor是兼容的(可广播的)。通过广播可让两个维度不同的tensor也能进行+-*/运算。</p>
+<hr>
+<h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3><p>11、tensor[a,b,c]意思是tensor[a][b][c]<br>12、tensor[a,:,:]意思是tensor[a][0 1 2 … dim-1][0 1 2 … dim-1]<br>13、tensor[a,:,::2]意思是tensor[a][0 1 2 … dim-1][0 2 4 …]</p>
+<hr>
+<h3 id="动态计算图"><a href="#动态计算图" class="headerlink" title="动态计算图"></a>动态计算图</h3><p>新版PyTorch的tensor已经不仅仅是一个纯粹用来计算的载体，tensor本身可以支持微分运算。创建tensor时可使用参数autograd=true指定该tensor需要计算微分，然后所有与该tensor运算[直接/间接]的tensor也会自动支持微分运算[具有传播性]，这样就形成了一张用来计算微分的计算图[想想链式求导法则]。值得一提的是，PyTorch的计算图是动态计算图，会根据可微分tensor的计算过程自动生成，并伴随新tensor的加入或运算来不断更新，这使得PyTorch的计算图更加灵活高效，更易于构建。静态计算图[先构建整个计算图然后进行计算]。</p>
+<p>可微分tensor的导数[梯度]值存储在tensor.grad中，最初tensor.grad属性是空值，随着tensor.backward()反向传播完成，我们可以获得tensor.grad的值。注意一点，只有叶节点tensor可以查看tensor.grad，这是为了节省存储资源，若要查看某一非叶节点tensor的grad属性，则需要tensor.retain_grad()方法来设置保存tensor的grad值。</p>
+<p>很自然的，当我们在进行第二次tensor.backward()时要清空上一次计算图中的grad值，否则会累加导致错误。</p>
+<h4 id="阻止计算图追踪"><a href="#阻止计算图追踪" class="headerlink" title="阻止计算图追踪"></a>阻止计算图追踪</h4><p>有时，对于与可微分tensor发生关系的tensor我们并不需要其微分值，并不需要将其扩充到计算图中，为了节省资源，加快计算速度，可以使用上下文管理器with，with torch.no_grad():,在这之后创建或者计算不需要微分的tensor，从而阻止计算图的记录。</p>
+<p>我们也可以使用tensor.detach()方法来新建一个和原tensor值相同但是不计算微分的tensor[是同一块地址空间]，用该tensor来进行上述运算。<br>tensor.detach():将grad_fn设置为None,将requires_grad设置为False。不改变计算图的状态，若使用tensor.detach_()原地操作则已经改变了原计算图的状态。尽管如此，若对tensor.detach()得到的tensor进行了原地修改，则仍会被autograd追踪到，之后的原tensor.backward()将报错。</p>
+<p>使用tensor.data和tensor.detach()类似，不同之处在于tensor.data原地修改不会被autograd追踪，故原tensor.backward()不报错，但是会得到不想要的错误结果。</p>
+<h4 id="注意事项-2"><a href="#注意事项-2" class="headerlink" title="注意事项"></a>注意事项</h4><p>tensor.is_leaf可以判断当前节点在计算图中是否是叶子节点。混淆点：一个刚创建的tensor[朴素创建，而不是计算得来的]无论是否可微分，都可以是叶节点。</p>
+<p>计算图可能大于一个[森林]。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/PyTorch/">PyTorch</a>
+                    
+                      <a class="hover-with-bg" href="/categories/PyTorch/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+                    
+                      <a class="hover-with-bg" href="/categories/PyTorch/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/">建筑结构损伤图像识别</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/PyTorch/">PyTorch</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/">建筑结构损伤图像识别</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-info">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/07/13/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB-2/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">建筑结构损伤图像识别-2</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/11/%E6%9C%80%E5%A4%A7%E5%9B%A2%E7%AE%97%E6%B3%95/">
+                        <span class="hidden-mobile">最大团算法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

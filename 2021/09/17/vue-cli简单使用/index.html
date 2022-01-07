@@ -1,0 +1,514 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  
+  <title>vue-cli简单使用 - gys的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gys18007141407.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>gys的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/miku2.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="vue-cli简单使用">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-09-17 19:58" pubdate>
+        2021年9月17日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      47
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">vue-cli简单使用</h1>
+	    <time updated datetime="2021-09-28 08:33"></time>
+            
+            <div class="markdown-body">
+              <h3 id="vue-cli-v4-x-x创建项目一般流程"><a href="#vue-cli-v4-x-x创建项目一般流程" class="headerlink" title="vue-cli v4.x.x创建项目一般流程"></a>vue-cli v4.x.x创建项目一般流程</h3><p><code>注：补充点可最后再看</code></p>
+<h4 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h4><p><img src="vue-cli%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8//image-20210915172931218.png" srcset="/img/loading.gif" lazyload alt="image-20210915172931218"></p>
+<h4 id="view和component"><a href="#view和component" class="headerlink" title="view和component"></a>view和component</h4><p>一个是页面视图级别，一个是页面视图中的一个组件级别，一般地，view &gt; container &gt; component</p>
+<h4 id="配置路由"><a href="#配置路由" class="headerlink" title="配置路由"></a>配置路由</h4><p><code>src/router/index.js</code></p>
+<p><img src="vue-cli%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8//image-20210915174753777.png" srcset="/img/loading.gif" lazyload alt="image-20210915174753777"></p>
+<p><img src="/2021/09/17/vue-cli%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210916102328040.png" srcset="/img/loading.gif" lazyload alt="image-20210916102328040"></p>
+<p>路由懒加载，防止一起打包的文件过大，传输时间太久影响用户体验。</p>
+<p><img src="/2021/09/17/vue-cli%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210915205442775.png" srcset="/img/loading.gif" lazyload alt="image-20210915205442775"></p>
+<p>嵌套路由</p>
+<p><img src="/2021/09/17/vue-cli%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210916102202767.png" srcset="/img/loading.gif" lazyload alt="image-20210916102202767"></p>
+<h4 id="使用路由插件"><a href="#使用路由插件" class="headerlink" title="使用路由插件"></a>使用路由插件</h4><p><code>src/main.js</code></p>
+<p><img src="vue-cli%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8//image-20210915175002539.png" srcset="/img/loading.gif" lazyload alt="image-20210915175002539"></p>
+<h4 id="整理思路"><a href="#整理思路" class="headerlink" title="整理思路"></a>整理思路</h4><p>首先看一下<code>public/index.html</code>，body中只用了一个div，id为app，前面将vue实例挂载到了这个元素上面。我知道对于组件来说，el属性是将该组件挂载到html中的某个元素上面，如果该组件同时声明了template属性，则会将template中的内容完全替换挂载的元素。因此，App.vue中的template将替换index.html中的<code>&lt;div id=&quot;app&quot;&gt;&lt;/div&gt;</code>。</p>
+<p><img src="vue-cli%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8//image-20210915191616727.png" srcset="/img/loading.gif" lazyload alt="image-20210915191616727"></p>
+<p>接着我们再看一下<code>src/App.vue</code>, template中通过<code>router-link</code>标签建立一个链接，to属性指定路由，当该标签被点击后，路由对应的组件将被展示在<code>router-view</code>标签位置。</p>
+<p><img src="/2021/09/17/vue-cli%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210916102739517.png" srcset="/img/loading.gif" lazyload alt="image-20210916102739517"></p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs tex">补充:	<br>	在vue-router3.x的时候，router-link有一个tag属性，可以决定router-link到底渲染成什么元素,但是在vue-router4.x开始，该属性被移除了。<br>	vue-router4.x给我们提供了更加具有灵活性的v-slot的方式来定制渲染的内容；<br><br>v-slot使用方法：<br>1、&lt;router-link&gt;<br>首先，我们需要使用custom表示我们整个元素要自定义，如果不写，那么自定义的内容会被包裹在一个 a 元素中；<br>其次，我们使用v-slot来作用域插槽来获取内部传给我们的值<br>	href：解析后的 URL；<br>    route：解析后的规范化的route对象；<br>    navigate：触发导航的函数；<br>    isActive：是否匹配的状态；<br>    isExactActive：是否是精准匹配的状态；<br>2、&lt;router-view&gt;<br>router-view也提供给我们一个插槽，可以用于 &lt;transition&gt; 和 &lt;keep-alive&gt; 组件来包裹路由组件：<br>    Component：要渲染的组件；<br>    route：解析出的标准化路由对象；<br></code></pre></td></tr></table></figure>
+
+<h4 id="导航守卫"><a href="#导航守卫" class="headerlink" title="导航守卫"></a>导航守卫</h4><h5 id="全局路由守卫"><a href="#全局路由守卫" class="headerlink" title="全局路由守卫"></a>全局路由守卫</h5><p><img src="/2021/09/17/vue-cli%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210916110938474.png" srcset="/img/loading.gif" lazyload alt="image-20210916110938474"></p>
+<p><img src="/2021/09/17/vue-cli%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210916111217161.png" srcset="/img/loading.gif" lazyload alt="image-20210916111217161"></p>
+<h5 id="路由独有守卫"><a href="#路由独有守卫" class="headerlink" title="路由独有守卫"></a>路由独有守卫</h5><p>很明显，它作用在全局路由守卫之后，才可以覆盖全局配置，定义自己的独有配置。</p>
+<p><img src="/2021/09/17/vue-cli%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210916141959909.png" srcset="/img/loading.gif" lazyload alt="image-20210916141959909"></p>
+<h5 id="组件独有守卫"><a href="#组件独有守卫" class="headerlink" title="组件独有守卫"></a>组件独有守卫</h5><p>对单个组件配置路由守卫。</p>
+<p><img src="/2021/09/17/vue-cli%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210916132625455.png" srcset="/img/loading.gif" lazyload alt="image-20210916132625455"></p>
+<p>点击顺序 [商品 =&gt; 链接 =&gt; 商品], 可以看出来组件created在组件路由enter之后，组件unmounted在组件路由leave之后。</p>
+<p><img src="/2021/09/17/vue-cli%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210916141453998.png" srcset="/img/loading.gif" lazyload alt="image-20210916141453998"></p>
+<p>调用时机以及相关性质</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> Foo = &#123;<br>  <span class="hljs-attr">template</span>: <span class="hljs-string">`...`</span>,<br>  <span class="hljs-function"><span class="hljs-title">beforeRouteEnter</span>(<span class="hljs-params">to, <span class="hljs-keyword">from</span>, next</span>)</span> &#123;<br>    <span class="hljs-comment">// 在渲染该组件的对应路由被 confirm 前调用</span><br>    <span class="hljs-comment">// 不！能！获取组件实例 `this`</span><br>    <span class="hljs-comment">// 因为当守卫执行前，组件实例还没被创建</span><br>  &#125;,<br>  <span class="hljs-function"><span class="hljs-title">beforeRouteUpdate</span>(<span class="hljs-params">to, <span class="hljs-keyword">from</span>, next</span>)</span> &#123;<br>    <span class="hljs-comment">// 在当前路由改变，但是该组件被复用时调用</span><br>    <span class="hljs-comment">// 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，</span><br>    <span class="hljs-comment">// 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。</span><br>    <span class="hljs-comment">// 可以访问组件实例 `this`</span><br>  &#125;,<br>  <span class="hljs-function"><span class="hljs-title">beforeRouteLeave</span>(<span class="hljs-params">to, <span class="hljs-keyword">from</span>, next</span>)</span> &#123;<br>    <span class="hljs-comment">// 导航离开该组件的对应路由时调用</span><br>    <span class="hljs-comment">// 可以访问组件实例 `this`</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs tex">补充导航解析流程：<br>1、导航被触发。<br>2、在失活的组件里调用 beforeRouteLeave 守卫。<br>3、调用全局的 beforeEach 守卫。<br>4、在重用的组件里调用 beforeRouteUpdate 守卫(2.2+)。<br>5、在路由配置里调用 beforeEnter。<br>6、解析异步路由组件。<br>7、在被激活的组件里调用 beforeRouteEnter。<br>8、调用全局的 beforeResolve 守卫(2.5+)。<br>9、导航被确认。<br>10、调用全局的 afterEach 钩子。<br>11、触发 DOM 更新。<br>12、调用 beforeRouteEnter 守卫中传给 next 的回调函数，创建好的组件实例会作为回调函数的参数传入。<br></code></pre></td></tr></table></figure>
+
+<h4 id="keep-alive"><a href="#keep-alive" class="headerlink" title="keep-alive"></a>keep-alive</h4><p>created与activated的比较</p>
+<p><img src="/2021/09/17/vue-cli%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210916161407312.png" srcset="/img/loading.gif" lazyload alt="image-20210916161407312"></p>
+<p>新版本中，已经不能直接使用该<code>keep-alive</code>标签包裹想要缓存的<code>路由组件视图</code>。若要使用，则要通过slot来实现。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">router-view</span>&gt;</span> can no longer be used directly inside <span class="hljs-tag">&lt;<span class="hljs-name">transition</span>&gt;</span> or <span class="hljs-tag">&lt;<span class="hljs-name">keep-alive</span>&gt;</span>.<br>Use slot props instead:<br><br><span class="hljs-comment">&lt;!-- ERROR---&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">keep-alive</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">router-view</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">router-view</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">keep-alive</span>&gt;</span><br><br><span class="hljs-comment">&lt;!-- OK---&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">router-view</span> <span class="hljs-attr">v-slot</span>=<span class="hljs-string">&quot;&#123; Component &#125;&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">keep-alive</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">component</span> <span class="hljs-attr">:is</span>=<span class="hljs-string">&quot;Component&quot;</span> /&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">keep-alive</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">router-view</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="Vue3生命周期"><a href="#Vue3生命周期" class="headerlink" title="Vue3生命周期"></a>Vue3生命周期</h4><p><img src="/2021/09/17/vue-cli%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NTc4MDgxOA==,size_16,color_FFFFFF,t_70.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h4 id="给路径创建别名"><a href="#给路径创建别名" class="headerlink" title="给路径创建别名"></a>给路径创建别名</h4><p>在项目根目录下创建文件<code>vue.config.js</code>,按以下流程创建别名，注意使用方式。以下包含其他常用配置。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;path&#x27;</span>)<br><br><span class="hljs-comment">// 转换绝对路径</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">resolve</span>(<span class="hljs-params">dir</span>)</span>&#123;<br>    <span class="hljs-keyword">return</span> path.join(__dirname, dir)<br>&#125;<br><br><span class="hljs-built_in">module</span>.exports=&#123;<br>    <span class="hljs-attr">chainWebpack</span>:<span class="hljs-function">(<span class="hljs-params">config</span>) =&gt;</span> &#123;<br>        <span class="hljs-comment">// 给路径起别名</span><br>        <span class="hljs-comment">// &lt;img src=&quot;~assets/img/tabbar/home.svg&quot; alt=&quot;&quot;&gt;,在html标签中，必须在路径前添加~符号</span><br>        <span class="hljs-comment">// css中可以直接使用</span><br>        <span class="hljs-comment">// router路由配置中：直接使用</span><br>        <span class="hljs-comment">// 其他不可以</span><br>        config.resolve.alias.set(<br>            <span class="hljs-string">&#x27;@&#x27;</span>, resolve(<span class="hljs-string">&#x27;./src&#x27;</span>)<br>        ).set(<br>            <span class="hljs-string">&#x27;assets&#x27;</span>, resolve(<span class="hljs-string">&#x27;./src/assets&#x27;</span>)<br>        ).set(<br>            <span class="hljs-string">&#x27;component&#x27;</span>, resolve(<span class="hljs-string">&#x27;./src/components&#x27;</span>)<br>        ).set(<br>            <span class="hljs-string">&#x27;views&#x27;</span>, resolve(<span class="hljs-string">&#x27;./src/views&#x27;</span>)<br>        )<br>        <br>        <span class="hljs-comment">// 修改index.html的title</span><br>        config.plugin(<span class="hljs-string">&#x27;html&#x27;</span>).tap(<br>            <span class="hljs-function"><span class="hljs-params">args</span> =&gt;</span> &#123;<br>                args[<span class="hljs-number">0</span>].title = <span class="hljs-string">&#x27;mall&#x27;</span><br>                <span class="hljs-keyword">return</span> args<br>            &#125;<br>        )<br>    &#125;,<br>    <br>    <span class="hljs-comment">// 配置favicon</span><br>    <span class="hljs-comment">// favicon.ico放在public目录下</span><br>    <span class="hljs-attr">pluginOptions</span>: &#123;<br>        <span class="hljs-attr">pwa</span>: &#123;<br>            <span class="hljs-attr">iconPaths</span>: &#123;<br>                <span class="hljs-attr">favicon64</span>: <span class="hljs-string">&#x27;./favicon.ico&#x27;</span>,<br>                <span class="hljs-attr">favicon32</span>: <span class="hljs-string">&#x27;./favicon.ico&#x27;</span>,<br>                <span class="hljs-attr">favicon16</span>: <span class="hljs-string">&#x27;./favicon.ico&#x27;</span>,<br>                <span class="hljs-attr">appleTouchIcon</span>: <span class="hljs-string">&#x27;./favicon.ico&#x27;</span>,<br>                <span class="hljs-attr">maskIcon</span>: <span class="hljs-string">&#x27;./favicon.ico&#x27;</span>,<br>                <span class="hljs-attr">msTileImage</span>: <span class="hljs-string">&#x27;./favicon.ico&#x27;</span><br>            &#125;<br>        &#125;,<br>    &#125;,<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="vuex"><a href="#vuex" class="headerlink" title="vuex"></a>vuex</h4><p>在VueX对象中，含有以下成员：</p>
+<p>​    <code>state</code>     存放状态</p>
+<p>​    <code>mutations</code>   state成员操作。<code>mutations</code>是操作<code>state</code>数据的方法的集合，比如对该数据的修改、增加、删除等等。</p>
+<p>​    <code>getters</code>     加工state成员给外界</p>
+<p>​    <code>actions</code>     异步操作</p>
+<p>​    <code>modules</code>   模块化状态管理</p>
+<p>下面是vuex工作的流程图</p>
+<p><img src="/2021/09/17/vue-cli%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210917130955282.png" srcset="/img/loading.gif" lazyload alt="image-20210917130955282"></p>
+<p>首先，<code>Vue</code>组件如果调用某个<code>VueX</code>的方法过程中需要向后端请求时或者说出现异步操作时，需要<code>dispatch</code> VueX中<code>actions</code>的方法，以保证数据的同步。可以说，<code>action</code>的存在就是为了让<code>mutations</code>中的方法能在异步操作中起作用。</p>
+<p>如果没有异步操作，那么我们就可以直接在组件内提交状态中的<code>Mutations</code>中自己编写的方法来达成对<code>state</code>成员的操作。注意，<code>1.3.3节</code>中有提到，不建议在组件中直接对<code>state</code>中的成员进行操作，这是因为直接修改(例如：<code>this.$store.state.name = &#39;hello&#39;</code>)的话不能被<code>VueDevtools</code>所监控到。</p>
+<p>最后被修改后的state成员会被渲染到组件的原位置当中去。</p>
+<p>以下是<code>src/store/index.js</code>文件内容</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><code class="hljs pf">import &#123; createStore &#125; <span class="hljs-keyword">from</span> &#x27;vuex&#x27;<br><br>export <span class="hljs-keyword">default</span> createStore(&#123;<br>  // 获取值方式：this.<span class="hljs-variable">$store</span>.<span class="hljs-keyword">state</span>.count。不要直接修改，通过mutations或者actions修改【响应式】<br>  <span class="hljs-keyword">state</span>: &#123;<br>    count: <span class="hljs-number">1</span><br>  &#125;,<br><br>  // mutation中通常不进行异步操作,因为将会引起vuedevtools的数据失效，不能跟踪更新后的值。<br>  // mutations方法都有默认的形参。<span class="hljs-number">1</span>、<span class="hljs-keyword">state</span>是当前VueX对象中的<span class="hljs-keyword">state</span>。<span class="hljs-number">2</span>、payload是该方法在被调用时传递参数使用的<br>  // 调用方式：<br>  // this.<span class="hljs-variable">$store</span>.commit(<span class="hljs-string">&quot;increase&quot;</span>,  <span class="hljs-number">2</span>)<br>  // this.<span class="hljs-variable">$store</span>.commit(<span class="hljs-string">&quot;decrease&quot;</span>)<br>  // this.<span class="hljs-variable">$store</span>.commit(<span class="hljs-string">&quot;printMsg&quot;</span>, &#123;name:<span class="hljs-string">&quot;gys&quot;</span>, msg: <span class="hljs-string">&quot;hello&quot;</span>&#125;)<br>  // this.<span class="hljs-variable">$store</span>.commit(&#123;<br>  //      type: &#x27;printMsg&#x27;,<br>  //      name: <span class="hljs-string">&quot;gys&quot;</span>,<br>  //      msg: <span class="hljs-string">&quot;hello&quot;</span>,<br>  // &#125;)<br>  mutations: &#123;<br>    increase(<span class="hljs-keyword">state</span>, v)&#123;<br>      <span class="hljs-keyword">state</span>.count += v<br>      console.<span class="hljs-keyword">log</span>(v)<br>      console.<span class="hljs-keyword">log</span>(this.<span class="hljs-keyword">state</span>.count)<br>    &#125;,<br>    decrease(<span class="hljs-keyword">state</span>)&#123;<br>      <span class="hljs-keyword">state</span>.count --;<br>    &#125;,<br>    printMsg(<span class="hljs-keyword">state</span>, payload)&#123;<br>      console.<span class="hljs-keyword">log</span>(payload.name+<span class="hljs-string">&quot; say: &quot;</span> + payload.msg)<br>    &#125;<br>  &#125;,<br><br>  // getters对<span class="hljs-keyword">state</span>中的成员加工后传递给外界<br>  // getters中的方法有两个默认参数。<span class="hljs-number">1</span>、<span class="hljs-keyword">state</span> 当前VueX对象中的状态对象。<span class="hljs-number">2</span>、getters 当前getters对象，用于将getters下的其他getter拿来用<br>  // 调用方式： this.<span class="hljs-variable">$store</span>.getters.countInfo<br>  getters:&#123;<br>    countInfo(<span class="hljs-keyword">state</span>)&#123;<br>      return <span class="hljs-keyword">state</span>.count * <span class="hljs-number">10</span><br>    &#125;<br>  &#125;,<br><br>  // 异步操作通常在action中进行。注意是异步执行mutation中的函数！！！如果要修改<span class="hljs-keyword">state</span>的值，只能通过mutations来修改[看vuex的流程图]。<br>  // Actions中的方法有两个默认参数。<span class="hljs-number">1</span>、context 上下文(相当于箭头函数中的this)对象。<span class="hljs-number">2</span>、payload 挂载参数。<br>  // 一般地，用Promise来包裹异步任务并返回Promise对象，从而在调用处可通过then和catch处理异步完成后的工作。<br>  // 调用方式：<br>  // this.<span class="hljs-variable">$store</span>.dispatch(<span class="hljs-string">&quot;asyncMethod&quot;</span>, &#123;name: <span class="hljs-string">&quot;gys&quot;</span>, msg: <span class="hljs-string">&quot;hello&quot;</span>&#125;)<br>  // this.<span class="hljs-variable">$store</span>.dispatch(&#123;<br>  //      type: &#x27;printMsg&#x27;,<br>  //      name: <span class="hljs-string">&quot;gys&quot;</span>,<br>  //      msg: <span class="hljs-string">&quot;hello&quot;</span>,<br>  // &#125;)<br>  actions: &#123;<br>    asyncMethod(context, payload)&#123;<br>      return new Promise(<br>          (resolve, reject)=&gt;&#123;<br>            <span class="hljs-built_in">set</span>Timeout(()=&gt;&#123;<br>              context.commit(<span class="hljs-string">&quot;printMsg&quot;</span>, payload)<br>              resolve()<br>            &#125;, <span class="hljs-number">2000</span>)<br>          &#125;<br>      )<br>    &#125;<br>  &#125;,<br><br>  // 当项目庞大，状态非常多时，可以采用模块化管理模式。Vuex 允许我们将 store 分割成模块（module）。<br>  // 每个模块拥有自己的 <span class="hljs-keyword">state</span>、mutation、action、getter、甚至是嵌套子模块——从上至下进行同样方式的分割。<br>  modules: &#123;<br>    a:&#123;<br>      <span class="hljs-keyword">state</span>:&#123;&#125;,<br>      mutations:&#123;&#125;,<br>      getters: &#123;&#125;,<br>      actions: &#123;&#125;,<br>      modules:&#123;&#125;<br>    &#125;<br>  &#125;<br>&#125;)<br><br></code></pre></td></tr></table></figure>
+
+<p>组件中使用state数据的方式示例如下。一般地，为了使项目结构清晰，只在index.js文件中保留state属性，其他属性都定义在其他的同级的js文件中。对于子模块，在store目录下创建modules文件夹，将所有子模块放入其中。</p>
+<p><img src="/2021/09/17/vue-cli%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210917161254008.png" srcset="/img/loading.gif" lazyload alt="image-20210917161254008"></p>
+<p><img src="/2021/09/17/vue-cli%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210917161325774.png" srcset="/img/loading.gif" lazyload alt="image-20210917161325774"></p>
+<h4 id="axios"><a href="#axios" class="headerlink" title="axios"></a>axios</h4><p><code>main.js</code>文件中导入示例。一般地，我们会对网络模块进行封装，在src目录下新建network文件夹，在network文件夹中创建js文件，其中封装axios，对外导出一些常用的网络接口。要进行网络调用时，只需要导入js文件使用其中封装好的方法即可。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> &#123; createApp &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span><br><span class="hljs-keyword">import</span> App <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./App.vue&#x27;</span><br><br><span class="hljs-comment">// 导入axios框架。注意：插件是使用use，这个axios是框架。</span><br><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;axios&quot;</span><br><br>axios.defaults.baseURL = <span class="hljs-string">&quot;&quot;</span><br>axios.defaults.timeout = <span class="hljs-number">5000</span> <span class="hljs-comment">// 毫秒</span><br><br>axios(&#123;<br>    <span class="hljs-attr">url</span>: <span class="hljs-string">&quot;https://www.baidu.com&quot;</span>,<br>    <span class="hljs-attr">methods</span>: <span class="hljs-string">&quot;get&quot;</span>,<br>    <span class="hljs-attr">headers</span>: &#123;<span class="hljs-string">&quot;Access-Control-Allow-Origin&quot;</span>:<span class="hljs-string">&quot;*&quot;</span>&#125;<br><br>&#125;).then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span>&#123;<br>    <span class="hljs-built_in">console</span>.log(res)<br>&#125;)<br><br><br><span class="hljs-comment">// 创建axios实例，不创建会使用导入的默认静态实例</span><br><span class="hljs-keyword">const</span> axios2 =  axios.create(&#123;<br>    <span class="hljs-comment">// config</span><br>&#125;)<br><br><span class="hljs-comment">// 拦截器(参数是两个函数，第一个是调用成功时的函数，第二个是调用失败时的函数)</span><br><span class="hljs-comment">// 请求拦截(发送前检查修改HTTP报文)</span><br><span class="hljs-comment">// 当header不符合服务器要求时，通过请求拦截修改header</span><br>axios2.interceptors.request.use(<br>    <span class="hljs-function"><span class="hljs-params">config</span> =&gt;</span>&#123;<br>        <span class="hljs-keyword">return</span> config<br>    &#125;,<br>    <span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span>&#123;<br>        <span class="hljs-built_in">console</span>.log(err)<br>    &#125;<br>)<br><span class="hljs-comment">// 响应拦截(接收后检查修改HTTP报文)</span><br>axios2.interceptors.response.use(<br>    <span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span>&#123;<br>        <span class="hljs-keyword">return</span> res<br>    &#125;,<br>    <span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span>&#123;<br>        <span class="hljs-built_in">console</span>.log(err)<br>    &#125;<br>)<br><br><br>createApp(App).mount(<span class="hljs-string">&#x27;#app&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>axios的config包含哪些可配置信息。只有url是必填项。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><code class="hljs awk">&#123;<br>   <span class="hljs-regexp">//</span> 请求服务器的URL<br>  url: <span class="hljs-string">&#x27;http://localhost:8080&#x27;</span>,<br><br>  <span class="hljs-regexp">//</span> 请求方法<br>  method: <span class="hljs-string">&#x27;get&#x27;</span>, <span class="hljs-regexp">//</span> default<br><br>  <span class="hljs-regexp">//</span> `baseURL` 将自动加在 `url` 前面，除非 `url` 是一个绝对 URL。<br>  <span class="hljs-regexp">//</span> 它可以通过设置一个 `baseURL` 便于为 axios 实例的方法传递相对 URL<br>  baseURL: <span class="hljs-string">&#x27;https://some-domain.com/api/&#x27;</span>,<br><br>  <span class="hljs-regexp">//</span> 在向服务器发送前，修改请求数据<br>  <span class="hljs-regexp">//</span> 只能用在 <span class="hljs-string">&#x27;PUT&#x27;</span>, <span class="hljs-string">&#x27;POST&#x27;</span> 和 <span class="hljs-string">&#x27;PATCH&#x27;</span> 这几个请求方法<br>  <span class="hljs-regexp">//</span> 后面数组中的函数必须返回一个字符串，或 ArrayBuffer，或 Stream<br>  transformRequest: [<span class="hljs-keyword">function</span> (data, headers) &#123;<br>    <span class="hljs-regexp">//</span> 对 data 进行任意转换处理<br>    return data;<br>  &#125;],<br><br>  <span class="hljs-regexp">//</span> 在收到服务器数据后，传递给 then/catch 前，修改响应数据<br>  transformResponse: [<span class="hljs-keyword">function</span> (data) &#123;<br>    <span class="hljs-regexp">//</span> 对 data 进行任意转换处理<br>    return data;<br>  &#125;],<br><br>  <span class="hljs-regexp">//</span> 即将被发送的自定义请求头<br>  headers: &#123;<span class="hljs-string">&#x27;X-Requested-With&#x27;</span>: <span class="hljs-string">&#x27;XMLHttpRequest&#x27;</span>&#125;,<br><br>  <span class="hljs-regexp">//</span> `params` 是即将与请求一起发送的 URL 参数<br>  <span class="hljs-regexp">//</span> 必须是一个无格式对象(plain object)或 URLSearchParams 对象<br>  params: &#123;<br>    ID: <span class="hljs-number">12345</span><br>  &#125;,<br><br>   <span class="hljs-regexp">//</span> 一个负责将params序列化的函数<br>  paramsSerializer: <span class="hljs-keyword">function</span>(params) &#123;<br>    return Qs.stringify(params, &#123;arrayFormat: <span class="hljs-string">&#x27;brackets&#x27;</span>&#125;)<br>  &#125;,<br><br>  <span class="hljs-regexp">//</span> data是作为请求主体被发送的数据<br>  <span class="hljs-regexp">//</span> 只适用于这些请求方法 <span class="hljs-string">&#x27;PUT&#x27;</span>, <span class="hljs-string">&#x27;POST&#x27;</span>, 和 <span class="hljs-string">&#x27;PATCH&#x27;</span><br>  <span class="hljs-regexp">//</span> 在没有设置 `transformRequest` 时，必须是以下类型之一：<br>  <span class="hljs-regexp">//</span> - string, plain object, ArrayBuffer, ArrayBufferView, URLSearchParams<br>  <span class="hljs-regexp">//</span> - 浏览器专属：FormData, File, Blob<br>  <span class="hljs-regexp">//</span> - Node 专属：Stream<br>  data: &#123;<br>    firstName: <span class="hljs-string">&#x27;Fred&#x27;</span><br>  &#125;,<br><br>  <span class="hljs-regexp">//</span> timeout指定请求超时的毫秒数(<span class="hljs-number">0</span>表示无超时时间)<br>  <span class="hljs-regexp">//</span> 如果请求超时，请求将被中断<br>  timeout: <span class="hljs-number">1000</span>,<br><br>   <span class="hljs-regexp">//</span> 表示跨域请求时是否需要使用凭证<br>  withCredentials: false, <span class="hljs-regexp">//</span> default<br><br>  <span class="hljs-regexp">//</span> adapter允许自定义处理请求，以使测试更轻松<br>  <span class="hljs-regexp">//</span> 返回一个 promise 并应用一个有效的响应<br>  adapter: <span class="hljs-keyword">function</span> (config) &#123;<br>    <span class="hljs-regexp">/* ... */</span><br>  &#125;,<br><br>  <span class="hljs-regexp">//</span> auth表示应该使用 HTTP 基础验证，并提供凭据<br>  <span class="hljs-regexp">//</span> 这将设置一个Authorization头，覆写掉现有的任意使用 headers设置的自定义Authorization头<br>  auth: &#123;<br>    username: <span class="hljs-string">&#x27;janedoe&#x27;</span>,<br>    password: <span class="hljs-string">&#x27;s00pers3cret&#x27;</span><br>  &#125;,<br><br>   <span class="hljs-regexp">//</span> 表示服务器响应的数据类型，可以是 <span class="hljs-string">&#x27;arraybuffer&#x27;</span>, <span class="hljs-string">&#x27;blob&#x27;</span>, <span class="hljs-string">&#x27;document&#x27;</span>, <span class="hljs-string">&#x27;json&#x27;</span>, <span class="hljs-string">&#x27;text&#x27;</span>, <span class="hljs-string">&#x27;stream&#x27;</span><br>  responseType: <span class="hljs-string">&#x27;json&#x27;</span>, <span class="hljs-regexp">//</span> default<br><br>  <span class="hljs-regexp">//</span> 对响应数据的编码格式<br>  <span class="hljs-regexp">//</span> Note: Ignored <span class="hljs-keyword">for</span> `responseType` of <span class="hljs-string">&#x27;stream&#x27;</span> or client-side requests<br>  responseEncoding: <span class="hljs-string">&#x27;utf8&#x27;</span>, <span class="hljs-regexp">//</span> default<br><br>   <span class="hljs-regexp">//</span> 用作 xsrf token 的值的cookie的名称<br>  xsrfCookieName: <span class="hljs-string">&#x27;XSRF-TOKEN&#x27;</span>, <span class="hljs-regexp">//</span> default<br><br>  <span class="hljs-regexp">//</span> 携带 xsrf token 的首部字段的名字<br>  xsrfHeaderName: <span class="hljs-string">&#x27;X-XSRF-TOKEN&#x27;</span>, <span class="hljs-regexp">//</span> default<br><br>   <span class="hljs-regexp">//</span> 为上传处理进度事件<br>  onUploadProgress: <span class="hljs-keyword">function</span> (progressEvent) &#123;<br>    <span class="hljs-regexp">//</span> 对原生进度事件的处理<br>  &#125;,<br><br>  <span class="hljs-regexp">//</span> 为下载处理进度事件<br>  onDownloadProgress: <span class="hljs-keyword">function</span> (progressEvent) &#123;<br>    <span class="hljs-regexp">//</span> 对原生进度事件的处理<br>  &#125;,<br><br>   <span class="hljs-regexp">//</span> 允许的响应内容的最大长度<br>  maxContentLength: <span class="hljs-number">2000</span>,<br><br>  <span class="hljs-regexp">//</span> 对于给定的HTTP 响应状态码，返回true(或者设置为null或undefined)，promise 将被 resolve; 否则，promise 将被 rejecte<br>  validateStatus: <span class="hljs-keyword">function</span> (status) &#123;<br>    return status &gt;= <span class="hljs-number">200</span> &amp;&amp; status &lt; <span class="hljs-number">300</span>; <span class="hljs-regexp">//</span> default<br>  &#125;,<br><br>  <span class="hljs-regexp">//</span> node.js 中 follow 的最大重定向数目<br>  <span class="hljs-regexp">//</span> 如果设置为<span class="hljs-number">0</span>，将不会 follow 任何重定向<br>  maxRedirects: <span class="hljs-number">5</span>, <span class="hljs-regexp">//</span> default<br><br>  <span class="hljs-regexp">//</span> `socketPath` defines a UNIX Socket to be used <span class="hljs-keyword">in</span> node.js.<br>  <span class="hljs-regexp">//</span> e.g. <span class="hljs-string">&#x27;/var/run/docker.sock&#x27;</span> to send requests to the docker daemon.<br>  <span class="hljs-regexp">//</span> Only either `socketPath` or `proxy` can be specified.<br>  <span class="hljs-regexp">//</span> If both are specified, `socketPath` is used.<br>  socketPath: null, <span class="hljs-regexp">//</span> default<br><br>  <span class="hljs-regexp">//</span> httpAgent和httpsAgent分别在 node.js 中用于定义在执行 http 和 https 时使用的自定义代理。允许像keepAlive这样配置选项,keepAlive默认没有启用<br>  httpAgent: new http.Agent(&#123; keepAlive: true &#125;),<br>  httpsAgent: new https.Agent(&#123; keepAlive: true &#125;),<br><br>  <span class="hljs-regexp">//</span> proxy定义代理服务器的主机名称和端口<br>  <span class="hljs-regexp">//</span> auth表示 HTTP 基础验证应当用于连接代理，并提供凭据<br>  <span class="hljs-regexp">//</span> 这将会设置一个Proxy-Authorization头，覆写掉已有的通过使用header设置的自定义Proxy-Authorization头。<br>  proxy: &#123;<br>    host: <span class="hljs-string">&#x27;127.0.0.1&#x27;</span>,<br>    port: <span class="hljs-number">8000</span>,<br>    auth: &#123;<br>      username: <span class="hljs-string">&#x27;admin&#x27;</span>,<br>      password: <span class="hljs-string">&#x27;000000&#x27;</span><br>    &#125;<br>  &#125;,<br><br>  <span class="hljs-regexp">//</span> cancelToken用于取消请求的 cancel token<br>  cancelToken: new CancelToken(<span class="hljs-keyword">function</span> (cancel) &#123;<br>  &#125;)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Vue/">Vue</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Vue/">Vue</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-info">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/09/24/go%E8%AF%AD%E8%A8%80%E7%BC%96%E7%A8%8B%E5%9D%91%E7%82%B9/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">go语言编程坑点</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/09/11/%E4%B8%BB%E5%B8%AD%E6%A0%91(%E6%9D%83%E5%80%BC%E7%BA%BF%E6%AE%B5%E6%A0%91)/">
+                        <span class="hidden-mobile">主席树-权值线段树</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

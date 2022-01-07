@@ -1,0 +1,627 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  
+  <title>k8s集群部署 - gys的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gys18007141407.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>gys的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/miku5.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="k8s集群部署">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-10-26 20:18" pubdate>
+        2021年10月26日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      71
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">k8s集群部署</h1>
+	    <time updated datetime="2021-11-19 13:16"></time>
+            
+            <div class="markdown-body">
+              <h2 id="一、安装docker及k8s集群相关术语"><a href="#一、安装docker及k8s集群相关术语" class="headerlink" title="一、安装docker及k8s集群相关术语"></a>一、安装docker及k8s集群相关术语</h2><p>前面<a href="https://gys18007141407.github.io/2021/08/19/docker%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">docker简单使用</a>中已经讲过如何安装docker了。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.51cto.com/superleedo/2386713">这里</a>是有关k8s的资料</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">Cluster<br>Cluster是网络、存储、计算各种资源的集合，k8s利用这些资源运行容器应用。<br><br><span class="hljs-keyword">Master</span><br><span class="hljs-title">Master</span>是集群的管理中心，负责调度，决定将应用放置在哪里运行，可以同时运行多个<span class="hljs-literal">master</span>以保证高可用。<br><br><span class="hljs-keyword">Node</span><br><span class="hljs-title">Node</span>是集群的工作节点，负责运行容器应用，<span class="hljs-keyword">node</span><span class="hljs-title">由master</span>管理，<span class="hljs-keyword">node</span><span class="hljs-title">负责监控并汇报容器的状态，同时根据master</span>要求管理容器的生命周期。<span class="hljs-keyword">Node</span><span class="hljs-title">上运行着Kubelet</span>、kube-proxy服务进程，这些服务进程负责Pod的创建、启动、监控、重启、销毁、以及实现软件模式的负载均衡。查看<span class="hljs-keyword">node</span><span class="hljs-title">，kubectl</span> get <span class="hljs-keyword">node</span><span class="hljs-title">，  kubectl</span> describe <span class="hljs-keyword">node</span><br><br><span class="hljs-title">Pod</span><br>pod是k8s的最小工作单元，每个pod包含一个或者多个容器，通常情况下运行单一容器，也即是one-container-per-Pod模式；对于多个容器有紧密联系且需要共享资源的则使用多容器模式。<br>一个pod中的应用容器共享资源：Pod中的不同应用程序可以看到其他应用程序的进程ID；Pod中的多个容器能够访问同一个IP和端口范围；Pod中的多个容器能够使用SystemV IPC或POSIX消息队列进行通信；Pod中的多个容器共享一个主机名；Pod中的各个容器可以访问在Pod级别定义的Volumes；<br>Pod的生命周期通过Replication Controller来管理；通过模板进行定义，然后分配到一个<span class="hljs-keyword">Node</span><span class="hljs-title">上运行，在Pod</span>所包含容器运行结束后，Pod结束。<br>k8s中，用pause容器来作为一个pod中所有容器的父容器。这个pause容器有两个核心的功能，第一，它提供整个pod的Linux命名空间的基础。第二，启用PID命名空间，它在每个pod中都作为PID为<span class="hljs-number">1</span>进程，并回收僵尸进程。<br><br>Controller<br>k8s通常不会直接创建pod，它是通过controller来管理pod，k8s提供了多种controller，有Deployment、ReplicaSet、DaemonSet、StatefuleSet、job等。Deployment管理pod及其副本，并保证pod按照期望的状态运行；ReplicaSet管理多个副本，使用deployment会自动创建ReplicaSet，所以通常不需要直接用ReplicaSet；DaemonSet用于每个<span class="hljs-keyword">node</span><span class="hljs-title">最多运行一个pod</span>副本的场景；StatefuleSet保证pod的每一个副本在整个生命周期中名称是不变的。Job用于运行结束就删除的应用，其他controller的pod通常是长期运行。<br><br>Service<br>一个Service可以看作一组提供相同服务的Pod的对外访问接口，Service作用于哪些Pod是通过Label Selector来定义的，service有自己的ip和端口，为pod提供负载均衡。<br><br>Namecpace<br>namespace是将物理的cluster逻辑上划分成多个虚拟的cluster，每一个cluster就是一个namespace，不同的namespace里的资源是完全隔离的，kubectl get namespace命令查看，default是默认的命名空间，kebe-system是k8s自己创建的系统资源的命名空间。<br><br>Volume<br>volume是pod中能够被多个容器访问的共享目录<br></code></pre></td></tr></table></figure>
+
+<h2 id="二、安装kebulet、kubeadm、kubectl"><a href="#二、安装kebulet、kubeadm、kubectl" class="headerlink" title="二、安装kebulet、kubeadm、kubectl"></a>二、安装kebulet、kubeadm、kubectl</h2><p>1、加载key</p>
+<p><code>sudo curl https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add - </code></p>
+<p>2、添加源(/etc/apt/source.list.d/kubernetes.list)</p>
+<p>增加语句<code>deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main</code></p>
+<p>3、安装</p>
+<p><code>sudo apt update</code></p>
+<p><code>sudo apt install kubelet kubeadm kubectl</code></p>
+<h2 id="三、创建或者加入集群"><a href="#三、创建或者加入集群" class="headerlink" title="三、创建或者加入集群"></a>三、创建或者加入集群</h2><p>1、关闭交换分区(<code>free -[m|h]</code>或者<code>top</code>查看)</p>
+<p>临时关闭<code>sudo swapoff -a</code>(相反的操作为<code>swapon -a</code>)</p>
+<p>永久关闭<code>sudo vim /etc/fstab</code>注释其中swap所占那一行(取消挂载磁盘)</p>
+<p>2、关闭selinux</p>
+<p>临时关闭 <code>sudo setenforce 0</code> (开启置为1)</p>
+<p>永久关闭<code>sed -i &#39;s/enforcing/disabled/&#39; /etc/selinux/config</code></p>
+<p>3、尝试启动kubelet</p>
+<p><code>sudo service kubelet start</code></p>
+<p>大概率启动失败，查看<code>/var/log/syslog</code> 应该会看到以下错误提示我们<code>&quot;Failed to run kubelet&quot; err=&quot;failed to run Kubelet: misconfiguration: kubelet cgroup driver: \&quot;systemd\&quot; is different from docker cgroup driver: \&quot;cgroupfs\&quot;&quot;</code></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/cymm_liu/article/details/106677997">相关了解链接</a></p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs less">启动<span class="hljs-selector-tag">kubelet</span>时要求<span class="hljs-selector-tag">docker</span>与<span class="hljs-selector-tag">kubelet</span>的驱动是一致的(systemd或者cgroupfs)。<br><br><span class="hljs-selector-tag">cgroup</span>是控制组(control group)的简写，是<span class="hljs-selector-tag">Linux</span>内核提供的一个特性。主要用于限制和隔离一组进程对系统资源的使用，也就是做资源<span class="hljs-selector-tag">QoS</span>(Quality of Service服务质量)。<br><br><span class="hljs-selector-tag">Cgroup</span>提供了一个原生接口然后通过封装这个接口提供<span class="hljs-selector-tag">cgroupfs</span>给用户使用。类似于<span class="hljs-selector-tag">procfs</span>和<span class="hljs-selector-tag">sysfs</span>，<span class="hljs-selector-tag">cgroupfs</span>是一种虚拟文件系统，默认挂载在/<span class="hljs-selector-tag">sys</span>/<span class="hljs-selector-tag">fs</span>/<span class="hljs-selector-tag">cgroup</span>目录。比如说要限制内存是多少、要用 <span class="hljs-selector-tag">CPU</span> <span class="hljs-selector-tag">share</span> 为多少？直接把 <span class="hljs-selector-tag">pid</span> 写入对应的一个 <span class="hljs-selector-tag">cgroup</span> 文件，然后把对应需要限制的资源也写入相应的 <span class="hljs-selector-tag">memory</span> <span class="hljs-selector-tag">cgroup</span> 文件和 <span class="hljs-selector-tag">CPU</span> 的 <span class="hljs-selector-tag">cgroup</span> 文件就可以了。<br><br><span class="hljs-selector-tag">Systemd</span>也是对于<span class="hljs-selector-tag">Cgroup</span>接口的一个封装。使用<span class="hljs-selector-tag">systemd</span> 做 <span class="hljs-selector-tag">cgroup</span> 驱动的话，所有的 <span class="hljs-selector-tag">cgroup</span> 操作都必须通过 <span class="hljs-selector-tag">systemd</span> 的接口来完成，不能手动更改 <span class="hljs-selector-tag">cgroup</span> 的文件。<br><br>所以 <span class="hljs-selector-tag">systemd</span> 更加安全(不能手动去更改 cgroup 文件)。【<span class="hljs-selector-tag">k8s</span>官网推荐使用<span class="hljs-selector-tag">systmed</span>】因为在 <span class="hljs-selector-tag">kubelet</span> 和 <span class="hljs-selector-tag">Docker</span> 中配置为使用 <span class="hljs-selector-tag">cgroupfs</span> 而在其余进程中使用 <span class="hljs-selector-tag">systemd</span> 的节点在资源压力下变得不稳定。<br></code></pre></td></tr></table></figure>
+
+<p>全部配置为cgroupfs: 在kubeadm.config中增加<code>--cgroup-driver=cgroupfs</code></p>
+<p><code>sudo vim /etc/systemd/system/kubelet.service.d/10-kubeadm.conf</code></p>
+<p>全部配置为systemd: 在docker配置文件中增加 <code>&quot;exec-opts&quot;: [&quot;native.cgroupdriver=systemd&quot;]</code></p>
+<p><code>sudo vim /etc/docker/daemon.json</code></p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs prolog">最好顺便增加一个镜像源<br>&#123;<br>  <span class="hljs-string">&quot;registry-mirrors&quot;</span>: [<span class="hljs-string">&quot;https://bmtb46e4.mirror.aliyuncs.com&quot;</span>],<br>  <span class="hljs-string">&quot;exec-opts&quot;</span>: [<span class="hljs-string">&quot;native.cgroupdriver=systemd&quot;</span>]<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>再启动试一下，应该是成功了(或者报错没有配置文件)</p>
+<p><code>sudo systemctl daemon-reload</code></p>
+<p><code>sudo systemctl start kubelet</code></p>
+<p>3、创建/加入集群</p>
+<p><code>kubeadm --help</code>看看这个指令的用法，提示使用<code>kubeadm init</code>成为新集群的master, 使用<code>kubeadm join</code>加入一个创建好的集群中去。</p>
+<p><img src="/2021/10/26/k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/image-20211026205701950.png" srcset="/img/loading.gif" lazyload alt="image-20211026205701950"><img src="/2021/10/26/k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/image-20211026205736057.png" srcset="/img/loading.gif" lazyload alt="image-20211026205736057"></p>
+<p><strong>创建集群</strong></p>
+<p>很大概率我们会碰到以下界面(国内连不上<a target="_blank" rel="noopener" href="https://k8s.gcr.io/v2/,%E6%97%A0%E6%B3%95%E4%B8%8B%E8%BD%BD%E8%AF%A5%E7%BD%91%E7%AB%99%E4%B8%8B%E9%9D%A2%E7%9A%84%E9%95%9C%E5%83%8F">https://k8s.gcr.io/v2/,无法下载该网站下面的镜像</a>)</p>
+<p><img src="/2021/10/26/k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/image-20211026213444925.png" srcset="/img/loading.gif" lazyload alt="image-20211026213444925"></p>
+<p>解决办法是增加init时的参数，image-repository指定镜像仓库地址, kubernetes-version指定k8s版本。当然也可以用pod-network-cidr指定集群内pod的ip段。</p>
+<p><code>kubeadm reset</code></p>
+<p><code>kubeadm init --image-repository=registry.aliyuncs.com/google_containers --pod-network-cidr=10.120.0.0/16 --kubernetes-version=v1.22.2</code></p>
+<p><img src="/2021/10/26/k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/image-20211027170122692.png" srcset="/img/loading.gif" lazyload alt="image-20211027170122692"></p>
+<p><img src="/2021/10/26/k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/image-20211027170213733.png" srcset="/img/loading.gif" lazyload alt="image-20211027170213733"></p>
+<p>根据提示启动集群需要普通用户运行下面的语句</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">mkdir -p <span class="hljs-variable">$HOME</span>/.kube<br>sudo cp -i <span class="hljs-regexp">/etc/</span>kubernetes<span class="hljs-regexp">/admin.conf $HOME/</span>.kube/config<br>sudo chown $(id -u):$(id -g) <span class="hljs-variable">$HOME</span><span class="hljs-regexp">/.kube/</span>config<br></code></pre></td></tr></table></figure>
+
+<p>最后一行提示要加入worker节点只需要作为root执行下面的语句</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">kubeadm</span> join <span class="hljs-number">192.168.1.107:6443</span> --token t<span class="hljs-number">03</span>tuk.<span class="hljs-number">2</span>y<span class="hljs-number">6</span>op<span class="hljs-number">1</span>wor<span class="hljs-number">4</span>kq<span class="hljs-number">73</span>hc --discovery-token-ca-cert-hash sha<span class="hljs-number">256</span>:<span class="hljs-number">65</span>b<span class="hljs-number">365706039857</span>be<span class="hljs-number">1</span>bdfa<span class="hljs-number">394</span>a<span class="hljs-number">0</span>eea<span class="hljs-number">973</span>bd<span class="hljs-number">1155</span>e<span class="hljs-number">3982</span>c<span class="hljs-number">1</span>f<span class="hljs-number">2</span>a<span class="hljs-number">7368</span>d<span class="hljs-number">78</span>a<span class="hljs-number">53</span>b<span class="hljs-number">4</span>f<span class="hljs-number">24</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>加入集群</strong></p>
+<p>在另一台机器上按相似步骤，最后执行上述加入语句</p>
+<p><img src="/2021/10/26/k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/image-20211027173425877.png" srcset="/img/loading.gif" lazyload alt="image-20211027173425877"></p>
+<p>因为token存在有效期，如果在有效期外使用上述命令则加入失败。在master上使用<code>kubeadm token list</code>获取所有token,然后用<code>openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt |openssl rsa -pubin -outform der 2&gt;/dev/null | openssl dgst -sha256 -hex |sed &#39;s/^.* //&#39;</code>获取证书。最后使用上述命令格式只需替换相应值即可。（注: 生成token命令<code>kubeadm token create</code>）</p>
+<p><img src="/2021/10/26/k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/image-20211029134152110.png" srcset="/img/loading.gif" lazyload alt="image-20211029134152110"></p>
+<p>注意要复制master的<code>/etc/kubernetes/admin.conf</code>给slave(我假设命名为slave.config)，slave同时设置环境变量<code>export KUBECONFIG=/etc/kubernetes/slave.config</code>。【kubectl命令需要使用kubernetes-admin来运行】</p>
+<p>貌似成功了，但是coredns一直处于挂起状态，coredns插件需要网络插件的支持(master和slave都要安装)，安装calico或者flannel都可以可以，这里安装flannel。【BGP域间路由协议】</p>
+<p><img src="/2021/10/26/k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/image-20211027174410428.png" srcset="/img/loading.gif" lazyload alt="image-20211027174410428"></p>
+<p><strong>安装网络插件flannel</strong></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-comment"># 下载yaml文件</span><br>wget https:<span class="hljs-regexp">//</span>raw.githubusercontent.com<span class="hljs-regexp">/coreos/</span>flannel<span class="hljs-regexp">/master/</span>Documentation/kube-flannel.yml<br><br><span class="hljs-comment"># 将文件中10.244.0.0/16修改为10.120.0.0/16</span><br>sed -i <span class="hljs-string">&#x27;s/10.244.0.0/10.120.0.0/g&#x27;</span> calico.yaml<br><br><span class="hljs-comment"># 部署</span><br>kubectl apply -f kube-flannel.yml<br></code></pre></td></tr></table></figure>
+
+<p><strong>安装网络插件calico</strong></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-comment"># 下载yaml文件</span><br>wget https:<span class="hljs-regexp">//</span>docs.projectcalico.org<span class="hljs-regexp">/v3.10/g</span>etting-started<span class="hljs-regexp">/kubernetes/i</span>nstallation<span class="hljs-regexp">/hosted/</span>kubernetes-datastore<span class="hljs-regexp">/calico-networking/</span><span class="hljs-number">1.7</span>/calico.yaml<br><br><span class="hljs-comment"># 将文件中192.168.0.0/16修改为10.120.0.0/16</span><br>sed -i <span class="hljs-string">&#x27;s/192.168.0.0/10.120.0.0/g&#x27;</span> calico.yaml<br><br><span class="hljs-comment"># 部署</span><br>kubectl apply -f calico.yaml<br></code></pre></td></tr></table></figure>
+
+<p><strong>主节点将从节点踢出集群</strong></p>
+<p><img src="/2021/10/26/k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/image-20211029201745320.png" srcset="/img/loading.gif" lazyload alt="image-20211029201745320"></p>
+<h3 id="四、测试"><a href="#四、测试" class="headerlink" title="四、测试"></a>四、测试</h3><p>主节点创建部署一个cron_master</p>
+<p><img src="/2021/10/26/k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/image-20211028210010283.png" srcset="/img/loading.gif" lazyload alt="image-20211028210010283"></p>
+<p>这时候发现master主节点和ubuntu从节点都无法进入这个pod【所有在ubuntu从节点上的pod都无法进入】</p>
+<p><img src="/2021/10/26/k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/image-20211028215053252.png" srcset="/img/loading.gif" lazyload alt="image-20211028215053252"></p>
+<p><img src="/2021/10/26/k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/image-20211028215116177.png" srcset="/img/loading.gif" lazyload alt="image-20211028215116177"></p>
+<p>通过在运行cron_master的节点上(ubuntu)使用docker命令获取到cron_master所在容器的id后进入容器</p>
+<p><img src="/2021/10/26/k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/image-20211029142336992.png" srcset="/img/loading.gif" lazyload alt="image-20211029142336992"></p>
+<p><img src="/2021/10/26/k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/image-20211029142449168.png" srcset="/img/loading.gif" lazyload alt="image-20211029142449168"></p>
+<p><img src="/2021/10/26/k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/image-20211029142547002.png" srcset="/img/loading.gif" lazyload alt="image-20211029142547002"></p>
+<p><strong>猜想：因为ubuntu是利用VMware软件运行在windows中的一个虚拟机，是否因为虚拟机的原因导致无法通过kubectl logs查看在该虚拟机上部署的容器的日志、也无法通过kubectl exec在容器内执行命令</strong></p>
+<p>于是，我尝试在另一台物理机安装k8s，并且也加入该集群。【增加从节点slave】</p>
+<p><img src="/2021/10/26/k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/image-20211029141742339.png" srcset="/img/loading.gif" lazyload alt="image-20211029141742339"></p>
+<p><img src="/2021/10/26/k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/image-20211029141838370.png" srcset="/img/loading.gif" lazyload alt="image-20211029141838370"></p>
+<p>这时，同样查看在slave从节点上利用<code>kubectl logs</code>和<code>kubectl exec</code>查看容器日志和在容器内执行命令，发现可以成功执行命令。</p>
+<p><img src="/2021/10/26/k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/image-20211029143202469.png" srcset="/img/loading.gif" lazyload alt="image-20211029143202469"></p>
+<h3 id="五、部署应用"><a href="#五、部署应用" class="headerlink" title="五、部署应用"></a>五、部署应用</h3><h4 id="yaml模板"><a href="#yaml模板" class="headerlink" title="yaml模板"></a>yaml模板</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># deployment.yaml文件</span><br><span class="hljs-comment"># k8s deployment资源创建流程：</span><br><span class="hljs-comment"># 1、用户通过 kubectl 创建 Deployment。</span><br><span class="hljs-comment"># 2、Deployment 创建 ReplicaSet。</span><br><span class="hljs-comment"># 3、ReplicaSet 创建 Pod。</span><br><span class="hljs-comment"># 创建对象的命名方式是：子对象的名字 = 父对象名字 + 随机字符串或数字</span><br><span class="hljs-comment"># 在 k8s 中,使用一种API对象(Deployment)管理另一种API对象(Pod)的方法叫作&quot;控制器&quot;模式(controller pattern)。Deployment扮演的正是Pod的控制器的角色。</span><br><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>   				<span class="hljs-comment"># 接口版本。每个版本内的功能都不一定相同，所以有时候会出现报错，指定kind类型找不到，那就是因为apiserver的版本没有指定正确。</span><br><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>                 	<span class="hljs-comment"># 接口类型。</span><br><span class="hljs-comment"># Endpoints ==&gt; 可以把外部服务链接到k8s系统中</span><br><span class="hljs-comment"># Service ==&gt; 部署一个内部虚拟IP，其他deployment可以链接</span><br><span class="hljs-comment"># Deployment ==&gt; 部署一个无状态应用Pod，内部只能链接service，无法互相链接</span><br><span class="hljs-comment"># Daemonset ==&gt; 部署守护应用</span><br><span class="hljs-comment"># Cronjob =&gt; 部署定时任务</span><br><span class="hljs-comment"># job ==&gt; 部署定时任务</span><br><span class="hljs-comment"># statefulset ==&gt; 部署有状态应用</span><br><br><span class="hljs-attr">metadata:</span>							<span class="hljs-comment"># 元数据。key:value对</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">cronmaster</span>               	<span class="hljs-comment"># Deployment名称</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">default</span>           		<span class="hljs-comment"># 命名空间</span><br>  <span class="hljs-attr">labels:</span>							<span class="hljs-comment"># 标签。标签的作用在于selector</span><br>    <span class="hljs-attr">app:</span> <span class="hljs-string">cronmaster</span>					<br>  <span class="hljs-attr">annotations:</span>						<span class="hljs-comment"># 注释。key:value对,不会对执行有任何影响，用来标记一些信息</span><br>  	<span class="hljs-attr">deployment.kubernetes.io/revision:</span> <span class="hljs-string">&quot;1&quot;</span><br>  	<br><span class="hljs-attr">spec:</span>								<span class="hljs-comment"># 资源清单。在这定义deployment所需要的资源清单</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span>						<span class="hljs-comment"># 该deployment的副本数量。</span><br>  <span class="hljs-attr">strategy:</span>							<span class="hljs-comment"># 部署策略。主要是2个:Recreate是停止旧的,然后启动新的,适用于开发环境; rolling-update是滚动升级,先启动一个新的,但并不立即加入使用,等到这个新的完全就绪后,就将一个老的停止,保证业务的连贯性。如果新的版本发布有错误，则会一直保持老的版本状态。</span><br>    <span class="hljs-attr">rollingUpdate:</span>  				<br>      <span class="hljs-attr">maxSurge:</span> <span class="hljs-number">1</span>      				<span class="hljs-comment"># 滚动升级的幅度。升级时每次会先启动1个pod</span><br>      <span class="hljs-attr">maxUnavailable:</span> <span class="hljs-number">1</span> 			<span class="hljs-comment"># 滚动升级时允许的最大Unavailable的pod数量</span><br>  <span class="hljs-attr">template:</span> 						<span class="hljs-comment"># pod模板。 </span><br>    <span class="hljs-attr">metadata:</span>						<span class="hljs-comment"># pod元数据</span><br>      <span class="hljs-attr">labels:</span>						<span class="hljs-comment"># pod标签</span><br>        <span class="hljs-attr">app:</span> <span class="hljs-string">cronmaster</span>				<br>    <span class="hljs-attr">sepc:</span> 							<span class="hljs-comment"># pod资源清单。在这定义pod所需要的资源清单</span><br>      <span class="hljs-attr">containers:</span>					<span class="hljs-comment"># pod容器信息。</span><br>      <span class="hljs-string">-</span>	<span class="hljs-attr">image:</span> <span class="hljs-string">cron_master:v1.0.0</span>	<span class="hljs-comment"># 镜像</span><br>      	<span class="hljs-attr">name:</span> <span class="hljs-string">cronmaster</span>			<span class="hljs-comment"># 容器名称  </span><br>        <span class="hljs-attr">imagePullPolicy:</span> <span class="hljs-string">IfNotPresent</span>	<span class="hljs-comment"># 镜像的拉取策略。always是每次都从镜像仓库拉取,IfNotPresent如果本地没有就拉取,never只从本地拉取</span><br>        <span class="hljs-attr">ports:</span>						<span class="hljs-comment"># pod暴露端口。</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">http</span><br>            <span class="hljs-attr">containerPort:</span> <span class="hljs-number">8080</span>		<span class="hljs-comment"># 对service暴露端口</span><br>        <span class="hljs-attr">livenessProbe:</span>       		<span class="hljs-comment"># pod健康检查。(存活探针，是否存活)</span><br>          <span class="hljs-attr">httpGet:</span><br>            <span class="hljs-attr">path:</span> <span class="hljs-string">/running</span> <br>            <span class="hljs-attr">port:</span> <span class="hljs-number">8080</span><br>            <span class="hljs-attr">scheme:</span> <span class="hljs-string">HTTP</span><br>          <span class="hljs-attr">initialDelaySeconds:</span> <span class="hljs-number">60</span> 	<span class="hljs-comment"># 启动后延时多久开始运行检测</span><br>          <span class="hljs-attr">timeoutSeconds:</span> <span class="hljs-number">5</span>			<span class="hljs-comment"># 连接超时时间</span><br>          <span class="hljs-attr">successThreshold:</span> <span class="hljs-number">1</span>		<span class="hljs-comment"># 决定成功的次数</span><br>          <span class="hljs-attr">failureThreshold:</span> <span class="hljs-number">5</span>		<span class="hljs-comment"># 决定失败的次数</span><br>        <span class="hljs-attr">readinessProbe:</span>				<span class="hljs-comment"># pod健康检查。(就绪探针,是否就绪)</span><br>          <span class="hljs-attr">httpGet:</span><br>            <span class="hljs-attr">path:</span> <span class="hljs-string">/ready</span> <br>            <span class="hljs-attr">port:</span> <span class="hljs-number">8080</span><br>            <span class="hljs-attr">scheme:</span> <span class="hljs-string">HTTP</span><br>          <span class="hljs-attr">initialDelaySeconds:</span> <span class="hljs-number">30</span> <br>          <span class="hljs-attr">timeoutSeconds:</span> <span class="hljs-number">5</span><br>          <span class="hljs-attr">successThreshold:</span> <span class="hljs-number">1</span><br>          <span class="hljs-attr">failureThreshold:</span> <span class="hljs-number">5</span><br>        <span class="hljs-attr">resources:</span>              	<span class="hljs-comment"># pod资源限制</span><br>          <span class="hljs-attr">requests:</span><br>            <span class="hljs-attr">cpu:</span> <span class="hljs-number">2</span><br>            <span class="hljs-attr">memory:</span> <span class="hljs-string">2048Mi</span><br>          <span class="hljs-attr">limits:</span><br>            <span class="hljs-attr">cpu:</span> <span class="hljs-number">2</span><br>            <span class="hljs-attr">memory:</span> <span class="hljs-string">2048Mi</span><br>        <span class="hljs-attr">env:</span>                    	<span class="hljs-comment"># pod环境变量</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">LOCAL_KEY</span>     	<span class="hljs-comment"># 本地Key</span><br>            <span class="hljs-attr">value:</span> <span class="hljs-string">value</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">CONFIG_MAP_KEY</span>  	<span class="hljs-comment"># 局策略可使用configMap的配置Key，</span><br>            <span class="hljs-attr">valueFrom:</span><br>              <span class="hljs-attr">configMapKeyRef:</span><br>                <span class="hljs-attr">name:</span> <span class="hljs-string">special-config</span>	<span class="hljs-comment"># configmap中找到name为special-config</span><br>                <span class="hljs-attr">key:</span> <span class="hljs-string">special.type</span>		<span class="hljs-comment"># 找到name为special-config里data下的key</span><br>      	<span class="hljs-attr">volumeMounts:</span>				<span class="hljs-comment"># pod磁盘挂载</span><br>      	<span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">log-cache</span>			<span class="hljs-comment"># 挂载空文件</span><br>          <span class="hljs-attr">mount:</span> <span class="hljs-string">/tmp/log</span><br>      	<span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">sdb</span> 				<span class="hljs-comment"># 挂载本机文件</span><br>          <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/etc/cron_master/config.ini</span>   <br>      	<span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nfsType</span>				<span class="hljs-comment"># 挂载nfs。</span><br>          <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/mnt/nfs</span><br>      	<span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">configMapPair</span>		<span class="hljs-comment"># 挂载ConfigMap</span><br>          <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/etc/config</span>       <br>      	<span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">rbd-pvc</span>           	<span class="hljs-comment"># 挂载PVC</span><br>  <br>  	  <span class="hljs-attr">volumes:</span>  						<span class="hljs-comment"># 虚拟磁盘。pod的volumeMounts挂载在这里定义的磁盘上</span><br>  	  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">log-cache</span>						<br>		<span class="hljs-attr">emptyDir:</span> &#123;&#125;					<span class="hljs-comment"># 生命周期和Pod一致。在同一Pod内的不同容器之间共享文件。</span><br>  	  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">sdb</span>  <br>    	<span class="hljs-attr">hostPath:</span>						<span class="hljs-comment"># 挂载本机文件</span><br>      	  <span class="hljs-attr">path:</span> <span class="hljs-string">/tmp/config.ini</span><br>  	  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">configMapPair</span>  <br>    	<span class="hljs-attr">configMap:</span>						<span class="hljs-comment"># 供ConfigMap文件内容到指定路径使用</span><br>      	  <span class="hljs-attr">name:</span> <span class="hljs-string">configMapPair</span>  <br>      	  <span class="hljs-attr">items:</span><br>      	  <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">log-script</span>           <br>            <span class="hljs-attr">path:</span> <span class="hljs-string">path/to/log-script</span> <br>      	  <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">backup-script</span>        <br>            <span class="hljs-attr">path:</span> <span class="hljs-string">path/to/backup-script</span>  <br>  	  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nfsType</span>         <br>        <span class="hljs-attr">nfs:</span>							<span class="hljs-comment"># 挂载NFS存储类型</span><br>      	  <span class="hljs-attr">server:</span> <span class="hljs-number">55.55</span><span class="hljs-number">.55</span><span class="hljs-number">.55</span>          	<span class="hljs-comment"># NFS服务器地址</span><br>      	  <span class="hljs-attr">path:</span> <span class="hljs-string">/opt/public</span>           		<br>  	  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">pvc</span>                 		<br>        <span class="hljs-attr">persistentVolumeClaim:</span>			<span class="hljs-comment"># 声明PVC。挂载PVC磁盘</span><br>      	  <span class="hljs-attr">claimName:</span> <span class="hljs-string">nfspvc1</span>         	<span class="hljs-comment"># nfspvc1创建方式见下面补充点</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>补充点：</strong>因为pod是无状态的,为了实现Pod内数据的存储管理,K8s引入了两个API资源：Persistent Volume(持久卷PV)和Persistent Volume Claim(持久卷申请PVC)。PV是k8s集群中的一种网络存储实现,跟Node一样属于集群的资源。PV跟Docker里的Volume类似,不过会有独立于Pod的生命周期(Pod消费Node的资源，PVC消费PV的资源)。</p>
+<p><strong>两种PV供给方式：静态供应、动态供应</strong></p>
+<p>静态供应是由管理员手动创建一堆PV，组成一个PV池，供PVC来绑定。</p>
+<p>动态供应是指在现有PV不满足PVC的请求时，可以使用存储分类(StorageClass)来动态创建PV。大致过程为：PV先创建分类，PVC请求已创建的某个类（StorageClass）的资源，这样就达到动态配置的效果。即通过一个叫 Storage Class的对象由存储系统根据PVC的要求自动创建。</p>
+<p><strong>1、静态供应</strong></p>
+<p><strong>创建PV</strong></p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">apiVersion:</span> v1<br><span class="hljs-symbol">kind:</span> PersistentVolume<br><span class="hljs-symbol">metadata:</span><br><span class="hljs-symbol">  name:</span> nfspv1						<span class="hljs-meta"># PV名称</span><br><span class="hljs-symbol">  labels:</span>							<span class="hljs-meta"># PV标签</span><br><span class="hljs-symbol">  	app:</span> cronpool		<br><span class="hljs-symbol">spec:</span>								<span class="hljs-meta"># 资源清单</span><br><span class="hljs-symbol">  capacity:</span>							<span class="hljs-meta"># 指定大小</span><br><span class="hljs-symbol">	storage:</span> <span class="hljs-number">1</span>Gi <br><span class="hljs-symbol">  volumeMode:</span> Filesystem 			<span class="hljs-meta"># 文件类型</span><br><span class="hljs-symbol">  accessModes:</span> 						<span class="hljs-meta"># 指定访问模式</span><br>  - ReadWriteOnce 					<span class="hljs-meta"># 该卷可以被单个节点以读/写模式挂载</span><br><span class="hljs-meta"># ReadWriteOnce ==&gt; 该卷可以被单个节点以读/写模式挂载</span><br><span class="hljs-meta"># ReadOnlyMany ==&gt; 该卷可以被多个节点以只读模式挂载</span><br><span class="hljs-meta"># ReadWriteMany ==&gt; 该卷可以被多个节点以读/写模式挂载</span><br><span class="hljs-symbol"></span><br><span class="hljs-symbol">  persistentVolumeReclaimPolicy:</span> Recycle <span class="hljs-meta"># 回收策略。pvc资源释放后的事件。</span><br><span class="hljs-meta"># Retain ==&gt; 保留现场，等待用户手动去处理PV里的数据，处理完后，再手动删除PV。</span><br><span class="hljs-meta"># Delete ==&gt; K8s自动删除该PV及里面的数据。</span><br><span class="hljs-meta"># Recycle ==&gt; K8S会将PV里的数据删除，然后把PV的状态变成Available，又可以被新的PVC绑定使用。</span><br><span class="hljs-symbol"></span><br><span class="hljs-symbol">  storageClassName:</span> small 			<span class="hljs-meta"># 指定PV的class。为PV分类,PVC将从指定class申请PV</span><br><span class="hljs-symbol">  nfs:</span>								<span class="hljs-meta"># 指定PV所在位置</span><br><span class="hljs-symbol">	path:</span> <span class="hljs-meta-keyword">/tmp/</span>cron/share <br><span class="hljs-symbol">	server:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.101</span> <br></code></pre></td></tr></table></figure>
+
+<p><img src="/2021/10/26/k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/image-20211029170936053.png" srcset="/img/loading.gif" lazyload alt="image-20211029170936053"></p>
+<p>查看PV<code>kubectl get pv -o wide</code>、<code>kubectl describe pv nfspv1</code></p>
+<p>删除PV<code>kubectl delete pv nfspv1</code></p>
+<p><strong>创建PVC</strong></p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">apiVersion:</span> v1<br><span class="hljs-symbol">kind:</span> PersistentVolumeClaim<br><span class="hljs-symbol">metadata:</span><br><span class="hljs-symbol">  name:</span> nfspvc1						<span class="hljs-meta"># PVC名称</span><br><span class="hljs-symbol">  labels:</span>							<span class="hljs-meta"># PVC标签</span><br><span class="hljs-symbol">    app:</span> cron<br><span class="hljs-symbol">spec:</span>								<span class="hljs-meta"># PVC资源清单</span><br><span class="hljs-symbol">  accessModes:</span>						<span class="hljs-meta"># 访问模式。需要和PV一致</span><br>    - ReadWriteOnce<br><span class="hljs-symbol">  storageClassName:</span> small 			<span class="hljs-meta"># 指定PV类</span><br><span class="hljs-symbol">  resources:</span><br><span class="hljs-symbol">    requests:</span><br><span class="hljs-symbol">      storage:</span> <span class="hljs-number">200</span>Mi    			<span class="hljs-meta"># 需要的大小，不超过PV</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/2021/10/26/k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/image-20211029173350996.png" srcset="/img/loading.gif" lazyload alt="image-20211029173350996"></p>
+<p>查看PVC<code>kubectl get pvc -o wide</code>、<code>kubectl describe pvc nfspvc1</code></p>
+<p>删除PVC后，PV的状态变为Released。<code>kubectl delete pvc nfspvc1</code></p>
+<p><img src="/2021/10/26/k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/image-20211029173500181.png" srcset="/img/loading.gif" lazyload alt="image-20211029173500181"></p>
+<p>通过<code>kubectl edit pv nfspv1</code>编辑删除其中的<code>claimRef</code>段落保存后即可恢复PV到Available状态。</p>
+<p><img src="/2021/10/26/k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/image-20211029173804613.png" srcset="/img/loading.gif" lazyload alt="image-20211029173804613"></p>
+<p><strong>2、动态供应</strong></p>
+<p><strong>创建StorageClass</strong></p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs clean">```<br><br><br><br>#### 创建Endpoints和Service<br><br>这里假设外部有etcd服务，我们将该服务封装成k8s的一个服务供pod通过clusterIP使用。如果pod直接配置服务ip为外部服务的IP，那么就产生了**不必要的耦合性**。<br><br>Service是Kubernetes里最**核心**的资源对象之一,Service定义了一个服务的访问入口地址,前端的应用(Pod)通过这个入口地址访问其背后的一组由Pod副本组成的集群实力。 Service与其后端Pod副本集群之间则是通过Label Selector来实现<span class="hljs-string">&quot;无缝对接&quot;</span>。而RC的作用实际上是保证Service 的服务能力和服务质量处于预期的标准。<br><br>&lt;img src=<span class="hljs-string">&quot;k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/image-20211030144605264.png&quot;</span> alt=<span class="hljs-string">&quot;image-20211030144605264&quot;</span> style=<span class="hljs-string">&quot;zoom:50%;&quot;</span> /&gt;<br><br>**service在四层转发的四种模式**<br><br></code></pre></td></tr></table></figure>
+<p>ClusterIP<br>此类型会提供一个集群内部的虚拟IP（与Pod不在同一网段)，以供集群内部的pod之间通信使用。ClusterIP也是service的默认类型。</p>
+<p>NodePort<br>NodePort模式除了使用cluster ip外，也将service的port映射到每个node的一个指定内部port上，映射的每个node的内部port都一样。为每个节点暴露一个端口，通过nodeip + nodeport可以访问这个服务，同时服务依然会有cluster类型的ip+port。内部通过clusterip方式访问，外部通过nodeport方式访问。</p>
+<p>loadbalance<br>LoadBalancer在NodePort基础上，K8S可以请求底层云平台创建一个负载均衡器，将每个Node作为后端，进行服务分发。该模式需要底层云平台（例如GCE）支持。</p>
+<p>Ingress<br>Ingress [n.进入; 进入权; 入境权]，是一种HTTP方式的路由转发机制，由Ingress Controller和HTTP代理服务器组合而成。【七层负载均衡】。Ingress Controller实时监控Kubernetes API，实时更新HTTP代理服务器的转发规则。HTTP代理服务器有GCE Load-Balancer、HaProxy、Nginx等开源方案。</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><br><span class="hljs-strong">**service的三种端口**</span><br><br></code></pre></td></tr></table></figure>
+<p>port<br>service暴露在cluster ip上的端口提供给【集群内部客户访问】service的入口。</p>
+<p>nodePort<br>nodePort是k8s提供给【集群外部客户访问】service入口的一种方式</p>
+<p>targetPort<br>targetPort是【pod上的端口】，从port和nodePort上到来的数据最终经过kube-proxy流入到后端pod的targetPort上进入容器。</p>
+<p>总之，port和nodePort都是service的端口，前者暴露给集群内客户访问服务，后者暴露给集群外客户访问服务。从这两个端口到来的数据都需要经过反向代理kube-proxy流入后端pod的targetPod，从而到达pod上的容器内。</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><br><span class="hljs-attribute">service</span>的yaml文件示例，如下部署一个集群内访问集群外【假设<span class="hljs-number">192.168.1.101</span>在集群外】etcd服务器的service。<br><br></code></pre></td></tr></table></figure>
+<h1 id="cronetcd-endpoints"><a href="#cronetcd-endpoints" class="headerlink" title="cronetcd.endpoints"></a>cronetcd.endpoints</h1><p>apiVersion: v1<br>kind: Endpoints<br>metadata:<br>  name: cronetcd<br>subsets:</p>
+<ul>
+<li>addresses:<ul>
+<li>ip: 192.168.1.101<br>ports:</li>
+<li>port: 2379<br>protocol: TCP<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs"><br></code></pre></td></tr></table></figure>
+<h1 id="cronetcd-svc"><a href="#cronetcd-svc" class="headerlink" title="cronetcd.svc"></a>cronetcd.svc</h1>apiVersion: v1<br>kind: Service<br>metadata:<br>name: cronetcd<br>spec:<br>clusterIP: 10.96.23.79<br>ports:</li>
+<li>port: 2379             # service暴露在cluster ip上的端口【10.96.23.79:2379】<br>targetPort: 2379       # 经proxy转发给pod端口 【192.168.1.101：2379】<br>protocol: TCP<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs mel"><br>部署service<br><br>![<span class="hljs-keyword">image</span><span class="hljs-number">-20211030155546685</span>](k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/<span class="hljs-keyword">image</span><span class="hljs-number">-20211030155546685.</span>png)<br><br>同理可部署mongodb的service，etcd和mongodb部署好之后，更改master.config文件中的相关配置，并增加相应磁盘映射即可开启cron_master节点。<br><br>**master.config**<br><br></code></pre></td></tr></table></figure>
+<h1 id="logger相关配置"><a href="#logger相关配置" class="headerlink" title="logger相关配置"></a>logger相关配置</h1>[logger]<br>LogFilePath=/tmp/cron_master/<br>LogFileName=log<h1 id="trace-debug-info-warn-fatal-panic"><a href="#trace-debug-info-warn-fatal-panic" class="headerlink" title="trace debug info warn fatal panic"></a>trace debug info warn fatal panic</h1>LogLevel=info</li>
+</ul>
+</li>
+</ul>
+<h1 id="etcd相关配置"><a href="#etcd相关配置" class="headerlink" title="etcd相关配置"></a>etcd相关配置</h1><p>[etcd]</p>
+<h1 id="集群节点-如有多个节点则以逗号分隔开"><a href="#集群节点-如有多个节点则以逗号分隔开" class="headerlink" title="集群节点(如有多个节点则以逗号分隔开)"></a>集群节点(如有多个节点则以逗号分隔开)</h1><p>Endpoints=10.96.23.79:2379</p>
+<h1 id="连接超时时间"><a href="#连接超时时间" class="headerlink" title="连接超时时间"></a>连接超时时间</h1><p>DialTimeout=5000</p>
+<h1 id="task相关配置"><a href="#task相关配置" class="headerlink" title="task相关配置"></a>task相关配置</h1><p>[task]</p>
+<h1 id="任务目录"><a href="#任务目录" class="headerlink" title="任务目录"></a>任务目录</h1><p>BaseDir=/cron/tasks/</p>
+<h1 id="强杀目录"><a href="#强杀目录" class="headerlink" title="强杀目录"></a>强杀目录</h1><p>KillerDir=/cron/killer/</p>
+<h1 id="警报目录"><a href="#警报目录" class="headerlink" title="警报目录"></a>警报目录</h1><p>WarnDir=/cron/warn/</p>
+<h1 id="worker相关配置-服务注册、服务发现"><a href="#worker相关配置-服务注册、服务发现" class="headerlink" title="worker相关配置(服务注册、服务发现)"></a>worker相关配置(服务注册、服务发现)</h1><p>[worker]<br>WorkersDir=/cron/workers/</p>
+<h1 id="master相关配置-选主"><a href="#master相关配置-选主" class="headerlink" title="master相关配置(选主)"></a>master相关配置(选主)</h1><p>[master]</p>
+<h1 id="master注册目录"><a href="#master注册目录" class="headerlink" title="master注册目录"></a>master注册目录</h1><p>MastersDir=/corn/masters/</p>
+<h1 id="主master抢锁的key"><a href="#主master抢锁的key" class="headerlink" title="主master抢锁的key"></a>主master抢锁的key</h1><p>LeaderKey=/cron/leader</p>
+<h1 id="mongodb相关配置"><a href="#mongodb相关配置" class="headerlink" title="mongodb相关配置"></a>mongodb相关配置</h1><p>[database]</p>
+<h1 id="数据库地址"><a href="#数据库地址" class="headerlink" title="数据库地址"></a>数据库地址</h1><p>DatabaseURI=mongodb://10.96.27.17:27017</p>
+<h1 id="连接超时时间-ms"><a href="#连接超时时间-ms" class="headerlink" title="连接超时时间(ms)"></a>连接超时时间(ms)</h1><p>ConnectTimeOut=5000</p>
+<h1 id="数据库名称"><a href="#数据库名称" class="headerlink" title="数据库名称"></a>数据库名称</h1><p>DatabaseName=cron</p>
+<h1 id="表名"><a href="#表名" class="headerlink" title="表名"></a>表名</h1><p>Collection=log</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs mel"><br><br><br>![<span class="hljs-keyword">image</span><span class="hljs-number">-20211030155925479</span>](k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/<span class="hljs-keyword">image</span><span class="hljs-number">-20211030155925479.</span>png)<br><br>将yaml文件中的replicas修改为<span class="hljs-number">3</span>，查看运行日志，部署cron_master应用成功！<br><br>![<span class="hljs-keyword">image</span><span class="hljs-number">-20211030160542889</span>](k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/<span class="hljs-keyword">image</span><span class="hljs-number">-20211030160542889.</span>png)<br><br>![<span class="hljs-keyword">image</span><span class="hljs-number">-20211030160802333</span>](k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/<span class="hljs-keyword">image</span><span class="hljs-number">-20211030160802333.</span>png)<br><br>OK，现在k8s集群内部的node可以通过pod IP来访问对应的cron_master,但**集群外的用户怎么办**呢？<br><br>![<span class="hljs-keyword">image</span><span class="hljs-number">-20211030160944515</span>](k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/<span class="hljs-keyword">image</span><span class="hljs-number">-20211030160944515.</span>png)<br><br>我想你应该知道怎么办了，同样地，我们为这三个cron_master创建service，但**设置转发模式为nodePort**。<br><br>**注意：如果cronmaster的某个pod挂了，再次恢复时pod的IP可能已经发生变化了，那么此时该service怎么办。这里我选择避开选择器直接使用pod的IP创建service，事实上我们在service中要用selector选择器根据pod标签选择对应的IP，为所有包含所选标签的pod创建服务。选择器后面再学习。**<br><br><span class="hljs-string">`service是一个虚拟概念，逻辑上代理后端pod。pod生命周期短，状态不稳定，pod异常后新生成的pod ip会发生变化，之前pod的访问方式均不可达。通过service对pod做代理，service有固定的ip和port，ip:port组合自动关联后端pod，即使pod发生改变，kubernetes内部更新这组关联关系，使得service能够匹配到新的pod。这样，通过service提供的固定ip，用户再也不用关心需要访问哪个pod，以及pod是否发生改变，大大提高了服务质量。如果pod使用rc创建了多个副本，那么service就能代理多个相同的pod，通过kube-proxy，实现负载均衡。`</span><br><br></code></pre></td></tr></table></figure>
+<p>apiVersion: v1<br>kind: Endpoints<br>metadata:<br>  name: cronmaster<br>subsets:</p>
+<ul>
+<li>addresses:<ul>
+<li>ip: 10.120.2.24</li>
+<li>ip: 10.120.2.25</li>
+<li>ip: 10.120.2.26<br>ports:</li>
+<li>port: 9090<br>protocol: TCP<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs"><br></code></pre></td></tr></table></figure>
+apiVersion: v1<br>kind: Service<br>metadata:<br>name: cronmaster<br>spec:<br>type: NodePort<br>ports:</li>
+<li>port: 9090<br>targetPort: 9090<br>nodePort: 30080<br>protocol: TCP<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs mel"><br>![<span class="hljs-keyword">image</span><span class="hljs-number">-20211030164314696</span>](k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/<span class="hljs-keyword">image</span><span class="hljs-number">-20211030164314696.</span>png)<br><br>让我们来测试吧！结果OK。<br><br>![<span class="hljs-keyword">image</span><span class="hljs-number">-20211030164703495</span>](k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/<span class="hljs-keyword">image</span><span class="hljs-number">-20211030164703495.</span>png)<br><br>#### GUI/可视化<br><br>获取dashboard的yaml文件<span class="hljs-string">`wget https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml`</span><br><br>为了能让外部客户访问到dashboard, 这里修改recommend.yaml文件，设置service资源清单的type为NodePort，设置外部端口为<span class="hljs-number">30090</span>。<br><br></code></pre></td></tr></table></figure>
+kind: Service<br>apiVersion: v1<br>metadata:<br>labels:<br>k8s-app: kubernetes-dashboard<br>name: kubernetes-dashboard<br>namespace: kubernetes-dashboard<br>spec:<br>type: NodePort<br>ports:<ul>
+<li>port: 443<br>targetPort: 8443<br>nodePort: 30090<br>selector:<br>k8s-app: kubernetes-dashboard<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs mel"><br><span class="hljs-string">`kubectl apply -f recommended.yaml`</span><br><br>![<span class="hljs-keyword">image</span><span class="hljs-number">-20211101202650064</span>](k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/<span class="hljs-keyword">image</span><span class="hljs-number">-20211101202650064.</span>png)<br><br>**注意：**必须要使用<span class="hljs-string">`HTTPS`</span>协议。<br><br>这里使用Token登录，前面已经提过如何获取Token。但不幸的是，并不是所有角色的Token都能登录【角色与权限是绑定的，脱离了权限谈角色没有任何意义，就像数据库中所描述的一样：**角色是一组权限的集合**】。权限访问控制后面再学习，现在暂时跳过权限控制部分。[相关信息](https:<span class="hljs-comment">//zhuanlan.zhihu.com/p/281294170)</span><br><br>下面将创建一个叫做dashboard-user的角色，并放在kubernetes-dashboard 命名空间下，并将<span class="hljs-keyword">cluster</span>-admin角色绑定到dashboard-user角色，这样dashboard-user账户【kubeadm init创建集群时默认创建了<span class="hljs-keyword">cluster</span>-admin角色】就有了管理员的权限。<br><br></code></pre></td></tr></table></figure>
+apiVersion: v1<br>kind: ServiceAccount<br>metadata:<br>name: dashboard-user<br>namespace: kubernetes-dashboard</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>apiVersion: rbac.authorization.k8s.io/v1<br>kind: ClusterRoleBinding<br>metadata:<br>  name: dashboard-user<br>roleRef:<br>  apiGroup: rbac.authorization.k8s.io<br>  kind: ClusterRole<br>  name: cluster-admin<br>subjects:</p>
+<ul>
+<li>kind: ServiceAccount<br>name: dashboard-user<br>namespace: kubernetes-dashboard<br>```</li>
+</ul>
+<p><img src="/2021/10/26/k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/image-20211101205233054.png" srcset="/img/loading.gif" lazyload alt="image-20211101205233054"></p>
+<p>查看kubernetes-dashboard命名空间下所有角色<code>kubectl get sa -n kubernetes-dashboard </code></p>
+<p><img src="/2021/10/26/k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/image-20211101205938348.png" srcset="/img/loading.gif" lazyload alt="image-20211101205938348"></p>
+<p>查看角色的详细信息<code>kubectl describe secret dashboard-user -n kubernetes-dashboard</code>。</p>
+<p><img src="/2021/10/26/k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/image-20211101210803119.png" srcset="/img/loading.gif" lazyload alt="image-20211101210803119"></p>
+<p>复制Token登录即可看到以下图像交互界面。</p>
+<p><img src="/2021/10/26/k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/image-20211101210639342.png" srcset="/img/loading.gif" lazyload alt="image-20211101210639342"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/k8s/">k8s</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+                    
+                      <a class="hover-with-bg" href="/tags/k8s/">k8s</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-info">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/10/28/iptables%E5%91%BD%E4%BB%A4%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">iptables命令简单使用</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/10/24/%E8%B4%B9%E9%A9%AC%E5%B0%8F%E5%AE%9A%E7%90%86%E6%B1%82%E9%80%86%E5%85%83(%E7%BB%84%E5%90%88%E6%95%B0)/">
+                        <span class="hidden-mobile">费马小定理求逆元(组合数)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

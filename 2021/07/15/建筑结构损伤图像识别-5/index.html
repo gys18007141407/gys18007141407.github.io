@@ -1,0 +1,477 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  
+  <title>建筑结构损伤图像识别-5 - gys的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gys18007141407.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>gys的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/miku7.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="建筑结构损伤图像识别-5">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-15 11:25" pubdate>
+        2021年7月15日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      26
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">建筑结构损伤图像识别-5</h1>
+	    <time updated datetime="2021-07-15 13:18"></time>
+            
+            <div class="markdown-body">
+              <h2 id="PyTorch-LSTM-使用"><a href="#PyTorch-LSTM-使用" class="headerlink" title="PyTorch LSTM 使用"></a>PyTorch LSTM 使用</h2><p>记录一下使用PyTorch的LSTM层，talk is cheap， show me the code！<br>主要是一个非常简单(恶心的代码qAq)的使用，顺便记录一下一般搭建模型的顺序。</p>
+<hr>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># __init__.py</span><br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># DataLoader.py</span><br><br><br><span class="hljs-keyword">import</span> re<br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">from</span> torch.utils.data <span class="hljs-keyword">import</span> Dataset,DataLoader<br><span class="hljs-keyword">from</span> emotionClassify <span class="hljs-keyword">import</span> collate, Tokenlize<br><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IMDBDataSet</span>(<span class="hljs-params">Dataset</span>):</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, train=<span class="hljs-literal">True</span></span>):</span><br>        self.train_data_path = <span class="hljs-string">r&quot;./IMDB/train&quot;</span><br>        self.test_data_path = <span class="hljs-string">r&quot;./IMDB/test&quot;</span><br><br>        self.data_path = self.train_data_path <span class="hljs-keyword">if</span> train <span class="hljs-keyword">else</span> self.test_data_path<br><br>        <span class="hljs-comment"># 把文件夹名放入列表中</span><br>        self.data_dirs = [os.path.join(self.data_path, <span class="hljs-string">&quot;pos&quot;</span>), os.path.join(self.data_path, <span class="hljs-string">&quot;neg&quot;</span>)]<br><br>        <span class="hljs-comment"># 所有的文件路径</span><br>        self.total_file_path = []<br><br>        <span class="hljs-keyword">for</span> data_dir <span class="hljs-keyword">in</span> self.data_dirs:<br>            self.file_name_lists = os.listdir(data_dir)<br><br>            self.file_path_lists = [os.path.join(data_dir, name) <span class="hljs-keyword">for</span> name <span class="hljs-keyword">in</span> self.file_name_lists <span class="hljs-keyword">if</span> name.endswith(<span class="hljs-string">&quot;.txt&quot;</span>)]<br><br>            self.total_file_path.extend(self.file_path_lists)<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__getitem__</span>(<span class="hljs-params">self, item</span>):</span><br><br>        <span class="hljs-comment"># 获取label</span><br>        <span class="hljs-comment"># label = re.split(&quot;/|\\\\|\\.|_&quot;, self.total_file_path[item])</span><br>        <span class="hljs-comment"># 当输入两个反斜杠时，两个反斜杠首先在 Python 解释器进行转义，变成一个反斜杠，然后将这一个反斜杠输入到re模块中</span><br>        label = re.split(<span class="hljs-string">r&quot;/|\\|\.|_&quot;</span>, self.total_file_path[item])<br>        <span class="hljs-comment"># 用r将原始字符串输入到re模块</span><br><br>        label = <span class="hljs-built_in">eval</span>(label[-<span class="hljs-number">2</span>])<br>        content = <span class="hljs-built_in">open</span>(self.total_file_path[item], encoding=<span class="hljs-string">&quot;utf-8&quot;</span>).read()<br><br>        <span class="hljs-comment"># open() 与 with open()   区别</span><br>        <span class="hljs-comment"># 1、open需要主动调用close()，with open不需要</span><br>        <span class="hljs-comment">#</span><br>        <span class="hljs-comment"># 2、open读取文件时发生异常，没有任何处理，with有很好的处理上下文产生的异常</span><br><br>        <span class="hljs-keyword">return</span> Tokenlize.tokenlize(content),label<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__len__</span>(<span class="hljs-params">self</span>):</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(self.total_file_path)<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_dataloader</span>(<span class="hljs-params">Train=<span class="hljs-literal">True</span>, batch_size=<span class="hljs-number">1</span>, shuffle=<span class="hljs-literal">False</span>, drop_last=<span class="hljs-literal">True</span>, collate_fn=collate.collate</span>):</span><br>    <span class="hljs-keyword">return</span> DataLoader(IMDBDataSet(train=Train),<br>                      batch_size=batch_size,<br>                      shuffle=shuffle,<br>                      drop_last=drop_last,<br>                      collate_fn=collate_fn)<br><br><br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Tokenlize.py</span><br><br><br><span class="hljs-keyword">import</span> re<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">tokenlize</span>(<span class="hljs-params">content</span>):</span><br><br>    <span class="hljs-comment"># *?是非贪婪匹配，vim中用过别忘了</span><br>    content = re.sub(<span class="hljs-string">&quot;&lt;.*?&gt;|_&quot;</span>, <span class="hljs-string">&quot; &quot;</span>, content)<br>    content = re.sub(<span class="hljs-string">r&#x27;\w\&#x27;s &#x27;</span>, <span class="hljs-string">&quot; is &quot;</span>, content)<br>    content = re.sub(<span class="hljs-string">r&#x27;\&#x27;re &#x27;</span>, <span class="hljs-string">&quot; are &quot;</span>, content)<br>    content = re.sub(<span class="hljs-string">r&#x27;\&#x27;d &#x27;</span>, <span class="hljs-string">&quot; would &quot;</span>, content)<br>    <span class="hljs-comment"># filters = [&#x27;\*&#x27;, &#x27;#&#x27;, &#x27;\$&#x27;, &#x27;%&#x27;, &#x27;\^&#x27;, &#x27;&amp;&#x27;, &#x27;\.&#x27;, &#x27;,&#x27;]</span><br>    content = re.sub(<span class="hljs-string">r&#x27;\W&#x27;</span>, <span class="hljs-string">&quot; &quot;</span>, content)<br><br>    tokens = [token.strip().lower() <span class="hljs-keyword">for</span> token <span class="hljs-keyword">in</span> content.split()]<br><br>    <span class="hljs-keyword">return</span> tokens<br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># collate.py</span><br><br><br><span class="hljs-comment"># 注意</span><br><br><span class="hljs-comment"># 当Dataset中的__getitem__返回的(输入,标签)的输入是字符串的时候，应该要自定义collate_fn函数，否则报错</span><br><span class="hljs-comment"># 因为，default_collate_fn中对于字符串是将batch中每个样本做zip,于是发现每个样本的长度不是一样长就报错了</span><br><span class="hljs-comment"># 如 batch = [([&quot;a&quot;,&quot;b&quot;,&quot;c&quot;], 0), ([&quot;z&quot;,&quot;y&quot;], 1)]</span><br><br><span class="hljs-comment"># default_collate_fn的一段代码</span><br><span class="hljs-comment"># transposed = zip(*batch)</span><br><span class="hljs-comment">#         return [default_collate(samples) for samples in transposed]</span><br><br><span class="hljs-comment"># 按照default_collate_fn, 对于字符串 return [[(&quot;a&quot;,&quot;z&quot;), (&quot;b&quot;,&quot;y&quot;), (&quot;c&quot;, ???)], (0,1) ]</span><br><span class="hljs-comment"># 而实际上，我们需要 [([&quot;a&quot;,&quot;b&quot;,&quot;c&quot;],[&quot;z&quot;,&quot;y&quot;]), (0,1)]</span><br><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> Lib <span class="hljs-keyword">import</span> ws, max_len<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">collate</span>(<span class="hljs-params">batch</span>):</span><br>    <span class="hljs-comment"># print(type(batch))  # list: 每个元素就是__getitem__返回的结果</span><br>    <span class="hljs-comment"># print(len(batch))   # batch_size</span><br><br>    content, label = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">zip</span>(*batch))<br>    <span class="hljs-comment"># list(zip(*batch)) = [ ([content1], [content2], ..., [contentBatchSize]), (label1, label2, ..., labelBatchSize)]</span><br><br>    content = [ws.word2seq(sentence=i, max_len=max_len) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> content]<br><br>    content = torch.LongTensor(content)<br><br>    label = torch.LongTensor(<span class="hljs-built_in">list</span>(label))<br><br>    <span class="hljs-keyword">return</span> content, label<br><br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Word_sequence.py</span><br><br><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">word_sequence</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span><br>        self.UNK = <span class="hljs-string">&quot;UNK&quot;</span><br>        self.PAD = <span class="hljs-string">&quot;PAD&quot;</span><br>        self.<span class="hljs-built_in">dict</span> = &#123;self.UNK:<span class="hljs-number">0</span>, self.PAD:<span class="hljs-number">1</span>&#125;<br>        self.rdict = &#123;&#125;<br>        self.count = &#123;&#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add</span>(<span class="hljs-params">self, sentence</span>):</span><br>        <span class="hljs-keyword">for</span> word <span class="hljs-keyword">in</span> sentence:<br>            self.count[word] = self.count.get(word, <span class="hljs-number">0</span>) + <span class="hljs-number">1</span><br><br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">build</span>(<span class="hljs-params">self, min_count = <span class="hljs-number">0</span>, max_count = <span class="hljs-literal">None</span>, max_words = <span class="hljs-literal">None</span></span>):</span><br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        根据count生成词典</span><br><span class="hljs-string">        :param min_count: 小于该次数将被舍弃</span><br><span class="hljs-string">        :param max_count: 大于该次数也被舍弃</span><br><span class="hljs-string">        :param max_words: 词典最多保存多少个词</span><br><span class="hljs-string">        :return:</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        self.count = &#123;word:count <span class="hljs-keyword">for</span> word,count <span class="hljs-keyword">in</span> self.count.items() <span class="hljs-keyword">if</span> count &gt; min_count <span class="hljs-keyword">and</span> (max_count <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">or</span> count &lt; max_count)&#125;<br><br>        <span class="hljs-keyword">if</span> max_words <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>            self.count = <span class="hljs-built_in">dict</span>(<span class="hljs-built_in">sorted</span>(self.count.items(), key=<span class="hljs-keyword">lambda</span> x:x[-<span class="hljs-number">1</span>], reverse=<span class="hljs-literal">True</span>)[:max_words])<br><br>        <span class="hljs-keyword">for</span> word <span class="hljs-keyword">in</span> self.count:<br>            self.<span class="hljs-built_in">dict</span>[word] = <span class="hljs-built_in">len</span>(self.<span class="hljs-built_in">dict</span>)<br><br>        self.rdict = <span class="hljs-built_in">dict</span>(<span class="hljs-built_in">zip</span>(self.<span class="hljs-built_in">dict</span>.values(), self.<span class="hljs-built_in">dict</span>.keys()))<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">word2seq</span>(<span class="hljs-params">self, sentence, max_len = <span class="hljs-literal">None</span></span>):</span><br>        sentence = <span class="hljs-built_in">list</span>(sentence)<br>        <span class="hljs-keyword">if</span> max_len <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>            <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(sentence) &lt; max_len:<br>                sentence += [self.PAD] * (max_len - <span class="hljs-built_in">len</span>(sentence))<br>            <span class="hljs-keyword">elif</span> <span class="hljs-built_in">len</span>(sentence) &gt; max_len:<br>                sentence = sentence[:max_len]<br>        <span class="hljs-keyword">return</span> [self.<span class="hljs-built_in">dict</span>.get(word, <span class="hljs-number">0</span>) <span class="hljs-keyword">for</span> word <span class="hljs-keyword">in</span> sentence]<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">seq2word</span>(<span class="hljs-params">self, sequence</span>):</span><br>        <span class="hljs-keyword">return</span> [self.rdict.get(<span class="hljs-built_in">id</span>, self.UNK) <span class="hljs-keyword">for</span> <span class="hljs-built_in">id</span> <span class="hljs-keyword">in</span> sequence]<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__len__</span>(<span class="hljs-params">self</span>):</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(self.<span class="hljs-built_in">dict</span>)<br><br><br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Main.py</span><br><br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> pickle <span class="hljs-comment"># 序列化保存python对象</span><br><span class="hljs-keyword">from</span> tqdm <span class="hljs-keyword">import</span> tqdm<br><span class="hljs-keyword">from</span> Word_sequence <span class="hljs-keyword">import</span> word_sequence<br><span class="hljs-keyword">from</span> Tokenlize <span class="hljs-keyword">import</span> tokenlize<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br><br>    <span class="hljs-comment"># 建词典</span><br>    ws = word_sequence()<br>    data_dir = <span class="hljs-string">r&quot;./IMDB/train&quot;</span><br>    data_dirs = [os.path.join(data_dir, <span class="hljs-string">&quot;pos&quot;</span>), os.path.join(data_dir, <span class="hljs-string">&quot;neg&quot;</span>)]<br><br>    <span class="hljs-keyword">for</span> data_dir_path <span class="hljs-keyword">in</span> data_dirs:<br>        file_path_lists = [os.path.join(data_dir_path, file_name) <span class="hljs-keyword">for</span> file_name <span class="hljs-keyword">in</span> os.listdir(data_dir_path)]<br>        <span class="hljs-keyword">for</span> file_path <span class="hljs-keyword">in</span> tqdm(file_path_lists):<br>            sentence = <span class="hljs-built_in">open</span>(file_path, <span class="hljs-string">&quot;r&quot;</span>, encoding=<span class="hljs-string">&quot;utf-8&quot;</span>).read()<br>            ws.add(tokenlize(sentence))<br>    ws.build(min_count=<span class="hljs-number">5</span>, max_words=<span class="hljs-number">15000</span>)<br>    pickle.dump(ws, <span class="hljs-built_in">open</span>(<span class="hljs-string">r&quot;./model/ws.pkl&quot;</span>, <span class="hljs-string">&quot;wb&quot;</span>))<br><br>    <span class="hljs-built_in">print</span>(<span class="hljs-built_in">len</span>(ws))<br><br><br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Lib.py</span><br><br><br><span class="hljs-keyword">import</span> pickle<br><br>ws = pickle.load(<span class="hljs-built_in">open</span>(<span class="hljs-string">r&quot;./model/ws.pkl&quot;</span>, <span class="hljs-string">&quot;rb&quot;</span>))<br>max_len = <span class="hljs-number">32</span><br><br>batch = <span class="hljs-number">256</span><br>seq_len = max_len<br>embedding_dim = <span class="hljs-number">64</span><br>hidden_size = <span class="hljs-number">64</span><br>num_layers = <span class="hljs-number">1</span><br>lr = <span class="hljs-number">0.001</span><br>epoch = <span class="hljs-number">2</span><br>bidirectional = <span class="hljs-literal">True</span><br><br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Model.py</span><br><br><br><br><br><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><span class="hljs-keyword">from</span> emotionClassify <span class="hljs-keyword">import</span> Lib<br><span class="hljs-keyword">import</span> torch.nn.functional <span class="hljs-keyword">as</span> F<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IMDBModel</span>(<span class="hljs-params">nn.Module</span>):</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span><br>        <span class="hljs-built_in">super</span>(IMDBModel, self).__init__()<br><br>        self.factor = <span class="hljs-number">1</span> <span class="hljs-keyword">if</span> Lib.bidirectional <span class="hljs-keyword">is</span> <span class="hljs-literal">False</span> <span class="hljs-keyword">else</span> <span class="hljs-number">2</span><br><br>        <span class="hljs-comment"># embedding</span><br>        self.embedding = nn.Embedding(<span class="hljs-built_in">len</span>(Lib.ws), embedding_dim=Lib.embedding_dim)<br>        <span class="hljs-comment"># [batch, max_len, embedding_dim]</span><br><br>        <span class="hljs-comment"># lstm</span><br>        self.lstm1 = nn.LSTM(input_size=Lib.embedding_dim, hidden_size=Lib.hidden_size, num_layers=Lib.num_layers,<br>                             bidirectional=Lib.bidirectional, batch_first=<span class="hljs-literal">True</span>)<br>        <span class="hljs-comment"># output: [batch, max_len, hidden_size*self.factor]</span><br>        <span class="hljs-comment"># h_n: [Lib.num_layers*self.factor, batch, hidden_size]</span><br>        <span class="hljs-comment"># c_n: [Lib.num_layers*self.factor, batch, hidden_size]</span><br><br>        <span class="hljs-comment"># linear</span><br>        self.linear1 = nn.Linear(Lib.hidden_size*self.factor, Lib.embedding_dim*Lib.max_len)<br>        <span class="hljs-comment"># [batch, max_len, embedding_dim]</span><br><br>        self.relu = nn.ReLU(<span class="hljs-literal">True</span>) <span class="hljs-comment"># True 表示原地操作</span><br><br>        <span class="hljs-comment"># lstm</span><br>        self.lstm2 = nn.LSTM(input_size=Lib.embedding_dim, hidden_size=Lib.hidden_size, num_layers=Lib.num_layers,<br>                            bidirectional=Lib.bidirectional, batch_first=<span class="hljs-literal">True</span>)<br>        <span class="hljs-comment"># output: [batch, max_len, hidden_size*self.factor]</span><br>        <span class="hljs-comment"># h_n: [Lib.num_layers*self.factor, max_len, hidden_size]</span><br>        <span class="hljs-comment"># c_n: [Lib.num_layers*self.factor, max_len, hidden_size]</span><br><br>        self.linear2 = nn.Linear(Lib.hidden_size*self.factor, <span class="hljs-number">10</span>)<br><br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span>(<span class="hljs-params">self, <span class="hljs-built_in">input</span></span>):</span><br><br>        <span class="hljs-built_in">input</span> = self.embedding(<span class="hljs-built_in">input</span>)<br><br>        output, (h_n, c_n) = self.lstm1(<span class="hljs-built_in">input</span>)<br>        <span class="hljs-comment"># output: [batch, max_len, hidden_size*factor]</span><br>        <span class="hljs-comment"># h_n: [num_layers*factor, max_len, hidden_size]</span><br>        <span class="hljs-comment"># c_n: [num_layers*factor, max_len, hidden_size]</span><br><br>        output = output[:,-<span class="hljs-number">1</span>,:]<br>        <span class="hljs-comment"># output: [batch, hidden_size*factor]</span><br><br>        <span class="hljs-comment">#获取两个方向上最后一次output进行拼接</span><br>        h_n_forward = h_n[-<span class="hljs-number">2</span>, :, :]<br>        h_n_backward = h_n[-<span class="hljs-number">1</span>, :, :]<br>        output = torch.cat([h_n_forward, h_n_backward], dim=-<span class="hljs-number">1</span>)<br><br>        <span class="hljs-comment"># output = self.linear1(output)</span><br>        <span class="hljs-comment"># # output: [batch, max_len*embedding_dim]</span><br>        <span class="hljs-comment">#</span><br>        <span class="hljs-comment"># output = self.relu(output)</span><br>        <span class="hljs-comment">#</span><br>        <span class="hljs-comment"># output, (h_n, c_n) = self.lstm2(output.view(Lib.batch, Lib.max_len, -1))</span><br>        <span class="hljs-comment"># # output: [batch, max_len, hidden_size*factor]</span><br>        <span class="hljs-comment">#</span><br>        <span class="hljs-comment"># output = output[:, -1, :]</span><br>        <span class="hljs-comment"># # output: [batch, hidden_size*factor]</span><br><br>        output = self.linear2(output)<br>        <span class="hljs-comment"># output: [batch, 10]</span><br><br>        <span class="hljs-keyword">return</span> F.log_softmax(output, dim=-<span class="hljs-number">1</span>)<br><br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Train.py</span><br><br><br><span class="hljs-keyword">from</span> tqdm <span class="hljs-keyword">import</span> tqdm<br><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> emotionClassify <span class="hljs-keyword">import</span> DataLoader, Lib, Model<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">train</span>(<span class="hljs-params">epoch</span>):</span><br><br>    dataloader = DataLoader.get_dataloader(Train=<span class="hljs-literal">True</span>,<br>                                           batch_size=Lib.batch,<br>                                           shuffle=<span class="hljs-literal">True</span>,<br>                                           drop_last=<span class="hljs-literal">True</span>)<br><br>    model = Model.IMDBModel()<br>    optimizer = torch.optim.Adam(model.parameters(), lr=Lib.lr)<br>    criterion = torch.nn.CrossEntropyLoss()<br><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(epoch):<br>        <span class="hljs-keyword">for</span> idx, (<span class="hljs-built_in">input</span>, label) <span class="hljs-keyword">in</span> tqdm(<span class="hljs-built_in">enumerate</span>(dataloader)):<br><br>            y_pred = model(<span class="hljs-built_in">input</span>)<br>            <span class="hljs-comment"># print(y_pred.max(dim=-1)[-1])</span><br>            <span class="hljs-comment"># print(label-1)</span><br><br>            loss = criterion(y_pred, label-<span class="hljs-number">1</span>)**<span class="hljs-number">2</span><br>            <span class="hljs-comment"># print(y_pred.max(dim=-1)[-1].eq(label).float().mean().item())</span><br>            <span class="hljs-comment"># print(loss.item())</span><br>            optimizer.zero_grad()<br>            loss.backward()<br>            optimizer.step()<br><br>            <span class="hljs-keyword">if</span> idx%<span class="hljs-number">100</span> == <span class="hljs-number">0</span> :<br>                <span class="hljs-built_in">print</span>(y_pred.<span class="hljs-built_in">max</span>(dim=-<span class="hljs-number">1</span>)[-<span class="hljs-number">1</span>].eq(label).<span class="hljs-built_in">float</span>().mean().item())<br>                <span class="hljs-built_in">print</span>(loss.item())<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    train(Lib.epoch)<br><br></code></pre></td></tr></table></figure>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/PyTorch/">PyTorch</a>
+                    
+                      <a class="hover-with-bg" href="/categories/PyTorch/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+                    
+                      <a class="hover-with-bg" href="/categories/PyTorch/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/">建筑结构损伤图像识别</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/PyTorch/">PyTorch</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/">建筑结构损伤图像识别</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-info">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/07/15/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB-6/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">建筑结构损伤图像识别-6</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/14/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB-4/">
+                        <span class="hidden-mobile">建筑结构损伤图像识别-4</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

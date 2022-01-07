@@ -1,0 +1,499 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  
+  <title>协程 - gys的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gys18007141407.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>gys的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/miku1.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="协程">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-18 14:55" pubdate>
+        2021年8月18日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      45
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">协程</h1>
+	    <time updated datetime="2021-12-28 15:53"></time>
+            
+            <div class="markdown-body">
+              <h2 id="协程-coroutines-转载"><a href="#协程-coroutines-转载" class="headerlink" title="协程(coroutines)(转载)"></a>协程(coroutines)(转载)</h2><h3 id="协程介绍"><a href="#协程介绍" class="headerlink" title="协程介绍"></a>协程介绍</h3><p>协程就是用户态线程内可以被异步执行的函数。用来在用户态下解决异步问题。</p>
+<p>普通函数：每次调用只能从第一条语句开始执行直到某个出口结束。<br>协程函数：协程函数交出控制权后，可以再次从交出控制权的下一语句开始执行。</p>
+<p>在协程的叫法出现以前，处理异步问题一般会使用操作系统提供的系统级API来解决异步问题。系统级的API都是大多采用回调函数方式实现。后来人们觉得使用异步回调形式的API比较麻烦，就开始提供异步调用库或者语言级支持。并且起了个优雅的名字–协同程序。</p>
+<p>协程不是线程。协程包含在线程内。协程在用户态，由用户控制。协程的切换比线程切换效率高。<br>同一个线程在一个时间点最多只能跑一个协程；在同一个线程中，协程的运行是穿行的[穿插运行(同一个函数内非顺序运行)，一般认为不同与串行(顺序运行)]。所以没有数据争用(data race)，也不需要锁。<br>原则上，应该尽量避免将同一个协程的主体，放到不同的线程中同时执行。因为这样有很大概率发生数据争用(data race)。[其实这种情况下就是线程的数据争用问题]。所以我们应该在线程中讨论协程；而不是在进程中讨论协程。</p>
+<p>目前在C/C++中比较知名的协程(类协程)库有:<br>Boost.Fiber<br>Boost.Coroutine<br>fiber<br>libco<br>libtask<br>…<br>协程根据实现方式不同，分为有栈协程(stackful coroutine)和无栈协程(stackless coroutine)。<br>有栈协程可通过操作系统提供的系统调用实现;无栈协程需要语言标准和编译器支持。</p>
+<p>微软拟提的C++20标准中(目前是ts,即:&lt;experimental/coroutine&gt;)的协程属于stackless coroutine。</p>
+<hr>
+<h3 id="协程函数特点："><a href="#协程函数特点：" class="headerlink" title="协程函数特点："></a>协程函数特点：</h3><p>1：首次调用协程函数，会从堆中分配一个协程上下文，调用方的返回地址、入口函数、交出控制权等信息保存在协程上下文中。</p>
+<p>2：当协程中途交出控制权后，协程上下文不会被删除(相当于函数退出之后，上下文环境还被保存，类比线程切换)。</p>
+<p>3：当协程再次获得控制权后，会自动从协程上下文中恢复调用环境，然后从上一次交出控制权的下一条语句继续执行(加载目标协程环境，类比线程切换)。</p>
+<p>4：协程函数返回(非中途交出控制权)后，协程上下文将被删除。</p>
+<p>5：若再次调用协程函数，视为首次调用。</p>
+<h4 id="有栈协程-Stackful-Coroutines-特点："><a href="#有栈协程-Stackful-Coroutines-特点：" class="headerlink" title="有栈协程(Stackful Coroutines)特点："></a>有栈协程(Stackful Coroutines)特点：</h4><p>1：每个协程都有一个预先分配的调用栈(Call Stack)。</p>
+<p>2：每个协程都属于且仅属于创建它的线程。</p>
+<p>3：一个线程可以包含多个协程。</p>
+<p>4：线程本身也可以是一个协程，成为主协程(Primary Coroutine)。</p>
+<p>5：协程必须主动交出控制权，否则同一线程的其它协程均无法获得执行机会。</p>
+<p>6：协程执行路径上，任何被调用的函数均可在任何位置交出控制权。</p>
+<p>7：如果允许协程把控制权交给同一线程的其它协程，则称为对称协程(Symmetry Coroutines)。如果只允许协程把控制权交给主协程，主协程作为调度器，负责分配执行权，则称为非对称协程(Asymmetry Coroutines)。</p>
+<p>8：属于同一线程的多个协程之间没有数据争用(Data Race)问题。</p>
+<p>9：无需修改语言标准和编译器，利用系统调用即可实现。</p>
+<h4 id="无栈协程-Stackless-Coroutines-特点："><a href="#无栈协程-Stackless-Coroutines-特点：" class="headerlink" title="无栈协程(Stackless Coroutines)特点："></a>无栈协程(Stackless Coroutines)特点：</h4><p>1：每个协程的执行环境，仅需包含调用栈(Call Stack)的顶层栈帧(Top Call Stack Frame)，而非整个调用栈，因而空间开销极小。</p>
+<p>2：协程执行路径上，只有特定语句才能交出控制权。</p>
+<p>3：无需协程调度器。</p>
+<p>4：调用协程函数时，同一协程函数的不同部分，有可能在不同的线程环境中执行。因此需要处理好数据争用(Data Race)问题。这个问题实际是线程间数据争用问题。</p>
+<p>5：需要语言标准和编译器支持。</p>
+<hr>
+<p>有栈协程和无栈协程对比，有栈协程的最大缺陷是保存调用栈的开销大，尤其协程较多且切换频繁时；<br>无栈协程不但具有有栈协程的所有优点，而且空间开销极低；唯一不足就是需要语言标准和编译器支持。</p>
+<hr>
+<h3 id="怎么识别C-20中的协程"><a href="#怎么识别C-20中的协程" class="headerlink" title="怎么识别C++20中的协程"></a>怎么识别C++20中的协程</h3><p>如果在C++20的一个函数体内包含co_await、co_yield、co_return中任何一个关键字，那么这个函数就是一个coroutine。其中：</p>
+<p>co_await：挂起当前的coroutine。<br>co_return：从当前coroutine返回一个结果。<br>co_yield：返回一个结果并且挂起当前的coroutine。</p>
+<p>一个coroutine必定包含Promise和Awaitable两个部分。</p>
+<p>协程通过Promise和Awaitable接口来规范实现。实现最简单的协程需要用到其中的8个(5个Promise的函数和3个Awaitable的函数)。</p>
+<p>如果要实现形如co_await xxxxx;的协程调用格式, xxxxx就必须实现Awaitable。co_await是一个新的运算符。Awaitable主要有3个函数：</p>
+<p>await_ready：返回Awaitable实例是否已经ready。协程开始会调用此函数，如果返回true，表示你想得到的结果已经得到了，协程不需要执行了。所以大部分情况这个函数的实现是要return false。</p>
+<p>await_suspend：挂起awaitable。该函数会传入一个coroutine_handle类型的参数。这是一个由编译器生成的变量。在此函数中调用handle.resume()，就可以恢复协程。</p>
+<p>await_resume：当协程重新运行时，会调用该函数。这个函数的返回值就是co_await运算符的返回值</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">/*</span><br><span class="hljs-comment"> * *@*	Description: </span><br><span class="hljs-comment"> * *@*	Version: </span><br><span class="hljs-comment"> * *@*	Author: yusheng Gao</span><br><span class="hljs-comment"> * *@*	Date: 2021-08-19 13:25:46</span><br><span class="hljs-comment"> * *@*	LastEditors: yusheng Gao</span><br><span class="hljs-comment"> * *@*	LastEditTime: 2021-08-19 13:25:46</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;coroutine.h&quot;</span></span><br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">co_func1</span><span class="hljs-params">(CScheduler* _pScheduler, <span class="hljs-keyword">void</span>* _pArgs)</span></span>&#123;<br><br>    <span class="hljs-keyword">int</span> val = *<span class="hljs-keyword">reinterpret_cast</span>&lt;<span class="hljs-keyword">int</span>*&gt;(_pArgs);<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; ++i)&#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;co_id=[&quot;</span> &lt;&lt; _pScheduler-&gt;m_running_id <br>                  &lt;&lt; <span class="hljs-string">&quot;], i=[&quot;</span> &lt;&lt; i &lt;&lt; <span class="hljs-string">&quot;], val=[&quot;</span> &lt;&lt; val &lt;&lt; <span class="hljs-string">&quot;]\n&quot;</span>;<br>        <span class="hljs-built_in">coroutine_yield</span>(_pScheduler);<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">co_func2</span><span class="hljs-params">(CScheduler* _pScheduler, <span class="hljs-keyword">void</span>* _pArgs)</span></span>&#123;<br>    std::string val = *<span class="hljs-keyword">reinterpret_cast</span>&lt;std::string*&gt;(_pArgs);<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">3</span>; ++i)&#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;co_id=[&quot;</span> &lt;&lt; _pScheduler-&gt;m_running_id <br>                  &lt;&lt; <span class="hljs-string">&quot;], i=[&quot;</span> &lt;&lt; i &lt;&lt; <span class="hljs-string">&quot;], val=[&quot;</span> &lt;&lt; val &lt;&lt; <span class="hljs-string">&quot;]\n&quot;</span>;<br>        <span class="hljs-built_in">coroutine_yield</span>(_pScheduler);<br>    &#125;<br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br><br>    <span class="hljs-comment">// 创建调度器</span><br>    CScheduler* pScheduler = <span class="hljs-built_in">scheduler_create</span>();<br>    <br>    <span class="hljs-keyword">int</span> val1 = <span class="hljs-number">111</span>, val2 = <span class="hljs-number">222</span>;<br>    std::string val3 = <span class="hljs-string">&quot;STRING&quot;</span>;<br><br>    <span class="hljs-comment">// 创建协程</span><br>    <span class="hljs-keyword">int32_t</span> co_1 = <span class="hljs-built_in">coroutine_create</span>(pScheduler, co_func1, &amp;val1);<br>    <span class="hljs-keyword">int32_t</span> co_2 = <span class="hljs-built_in">coroutine_create</span>(pScheduler, co_func1, &amp;val2);<br>    <span class="hljs-keyword">int32_t</span> co_3 = <span class="hljs-built_in">coroutine_create</span>(pScheduler, co_func2, &amp;val3);<br><br>    <span class="hljs-comment">// 调度协程</span><br>    <span class="hljs-keyword">bool</span> flag = <span class="hljs-literal">true</span>;<br>    <span class="hljs-keyword">while</span>(flag)<br>    &#123;<br>        flag = <span class="hljs-literal">false</span>;<br>        <br>        <span class="hljs-comment">// 主线程(内核态的一个线程) ==&gt; 三个协程(用户态的三个线程)轮流执行</span><br>        <br>        <span class="hljs-keyword">if</span>(<span class="hljs-built_in">coroutine_code</span>(pScheduler, co_1) != COROUTINE_DEAD)&#123;<br>            flag = <span class="hljs-literal">true</span>;<br>            <span class="hljs-built_in">coroutine_resume</span>(pScheduler, co_1);<br>        &#125;<br>        <span class="hljs-keyword">if</span>(<span class="hljs-built_in">coroutine_code</span>(pScheduler, co_2) != COROUTINE_DEAD)&#123;<br>            flag = <span class="hljs-literal">true</span>;<br>            <span class="hljs-built_in">coroutine_resume</span>(pScheduler, co_2);<br>        &#125;<br>        <span class="hljs-keyword">if</span>(<span class="hljs-built_in">coroutine_code</span>(pScheduler, co_3) != COROUTINE_DEAD)&#123;<br>            flag = <span class="hljs-literal">true</span>;<br>            <span class="hljs-built_in">coroutine_resume</span>(pScheduler, co_3);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">// 关闭调度器</span><br>    <span class="hljs-built_in">scheduler_close</span>(pScheduler);<br><br>    <span class="hljs-keyword">int</span> v1 = <span class="hljs-number">0b111</span>;<br>    <span class="hljs-keyword">int</span> v2 = <span class="hljs-number">0111</span>;<br>    <span class="hljs-keyword">int</span> v3 = <span class="hljs-number">0x111</span>;<br>    <span class="hljs-keyword">int</span> v4 = <span class="hljs-number">111</span>;<br><br>    <span class="hljs-comment">// #表示输出进制</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d %#d\n&quot;</span>, v1, v1);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%o %#o\n&quot;</span>, v2, v2);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%b\n&quot;</span>, v1);<br>    <span class="hljs-comment">// #大写只能作用于X，使16进制的字母全部大写。</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%x %#X\n&quot;</span>, v3, v3);<br><br>    <span class="hljs-keyword">char</span> x[] = <span class="hljs-string">&quot;和&quot;</span>;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;sizeof(&#x27;和&#x27;)=%ld %c\n&quot;</span>, <span class="hljs-built_in"><span class="hljs-keyword">sizeof</span></span>(<span class="hljs-string">&#x27;和&#x27;</span>), x[<span class="hljs-number">0</span>]);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;sizeof(x)=%ld\n&quot;</span>, <span class="hljs-built_in"><span class="hljs-keyword">sizeof</span></span>(x));<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2021/08/18/%E5%8D%8F%E7%A8%8B/image-20211123194959348.png" srcset="/img/loading.gif" lazyload alt="image-20211123194959348"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">/*</span><br><span class="hljs-comment"> * *@*	Description: </span><br><span class="hljs-comment"> * *@*	Version: </span><br><span class="hljs-comment"> * *@*	Author: yusheng Gao</span><br><span class="hljs-comment"> * *@*	Date: 2021-08-18 20:30:31</span><br><span class="hljs-comment"> * *@*	LastEditors: yusheng Gao</span><br><span class="hljs-comment"> * *@*	LastEditTime: 2021-08-18 20:30:31</span><br><span class="hljs-comment"> */</span><br><br><span class="hljs-meta">#<span class="hljs-meta-keyword">ifndef</span> COROUTINE_H</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> COROUTINE_H</span><br><br><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;ucontext.h&gt;</span>   <span class="hljs-comment">// 保存上下文</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstddef&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;memory&gt;</span></span><br><br><span class="hljs-comment">// 协程栈大小</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> STACK_SIZE (1024*1024)</span><br><br><span class="hljs-comment">// 协程池中最大协程数</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> COROUTINE_INIT_MAX_NUM (16)</span><br><br><span class="hljs-comment">// 协程状态码</span><br><span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">COROUTINE_CODE</span>&#123;</span><br>    COROUTINE_READY,<br>    COROUTINE_RUNNING,<br>    COROUTINE_SUSPEND,<br>    COROUTINE_DEAD<br>&#125;;<br><br><span class="hljs-comment">// 协程池调度器前置声明</span><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">CScheduler</span>;</span><br><br><span class="hljs-comment">// 协程函数指针</span><br><span class="hljs-function"><span class="hljs-keyword">typedef</span> <span class="hljs-title">void</span> <span class="hljs-params">(*pFunc)</span> <span class="hljs-params">(CScheduler*, <span class="hljs-keyword">void</span>*)</span></span>;<br><br><span class="hljs-comment">// 协程的有关数据结构</span><br><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">CCoRoutine</span>&#123;</span><br><br>    <span class="hljs-comment">// 当前协程上下文</span><br>    <span class="hljs-keyword">ucontext_t</span> m_ctx;<br><br>    <span class="hljs-comment">// 当前协程函数指针</span><br>    pFunc m_pFunc;<br><br>    <span class="hljs-comment">// 当前协程函数参数</span><br>    <span class="hljs-keyword">void</span>* m_pArgs;<br><br>    <span class="hljs-comment">// 当前协程所属协程池的调度器</span><br>    CScheduler* m_pScheduler;<br><br>    <span class="hljs-comment">// 当前协程的状态码</span><br>    COROUTINE_CODE m_code;<br><br>    <span class="hljs-comment">// 当前协程的执行栈</span><br>    <span class="hljs-keyword">char</span>* m_pStack;<br><br>    <span class="hljs-comment">// 当前协程已经分配的内存大小</span><br>    <span class="hljs-keyword">int32_t</span> m_alloc;<br><br>    <span class="hljs-comment">// 当前协程的执行栈大小</span><br>    <span class="hljs-keyword">int32_t</span> m_stack_size;<br><br>&#125;CCoRoutine;<br><br><span class="hljs-comment">// 协程池调度器</span><br><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">CScheduler</span>&#123;</span><br><br>    <span class="hljs-comment">// 协程共享栈</span><br>    <span class="hljs-keyword">char</span> m_shared_stack[STACK_SIZE];<br><br>    <span class="hljs-comment">// 主协程上下文</span><br>    <span class="hljs-keyword">ucontext_t</span> m_ctx;<br><br>    <span class="hljs-comment">// 有效的协程个数</span><br>    <span class="hljs-keyword">int32_t</span> m_valid_num;<br><br>    <span class="hljs-comment">// 可管理的最大协程数量</span><br>    <span class="hljs-keyword">int32_t</span> m_max_num;<br><br>    <span class="hljs-comment">// 当前正在运行的协程id（协程池中的index）</span><br>    <span class="hljs-keyword">int32_t</span> m_running_id;<br><br>    <span class="hljs-comment">// 协程池</span><br>    CCoRoutine** m_ppCoRoutine;<br><br>&#125;CScheduler;<br><br><br><br><span class="hljs-comment">// 协程调度器创建</span><br><span class="hljs-function">CScheduler* <span class="hljs-title">scheduler_create</span><span class="hljs-params">()</span></span>;<br><br><span class="hljs-comment">// 协程调度器关闭</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">scheduler_close</span><span class="hljs-params">(CScheduler*)</span></span>;<br><br><span class="hljs-comment">// 协程创建</span><br><span class="hljs-function"><span class="hljs-keyword">int32_t</span> <span class="hljs-title">coroutine_create</span><span class="hljs-params">(CScheduler*, pFunc, <span class="hljs-keyword">void</span>*)</span></span>;<br><br><span class="hljs-comment">// 协程关闭</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">coroutine_close</span><span class="hljs-params">(CCoRoutine*)</span></span>;<br><br><span class="hljs-comment">// 协程恢复/调度/运行</span><br><span class="hljs-function"><span class="hljs-keyword">int32_t</span> <span class="hljs-title">coroutine_resume</span><span class="hljs-params">(CScheduler*, <span class="hljs-keyword">int32_t</span>)</span></span>;<br><br><span class="hljs-comment">// 协程挂起</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">coroutine_yield</span><span class="hljs-params">(CScheduler*)</span></span>;<br><br><span class="hljs-comment">// 协程状态码</span><br><span class="hljs-function">COROUTINE_CODE <span class="hljs-title">coroutine_code</span><span class="hljs-params">(CScheduler*, <span class="hljs-keyword">int32_t</span>)</span></span>;<br><br><span class="hljs-comment">// 运行中的协程id</span><br><span class="hljs-function"><span class="hljs-keyword">int32_t</span> <span class="hljs-title">coroutine_running_id</span><span class="hljs-params">(CScheduler*)</span></span>;<br><br><br><span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">/*</span><br><span class="hljs-comment"> * *@*	Description: </span><br><span class="hljs-comment"> * *@*	Version: </span><br><span class="hljs-comment"> * *@*	Author: yusheng Gao</span><br><span class="hljs-comment"> * *@*	Date: 2021-08-18 21:01:42</span><br><span class="hljs-comment"> * *@*	LastEditors: yusheng Gao</span><br><span class="hljs-comment"> * *@*	LastEditTime: 2021-08-18 21:01:42</span><br><span class="hljs-comment"> */</span><br><br><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstdlib&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstring&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cassert&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstdint&gt;</span></span><br><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;coroutine.h&quot;</span></span><br><br><br><br><span class="hljs-comment">// 协程调度器创建</span><br><span class="hljs-function">CScheduler* <span class="hljs-title">scheduler_create</span><span class="hljs-params">()</span></span>&#123;<br>    CScheduler* pScheduler = <span class="hljs-keyword">new</span> CScheduler;<br><br>    pScheduler-&gt;m_valid_num = <span class="hljs-number">0</span>;<br>    pScheduler-&gt;m_max_num = COROUTINE_INIT_MAX_NUM;<br>    pScheduler-&gt;m_running_id = <span class="hljs-number">-1</span>;<br>    pScheduler-&gt;m_ppCoRoutine = <span class="hljs-keyword">new</span> CCoRoutine*[COROUTINE_INIT_MAX_NUM];<br><br>    <span class="hljs-built_in">memset</span>(pScheduler-&gt;m_ppCoRoutine, <span class="hljs-number">0</span>, COROUTINE_INIT_MAX_NUM*<span class="hljs-built_in"><span class="hljs-keyword">sizeof</span></span>(CCoRoutine*));<br><br>    <span class="hljs-keyword">return</span> pScheduler;<br>&#125;<br><br><span class="hljs-comment">// 协程调度器关闭</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">scheduler_close</span><span class="hljs-params">(CScheduler* _pScheduler)</span></span>&#123;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; _pScheduler-&gt;m_max_num; ++i)&#123;<br>        <span class="hljs-keyword">if</span>(_pScheduler-&gt;m_ppCoRoutine[i])&#123;<br>            <span class="hljs-built_in">coroutine_close</span>(_pScheduler-&gt;m_ppCoRoutine[i]);<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">delete</span>[] _pScheduler-&gt;m_ppCoRoutine;<br>    _pScheduler-&gt;m_ppCoRoutine = <span class="hljs-literal">nullptr</span>;<br><br>    <span class="hljs-keyword">delete</span> _pScheduler;<br>&#125;<br><br><span class="hljs-comment">// 协程创建</span><br><span class="hljs-function"><span class="hljs-keyword">int32_t</span> <span class="hljs-title">coroutine_create</span><span class="hljs-params">(CScheduler* _pScheduler, pFunc _func, <span class="hljs-keyword">void</span>* _pArgs)</span></span>&#123;<br>    <br>    <span class="hljs-comment">// 协程相关数据结构的初始化</span><br>    CCoRoutine* pCoRoutine = <span class="hljs-keyword">new</span> CCoRoutine;<br>    pCoRoutine-&gt;m_pFunc = _func;<br>    pCoRoutine-&gt;m_pArgs = _pArgs;<br>    pCoRoutine-&gt;m_pScheduler = _pScheduler;<br><br>    pCoRoutine-&gt;m_alloc = <span class="hljs-number">0</span>;<br>    pCoRoutine-&gt;m_stack_size = <span class="hljs-number">0</span>;<br>    pCoRoutine-&gt;m_pStack = <span class="hljs-literal">nullptr</span>;<br>    pCoRoutine-&gt;m_code = COROUTINE_CODE::COROUTINE_READY;<br><br>    <span class="hljs-keyword">int32_t</span> pos_in_pool = <span class="hljs-number">-1</span>;<br><br>    <span class="hljs-comment">// 协程池扩容</span><br>    <span class="hljs-keyword">if</span>(_pScheduler-&gt;m_valid_num &gt;= _pScheduler-&gt;m_max_num)&#123;<br><br>        <span class="hljs-keyword">int32_t</span> cur_max_num = _pScheduler-&gt;m_max_num;<br>        CCoRoutine** new_space = <span class="hljs-keyword">new</span> CCoRoutine*[cur_max_num*<span class="hljs-number">2</span>];<br>        <span class="hljs-built_in">memset</span>(new_space, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>*cur_max_num*<span class="hljs-built_in"><span class="hljs-keyword">sizeof</span></span>(CCoRoutine*));<br>        <span class="hljs-built_in">memcpy</span>(new_space, _pScheduler-&gt;m_ppCoRoutine, cur_max_num*<span class="hljs-built_in"><span class="hljs-keyword">sizeof</span></span>(CCoRoutine*));<br><br>        <span class="hljs-keyword">delete</span>[] _pScheduler-&gt;m_ppCoRoutine;<br>        _pScheduler-&gt;m_ppCoRoutine = new_space;<br><br>        _pScheduler-&gt;m_max_num = <span class="hljs-number">2</span>*cur_max_num;<br>        pos_in_pool = cur_max_num;<br><br>    &#125;<span class="hljs-keyword">else</span>&#123;<br>        <br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> d = <span class="hljs-number">0</span>; d &lt; _pScheduler-&gt;m_max_num; ++d)&#123;<br>            pos_in_pool = (d + _pScheduler-&gt;m_valid_num) % _pScheduler-&gt;m_max_num;<br>            <span class="hljs-keyword">if</span>(_pScheduler-&gt;m_ppCoRoutine[pos_in_pool] == <span class="hljs-literal">nullptr</span>)&#123;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">if</span>(pos_in_pool != <span class="hljs-number">-1</span>) &#123;<br>        _pScheduler-&gt;m_ppCoRoutine[pos_in_pool] = pCoRoutine;<br>        _pScheduler-&gt;m_valid_num ++;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> pos_in_pool;<br><br>&#125;<br><br><span class="hljs-comment">// 协程关闭</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">coroutine_close</span><span class="hljs-params">(CCoRoutine* _pCoRoutine)</span></span>&#123;<br>    <span class="hljs-keyword">delete</span>[] _pCoRoutine-&gt;m_pStack;<br>    <span class="hljs-keyword">delete</span> _pCoRoutine;<br>&#125;<br><br><span class="hljs-comment">// 协程执行封装函数</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">func_wrapper</span><span class="hljs-params">(CScheduler* _pScheduler)</span></span>&#123;<br><br>    <span class="hljs-comment">// 获得相应协程</span><br>    <span class="hljs-keyword">int</span> id = _pScheduler-&gt;m_running_id;<br>    CCoRoutine* pCoRoutine = _pScheduler-&gt;m_ppCoRoutine[id];<br><br>    <span class="hljs-comment">// 执行函数</span><br>    pCoRoutine-&gt;<span class="hljs-built_in">m_pFunc</span>(_pScheduler, pCoRoutine-&gt;m_pArgs);<br><br>    <span class="hljs-comment">// 关闭协程</span><br>    <span class="hljs-built_in">coroutine_close</span>(pCoRoutine);<br><br>    <span class="hljs-comment">// 更新信息</span><br>    _pScheduler-&gt;m_ppCoRoutine[id] = <span class="hljs-literal">nullptr</span>;<br>    _pScheduler-&gt;m_valid_num --;<br>    _pScheduler-&gt;m_running_id = <span class="hljs-number">-1</span>;<br>&#125;<br><br><span class="hljs-comment">// 协程恢复/调度/运行</span><br><span class="hljs-function"><span class="hljs-keyword">int32_t</span> <span class="hljs-title">coroutine_resume</span><span class="hljs-params">(CScheduler* _pScheduler, <span class="hljs-keyword">int32_t</span> _id)</span></span>&#123;<br><br>    <span class="hljs-comment">// 当前无协程正在运行, 且当前协程id有效</span><br>    <span class="hljs-built_in">assert</span>(_pScheduler-&gt;m_running_id == <span class="hljs-number">-1</span> &amp;&amp; _id &gt;= <span class="hljs-number">0</span> &amp;&amp; _id &lt; _pScheduler-&gt;m_max_num);<br><br>    <span class="hljs-comment">// 获得当前协程</span><br>    CCoRoutine* pCoRoutine = _pScheduler-&gt;m_ppCoRoutine[_id];<br>    <br>    <span class="hljs-keyword">if</span>(pCoRoutine == <span class="hljs-literal">nullptr</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br><br>    <span class="hljs-comment">// 当前协程状态码</span><br>    <span class="hljs-built_in"><span class="hljs-keyword">switch</span></span>(pCoRoutine-&gt;m_code)&#123;<br>        <span class="hljs-comment">// 就绪</span><br>        <span class="hljs-keyword">case</span> COROUTINE_CODE::COROUTINE_READY:<br><br>            <span class="hljs-comment">// 获取当前上下文环境信息保存到该协程中</span><br>            ::<span class="hljs-built_in">getcontext</span>(&amp;pCoRoutine-&gt;m_ctx);<br><br>            <span class="hljs-comment">// 设置切换环境</span><br>            pCoRoutine-&gt;m_ctx.uc_link = &amp;(_pScheduler-&gt;m_ctx);<br><br>            <span class="hljs-comment">// 设置共享栈信息</span><br>            pCoRoutine-&gt;m_ctx.uc_stack.ss_flags = <span class="hljs-number">0</span>;<br>            pCoRoutine-&gt;m_ctx.uc_stack.ss_sp = _pScheduler-&gt;m_shared_stack;<br>            pCoRoutine-&gt;m_ctx.uc_stack.ss_size = STACK_SIZE;<br><br>            <span class="hljs-comment">// 更新信息</span><br>            _pScheduler-&gt;m_running_id = _id;<br>            pCoRoutine-&gt;m_code = COROUTINE_CODE::COROUTINE_RUNNING;<br><br>            <span class="hljs-comment">// 配置协程执行环境</span><br>            <span class="hljs-comment">// makecontext主要的工作就是设置u_context_t中保存的寄存器：函数指针(lr)、堆栈指针(sp)、函数参数(r0,r1, ...) </span><br>            <span class="hljs-comment">// 这也就是makecontext调用前，必须要先getcontext下的原因(保存原来的环境)。</span><br>            <span class="hljs-comment">// uintptr_t schedulerADDR = reinterpret_cast&lt;uintptr_t&gt;(_pScheduler);</span><br>            ::<span class="hljs-built_in">makecontext</span>(&amp;pCoRoutine-&gt;m_ctx, <br>                          <span class="hljs-keyword">reinterpret_cast</span>&lt;<span class="hljs-built_in"><span class="hljs-keyword">void</span></span>(*)()&gt; (func_wrapper), <br>                          <span class="hljs-number">1</span>, <br>                          _pScheduler);<br><br>            <span class="hljs-comment">// 保存当前上下文环境信息到_pScheduler-&gt;m_ctx,并切换环境为pCoRoutine-&gt;m_ctx，即将执行协程</span><br>            ::<span class="hljs-built_in">swapcontext</span>(&amp;_pScheduler-&gt;m_ctx, &amp;pCoRoutine-&gt;m_ctx);<br><br>            <span class="hljs-comment">// 协程执行完毕后，切换环境为_pScheduler-&gt;m_ctx，原执行现场恢复</span><br><br>        <span class="hljs-keyword">break</span>;<br><br>        <span class="hljs-comment">// 挂起</span><br>        <span class="hljs-keyword">case</span> COROUTINE_CODE::COROUTINE_SUSPEND:<br><br>            <span class="hljs-comment">// 将该协程的栈信息复制到共享栈中</span><br>            <span class="hljs-built_in">memcpy</span>(_pScheduler-&gt;m_shared_stack+STACK_SIZE-pCoRoutine-&gt;m_stack_size, pCoRoutine-&gt;m_pStack, pCoRoutine-&gt;m_stack_size);<br>            <br>            <span class="hljs-comment">// 更新信息</span><br>            _pScheduler-&gt;m_running_id = _id;<br>            pCoRoutine-&gt;m_code = COROUTINE_CODE::COROUTINE_RUNNING;<br><br>            <span class="hljs-comment">// 保存现场，并切换环境，继续执行协程</span><br>            ::<span class="hljs-built_in">swapcontext</span>(&amp;_pScheduler-&gt;m_ctx, &amp;pCoRoutine-&gt;m_ctx);<br><br>            <span class="hljs-comment">// 协程执行完毕后，切换环境为_pScheduler-&gt;m_ctx，原执行现场恢复</span><br>        <span class="hljs-keyword">break</span>;<br><br>        <span class="hljs-comment">// 错误！！！   </span><br>        <span class="hljs-keyword">default</span>:<br>            <span class="hljs-built_in">exit</span>(EXIT_FAILURE);<br>        <span class="hljs-keyword">break</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-comment">// 协程挂起</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">coroutine_yield</span><span class="hljs-params">(CScheduler* _pScheduler)</span></span>&#123;<br>    <span class="hljs-keyword">int32_t</span> id = _pScheduler-&gt;m_running_id;<br><br>    <span class="hljs-comment">// 当前有协程正运行</span><br>    <span class="hljs-built_in">assert</span>(id &gt;= <span class="hljs-number">0</span>);<br><br>    <span class="hljs-comment">// 获得运行协程</span><br>    CCoRoutine* pCoRoutine = _pScheduler-&gt;m_ppCoRoutine[id];<br><br>    <span class="hljs-comment">// 栈底</span><br>    <span class="hljs-keyword">char</span>* bottom = _pScheduler-&gt;m_shared_stack + STACK_SIZE;<br><br>    <span class="hljs-comment">// 栈顶</span><br>    <span class="hljs-keyword">char</span> top = <span class="hljs-number">0</span>;<br><br>    <span class="hljs-comment">// 栈未溢出</span><br>    <span class="hljs-built_in">assert</span>(bottom - &amp;top &lt;= STACK_SIZE);<br><br>    <span class="hljs-comment">// 保存共享栈信息到该协程</span><br>    <span class="hljs-keyword">if</span>(pCoRoutine-&gt;m_alloc &lt; bottom - &amp;top)&#123;<br>        <span class="hljs-keyword">delete</span>[] pCoRoutine-&gt;m_pStack;<br>        pCoRoutine-&gt;m_alloc = bottom - &amp;top;<br>        pCoRoutine-&gt;m_pStack = <span class="hljs-keyword">new</span> <span class="hljs-keyword">char</span>[pCoRoutine-&gt;m_alloc];<br>    &#125;<br>    pCoRoutine-&gt;m_stack_size = bottom - &amp;top;<br>    <span class="hljs-built_in">memcpy</span>(pCoRoutine-&gt;m_pStack, &amp;top, pCoRoutine-&gt;m_stack_size);<br><br><br>    <span class="hljs-comment">// 更新信息</span><br>    pCoRoutine-&gt;m_code = COROUTINE_CODE::COROUTINE_SUSPEND;<br>    _pScheduler-&gt;m_running_id = <span class="hljs-number">-1</span>;<br><br>    <span class="hljs-comment">// 保存现场，并切换环境到调度器[getcontext(&amp;pCoRoutine-&gt;m_ctx); setcontext(&amp;_pScheduler-&gt;m_ctx);]</span><br>    ::<span class="hljs-built_in">swapcontext</span>(&amp;pCoRoutine-&gt;m_ctx, &amp;_pScheduler-&gt;m_ctx);<br><br>    <span class="hljs-comment">// 调度器执行完毕，切换环境为pCoRoutine-&gt;m_ctx，原执行现场恢复</span><br>&#125;<br><br><span class="hljs-comment">// 协程状态码</span><br><span class="hljs-function">COROUTINE_CODE <span class="hljs-title">coroutine_code</span><span class="hljs-params">(CScheduler* _pScheduler, <span class="hljs-keyword">int32_t</span> _id)</span></span>&#123;<br><br>    <span class="hljs-comment">// 协程id有效</span><br>    <span class="hljs-built_in">assert</span>(_id &gt;= <span class="hljs-number">0</span> &amp;&amp; _id &lt; _pScheduler-&gt;m_max_num);<br><br>    <span class="hljs-keyword">if</span>(_pScheduler-&gt;m_ppCoRoutine[_id] == <span class="hljs-literal">nullptr</span>) <span class="hljs-keyword">return</span> COROUTINE_CODE::COROUTINE_DEAD;<br><br>    <span class="hljs-keyword">return</span> _pScheduler-&gt;m_ppCoRoutine[_id]-&gt;m_code;<br>&#125;<br><br><span class="hljs-comment">// 运行中的协程id</span><br><span class="hljs-function"><span class="hljs-keyword">int32_t</span> <span class="hljs-title">coroutine_running_id</span><span class="hljs-params">(CScheduler* _pScheduler)</span></span>&#123;<br>    <span class="hljs-keyword">return</span> _pScheduler-&gt;m_running_id;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/C/">C++</a>
+                    
+                      <a class="hover-with-bg" href="/categories/C/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/C/">C++</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-info">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/08/18/boost%E7%9A%84%E5%8D%8F%E7%A8%8B%E5%BA%93%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">boost的协程库使用示例</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/14/consul%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">
+                        <span class="hidden-mobile">consul简单使用</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

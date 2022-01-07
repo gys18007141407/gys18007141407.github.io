@@ -1,0 +1,495 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  
+  <title>建筑结构损伤图像识别-2 - gys的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gys18007141407.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>gys的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/miku7.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="建筑结构损伤图像识别-2">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-13 08:56" pubdate>
+        2021年7月13日 早上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      22
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">建筑结构损伤图像识别-2</h1>
+	    <time updated datetime="2021-07-14 20:59"></time>
+            
+            <div class="markdown-body">
+              <h2 id="PyTorch"><a href="#PyTorch" class="headerlink" title="PyTorch"></a>PyTorch</h2><h3 id="torch-nn-Module"><a href="#torch-nn-Module" class="headerlink" title="torch.nn.Module"></a>torch.nn.Module</h3><p>torch.nn.Module是torch.nn中的一个类，这个类中定义了很多有用的方法，我们在自定义网络时继承这个类会让我们的自定义网络实现更为简单。</p>
+<p>torch.nn.Module含有方法eval(),调用此方法表示模型进入评估模式，即相当于不更新参数的训练模式。eval()方法中实质上是调用train(False)方法。</p>
+<p>torch.nn中定义了神经网络的各种模块，如线性层，卷积层，池化层，padding，激活层等等，使用时只需要根据shape来传递对应的尺寸参数即可：如self.conv1 = torch.nn.Conv2d(16, 33, 3, stride=2)<br><a target="_blank" rel="noopener" href="https://pytorch.org/docs/1.2.0/nn.html#">PyTorch关于torch.nn的说明文档</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Model</span>(<span class="hljs-params">torch.nn.Module</span>):</span><br>	<br>	<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span><br>		<span class="hljs-built_in">super</span>(Model, self).__init()<br>		self.linear = torch.nn.Linear(<span class="hljs-number">1</span>,<span class="hljs-number">1</span>)<br><br>	<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span>(<span class="hljs-params"><span class="hljs-built_in">input</span></span>):</span><br>		output = self.linear(<span class="hljs-built_in">input</span>)<br>		<span class="hljs-keyword">return</span> output<br><br>myModel = Model()<br>y_pred = myModel(x)  <span class="hljs-comment"># 等于调用 myModel.forward(x)。因为类中存在__call__方法，相当于c++中重载()号，仿函数。</span><br><br></code></pre></td></tr></table></figure>
+<hr>
+<h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><p>1、__init__()方法需要调用基类nn.Module的super方法来继承基类的属性和方法。<br>2、forward()方法必须实现，定义我们的自定义网络的前向计算过程。形象化地说，组织我们前面定义的网络各层的顺序。<br>3、模型类内的参数要移到gpu上只需要使用model.to(device)来实现。但是模型外部我们自定义的tensor任然需要手动tensor.to(device)来移到gpu上。</p>
+<hr>
+<h3 id="优化器类optimizer"><a href="#优化器类optimizer" class="headerlink" title="优化器类optimizer"></a>优化器类optimizer</h3><p>torch.optim中定义了很多常用的优化函数，如SGD,Adam,RMSprop等等。使用时只需传入模型的参数和学习率等其他参数：optimizer = torch.optim.SGD(myModel.parameters(), lr=1e-3)</p>
+<p>上一节中，已经讲过每次反向传播都应该要将tensor.grad置0。有了优化器类，我们不需要手动找到每一个相关tensor然后tensor.grad=0来完成，而只需要optimizer.zero_grad()便可将所有相关的tensor.grad全部置为0。</p>
+<p>optimzier优化器的作用形象地来说就是需要根据网络反向传播的梯度信息来更新网络的参数，以起到降低loss函数计算值。<br>从优化器的作用出发，要使得优化器能够起作用，需要主要两个东西：1是优化器需要知道当前模型的参数空间，这也就是为什么在训练文件中，正式开始训练之前需要将网络的参数放到优化器里面。2是需要知道反向传播的梯度信息。</p>
+<p>比起麻烦的手动对参数进行如 x = x-lr*grad 来更新参数x，optimizer.step()方法用来更简洁方便的更新模型的参数，一般是在loss.backward()之后optimizer.step()。</p>
+<h4 id="注意事项-1"><a href="#注意事项-1" class="headerlink" title="注意事项"></a>注意事项</h4><p>1、如果要把模型放在gpu上计算，则在定义优化器之前将tensor放在gpu上。</p>
+<hr>
+<h3 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h3><p>torch.nn中同时也定义了常用的损失函数类，如MSELoss(),L1Loss(),CrossEntropyLoss()等等。</p>
+<p>loss = torch.nn.MSELoss()(y_true, y_pred)<br>更一般的，我们常用早先定义 criterion = torch.nn.MSELoss(); 然后计算loss时使用 loss = criterion(y_true, y_pred) </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><br>myModel = Model()<br>criterion = torch.nn.MSELoss()<br>optimizer = torch.optim.SGD(myModel.parameters(), lr=<span class="hljs-number">1e-3</span>)<br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(epochs):<br>	y_pred = myModel(x)<br><br>	loss = criterion(y_true, y_pred)<br><br>	optimizer.zero_grad()<br><br>	loss.backward()<br><br>	optimizer.step()<br><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="数据集基类Dataset"><a href="#数据集基类Dataset" class="headerlink" title="数据集基类Dataset"></a>数据集基类Dataset</h3><p>torch.utils.data中定义了数据集的抽象基类Dataset。于是我们继承抽象类后实现必须要实现对应的两个虚方法__getitem__(self, index)和__len__(self)。</p>
+<p>__getitem__:实现能够通过传入索引的方式来获取对应的数据，如dataset[i]获取数据集中的第i条数据<br>__len__:实现能够通过全局len()方法来获取其中的元素个数</p>
+<hr>
+<h3 id="数据加载器类DataLoader"><a href="#数据加载器类DataLoader" class="headerlink" title="数据加载器类DataLoader"></a>数据加载器类DataLoader</h3><p>torch.utils.data中还定义了数据加载器类DataLoader，通过传递数据集类和一些其他想设置的参数来实例化数据加载器类: myDataLoder = torch.utils.data.DataLoader(myDataset,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs python"><br><span class="hljs-keyword">from</span> torch.utils.data <span class="hljs-keyword">import</span> Dataset, DataLoader<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">myDataset</span>(<span class="hljs-params">Dataset</span>):</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span><br>        self.lines = <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;myData.txt&#x27;</span>, <span class="hljs-string">&quot;r&quot;</span>).readlines()<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__getitem__</span>(<span class="hljs-params">self, item</span>):</span><br>        <span class="hljs-comment"># return self.lines[item]</span><br><br>        <span class="hljs-comment"># 如果想返回更详细一点</span><br>        cur_line = self.lines[item].strip()<br><br>        label = cur_line[<span class="hljs-number">0</span>:<span class="hljs-number">1</span>]<br>        content = cur_line[<span class="hljs-number">2</span>:]<br><br>        <span class="hljs-keyword">return</span> label, content<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__len__</span>(<span class="hljs-params">self</span>):</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(self.lines)<br><br>dataset = myDataset()<br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">7</span>):<br>    <span class="hljs-built_in">print</span>(dataset[i])<br><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">len</span>(dataset))<br><br>myDataLoader = DataLoader(dataset, batch_size=<span class="hljs-number">2</span>, shuffle=<span class="hljs-literal">True</span>, drop_last=<span class="hljs-literal">True</span>, num_workers=<span class="hljs-number">0</span>)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">len</span>(myDataLoader))<br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> myDataLoader: <span class="hljs-comment"># list</span><br>    <span class="hljs-built_in">print</span>(i)<br><br><span class="hljs-keyword">for</span> <span class="hljs-built_in">id</span>,(label, content) <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(myDataLoader):<br>    <span class="hljs-built_in">print</span>(<span class="hljs-built_in">id</span>, label, content)<br><br><br></code></pre></td></tr></table></figure>
+<hr>
+<h3 id="使用PyTorch自带数据集"><a href="#使用PyTorch自带数据集" class="headerlink" title="使用PyTorch自带数据集"></a>使用PyTorch自带数据集</h3><p>torchvision和torchtext分别提供了对图片和文本数据处理相关的api和数据。<br>数据位置在torchvision.datasets和torchtext.datasets下，如torchvision.datasets.MNIST(手写数字图片数据),torchtext.datasets.IMDB(电影评论文本数据)。值得一提的是，所有在datasets下的数据集类都是继承自数据集基类DataSet，因此直接对他们直接实例化得到的就是DataSet的实例。</p>
+<h4 id="注意事项-2"><a href="#注意事项-2" class="headerlink" title="注意事项"></a>注意事项</h4><p>参数：例如myDataset = torchvision.datasets.MNIST(root=’/pathYouPutTheDatas’, train=True[是训练数据还是测试数据], download=True[若不存在，是否下载数据到root目录], transform=[实现对图片处理的函数])</p>
+<p>transform要实现对类似前面myDataset[index]进行处理，就MNIST数据而言，没有transform则索引返回的不是tensor而是一个PIL对象。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> torchvision.datasets <span class="hljs-keyword">import</span> MNIST<br><br>myDataset = MNIST(root=<span class="hljs-string">&#x27;/MNIST&#x27;</span>, train=<span class="hljs-literal">True</span>, download=<span class="hljs-literal">True</span>)<br><br><span class="hljs-built_in">print</span>(myDataset[<span class="hljs-number">0</span>])<br><span class="hljs-comment"># (&lt;PIL.Image.Image image mode=L size=28x28 at 0x20CCCE09B20&gt;, 5) </span><br><br><span class="hljs-comment"># 当然， PIL.Image.Image对象可以使用show()方法来展示该图片</span><br>myDataset[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>].show()<br><br></code></pre></td></tr></table></figure>
+<p>可以看出这里__getitem__返回的也是一个元组，前面是图片类型image，后面是标签5。</p>
+<p>torchvision.transforms下提供了多个类用来对数据进行相关处理，如:<br>    ToTensor()将Image对象或者shape为[height,width,channels]的numpyArray转化为shape为[channels,height,width]的tensor<br>    ToPILImage()将shape为[channels,height,width]的numpyArray或者tensor转化为Image对象<br>    Normalize(mean=(mean1, mean2, … , meanChannels), std=(std1, std2, … , stdChannels))将一个shape为[channels, height, width]的tensor进行规范化，meanINDEX和stdINDEX分别表示对应channel的均值和方差<br>    …<br>    注意上述的tensor和numpyArray中数据的数据类型都是0~1.0的浮点型, shape的转换相当于使用tensor.permute(2,0,1)方法</p>
+<pre><code>Compose(listOfTransforms)将多个transforms组合起来，处理时依次通过transfroms列表中的transforms
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs python">t1 = torchvision.transforms.ToTensor()<br>t2 = torchvision.transforms.ToPILImage()<br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(t1))<br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(t2))<br><br><span class="hljs-comment"># &lt;class &#x27;torchvision.transforms.transforms.ToTensor&#x27;&gt;</span><br><span class="hljs-comment"># &lt;class &#x27;torchvision.transforms.transforms.ToPILImage&#x27;&gt;</span><br><br><span class="hljs-built_in">print</span>(myDataset[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>])  <span class="hljs-comment"># tensor</span><br><br>t2(t1(myDataset[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>])).show() <span class="hljs-comment"># 等于 myDataset[0][0].show()</span><br><span class="hljs-comment"># t1和t2中包含__call__方法</span><br><br>t3 = torchvision.transforms.Normalize(<span class="hljs-number">0</span>,<span class="hljs-number">2</span>)<br><br>t4 = t3(t1(myDataset[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>]))  <span class="hljs-comment"># tensor</span><br><br>t2(t4).show() <span class="hljs-comment"># Image</span><br><br>t5 = torchvision.transforms.Compose(<br>    [<br>        t1,   <span class="hljs-comment"># 转为tensor</span><br>        t3    <span class="hljs-comment"># 规范化</span><br>    ]<br>)<br><br><span class="hljs-built_in">print</span>(t5(myDataset[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>]))  <span class="hljs-comment"># 等同于 print( t3(t1(myDataset[0][0])) ) </span><br><br></code></pre></td></tr></table></figure>
+<hr>
+<h3 id="模型的保存与读取"><a href="#模型的保存与读取" class="headerlink" title="模型的保存与读取"></a>模型的保存与读取</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 模型的保存，包括模型参数和优化器参数</span><br>torch.save(myModel.state_dict(), <span class="hljs-string">&quot;./model/model.pkl&quot;</span>)<br>torch.save(optimizer.state_dict(), <span class="hljs-string">&quot;./model/optimizer.pkl&quot;</span>)<br><br><span class="hljs-comment"># 模型的读取，包括模型参数和优化器参数</span><br>myModel = Model()<br>optimizer = torch.optim.Adam(myModel.parameters(), lr=<span class="hljs-number">0.001</span>)<br><span class="hljs-keyword">if</span>(os.path.exists(<span class="hljs-string">&quot;./model/model.pkl&quot;</span>):<br>	myModel.load_state_dict(torch.load(<span class="hljs-string">&quot;./model/model.pkl&quot;</span>)<br>	optimizer.load_state_dict(torch.load(<span class="hljs-string">&quot;./model/optimizer.pkl&quot;</span>)<br><br></code></pre></td></tr></table></figure>
+<hr>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/PyTorch/">PyTorch</a>
+                    
+                      <a class="hover-with-bg" href="/categories/PyTorch/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+                    
+                      <a class="hover-with-bg" href="/categories/PyTorch/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/">建筑结构损伤图像识别</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/PyTorch/">PyTorch</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/">建筑结构损伤图像识别</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-info">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/07/13/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB-3/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">建筑结构损伤图像识别-3</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/12/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB-1/">
+                        <span class="hidden-mobile">建筑结构损伤图像识别-1</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

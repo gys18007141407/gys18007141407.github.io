@@ -1,0 +1,553 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  
+  <title>DPDK - gys的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gys18007141407.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>gys的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/miku7.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="DPDK">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-11-02 17:29" pubdate>
+        2021年11月2日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      40
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">DPDK</h1>
+	    <time updated datetime="2021-12-01 19:21"></time>
+            
+            <div class="markdown-body">
+              <h2 id="预备"><a href="#预备" class="headerlink" title="预备"></a>预备</h2><p>在没有深入了解之前，我曾认为像简单的mmap即可完成内存映射文件，从而直接获取网卡数据，也避免了数据拷贝到用户态这一中间过程，然而实际上我们并不能像open一个文件那样直接open一个网卡设备，于是我查了一些资料接触到了用户态协议栈、dpdk、netmap等等，之后的学习让我收获了很多。</p>
+<p><a target="_blank" rel="noopener" href="https://core.dpdk.org/supported/">DPDK硬件支持</a></p>
+<h4 id="Linux没有网卡设备文件"><a href="#Linux没有网卡设备文件" class="headerlink" title="Linux没有网卡设备文件"></a>Linux没有网卡设备文件</h4><p>在 unix中，一切io相关的实体都被抽象成了文件，之所以抽象成文件第一是为了接口统一，第二是为了操作统一，第三是为了策略隐藏，比如这样可以向用户屏蔽掉具体设备的细节或者具体文件系统的细节，文件抽象有块抽象和字符抽象，对于块文件，你只需要知道它可以随机读写就可以完成大部分的工作而不用关注底层 具体的文件系统，比如ext3，ntfs，jfs之类，对于字符设备文件，你只需要知道他们是串行读写就可以了，而不必关心鼠标的电路安排，打印机的内部机制等等。</p>
+<p>但是对于网卡，我们看看它是字符设备还是块设备。如果它是块设备，那么它能随机读写吗？看看网卡的特性，它的另一端是另一个世界，它更像是一个管道，因为对一个管道进行随机读写是没有意义的。那么它是一个字符设备吗？要知道网络协议多种多样，计算机仅仅负责按照协议加工数据而不对协议本身做任何限制，因此如果将网卡作为字符设备，那么为了支持众多协议以及为了在传输之前绑定一个协议，就必须频繁调用ioctl之类的系统调用，这样用户就必须知道网卡这个设备的更多的细节，否则用户怎么去ioctl这块网卡。这显然违背了unix文件抽象的初衷。另外怎么去同步这个设备，比如多个进程同时需要打开这个设备传输网络数据，怎么能保证它们可以用最高的效率复用这个网卡，这个同步工作应该由谁来做，系统还是用户，如果由系统来做， 传统的文件同步接口将在网卡设备文件失效，如果由用户来完成，那么用户必须对网卡像驱动工程师一样熟悉，一个用户弄坏网卡的一个寄存器就会导致整个网卡down掉。最后，如何支持网络协议，难道让用户自己进行协议封装然后write到网卡吗？协议栈在这种情况下必须在用户空间实现，如此一来，效率、健壮性、安全性呢？协议栈显然受不到操作系统的内核空间特权级别的保护待遇，这违背了安全原则。综上，网卡不能被抽象成设备文件，因为将之抽象之后得不 到任何好处。</p>
+<p>bsd套接字解决了网卡设备的文件抽象问题，为了使用文件接口，bsd套接字仍然使用文件接口，下层直接和内核空间的协议栈接口，所有的同步以及协议规程都在协议栈完成，设备复用由协议栈和设备驱动共同完成，这个bsd套接字抽象简直就是一件艺术品，人们又回到了一切皆文件的美丽又和谐的世界，bsd套接字通过一个新的系统调用socket来代替open从而可以实现诸如协议绑定之类的和open语义不相关的操作，另外connect 和accept也实现了自己的语义。当初为何不将网络设备作为文件抽象呢？实际上有一个本质的原因，那就是unix根本就不把网络通信作为IO，而是作为IPC（Inter-Process Communication，进程间通信），实际上unix从一开始就将网络当成了计算机，否则它也不会将网络通信作为IPC，进程间通信可以在同一台机器，也可以在不同的机器，实际上机器并不是界限。unix将网络通信当成了像共享内存，信号量之类的IPC机制了，只不过后者是同一台机器内部的机制，不需要硬件，而网络通过需要硬件实现， 硬件就是网卡之类的设备，unix仅仅将网络设备作为了实现IPC的手段罢了。</p>
+<h4 id="南北桥芯片"><a href="#南北桥芯片" class="headerlink" title="南北桥芯片"></a>南北桥芯片</h4><p><strong>北桥芯片主要负责处理cpu和内存之间的通信</strong>，通常包括处理cpu与内存、显卡、PCIE端口(只能插显卡)之间的通信，还有与南桥的通信。</p>
+<p><strong>南桥芯片主要负责I/O总线之间的通信</strong>(就是负责输入和输出设备), 如主板上的各种接口（如串口、 USB ）、 PCI 总线（声卡等）、 IDE （接硬盘、光驱）、以及主板上的其他芯片（如集成声卡、集成 RAID 卡、集成网卡等），都归南桥芯片控制。南桥芯片通常裸露在 PCI 插槽旁边，块头比较大。</p>
+<p>目前大部分主板都把南北桥集成到北桥去了，或者干脆全部集成到cpu去了。</p>
+<h4 id="UMA架构和NUMA架构"><a href="#UMA架构和NUMA架构" class="headerlink" title="UMA架构和NUMA架构"></a>UMA架构和NUMA架构</h4><p>早期的计算机，内存控制器还没有整合进 CPU，所有的内存访问都需要经过北桥芯片来完成。CPU 通过前端总线（FSB，Front Side Bus）连接到北桥芯片，然后北桥芯片连接到内存【早期内存控制器集成在北桥芯片里面】。这种架构被称为 UMA(Uniform Memory Access, 一致性内存访问 ): 同一根总线的模型保证了 CPU 的所有内存访问都是一致的，不必考虑不同内存地址之间的差异。</p>
+<p><img src="/2021/11/02/DPDK/image-20211103144603353.png" srcset="/img/loading.gif" lazyload alt="image-20211103144603353"></p>
+<p>在 UMA 架构下，CPU 和内存之间的通信全部都要通过前端总线。而提高性能的方式，就是不断地提高 CPU、前端总线和内存的工作频率。</p>
+<p>终于，工作频率被我们提升到了瓶颈，我们无法不断提高硬件的工作频率以提升性能。这时候，CPU 性能的提升开始<strong>从提高主频转向增加数量</strong>（多核、多 CPU）。越来越多的 CPU 对前端总线的争用，使前端总线成为了瓶颈。为了消除 UMA 架构的瓶颈，NUMA(Non-Uniform Memory Access, 非一致性内存访问)架构诞生了。</p>
+<p><img src="/2021/11/02/DPDK/image-20211103144543913.png" srcset="/img/loading.gif" lazyload alt="image-20211103144543913"></p>
+<p>CPU 厂商把内存控制器集成到 CPU 内部，一般一个 CPU socket【主板上的一个CPU插槽，一般普通主板只有一个CPU槽，而服务器主板会有多个CPU槽】 会有一个独立的内存控制器。每个 CPU scoket 独立连接到一部分内存，<strong>与这部分 CPU 直连的内存称为“该CPU的本地内存”</strong>。CPU 之间通过 QPI（Quick Path Interconnect） 总线进行连接。CPU 可以通过 QPI 总线访问没有和自己直连的“远程内存”。</p>
+<p>和 UMA 架构不同，在 NUMA 架构下，内存的访问出现了本地和远程的区别：<strong>访问远程内存的延时会明显高于访问本地内存</strong><code>numactl --hardware</code>可查看distance(distance越小优先级越高)。</p>
+<p><img src="/2021/11/02/DPDK/image-20211104204523976.png" srcset="/img/loading.gif" lazyload alt="image-20211104204523976"></p>
+<h4 id="NUMA中的node、socket、core、thread"><a href="#NUMA中的node、socket、core、thread" class="headerlink" title="NUMA中的node、socket、core、thread"></a>NUMA中的node、socket、core、thread</h4><p><code>lscpu</code>，<code>numactl -a</code>, <code>numactl --hardware</code>命令查看cpu相关参数</p>
+<p>socket是主板上的<strong>CPU插槽</strong>。</p>
+<p>Core是socket里独立的一组<strong>程序执行的物理硬件单元(物理核)</strong>(比如寄存器，计算单元等)。 </p>
+<p>Thread是<strong>程序执行的逻辑硬件单元(逻辑核)<strong>。引入</strong>超线程</strong>HyperThread的概念后，一个Core可以开启HT相当于多个逻辑Core也就是所谓的Thread，但对于OS来说，OS并不知道这个Core是虚拟的。Thread具有独立的执行上下文，但是共享Core内的物理硬件单元。</p>
+<p>node则是一个<strong>逻辑上的socket</strong>。可以将多个socket划分为一个node，则可以方便的增加cpu。</p>
+<h4 id="什么是DPDK"><a href="#什么是DPDK" class="headerlink" title="什么是DPDK"></a>什么是DPDK</h4><p><strong>DPDK是INTEL公司开发的一款高性能的网络驱动组件</strong>，旨在为数据面应用程序提供一个简单方便的，完整的，快速的数据包处理解决方案，主要技术有用户态、轮询取代中断、零拷贝、网卡RSS、访存DirectIO等。</p>
+<p><strong>注意：</strong>在VMware中，可直接修改<code>.vmx</code>文件来配置网卡类型【需要在虚拟机关机的情况下修改】: <code>ethernet0.virtualDev = &quot;vmxnet3&quot;</code>比如将第0张网卡类型设置为支持多队列网卡的vmxnet3。(原始应该是e1000)。</p>
+<p>可通过命令<code>ethtool -i [interface_name]</code>查看网卡驱动，<code>ethtool -S [interface_name]</code>查看网卡的收发队列。</p>
+<p><img src="/2021/11/02/DPDK/image-20211105110323511.png" srcset="/img/loading.gif" lazyload alt="image-20211105110323511"></p>
+<h4 id="什么是UIO技术"><a href="#什么是UIO技术" class="headerlink" title="什么是UIO技术"></a>什么是UIO技术</h4><p>设备驱动程序的上面是system call API，驱动的下面是硬件，驱动本身的实现也是基于分离、分层的思想。同设备分类一样，驱动也分3类：字符设备驱动、块设备驱动、网络设备驱动。<code>linux环境高级编程课程中,作业1是安装insmod一个加法器的模块，用户态调用read时，根据read参数来输出答案(printk、dmesg)</code></p>
+<p>UIO（Userspace I/O）是运行在用户空间的I/O技术，Linux系统中一般的驱动都是运行在内核空间，而在用户空间用应用程序调用即可，而UIO则是将驱动的很少一部分运行在内核空间，而在用户空间实现驱动的绝大多数功能！使用UIO可以避免设备的驱动程序需要随着内核的更新而更新的问题。</p>
+<p>在基于kernel的IO模型中，所有的设备IO都要经过内核处理，在高并发的网络数据包收发的情况下，大量硬件中断会降低内核数据包处理能力，内核和用户空间的数据拷贝也会造成大量的计算资源浪费。所以，作为高并发大流量网络开发框架的DPDK，必须要找到一个能够避免内核中断爆炸和大量数据拷贝的方法，在用户空间能够直接和硬件进行交互。</p>
+<p>Linux的UIO就是这样一个将硬件操作映射到用户空间的kernel bypass方案。</p>
+<h3 id="下载安装DPDK"><a href="#下载安装DPDK" class="headerlink" title="下载安装DPDK"></a>下载安装DPDK</h3><h4 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h4><p><code>apt intall libpcap-dev libnuma-dev numactl</code></p>
+<p><a target="_blank" rel="noopener" href="http://core.dpdk.org/download/">源码下载地址</a></p>
+<p>安装方式</p>
+<p>1、使用meson构建 + ninja编译源代码。【值得学习，对用户来说比cmake + make更友好】</p>
+<p>2、使用dpdk的自动安装脚本【<strong>推荐</strong>。下面也是使用dpdk的安装脚本的步骤】</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wt11/p/15417103.html">参考</a></p>
+<h4 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h4><p>一般我将其放在dpdk目录下，命名为dpdk.env。RTE_TARGET表示将编译好的结果放在该目录下，包括了所有的库和头文件。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">RTE_SDK</span>=/home/gys/Downloads/dpdk-stable-19.11.10<br><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">RTE_TARGET</span>=x86_64-native-linuxapp-gcc<br></code></pre></td></tr></table></figure>
+
+<p>环境变量生效<code>. dpdk.env</code></p>
+<h4 id="执行自动安装脚本"><a href="#执行自动安装脚本" class="headerlink" title="执行自动安装脚本"></a>执行自动安装脚本</h4><p>执行之前可以修改编译时的线程数量在dpdk-setup.sh中的make install之后增加-j参数<code>make install -j 4 T=$&#123;RTE_TARGET&#125;</code></p>
+<p><code>./usertools/dpdk-setup.sh</code></p>
+<p><img src="/2021/11/02/DPDK/image-20211104193642026.png" srcset="/img/loading.gif" lazyload alt="image-20211104193642026"></p>
+<p><img src="/2021/11/02/DPDK/image-20211104193734614.png" srcset="/img/loading.gif" lazyload alt="image-20211104193734614"></p>
+<p>1、选择41，适合x86_64机器的gcc编译器，如果是其他架构(lscpu)的机器，需要选择对应的其他编译器。</p>
+<p><img src="/2021/11/02/DPDK/image-20211104194355325.png" srcset="/img/loading.gif" lazyload alt="image-20211104194355325"></p>
+<p>2、选择48，加载igb_uio模块</p>
+<p><img src="/2021/11/02/DPDK/image-20211104194726227.png" srcset="/img/loading.gif" lazyload alt="image-20211104194726227"></p>
+<p>3、选择52，配置巨页(2M页，linux默认4k页)。这里配置了512个2M页。<br><img src="/2021/11/02/DPDK/image-20211104194939456.png" srcset="/img/loading.gif" lazyload alt="image-20211104194939456"></p>
+<p>4、选择53，查看所有网卡。注意<code>Active</code>表示当前网卡处于<code>up</code>状态。</p>
+<p><img src="/2021/11/02/DPDK/image-20211104195038349.png" srcset="/img/loading.gif" lazyload alt="image-20211104195038349"></p>
+<p>5、选择54，绑定网卡。只能绑定<code>down</code>下来的网卡，<code>PCI address</code>就是网卡前面那串数字。(解绑时选择60，也是输出<code>PCI address</code>，还要重启虚拟机，不然<code>ifconfig [interface_name] up</code>会显示找不到设备)</p>
+<p><img src="/2021/11/02/DPDK/image-20211104195400926.png" srcset="/img/loading.gif" lazyload alt="image-20211104195400926"></p>
+<p>6、选择53，查看网卡绑定情况。可以看到<code>0000:03:00.0</code>设备是使用的<code>DPDK-compatible driver</code>。</p>
+<p><img src="/2021/11/02/DPDK/image-20211104195553744.png" srcset="/img/loading.gif" lazyload alt="image-20211104195553744"></p>
+<p>7、选择57，进行简单测试。这里我的虚拟机是2核的，故掩码为<code>0x03</code>。</p>
+<p><img src="/2021/11/02/DPDK/image-20211104200039903.png" srcset="/img/loading.gif" lazyload alt="image-20211104200039903"></p>
+<p>如果出现上图中类似的输出则表示dpdk安装成功了。若出现下面的语句，则表示dpdk不支持该网卡，需要修改一行代码，跳过dpdk pci 检查。</p>
+<p><code>EAL: Error reading from file descriptor 20: Input/output error</code></p>
+<ul>
+<li>将文件<code>dpdk-stable-19.11.10/kernel/linux/igb_uio/igb_uio.c</code>中该行</li>
+</ul>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">if</span> (pci<span class="hljs-constructor">_intx_mask_supported(<span class="hljs-params">udev</span>-&gt;<span class="hljs-params">pdev</span>)</span>)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>修改为</li>
+</ul>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">if</span> (pci<span class="hljs-constructor">_intx_mask_supported(<span class="hljs-params">udev</span>-&gt;<span class="hljs-params">pdev</span>)</span><span class="hljs-operator"> || </span><span class="hljs-literal">true</span>)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>重新运行上述流程即可</li>
+</ul>
+<p>8、选择58，进行交互模式下的port之间转发数据包等集成测试。</p>
+<p><img src="/2021/11/02/DPDK/image-20211105141923639.png" srcset="/img/loading.gif" lazyload alt="image-20211105141923639"></p>
+<p>若出现错误<code>Cause: Creation of mbuf pool for socket 0 failed: Cannot allocate memory</code>则表示巨页分配太少，重新分配巨页即可。</p>
+<p>警告是因为前面只绑定了一个网卡。类似地，绑定第二张网卡，然后选择58。</p>
+<p><img src="/2021/11/02/DPDK/image-20211105143122799.png" srcset="/img/loading.gif" lazyload alt="image-20211105143122799"></p>
+<p>输入<code>help</code>可获取交互模式帮助信息。</p>
+<p><img src="/2021/11/02/DPDK/image-20211105143230645.png" srcset="/img/loading.gif" lazyload alt="image-20211105143230645"></p>
+<p>输入<code>start</code>命令后几秒钟再输入<code>stop</code>命令。</p>
+<p><img src="/2021/11/02/DPDK/image-20211105143303844.png" srcset="/img/loading.gif" lazyload alt="image-20211105143303844"></p>
+<h4 id="测试examples"><a href="#测试examples" class="headerlink" title="测试examples"></a>测试examples</h4><p>1、测试 <code>./examples/helloworld</code></p>
+<p><img src="/2021/11/02/DPDK/image-20211104200531284.png" srcset="/img/loading.gif" lazyload alt="image-20211104200531284"></p>
+<p>2、测试<code>./examples/l2fwd</code></p>
+<p><code>./build/l2fwd -c 0x3 -n 4 -- -p 1 -q 2</code>参数分两部分：EAL(Environment Abstract Layer)运行环境参数和程序本身的参数，中间以<code>-–</code>隔开。</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs diff"><span class="hljs-deletion">-c：指定分配给DPDK使用的逻辑核(线程)数, (coremask, 3表示2个核)</span><br><span class="hljs-deletion">-n：每个核的内存通道数</span><br><span class="hljs-deletion">--：分隔</span><br><span class="hljs-deletion">-p：使用的port数(一个port就是一块dpdk网卡)</span><br><span class="hljs-deletion">-q：每个核管理的队列数</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/02/DPDK/image-20211104203722965.png" srcset="/img/loading.gif" lazyload alt="image-20211104203722965"></p>
+<p><img src="/2021/11/02/DPDK/image-20211104203753942.png" srcset="/img/loading.gif" lazyload alt="image-20211104203753942"></p>
+<p><img src="/2021/11/02/DPDK/image-20211104203932136.png" srcset="/img/loading.gif" lazyload alt="image-20211104203932136"></p>
+<p>3、测试<code>./examples/l3fwd</code></p>
+<p><code>./build/l3fwd -l 0,1 -n 4 --  -p 0x1 --config=&#39;(0,0,0),(0,1,1)&#39; --parse-ptype</code>即以0，1两个核，每个核具有4个内存通道的环境下运行该程序，该程序使用了一块网卡，其中0号网卡的0号队列由0号核处理，0号网卡的1号队列由1号核处理。</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs diff"><span class="hljs-deletion">-l：指定分配给DPDK使用的逻辑核(线程)列表(corelist。以逗号分开)</span><br><span class="hljs-deletion">-n：每个核的内存通道数</span><br><span class="hljs-deletion">--：分隔</span><br><span class="hljs-deletion">-p：使用的port数(一个port就是一块dpdk网卡)</span><br><span class="hljs-deletion">-q：每个核管理的队列数</span><br><span class="hljs-deletion">--config：字符串，配置三元组(port，queue，lcore)指定核(线程)处理对应的端口的队列(逗号分开)</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/2021/11/02/DPDK/image-20211105100036850.png" srcset="/img/loading.gif" lazyload alt="image-20211105100036850"></p>
+<p><strong>可能出现错误:</strong> <code>Ethdev port_id=0 requested Rx offloads 0xe doesn&#39;t match Rx offloads capabilities 0x82a1d in rte_eth_dev_configure()</code>。</p>
+<p>因为<code>virtio驱动(vmxnet3)不支持DEV_RX_OFFLOAD_CHECKSUM，在l3fwd源码中禁用DEV_RX_OFFLOAD_CHECKSUM即可, 即注释掉DEV_RX_OFFLOAD_CHECKSUM相关行</code>，然后重新编译。</p>
+<p><strong>可能出现错误：</strong><code>port 0 cannot parse RTE_PTYPE_L3_IPV6</code>。</p>
+<p>virtio或其他设备不能运行l3fwd，因为这些设备可能部支持<code>hw_ip_checksum</code>(硬件ip检测)。要在执行命令后增加<code>--parse-ptype</code>。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Linux/">Linux</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Linux/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Linux/">Linux</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-info">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/11/07/%E5%9F%BA%E4%BA%8Edpdk%E7%9A%84%E7%94%A8%E6%88%B7%E6%80%81%E5%8D%8F%E8%AE%AE%E6%A0%88/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/10/28/iptables%E5%91%BD%E4%BB%A4%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">
+                        <span class="hidden-mobile">iptables命令简单使用</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

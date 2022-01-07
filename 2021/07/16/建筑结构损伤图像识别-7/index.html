@@ -1,0 +1,471 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  
+  <title>建筑结构损伤图像识别-7 - gys的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gys18007141407.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>gys的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/miku7.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="建筑结构损伤图像识别-7">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-16 09:18" pubdate>
+        2021年7月16日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      27
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">建筑结构损伤图像识别-7</h1>
+	    <time updated datetime="2021-07-16 20:01"></time>
+            
+            <div class="markdown-body">
+              <h2 id="PyTorch"><a href="#PyTorch" class="headerlink" title="PyTorch"></a>PyTorch</h2><p>主要学习torch.nn.utils.rnn.pack_padded_sequence和torch.nn.utils.rnn.pad_packed_sequence这两个API的使用，以及Sequence2Sequence模型的简单使用示例</p>
+<hr>
+<h3 id="pack-padded-sequence和pad-packed-sequence"><a href="#pack-padded-sequence和pad-packed-sequence" class="headerlink" title="pack_padded_sequence和pad_packed_sequence"></a>pack_padded_sequence和pad_packed_sequence</h3><p>当采用RNN训练序列样本数据时，会面临序列样本数据长短不一的情况。比如做NLP任务、语音处理任务时，每个句子或语音序列的长度经常是不相同的。这样的话一条数据一条数据的训练显然是不现实的，<br>为了进行高效的批量处理，一个常用的方法是对所有数据进行填充pad到一个固定的最大长度，然后就可以按照标准批量处理方法来训练网络了。</p>
+<p>然而，加入了pad信息的序列也有明显的缺陷。一方面，它增加了资源消耗；另一方面，pad对于RNN的训练经常会带来不良的影响，因为我们并不关心pad值处的信息，所以pad值过多必然要导致信息的损失&gt;，让我们的RNN学习不到原有的信息。</p>
+<p>为了解决这一问题，PyTorch中提供了pack_padded和pad_packed这两种方式来进行压缩数据和解压数据的转换操作。在对原始数据pad后，可以使用pack_padded_sequence来得到一个压缩pad值的packedSequence对象。而PyTorch的RNN层可以直接接收packedSequence对象作为层参数，同样的，该RNN层的输出仍然是一个压缩的packedSequence对象。要想得到非压缩数据，就要使用PyTorch提供的另一个成对使用<br>的方法pad_packed_sequence来将packedSequence对象转化为tensor。</p>
+<p>下面是一个简单的示例，可以和前面介绍PyTorch的LSTM结合学习。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">先补齐到相同长度 再压紧</span><br><span class="hljs-string">torch.nn.utils.pack_padded_sequence(input, </span><br><span class="hljs-string">				    lengths, </span><br><span class="hljs-string">				    batch_first=False, </span><br><span class="hljs-string">				    enforce_sorted=True)</span><br><span class="hljs-string">    </span><br><span class="hljs-string">input(Tensor): [T, B, *] == [max_len, batch, embedding_dim], if batch_first= True, then [B, T, *]</span><br><span class="hljs-string">lengths(Tensor or list(int)) ：每个batch中的句子的长度序列，句子长度值的顺序要和对应的输入中的序列顺序一致</span><br><span class="hljs-string">enforce_sorted： 默认值是 True，表示输入已经按句子长度降序排好序。如果输入在 pad 时没有顺序，那么此时在此处需要设置该值为 False,那么函数会再去排序</span><br><span class="hljs-string"></span><br><span class="hljs-string">返回的对象是PackedSequence object。该类型的变量可以作为参数直接传入给RNN/LSTM等。</span><br><span class="hljs-string"></span><br><span class="hljs-string">对压紧后的序列 进行扩充补齐操作</span><br><span class="hljs-string">torch.nn.utils.rnn.pad_packed_sequence(sequence, </span><br><span class="hljs-string">				       batch_first=False, </span><br><span class="hljs-string">				       padding_value=0.0, </span><br><span class="hljs-string">				       total_length=None)</span><br><span class="hljs-string"></span><br><span class="hljs-string">sequence(PackedSequence): 要pad的PackSequence对象</span><br><span class="hljs-string">total_length: pad的最长长度max_len，如果该值比原先pack_padded_sequence小则报错</span><br><span class="hljs-string"></span><br><span class="hljs-string">返回的是一个元组(原先的tensor, 每个batch里面的句子长度列表)</span><br><span class="hljs-string"></span><br><span class="hljs-string">注意：inputs是否排好序和 lengths参数和enforce_sorted 一定要对应起来。</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br>x = torch.tensor(np.arange(<span class="hljs-number">144</span>).reshape(<span class="hljs-number">3</span>, <span class="hljs-number">6</span>, <span class="hljs-number">8</span>)).<span class="hljs-built_in">float</span>() <span class="hljs-comment"># [batch, seq_len, embedding]</span><br><br>x[<span class="hljs-number">1</span>, <span class="hljs-number">4</span>:<span class="hljs-number">6</span> , :] = <span class="hljs-number">0</span>  <span class="hljs-comment"># 假设第二个样本的第4，5个词的embedding是pad来的</span><br>x[<span class="hljs-number">0</span>, <span class="hljs-number">5</span>, :] = <span class="hljs-number">0</span>     <span class="hljs-comment"># 假设第一个样本的第5个词的embedding是pad来的</span><br><br>layer = torch.nn.LSTM(input_size=<span class="hljs-number">8</span>, <br>		      hidden_size=<span class="hljs-number">5</span>, <br>		      num_layers=<span class="hljs-number">1</span>, <br>		      batch_first=<span class="hljs-literal">True</span>)<br><br>y, (h_n, c_n) = layer(x)<br><span class="hljs-comment"># y == output</span><br><br><span class="hljs-built_in">print</span>(y.size())   <span class="hljs-comment">#[3,6,5]</span><br><span class="hljs-built_in">print</span>(h_n.size()) <span class="hljs-comment">#[1,3,5]</span><br><span class="hljs-built_in">print</span>(c_n.size()) <span class="hljs-comment">#[1,3,5]</span><br><br><span class="hljs-built_in">input</span> = torch.nn.utils.rnn.pack_padded_sequence(<span class="hljs-built_in">input</span>=x, <br>						lengths=[<span class="hljs-number">5</span>,<span class="hljs-number">4</span>,<span class="hljs-number">6</span>], <br>						batch_first=<span class="hljs-literal">True</span>, <br>						enforce_sorted=<span class="hljs-literal">False</span>)<br><span class="hljs-comment"># 返回值packedSequence对象input中包含pad压缩后的该tensor的数据，以及压缩的位置等等其他信息</span><br><br>packedSequence, _ = layer(<span class="hljs-built_in">input</span>)<br><br><span class="hljs-comment"># print(packedSequence)  # packedSequence中包含pad压缩后的数据，以及压缩的位置等等其他信息</span><br><span class="hljs-comment"># _ 和h_n, c_n一样</span><br><br>output, lenlist = torch.nn.utils.rnn.pad_packed_sequence(sequence=packedSequence, batch_first=<span class="hljs-literal">True</span>)<br><span class="hljs-comment"># output == y</span><br><br><span class="hljs-built_in">print</span>(output.size())  <span class="hljs-comment"># [3, 6, 5]</span><br><span class="hljs-built_in">print</span>(lenlist)        <span class="hljs-comment"># [5, 4, 6]</span><br><br></code></pre></td></tr></table></figure>
+<h3 id="Seq2Seq模型"><a href="#Seq2Seq模型" class="headerlink" title="Seq2Seq模型"></a>Seq2Seq模型</h3><p>Seq2Seq模型是输出的长度不确定时采用的模型，这种情况一般是在机器翻译的任务中出现，将一句中文翻译成英文，那么这句英文的长度有可能会比中文短，也有可能会比中文长，所以输出的长度就不确定了。</p>
+<p>seq2seq属于encoder-decoder结构的一种，这里看看常见的encoder-decoder结构，基本思想就是利用两个RNN，一个RNN作为encoder，另一个RNN作为decoder。encoder负责将输入序列压缩成指定长度的向量，这个向量就可以看成是这个序列的语义，这个过程称为编码，而decoder则负责根据语义向量生成指定的序列，这个过程也称为解码。</p>
+<h4 id="Teacher-Forcing"><a href="#Teacher-Forcing" class="headerlink" title="Teacher Forcing"></a>Teacher Forcing</h4><p>由于RNN的特性，如果在某一个单元的输出出错了，那么这势必会影响接下来的所有单元的结果，使模型收敛的难度提升。为了应对这一情形，在动态监督学习任务中经常使用的一种有趣的技术是，在计算过程中用教师信号(label)替换上一个单元的实际输出(decoder_output)。我们称这种技术为Teacher Forcing。训练过程中的每个时刻，有一定概率使用上一时刻的输出作为输入，也有一定概率使用正确的label作为输入。</p>
+<hr>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br></pre></td><td class="code"><pre><code class="hljs python"><br><span class="hljs-comment">############################### data and label ###################################</span><br><br><span class="hljs-comment"># 设1是句子结束标志</span><br>END = <span class="hljs-number">1</span><br><br><span class="hljs-comment"># 输入为3个长度分别为13， 12， 14的句子</span><br><span class="hljs-comment"># dataset进行 pad 处理</span><br><span class="hljs-built_in">input</span> = torch.randint(<span class="hljs-number">2</span>, <span class="hljs-number">100</span>, size=[<span class="hljs-number">3</span>, <span class="hljs-number">16</span>])<br>input_length = [<span class="hljs-number">13</span>, <span class="hljs-number">12</span>, <span class="hljs-number">14</span>]<br><span class="hljs-built_in">input</span>[<span class="hljs-number">0</span>, <span class="hljs-number">14</span>:] = <span class="hljs-number">0</span><br><span class="hljs-built_in">input</span>[<span class="hljs-number">1</span>, <span class="hljs-number">13</span>:] = <span class="hljs-number">0</span><br><span class="hljs-built_in">input</span>[<span class="hljs-number">2</span>, <span class="hljs-number">15</span>:] = <span class="hljs-number">0</span><br><span class="hljs-built_in">input</span>[<span class="hljs-number">0</span>, <span class="hljs-number">14</span>] = END<br><span class="hljs-built_in">input</span>[<span class="hljs-number">1</span>, <span class="hljs-number">13</span>] = END<br><span class="hljs-built_in">input</span>[<span class="hljs-number">2</span>, <span class="hljs-number">15</span>] = END<br><br><span class="hljs-comment"># 输出为3个长度分别为9， 13， 16的句子</span><br><span class="hljs-comment"># dataset进行 pad 处理</span><br>label = torch.randint(<span class="hljs-number">2</span>, <span class="hljs-number">100</span>, size=[<span class="hljs-number">3</span>, <span class="hljs-number">16</span>])<br>label_length = [<span class="hljs-number">9</span>, <span class="hljs-number">13</span>, <span class="hljs-number">16</span>]<br>label[<span class="hljs-number">0</span>, <span class="hljs-number">9</span>:] = <span class="hljs-number">0</span><br>label[<span class="hljs-number">1</span>, <span class="hljs-number">13</span>:] = <span class="hljs-number">0</span><br>label[<span class="hljs-number">0</span>, <span class="hljs-number">9</span>] = END<br>label[<span class="hljs-number">1</span>, <span class="hljs-number">13</span>] = END<br><br><span class="hljs-comment">############################### encoder model ####################################</span><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Encoder</span>(<span class="hljs-params">torch.nn.Module</span>):</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span><br>        <span class="hljs-built_in">super</span>(Encoder, self).__init__()<br><br>        <span class="hljs-comment"># 假设100是词典的总词数</span><br>        self.embedding = torch.nn.Embedding(num_embeddings=<span class="hljs-number">100</span>, embedding_dim=<span class="hljs-number">9</span>)  <span class="hljs-comment"># [3, 16, 9]</span><br><br>        self.gru = torch.nn.GRU(input_size=<span class="hljs-number">9</span>,<br>                                hidden_size=<span class="hljs-number">6</span>,<br>                                num_layers=<span class="hljs-number">1</span>,<br>                                batch_first=<span class="hljs-literal">True</span><br>                           )<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span>(<span class="hljs-params">self, <span class="hljs-built_in">input</span>, input_length</span>):</span><br><br>        encoder_input = self.embedding(<span class="hljs-built_in">input</span>)<br>        pad = torch.nn.utils.rnn.pack_padded_sequence(<span class="hljs-built_in">input</span>=encoder_input,<br>                                                      lengths=input_length, <span class="hljs-comment"># [13, 12, 14]</span><br>                                                      batch_first=<span class="hljs-literal">True</span>,<br>                                                      enforce_sorted=<span class="hljs-literal">False</span>)<br><br>        encoder_output, encoder_hidden = self.gru(pad)<br>        <span class="hljs-comment"># print(encoder_hidden.size()) # [1, 3, 6]</span><br><br>        encoder_output, lenlist = torch.nn.utils.rnn.pad_packed_sequence(sequence=encoder_output,<br>                                                                         batch_first=<span class="hljs-literal">True</span>,<br>                                                                         padding_value=<span class="hljs-number">0</span>)<br>        <span class="hljs-comment"># print(encoder_output.size())  # [3, 14, 6]</span><br>        <span class="hljs-comment"># print(lenlist)        # [13, 12, 14]</span><br><br>        <span class="hljs-keyword">return</span> encoder_output, encoder_hidden<br><br><span class="hljs-comment">##################################################################################</span><br><br><br><span class="hljs-comment">################################# decoder model ##################################</span><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Decoder</span>(<span class="hljs-params">torch.nn.Module</span>):</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span><br>        <span class="hljs-built_in">super</span>(Decoder, self).__init__()<br>        self.embedding = torch.nn.Embedding(num_embeddings=<span class="hljs-number">100</span>, embedding_dim=<span class="hljs-number">9</span>)  <span class="hljs-comment"># 假设100是词典的总词数</span><br><br>        self.gru = torch.nn.GRU(input_size=<span class="hljs-number">9</span>,<br>                                hidden_size=<span class="hljs-number">6</span>,<br>                                num_layers=<span class="hljs-number">1</span>,<br>                                batch_first=<span class="hljs-literal">True</span><br>                           )<br><br>        self.fc = torch.nn.Linear(in_features=<span class="hljs-number">6</span>, out_features=<span class="hljs-number">100</span>) <span class="hljs-comment"># 假设32是词典的总词数</span><br><br><span class="hljs-comment"># 当前时间步上的计算,返回改时间步的输出和下一时间步输入的隐藏状态</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward_time_step</span>(<span class="hljs-params">self, decoder_input, decoder_hidden</span>):</span><br>        decoder_input = self.embedding(decoder_input)  <span class="hljs-comment"># [3, 1, 9]</span><br>        decoder_output, decoder_hidden = self.gru(decoder_input, decoder_hidden)  <span class="hljs-comment"># 如LSTM不传递隐藏状态则会有默认的隐藏状态</span><br>        <span class="hljs-comment"># print(decoder_output.size())  # [3, 1, 6]</span><br>        <span class="hljs-comment"># print(decoder_hidden.size())  # [1, 3, 6]</span><br><br>        decoder_output = decoder_output.squeeze(dim=<span class="hljs-number">1</span>)<br>        <span class="hljs-comment">#print(decoder_output.size())  # [3, 6]</span><br><br>        decoder_output = self.fc(decoder_output) <span class="hljs-comment">#[3, 100]</span><br><br>        decoder_output = F.log_softmax(decoder_output, dim=-<span class="hljs-number">1</span>)<br><br>        <span class="hljs-keyword">return</span> decoder_output, decoder_hidden<br><br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span>(<span class="hljs-params">self, encoder_hidden, label = <span class="hljs-literal">None</span></span>):</span><br>        y_pred = torch.zeros([<span class="hljs-number">3</span>, <span class="hljs-number">16</span>, <span class="hljs-number">100</span>])  <span class="hljs-comment">#[batch, seq_len, dict_len]</span><br><br>        decode_hidden = encoder_hidden      <span class="hljs-comment"># [1, 3, 6]</span><br>        <span class="hljs-comment"># 1、获取encoder的输出作为decoder第一个时间步的hidden_state输入</span><br><br>        decoder_input = torch.zeros((<span class="hljs-number">3</span>,<span class="hljs-number">1</span>)).<span class="hljs-built_in">int</span>()<br>        <span class="hljs-comment"># 2、准备decoder第一个时间步的输入，shape为 [batch, 1]。这个tensor是一个开始标志.</span><br><br>        finish = []<br>        <span class="hljs-comment"># 如果是评估模式，则可以考虑 while(True) 碰到 index == END 就退出循环</span><br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">16</span>): <span class="hljs-comment"># 句子最长长度为16</span><br>            decoder_output, decoder_hidden = self.forward_time_step(decoder_input=decoder_input,<br>                                                                    decoder_hidden=decode_hidden)<br><br>            <span class="hljs-comment"># print(decoder_output.size()) # [3, 100]</span><br><br>            value, index = torch.topk(decoder_output, <span class="hljs-number">1</span>)<br>            <span class="hljs-comment"># print(index.size()) # [3, 1]</span><br><br>	    <span class="hljs-keyword">if</span> label <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">and</span> random.random() &gt; <span class="hljs-number">0.9</span>:<br>	    	<span class="hljs-comment"># teacher forcing</span><br>		decoder_input = label[:, i].unsqueeze(<span class="hljs-number">1</span>)<br>	    <span class="hljs-keyword">else</span>:<br>	    	decoder_input = index<br><br>            <span class="hljs-comment"># y_pred[:, i, :] = decoder_output</span><br>            <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">3</span>):<br>                <span class="hljs-keyword">if</span> j <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> finish:<br>                    y_pred[j, i, :] = decoder_output[j, :]<br>                    <span class="hljs-keyword">if</span> index[j] == END:<br>                        finish.append(j)<br><br>        <span class="hljs-comment"># 3、循环计算每一个时间步的输出和hidden_state。</span><br><br>        <span class="hljs-keyword">return</span> y_pred<br><br><span class="hljs-comment">##################################################################################</span><br><br><br><span class="hljs-comment">################################# Seq2Seq model ##################################</span><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Seq2Seq</span>(<span class="hljs-params">torch.nn.Module</span>):</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span><br>        <span class="hljs-built_in">super</span>(Seq2Seq, self).__init__()<br><br>        self.encoder = Encoder()<br>        self.decoder = Decoder()<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span>(<span class="hljs-params">self, <span class="hljs-built_in">input</span>, input_length, label</span>):</span><br>        encoder_output, encoder_hidden = self.encoder(<span class="hljs-built_in">input</span>, input_length)<br>        decoder_output = self.decoder(encoder_hidden, label = Node)<br>        <span class="hljs-keyword">return</span> decoder_output<br><br><span class="hljs-comment">##################################################################################</span><br><br>model = Seq2Seq()<br><br>optimizer = torch.optim.Adam(model.parameters(), lr=<span class="hljs-number">0.0015</span>)<br>criterion = torch.nn.CrossEntropyLoss()<br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10000</span>):<br>    <span class="hljs-comment"># from DataLoader get input input_length label label_length</span><br>    <br>    y_pred = model(<span class="hljs-built_in">input</span>, input_length, label) <span class="hljs-comment"># use teacher forcing</span><br>    <span class="hljs-comment"># y_pred = model(input, input_length)</span><br><br>    <span class="hljs-comment"># print(y_pred.size()) # [3, 20, 100]</span><br>    <span class="hljs-comment"># print(label.size())  # [3, 20]</span><br>    <span class="hljs-comment"># loss = F.nll_loss(y_pred.view(-1, y_pred.size(-1)), label.view(-1))</span><br>    loss = criterion(y_pred.view(-<span class="hljs-number">1</span>, y_pred.size(-<span class="hljs-number">1</span>)), label.view(-<span class="hljs-number">1</span>))<br><br>    optimizer.zero_grad()<br>    loss.backward()<br>    optimizer.step()<br><br>    <span class="hljs-keyword">if</span> i%<span class="hljs-number">100</span> == <span class="hljs-number">0</span>:<br>        <span class="hljs-built_in">print</span>(loss.item())<br>        <span class="hljs-built_in">print</span>(y_pred.<span class="hljs-built_in">max</span>(dim=-<span class="hljs-number">1</span>)[-<span class="hljs-number">1</span>].eq(label).<span class="hljs-built_in">float</span>().mean())<br>        <span class="hljs-comment"># print(y_pred.max(dim=-1)[-1])</span><br>        <span class="hljs-comment"># print(y_pred.max(dim=-1)[-1].eq(label))</span><br><br></code></pre></td></tr></table></figure>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/PyTorch/">PyTorch</a>
+                    
+                      <a class="hover-with-bg" href="/categories/PyTorch/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+                    
+                      <a class="hover-with-bg" href="/categories/PyTorch/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/">建筑结构损伤图像识别</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/PyTorch/">PyTorch</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/">建筑结构损伤图像识别</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-info">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/07/17/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB-8/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">建筑结构损伤图像识别-8</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/15/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB-6/">
+                        <span class="hidden-mobile">建筑结构损伤图像识别-6</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

@@ -1,0 +1,465 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  
+  <title>Kafka - gys的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gys18007141407.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>gys的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/miku2.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Kafka">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-10-20 14:12" pubdate>
+        2021年10月20日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      29
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Kafka</h1>
+	    <time updated datetime="2021-10-21 17:16"></time>
+            
+            <div class="markdown-body">
+              <h3 id="预备"><a href="#预备" class="headerlink" title="预备"></a>预备</h3><p><a target="_blank" rel="noopener" href="http://kafka.apache.org/downloads">下载地址</a>，方便起见，这里直接下载了编译好的二进制文件。</p>
+<p><strong>注意</strong>设置好config/zookeeper.properties文件中的maxClientCnxns选项, 当连接到zookeeper的客户端数量超过maxClientCnxns的值就连接不上zookeeper了.</p>
+<h4 id="拓扑结构"><a href="#拓扑结构" class="headerlink" title="拓扑结构"></a>拓扑结构</h4><p>此图感觉有误，现在版本更新后貌似producer和consumer都是直接访问broker集群的，zookeeper只对broker服务。</p>
+<p><img src="/2021/10/20/Kafka/Center.jpeg" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h4 id="一些术语"><a href="#一些术语" class="headerlink" title="一些术语"></a>一些术语</h4><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">ConsumerGroup	<br>消费者组，可以并行消费Topic中的<span class="hljs-keyword">partition</span>的消息。可以认为一个ConsumerGroup是一个“订阅者”，一个topic中的每个<span class="hljs-keyword">partition</span>只会被一个“订阅者”中的一个consumer消费，而一个consumer可以消费多个<span class="hljs-keyword">partition</span>中的消息。<br><br>Broker			<br>缓存代理，Kafka集群中的一台或多台服务器统称Broker。<br><br>Topic			<br>Kafka处理资源的消息源(feeds <span class="hljs-keyword">of</span> messages)的不同分类。<br><br><span class="hljs-keyword">Partition</span>		<br>Topic物理上的分组，一个topic可以分为多个<span class="hljs-keyword">partition</span>,每个<span class="hljs-keyword">partition</span>是一个有序的队列。<span class="hljs-keyword">partition</span>中每条消息都会被分配一个有序的Id(<span class="hljs-keyword">offset</span>)<br><br>Message			<br>消息，以topic为基本单位组织的，不同的topic之间是相互独立的，每个topic又可以分成不同的<span class="hljs-keyword">partition</span>，每个<span class="hljs-keyword">partition</span>储存一部分，每个producer可以向一个topic发布一些消息。<br><br>Producers		<br>消息和数据生成者，向Kafka的一个topic发布消息的 过程叫做producers<br><br>Consumers		<br>消息和数据的消费者，订阅topic并处理其发布的消费过程叫做consumers<br></code></pre></td></tr></table></figure>
+
+<p>Kafka是一款基于发布与订阅的消息系统,<strong>Kafka将元数据信息保存在zookeeper中，但是发送给topic的原始数据是保存在broker中的</strong>。通过日志来提供所有事物的持久化记录【重建这些日志可以重建系统的状态】。由于是顺序写磁盘日志，因此Kafka的写入性能较高。Kafka 和其他 消息队列 最大的区别在于 Kafka 中的消息在消费后不会被删除，而是会一直保留，直到过期。目前3.0版本Kafka还是要依赖zookeeper作为服务发现。</p>
+<h3 id="Go使用Kafka"><a href="#Go使用Kafka" class="headerlink" title="Go使用Kafka"></a>Go使用Kafka</h3><p>以下采用库<code>github.com/Shopify/sarama</code></p>
+<h5 id="生产者"><a href="#生产者" class="headerlink" title="生产者"></a>生产者</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;encoding/json&quot;</span><br>	<span class="hljs-string">&quot;github.com/Shopify/sarama&quot;</span><br>	<span class="hljs-string">&quot;github.com/sirupsen/logrus&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;os/signal&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> Msg <span class="hljs-keyword">struct</span> &#123;<br>	Name 				<span class="hljs-keyword">string</span>			<span class="hljs-string">`json:&quot;name&quot;`</span><br>	Age 				<span class="hljs-keyword">int</span>				<span class="hljs-string">`json:&quot;age&quot;`</span><br>	Score 				<span class="hljs-keyword">float64</span>			<span class="hljs-string">`json:&quot;score&quot;`</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>	<span class="hljs-keyword">var</span>(<br>		err				error<br>		addrs			[]<span class="hljs-keyword">string</span><br>		config 			*sarama.Config<br>		client 			sarama.Client<br><br>		producer 		sarama.AsyncProducer<br>		message 		*sarama.ProducerMessage<br>		forceQuit 		<span class="hljs-keyword">chan</span> os.Signal<br>	)<br><br>	addrs = []<span class="hljs-keyword">string</span>&#123;<span class="hljs-string">&quot;192.168.162.128:9092&quot;</span>&#125;<br><br>	config = sarama.NewConfig()<br>	<span class="hljs-comment">// 返回推送消息成功时的通知[开启后，则必须处理通知，否则后续消息将被阻塞]</span><br>	config.Producer.Return.Successes = <span class="hljs-literal">true</span><br>	<span class="hljs-comment">// 返回推送消息失败时的通知[开启后，则必须处理通知，否则后续消息将被阻塞]</span><br>	config.Producer.Return.Errors = <span class="hljs-literal">true</span><br>	<span class="hljs-comment">// 推送消息时，选择topic分区的算法，这里使用轮询</span><br>	config.Producer.Partitioner = sarama.NewRoundRobinPartitioner<br>	<span class="hljs-comment">// 连接超时</span><br>	config.Net.DialTimeout = <span class="hljs-number">3</span>*time.Second<br><br>	<span class="hljs-comment">// 连接broker</span><br>	<span class="hljs-keyword">if</span> client, err = sarama.NewClient(addrs, config); err != <span class="hljs-literal">nil</span>&#123;<br>		logrus.Infoln(err)<br>		<span class="hljs-keyword">return</span><br>	&#125;<br>	<span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		<span class="hljs-keyword">if</span> err = client.Close(); err != <span class="hljs-literal">nil</span>&#123;<br>			logrus.Infoln(err)<br>		&#125;<br>	&#125;()<br><br>	<span class="hljs-comment">// 创建producer客户端[异步生产]</span><br>	<span class="hljs-keyword">if</span> producer, err = sarama.NewAsyncProducerFromClient(client); err != <span class="hljs-literal">nil</span>&#123;<br>		logrus.Infoln(err)<br>		<span class="hljs-keyword">return</span><br>	&#125;<br>	<span class="hljs-keyword">defer</span> producer.AsyncClose()<br><br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		<span class="hljs-keyword">var</span>(<br>			producerMsg		*sarama.ProducerMessage<br>		)<br>		<span class="hljs-keyword">for</span> producerMsg = <span class="hljs-keyword">range</span> producer.Successes()&#123;<br>			logrus.Infoln(producerMsg)<br>		&#125;<br>	&#125;()<br><br>	<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		<span class="hljs-keyword">var</span>(<br>			producerErr		*sarama.ProducerError<br>		)<br>		<span class="hljs-keyword">for</span> producerErr = <span class="hljs-keyword">range</span> producer.Errors()&#123;<br>			logrus.Infoln(producerErr)<br>		&#125;<br>	&#125;()<br><br>	forceQuit = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> os.Signal, <span class="hljs-number">1</span>)<br>	signal.Notify(forceQuit, os.Interrupt)<br><br>	<span class="hljs-comment">// 推送消息</span><br>	SEND_LOOP:<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i ++&#123;<br>		msg, _ :=  json.Marshal(Msg&#123;<br>			Name:  <span class="hljs-string">&quot;gys&quot;</span>,<br>			Age:   <span class="hljs-number">24</span>,<br>			Score: <span class="hljs-number">99.6</span>,<br>		&#125;)<br>		<span class="hljs-comment">// 构建消息</span><br>		message = &amp;sarama.ProducerMessage&#123;<br>			Topic:     <span class="hljs-string">&quot;cron_test&quot;</span>,<br>			Key:       sarama.StringEncoder(<span class="hljs-string">&quot;/cron/warn/test1&quot;</span>),<br>			Value:     sarama.ByteEncoder(msg),<br>			<span class="hljs-comment">// Headers:   []sarama.RecordHeader&#123;</span><br>			<span class="hljs-comment">// 	sarama.RecordHeader&#123;</span><br>			<span class="hljs-comment">// 		Key:  	[]byte(&quot;111&quot;),</span><br>			<span class="hljs-comment">// 		Value: []byte(&quot;222&quot;),</span><br>			<span class="hljs-comment">// 	&#125;,</span><br>			<span class="hljs-comment">// &#125;,</span><br>			<span class="hljs-comment">// Metadata:  nil,</span><br>			<span class="hljs-comment">// Offset:    0,</span><br>			<span class="hljs-comment">// Partition: 0,</span><br>			<span class="hljs-comment">// Timestamp: time.Now(),</span><br>		&#125;<br><br>		<span class="hljs-keyword">select</span> &#123;<br>		<span class="hljs-comment">// 发送消息【如果producer不是异步的则这里会阻塞】</span><br>		<span class="hljs-keyword">case</span> producer.Input() &lt;- message:<br>			logrus.Infoln(<span class="hljs-string">&quot;发送消息:&quot;</span>, i)<br>		<span class="hljs-comment">// ctrl+c</span><br>		<span class="hljs-keyword">case</span> &lt;-forceQuit:<br>			<span class="hljs-keyword">break</span> SEND_LOOP<br>		&#125;<br><br>		time.Sleep(time.Second)<br>	&#125;<br>	logrus.Infoln(<span class="hljs-string">&quot;退出。。。&quot;</span>)<br>	<span class="hljs-keyword">select</span> &#123;<br>	<span class="hljs-keyword">case</span> &lt;-forceQuit:<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h5 id="消费者"><a href="#消费者" class="headerlink" title="消费者"></a>消费者</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;encoding/json&quot;</span><br>	<span class="hljs-string">&quot;github.com/Shopify/sarama&quot;</span><br>	<span class="hljs-string">&quot;github.com/sirupsen/logrus&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;os/signal&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> Msg <span class="hljs-keyword">struct</span> &#123;<br>	Name 				<span class="hljs-keyword">string</span>			<span class="hljs-string">`json:&quot;name&quot;`</span><br>	Age 				<span class="hljs-keyword">int</span>				<span class="hljs-string">`json:&quot;age&quot;`</span><br>	Score 				<span class="hljs-keyword">float64</span>			<span class="hljs-string">`json:&quot;score&quot;`</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>	<span class="hljs-keyword">var</span>(<br>		err						error<br>		addrs					[]<span class="hljs-keyword">string</span><br>		config 					*sarama.Config<br>		client 					sarama.Client<br><br>		consumer 				sarama.Consumer<br>		partitionIDs			[]<span class="hljs-keyword">int32</span><br>		partitionConsumer		sarama.PartitionConsumer<br><br>		forceQuit 				<span class="hljs-keyword">chan</span> os.Signal<br>	)<br><br>	addrs = []<span class="hljs-keyword">string</span>&#123;<span class="hljs-string">&quot;192.168.162.128:9092&quot;</span>&#125;<br>	config = sarama.NewConfig()<br><br>	<span class="hljs-comment">// 返回读取消息失败时的通知</span><br>	config.Consumer.Return.Errors = <span class="hljs-literal">true</span><br>	<span class="hljs-comment">// 连接超时</span><br>	config.Net.DialTimeout = <span class="hljs-number">3</span>*time.Second<br><br>	<span class="hljs-comment">// 连接broker</span><br>	<span class="hljs-keyword">if</span> client, err = sarama.NewClient(addrs, config); err != <span class="hljs-literal">nil</span>&#123;<br>		logrus.Infoln(err)<br>		<span class="hljs-keyword">return</span><br>	&#125;<br>	<span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		<span class="hljs-keyword">if</span> err = client.Close(); err != <span class="hljs-literal">nil</span>&#123;<br>			logrus.Infoln(err)<br>		&#125;<br>	&#125;()<br><br>	<span class="hljs-comment">// 创建consumer客户端</span><br>	<span class="hljs-keyword">if</span> consumer, err = sarama.NewConsumerFromClient(client); err != <span class="hljs-literal">nil</span>&#123;<br>		logrus.Infoln(err)<br>		<span class="hljs-keyword">return</span><br>	&#125;<br>	<span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		<span class="hljs-keyword">if</span> err = consumer.Close(); err != <span class="hljs-literal">nil</span>&#123;<br>			logrus.Infoln(err)<br>		&#125;<br>	&#125;()<br><br><br>	<span class="hljs-comment">// 获取某一topic下的所有partition的id</span><br>	<span class="hljs-keyword">if</span> partitionIDs, err = consumer.Partitions(<span class="hljs-string">&quot;cron_test&quot;</span>); err != <span class="hljs-literal">nil</span>&#123;<br>		logrus.Infoln(err)<br>		<span class="hljs-keyword">return</span><br>	&#125;<br><br>	logrus.Infoln(partitionIDs)<br>	logrus.Infoln(consumer.Topics())<br><br>	<span class="hljs-comment">// 对指定id的partition从offset个消息开始订阅后续所有的消息</span><br>	<span class="hljs-keyword">for</span> i, id := <span class="hljs-keyword">range</span> partitionIDs&#123;<br>		<span class="hljs-comment">// 创建一个分区消费者</span><br>		<span class="hljs-keyword">if</span> partitionConsumer, err = consumer.ConsumePartition(<span class="hljs-string">&quot;cron_test&quot;</span>, <span class="hljs-number">0</span>, sarama.OffsetOldest); err != <span class="hljs-literal">nil</span>&#123;<br>			logrus.Infoln(<span class="hljs-string">&quot;订阅该分区失败:&quot;</span>, id, err)<br>			<span class="hljs-keyword">continue</span><br>		&#125;<br>		<span class="hljs-comment">// 消费该分区的消息</span><br>		<span class="hljs-keyword">go</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(pc *sarama.PartitionConsumer, idx <span class="hljs-keyword">int</span>)</span></span> &#123;<br>			<span class="hljs-keyword">var</span>(<br>				err1 			error<br>				msg 			Msg<br>				message			*sarama.ConsumerMessage<br>			)<br>			<span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>				<span class="hljs-keyword">if</span> err1 = (*pc).Close(); err1 != <span class="hljs-literal">nil</span>&#123;<br>					logrus.Infoln(err1)<br>				&#125;<br>			&#125; ()<br>			<span class="hljs-comment">// 阻塞读取</span><br>			<span class="hljs-keyword">for</span> message = <span class="hljs-keyword">range</span> (*pc).Messages()&#123;<br>				<span class="hljs-keyword">if</span> err = json.Unmarshal(message.Value, &amp;msg); err != <span class="hljs-literal">nil</span>&#123;<br>					logrus.Infoln(err)<br>				&#125;<br>				logrus.Infoln(idx, <span class="hljs-string">&quot;收到消息&quot;</span>, <span class="hljs-keyword">string</span>(message.Key), msg)<br>			&#125;<br>		&#125;(&amp;partitionConsumer, i)<br>	&#125;<br><br>	forceQuit = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> os.Signal, <span class="hljs-number">1</span>)<br>	signal.Notify(forceQuit, os.Interrupt)<br><br>	<span class="hljs-comment">// 强制退出</span><br>	<span class="hljs-keyword">select</span> &#123;<br>	<span class="hljs-keyword">case</span> &lt;-forceQuit:<br><br>	&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h5 id="消费者组"><a href="#消费者组" class="headerlink" title="消费者组"></a>消费者组</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;context&quot;</span><br>	<span class="hljs-string">&quot;github.com/Shopify/sarama&quot;</span><br>	<span class="hljs-string">&quot;github.com/sirupsen/logrus&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;os/signal&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-comment">// 消费者组句柄[ sarama.ConsumerGroup 接口，实现下面三个方法，作为自定义 ConsumerGroup]</span><br><span class="hljs-keyword">type</span> groupHandler <span class="hljs-keyword">struct</span> &#123;<br>&#125;<br><span class="hljs-comment">// 在获得新 session 后， 进行具体的消费逻辑之前执行 Setup</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(groupHandler)</span><span class="hljs-title">Setup</span><span class="hljs-params">(_ sarama.ConsumerGroupSession)</span> <span class="hljs-title">error</span></span> &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br><span class="hljs-comment">// 在 session 结束前, 当所有 ConsumeClaim 协程都退出时，执行 Cleanup</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(groupHandler)</span><span class="hljs-title">Cleanup</span><span class="hljs-params">(_ sarama.ConsumerGroupSession)</span> <span class="hljs-title">error</span></span> &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br><span class="hljs-comment">// 具体的消费逻辑</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(groupHandler)</span><span class="hljs-title">ConsumeClaim</span><span class="hljs-params">(session sarama.ConsumerGroupSession, claim sarama.ConsumerGroupClaim)</span>  <span class="hljs-title">error</span></span> &#123;<br>	<span class="hljs-keyword">var</span>(<br>		message 		*sarama.ConsumerMessage<br>	)<br>	<span class="hljs-keyword">for</span> message = <span class="hljs-keyword">range</span> claim.Messages()&#123;<br>		logrus.Infoln(session.GenerationID(), session.MemberID(), <span class="hljs-keyword">string</span>(message.Key), <span class="hljs-keyword">string</span>(message.Value), message.Timestamp)<br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  &#123;<br>	<span class="hljs-keyword">var</span>(<br>		err 							error<br>		addrs 							[]<span class="hljs-keyword">string</span><br>		client 							sarama.Client<br>		config							*sarama.Config<br>		admin 							sarama.ClusterAdmin<br><br>		group1 							sarama.ConsumerGroup<br>		group2							sarama.ConsumerGroup<br>		topics1							[]<span class="hljs-keyword">string</span><br>		topics2							[]<span class="hljs-keyword">string</span><br>		handler1						groupHandler<br>		handler2						groupHandler<br><br>		forceQuit 						<span class="hljs-keyword">chan</span> os.Signal<br>		ctx 							context.Context<br>		cancelFunc						context.CancelFunc<br>	)<br>	addrs = []<span class="hljs-keyword">string</span>&#123;<span class="hljs-string">&quot;192.168.162.128:9092&quot;</span>&#125;<br>	config = sarama.NewConfig()<br>	config.Net.DialTimeout = <span class="hljs-number">3</span>*time.Second<br><br>	<span class="hljs-keyword">if</span> client, err = sarama.NewClient(addrs, config); err != <span class="hljs-literal">nil</span>&#123;<br>		logrus.Infoln(err)<br>		<span class="hljs-keyword">return</span><br>	&#125;<br>	<span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		<span class="hljs-keyword">if</span> err = client.Close(); err != <span class="hljs-literal">nil</span>&#123;<br>			logrus.Infoln(err)<br>		&#125;<br>	&#125;()<br><br>	<span class="hljs-comment">// 元数据接口</span><br>	logrus.Infoln(client.Topics())<br>	logrus.Infoln(client.Leader(<span class="hljs-string">&quot;cron_test&quot;</span>, <span class="hljs-number">0</span>))<br>	logrus.Infoln(client.Brokers())<br>	<span class="hljs-comment">// 获取kafka集群管理员客户端</span><br>	<span class="hljs-keyword">if</span> admin, err = sarama.NewClusterAdminFromClient(client); err != <span class="hljs-literal">nil</span>&#123;<br>		logrus.Infoln(admin)<br>		<span class="hljs-keyword">return</span><br>	&#125;<br><br>	logrus.Infoln(admin.ListConsumerGroups())<br>	logrus.Infoln(admin.ListTopics())<br><br><br>	<span class="hljs-comment">// 加入消费者组1</span><br>	<span class="hljs-keyword">if</span> group1, err = sarama.NewConsumerGroupFromClient(<span class="hljs-string">&quot;id_1&quot;</span>, client); err != <span class="hljs-literal">nil</span>&#123;<br>		logrus.Infoln(err)<br>		<span class="hljs-keyword">return</span><br>	&#125;<br>	<span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		<span class="hljs-keyword">if</span> err = group1.Close(); err != <span class="hljs-literal">nil</span>&#123;<br>			logrus.Infoln(err)<br>		&#125;<br>	&#125;()<br><br>	<span class="hljs-comment">// 加入消费者组2</span><br>	<span class="hljs-keyword">if</span> group2, err = sarama.NewConsumerGroupFromClient(<span class="hljs-string">&quot;id_2&quot;</span>, client); err != <span class="hljs-literal">nil</span>&#123;<br>		logrus.Infoln(err)<br>		<span class="hljs-keyword">return</span><br>	&#125;<br>	<span class="hljs-keyword">defer</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>		<span class="hljs-keyword">if</span> err = group2.Close(); err != <span class="hljs-literal">nil</span>&#123;<br>			logrus.Infoln(err)<br>		&#125;<br>	&#125;()<br><br>	forceQuit = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> os.Signal, <span class="hljs-number">1</span>)<br>	signal.Notify(forceQuit, os.Interrupt)<br>	ctx, cancelFunc = context.WithCancel(context.TODO())<br><br>	topics1 = []<span class="hljs-keyword">string</span>&#123;<span class="hljs-string">&quot;cron_test&quot;</span>, <span class="hljs-string">&quot;cron_test_1&quot;</span>&#125;<br>	<span class="hljs-keyword">go</span> ConsumerMemberInGroup(ctx, &amp;group1, topics1, handler1)<br><br>	topics2 = []<span class="hljs-keyword">string</span>&#123;<span class="hljs-string">&quot;cron_test&quot;</span>, <span class="hljs-string">&quot;cron_test_2&quot;</span>&#125;<br>	<span class="hljs-keyword">go</span> ConsumerMemberInGroup(ctx, &amp;group2, topics2, handler2)<br><br>	logrus.Infoln(admin.ListConsumerGroups())<br><br>	<span class="hljs-comment">// ctrl+c</span><br>	<span class="hljs-keyword">select</span> &#123;<br>	<span class="hljs-keyword">case</span> &lt;-forceQuit:<br>		cancelFunc()<br>	&#125;<br><br>	time.Sleep(time.Second)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">ConsumerMemberInGroup</span><span class="hljs-params">(ctx context.Context, group *sarama.ConsumerGroup, topics []<span class="hljs-keyword">string</span>, handler sarama.ConsumerGroupHandler)</span></span>  &#123;<br>	<span class="hljs-keyword">var</span>(<br>		err 					error<br>	)<br>	<span class="hljs-comment">// Consume方法为给定的topics加入消费者集群，并通过ConsumerGroupHandler启动一个阻塞的ConsumerGroupSession</span><br>	<span class="hljs-comment">// 会话将持续存在，直到其中一个ConsumeClaim()函数退出。这可以是父上下文被取消或服务器端重新平衡周期被启动。</span><br>	<span class="hljs-keyword">if</span> err = (*group).Consume(ctx, topics, groupHandler&#123;&#125;); err != <span class="hljs-literal">nil</span>&#123;<br>		logrus.Infoln(err)<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-info">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/10/22/Dockerfile%E5%92%8Cdocker-compose/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Dockerfile和docker-compose</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/10/17/%E5%B7%AE%E5%88%86%E7%BA%A6%E6%9D%9F%E7%B3%BB%E7%BB%9F/">
+                        <span class="hidden-mobile">差分约束</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

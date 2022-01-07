@@ -1,0 +1,494 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  
+  <title>consul简单使用 - gys的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gys18007141407.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>gys的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/miku1.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="consul简单使用">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-14 16:22" pubdate>
+        2021年8月14日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      12
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">consul简单使用</h1>
+	    <time updated datetime="2021-10-23 09:43"></time>
+            
+            <div class="markdown-body">
+              <h2 id="consul-简介"><a href="#consul-简介" class="headerlink" title="consul 简介"></a>consul 简介</h2><p><code>consul</code>是<code>google</code>开源的一个使用<code>go</code>语言开发的__服务发现、配置管理中心服务__。内置了服务注册与发现框架、分布一致性协议实现、健康检查、KV存储、多数据中心方案，不再需要依赖其他工具（比如<a target="_blank" rel="noopener" href="http://tonybai.com/tag/zookeeper">ZooKeeper</a>等）。</p>
+<p><code>consul</code>服务部署简单，只有一个可运行的二进制的包。每个节点都需要运行<code>agent</code>，他有两种运行模式<code>server</code>和<code>client</code>。每个数据中心官方建议需要3或5个<code>server</code>节点以保证数据安全，同时保证<code>server-leader</code>的选举能够正确的进行。</p>
+<p>网络上对于<code>consul</code>与其他工具的比较：</p>
+<p><img src="/2021/08/14/consul%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210831110802119.png" srcset="/img/loading.gif" lazyload alt="image-20210831110802119"></p>
+<h3 id="consul-client模式"><a href="#consul-client模式" class="headerlink" title="consul client模式"></a>consul client模式</h3><p><code>consul</code>的<code>client</code>模式，就是客户端模式。这种模式下，所有注册到当前节点的服务会被转发到<code>server</code>，<code>client</code>本身是不持久化这些信息。</p>
+<h3 id="consul-server-模式"><a href="#consul-server-模式" class="headerlink" title="consul server 模式"></a>consul server 模式</h3><p><code>consul</code>的<code>server</code>模式，表明这个<code>consul节点</code>是个<code>server节点</code>。这种模式下，功能和<code>client</code>一样，唯一不同的是，它会把所有的信息持久化的本地，遇到故障后信息是可以被保留的。</p>
+<h3 id="consul-server-leader"><a href="#consul-server-leader" class="headerlink" title="consul server-leader"></a>consul server-leader</h3><p><code>server-leader</code>表明这个<code>server</code>是它们的老大，它和其它<code>server</code>不一样的一点是，它需要负责同步注册的信息给其它的<code>server</code>，同时也要负责各个节点的健康监测。<code>server节点</code>之间的数据一致性保证，一致性协议使用的是<code>raft</code>，而<code>zookeeper</code>用的<code>paxos</code>，<code>etcd</code>采用的也是<code>raft</code>。</p>
+<h3 id="consul服务发现"><a href="#consul服务发现" class="headerlink" title="consul服务发现"></a>consul服务发现</h3><p>服务发现协议:<code>consul</code>采用<code>http</code>和<code>dns</code>协议，<code>etcd</code>只支持<code>http</code>。</p>
+<p><code>consul</code>支持两种方式实现服务发现，一种是通过<code>http API</code>来查询有哪些服务，另外一种是通过<code>consul agent 自带的DNS</code>，域名是以<code>NAME.service.consul</code>的形式给出，<code>NAME</code>是在定义的服务配置文件中服务的名称。<code>DNS</code>方式可以通过<code>check</code>的方式检查服务。</p>
+<h3 id="consul-服务注册"><a href="#consul-服务注册" class="headerlink" title="consul 服务注册"></a>consul 服务注册</h3><p><code>consul</code>支持两种方式实现服务注册，一种是通过<code>consul</code>的服务注册<code>http API</code>，由服务自己调用<code>API</code>实现注册，另一种方式是通过<code>json</code>格式的配置文件实现注册，将需要注册的服务以<code>json</code>格式的配置文件给出。<code>consul</code>__官方建议使用第二种方式__。</p>
+<h2 id="consul-安装及使用"><a href="#consul-安装及使用" class="headerlink" title="consul 安装及使用"></a>consul 安装及使用</h2><p><a target="_blank" rel="noopener" href="https://www.consul.io/downloads.html">consul下载地址</a>，只需要下载二进制可执行文件即可进行测试，目前我下载的是<code>v1.10.2</code>版本。</p>
+<p><img src="/2021/08/14/consul%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210831105535824.png" srcset="/img/loading.gif" lazyload alt="image-20210831105535824"></p>
+<h3 id="consul-启动-创建agent"><a href="#consul-启动-创建agent" class="headerlink" title="consul 启动(创建agent)"></a>consul 启动(创建agent)</h3><p><code>consul</code>必须启动<code>agent</code>才能使用，有两种启动模式<code>server</code>和<code>client</code>，还有一个官方自带的ui。server用与持久化服务信息，集群官方建议3或5个节点。client只用与于server交互。ui可以查看集群情况的</p>
+<p><img src="/2021/08/14/consul%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210831112620164.png" srcset="/img/loading.gif" lazyload alt="image-20210831112620164"></p>
+<p><strong>参数：</strong></p>
+<p><code>-bootstrap-expect</code>:集群期望的节点数，只有节点数量达到这个值才会选举leader。</p>
+<p><code>-server</code>： 运行在server模式</p>
+<p><code>-data-dir</code>：指定数据目录，其他的节点对于这个目录必须有读的权限</p>
+<p><code>-node</code>：指定节点的名称</p>
+<p><code>-bind</code>：为该节点绑定一个地址</p>
+<p><code>-config-dir</code>：指定配置文件，定义该节点的服务，默认所有以<code>.json</code>结尾的文件都会读</p>
+<p><code>-enable-script-checks=true</code>：设置检查服务为可用</p>
+<p><code>-datacenter</code>: 数据中心名称，</p>
+<p><code>-join</code>：加入到已有的集群中</p>
+<p><code>-ui</code>:使用浏览器交互界面，</p>
+<p><code>-ui-dir</code>：指定网页交互资源的目录</p>
+<p><code>-client</code>：指定<code>web ui</code>的监听地址，默认127.0.0.1只能本机访问。</p>
+<p><strong>docker中运行consul：</strong></p>
+<p><code>docker run -d  --name consul_server1 --net diy-static-net --ip 172.20.0.2 -h consul1 -p hostport:containerport -v /etc/consul.d/my_diy_service.json:/consul/config/server.json consul agent -config-dir /consul/config</code></p>
+<p>使用<code>-v</code>挂载了宿主机的目录下的配置文件到<code>container</code>的目录下：<code>/etc/consul.d/my_diy_service.json:/consul/config/server.json</code>，然后用<code>-config-dir</code>指定<code>container</code>中<code>consul</code>的配置文件。也可以使用<code>-e</code>设置容器内的环境变量来为运行服务配置参数。</p>
+<p><img src="/2021/08/14/consul%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210831142705520.png" srcset="/img/loading.gif" lazyload alt="image-20210831142705520"></p>
+<p>这里在前面创建使用了<code>静态ip</code>：</p>
+<p><code>docker network inspect  -v diy-static-net</code>可查看网段详情</p>
+<p><img src="/2021/08/14/consul%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210831133430366.png" srcset="/img/loading.gif" lazyload alt="image-20210831133430366"></p>
+<p>看一下<code>ui界面</code>:使用<code>localhosts:11500</code></p>
+<p><img src="/2021/08/14/consul%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210831143035983.png" srcset="/img/loading.gif" lazyload alt="image-20210831143035983"></p>
+<p>看一下集群中的节点</p>
+<p><img src="/2021/08/14/consul%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210831151428676.png" srcset="/img/loading.gif" lazyload alt="image-20210831151428676"></p>
+<p>看一下<code>docker container</code>的日志：<code>docker logs -f consul_server1</code>, <code>-f</code>表示追踪日志。可以看到<code>consul1</code>被选为了<code>leader</code>。</p>
+<p><img src="/2021/08/14/consul%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210831151811120.png" srcset="/img/loading.gif" lazyload alt="image-20210831151811120"></p>
+<p>关闭<code>consul_server1</code>看哪个节点会成为新<code>leader</code>, 可以看到<code>consul3</code>被选为了新<code>leader</code>。</p>
+<p><img src="/2021/08/14/consul%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210831152327100.png" srcset="/img/loading.gif" lazyload alt="image-20210831152327100"></p>
+<p><img src="/2021/08/14/consul%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/image-20210831152301336.png" srcset="/img/loading.gif" lazyload alt="image-20210831152301336"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/consul/">consul</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/consul/">consul</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-info">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/08/18/%E5%8D%8F%E7%A8%8B/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">协程</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/05/async%E7%9A%84%E4%B8%80%E4%B8%AA%E7%BB%86%E8%8A%82/">
+                        <span class="hidden-mobile">async的一个细节</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
