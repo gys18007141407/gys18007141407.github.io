@@ -192,29 +192,28 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/07/08/memcpy%E5%86%85%E5%AD%98%E9%87%8D%E5%8F%A0/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="memcpy内存重叠">
+        <a href="/2021/08/23/istio%E5%92%8Ck8s/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="istio和k8s">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/07/08/memcpy%E5%86%85%E5%AD%98%E9%87%8D%E5%8F%A0/" target="_self">
-          memcpy内存重叠
+        <a href="/2021/08/23/istio%E5%92%8Ck8s/" target="_self">
+          istio和k8s
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/07/08/memcpy%E5%86%85%E5%AD%98%E9%87%8D%E5%8F%A0/" target="_self">
+        <a href="/2021/08/23/istio%E5%92%8Ck8s/" target="_self">
           
           
             
           
-          memcpy/strcpy 内存重叠因为memcpy，strcpy这两个函数没有对内存重叠进行处理。使用这两个函数的时候程序员必须要保证源地址与目标地址内存不重叠，或者直接使用memmove函数进行内存复制。
-
-strcpy和memcpy很多版本的核心代码是使用while加上dst++=src++;完成，所以没有对内存的重叠进行处理。
-为什么使用memcpy程序只是等不到正确的结果，而使用strc
+          istioIstio 提供一种简单的方式来为已部署的服务建立网络，该网络具有负载均衡、服务间认证、监控等功能，而不需要对服务的代码做任何改动。
+简单来说istio就是用来做service mesh[服务网格]的工具链，istio通常搭配k8s来使用。
+如果只用原生k8s，一般采用service来进行负载均衡，但如果想增加一些功能如熔断，限流，灰度等，这些功能在service层面是做不到的。这些高级
         </a>
       </p>
 
@@ -222,8 +221,8 @@ strcpy和memcpy很多版本的核心代码是使用while加上dst++=src++;完成
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-08 10:38" pubdate>
-              2021-07-08
+            <time datetime="2021-08-23 08:52" pubdate>
+              2021-08-23
             </time>
           </div>
         
@@ -231,7 +230,9 @@ strcpy和memcpy很多版本的核心代码是使用while加上dst++=src++;完成
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+              <a href="/categories/istio/">istio</a>
+            
+              <a href="/categories/istio/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a>
             
           </div>
         
@@ -239,7 +240,9 @@ strcpy和memcpy很多版本的核心代码是使用while加上dst++=src++;完成
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E5%86%85%E5%AD%98/">内存</a>
+              <a href="/tags/istio/">istio</a>
+            
+              <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a>
             
           </div>
         
@@ -251,26 +254,27 @@ strcpy和memcpy很多版本的核心代码是使用while加上dst++=src++;完成
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/07/08/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%A0%88%E7%94%B1%E9%AB%98%E5%9C%B0%E5%9D%80%E5%90%91%E4%BD%8E%E5%9C%B0%E5%9D%80%E6%89%A9%E5%B1%95/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="为什么栈由高地址向低地址扩展">
+        <a href="/2021/08/19/docker%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="docker简单使用">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/07/08/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%A0%88%E7%94%B1%E9%AB%98%E5%9C%B0%E5%9D%80%E5%90%91%E4%BD%8E%E5%9C%B0%E5%9D%80%E6%89%A9%E5%B1%95/" target="_self">
-          为什么栈由高地址向低地址扩展
+        <a href="/2021/08/19/docker%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" target="_self">
+          docker简单使用
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/07/08/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%A0%88%E7%94%B1%E9%AB%98%E5%9C%B0%E5%9D%80%E5%90%91%E4%BD%8E%E5%9C%B0%E5%9D%80%E6%89%A9%E5%B1%95/" target="_self">
+        <a href="/2021/08/19/docker%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" target="_self">
           
           
             
           
-          为什么栈由高地址向低地址扩展很久以前，intel计算机内存区域就分了代码区域和栈区域的。    程序计数器(PC)的缺省指向0地址，计算机开机后从程序计数器指向的地址开始执行程序，每执行完一条指令后，程序计数器自动加1。因此很自然的，代码段从低地址区间开始加载，向高地址区间扩展；为了避免栈空间和代码段冲突，最大利用地址空间，这又很自然的，我们会选择把栈底设置在最高地址0xffffffff，然后让栈
+          Dockerdocker是运行在linux环境下的一个应用容器引擎，对于运行在容器中的应用来说，容器就是他们在运行时的虚拟机。
+image是容器镜像，简单来说就是对应虚拟机的snapshot快照功能。docker能够让开发者们打包应用到这个可移植的image中，然后通过该image即可恢复容器。image是分层的，这里暂不多说，主要是为了复用性，比如说image操作系统层是一致的，那么下载两个不同
         </a>
       </p>
 
@@ -278,8 +282,8 @@ strcpy和memcpy很多版本的核心代码是使用while加上dst++=src++;完成
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-08 10:13" pubdate>
-              2021-07-08
+            <time datetime="2021-08-19 08:52" pubdate>
+              2021-08-19
             </time>
           </div>
         
@@ -287,7 +291,9 @@ strcpy和memcpy很多版本的核心代码是使用while加上dst++=src++;完成
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+              <a href="/categories/docker/">docker</a>
+            
+              <a href="/categories/docker/linux/">linux</a>
             
           </div>
         
@@ -295,7 +301,9 @@ strcpy和memcpy很多版本的核心代码是使用while加上dst++=src++;完成
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+              <a href="/tags/docker/">docker</a>
+            
+              <a href="/tags/linux/">linux</a>
             
           </div>
         
@@ -307,31 +315,39 @@ strcpy和memcpy很多版本的核心代码是使用while加上dst++=src++;完成
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/07/07/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%85%AD%E5%A4%A7%E5%8E%9F%E5%88%99-%E8%BD%AC%E8%BD%BD/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="设计模式六大原则(转载)">
+        <a href="/2021/08/19/go-micro%E6%A1%86%E6%9E%B6V3.0.0/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="go-micro框架v3">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/07/07/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%85%AD%E5%A4%A7%E5%8E%9F%E5%88%99-%E8%BD%AC%E8%BD%BD/" target="_self">
-          设计模式六大原则(转载)
+        <a href="/2021/08/19/go-micro%E6%A1%86%E6%9E%B6V3.0.0/" target="_self">
+          go-micro框架v3
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/07/07/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%85%AD%E5%A4%A7%E5%8E%9F%E5%88%99-%E8%BD%AC%E8%BD%BD/" target="_self">
+        <a href="/2021/08/19/go-micro%E6%A1%86%E6%9E%B6V3.0.0/" target="_self">
           
           
             
           
-          设计模式的六大原则
-总原则：开闭原则（Open Close Principle）
-开闭原则就是说对扩展开放，对修改关闭。在程序需要进行拓展的时候，不能去修改原有的代码，而是要扩展原有代码，实现一个热插拔的效果。所以一句话概括就是：为了使程序的扩展性好，易于维护和升级。想要达到这样的效果，我们需要使用接口和抽象类等，后面的具体设计中我们会提到这点。
+          go-micro v3测试demo安装安装go-micro框架
 
-1、单一职责原则
-不要存在多于一个导致类变更的原
+需要用到Micro 3.0 环境的micro 工具(二进制可执行文件)，可以快速构建项目。但是在代码中不使用该库。
+
+
+首先看一下帮助
+创建一个新服务micro new serviceName
+
+默认在__当前路径__下生成对应服务的文件
+看一下proto文件
+
+使用make proto编译proto文件
+
+就这样非常简单的生成了一
         </a>
       </p>
 
@@ -339,17 +355,453 @@ strcpy和memcpy很多版本的核心代码是使用while加上dst++=src++;完成
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-07 20:19" pubdate>
-              2021-07-07
+            <time datetime="2021-08-19 08:52" pubdate>
+              2021-08-19
             </time>
           </div>
         
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Golang/">Golang</a>
+            
+              <a href="/categories/Golang/Go-Micro/">Go-Micro</a>
+            
+          </div>
         
         
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+              <a href="/tags/Golang/">Golang</a>
+            
+              <a href="/tags/Go-Micro/">Go-Micro</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/08/18/boost%E7%9A%84%E5%8D%8F%E7%A8%8B%E5%BA%93%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="boost的协程库使用示例">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/18/boost%E7%9A%84%E5%8D%8F%E7%A8%8B%E5%BA%93%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B/" target="_self">
+          boost的协程库使用示例
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/18/boost%E7%9A%84%E5%8D%8F%E7%A8%8B%E5%BA%93%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B/" target="_self">
+          
+          
+            
+          
+          使用boost库中的协程库1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969798
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-18 17:05" pubdate>
+              2021-08-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/C/">C++</a>
+            
+              <a href="/categories/C/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/C/">C++</a>
+            
+              <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/08/18/%E5%8D%8F%E7%A8%8B/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="协程">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/18/%E5%8D%8F%E7%A8%8B/" target="_self">
+          协程
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/18/%E5%8D%8F%E7%A8%8B/" target="_self">
+          
+          
+            
+          
+          协程(coroutines)(转载)协程就是用户态线程内可以被异步执行的函数。用来在用户态下解决异步问题。
+普通函数：每次调用只能从第一条语句开始执行直到某个出口结束。协程函数：协程函数交出控制权后，可以再次从交出控制权的下一语句开始执行。
+在协程的叫法出现以前，处理异步问题一般会使用操作系统提供的系统级API来解决异步问题。系统级的API都是大多采用回调函数方式实现。后来人们觉得使用异步回调形式
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-18 14:55" pubdate>
+              2021-08-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/C/">C++</a>
+            
+              <a href="/categories/C/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/C/">C++</a>
+            
+              <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/08/14/consul%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="consul简单使用">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/14/consul%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" target="_self">
+          consul简单使用
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/14/consul%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" target="_self">
+          
+          
+            
+          
+          consul 简介consul是google开源的一个使用go语言开发的__服务发现、配置管理中心服务__。内置了服务注册与发现框架、分布一致性协议实现、健康检查、KV存储、多数据中心方案，不再需要依赖其他工具（比如ZooKeeper等）。
+consul服务部署简单，只有一个可运行的二进制的包。每个节点都需要运行agent，他有两种运行模式server和client。每个数据中心官方建议需要3或5
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-14 16:22" pubdate>
+              2021-08-14
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/consul/">consul</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/consul/">consul</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/08/05/async%E7%9A%84%E4%B8%80%E4%B8%AA%E7%BB%86%E8%8A%82/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="async的一个细节">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/05/async%E7%9A%84%E4%B8%80%E4%B8%AA%E7%BB%86%E8%8A%82/" target="_self">
+          async的一个细节
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/05/async%E7%9A%84%E4%B8%80%E4%B8%AA%E7%BB%86%E8%8A%82/" target="_self">
+          
+          
+            
+          
+          std::async使用时容易忽略的一些问题一、最好带上第一个参数，指定同步执行还是异步执行。std::launch::asyncstd::launch::deferredstd::launch::async | std::launch::deferred （自动选择）
+二、如果忽略返回值，则会阻塞！！！因为async的返回值是一个future对象，在析构时要等待异步任务执行结束。
+坑点：在这里d
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-05 16:20" pubdate>
+              2021-08-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/C/">C++</a>
+            
+              <a href="/categories/C/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/C/">C++</a>
+            
+              <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/08/04/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%93%88%E5%B8%8C/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="字符串哈希">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/04/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%93%88%E5%B8%8C/" target="_self">
+          字符串哈希
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/04/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%93%88%E5%B8%8C/" target="_self">
+          
+          
+            
+          
+          字符串哈希最长重复子串题目链接
+
+12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152// 字符串哈希解法class Solution &#123;public:    static const int N = 30010;    const int base 
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-04 20:13" pubdate>
+              2021-08-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
+            
+              <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%93%88%E5%B8%8C/">字符串哈希</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/07/29/linux%E4%B8%8Bgetopt%E5%87%BD%E6%95%B0/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="linux下getopt函数">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/29/linux%E4%B8%8Bgetopt%E5%87%BD%E6%95%B0/" target="_self">
+          linux下getopt函数
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/29/linux%E4%B8%8Bgetopt%E5%87%BD%E6%95%B0/" target="_self">
+          
+          
+            
+          
+          int getopt(int argc, char* const * argv, const char* option_str)getopt是用来解析命令行选项参数的，但是只能解析短选项: -d 100,不能解析长选项。
+参数argc：函数传递过来的参数的个数argv：函数传递过来的参数的字符串指针数组option_str：选项字符串，告知 getopt()可以处理哪个选项以及哪个选项需要参数
+
+
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-29 15:06" pubdate>
+              2021-07-29
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/C/">C++</a>
+            
+              <a href="/categories/C/code/">code</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/C/">C++</a>
+            
+              <a href="/tags/code/">code</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/07/26/index-sequence/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="index_sequence">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/07/26/index-sequence/" target="_self">
+          index_sequence
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/07/26/index-sequence/" target="_self">
+          
+          
+            
+          
+          integer_sequence一个空类，仅为了获得编译时常数。因为模板是编译时多态，而有时候我们需要在编译时获得常数，故可利用模板参数来作为常数使用。
+123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051#include &lt;iostream&gt;#incl
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-07-26 14:21" pubdate>
+              2021-07-26
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/C/">C++</a>
+            
+              <a href="/categories/C/code/">code</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/C/">C++</a>
+            
+              <a href="/tags/code/">code</a>
             
           </div>
         
@@ -361,7 +813,7 @@ strcpy和memcpy很多版本的核心代码是使用while加上dst++=src++;完成
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/8/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/#board">7</a><a class="page-number" href="/page/8/#board">8</a><span class="page-number current">9</span>
+      <a class="extend prev" rel="prev" href="/page/8/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/#board">7</a><a class="page-number" href="/page/8/#board">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/#board">10</a><a class="page-number" href="/page/11/#board">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/#board">13</a><a class="extend next" rel="next" href="/page/10/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

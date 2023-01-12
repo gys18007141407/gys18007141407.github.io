@@ -1,0 +1,549 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  
+  <title>目标文件的链接 - gys的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gys18007141407.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>gys的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/miku2.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="目标文件的链接">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-04-07 10:08" pubdate>
+        2022年4月7日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      30
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">目标文件的链接</h1>
+	    <time updated datetime="2022-04-08 14:08"></time>
+            
+            <div class="markdown-body">
+              <h3 id="程序从源文件到可执行文件的步骤"><a href="#程序从源文件到可执行文件的步骤" class="headerlink" title="程序从源文件到可执行文件的步骤"></a>程序从源文件到可执行文件的步骤</h3><p>我们知道一个C/C++源文件要经历预编译<code>gcc -E</code>、编译<code>gcc -S</code>、汇编<code>gcc -c</code>、链接<code>ld</code>这四个步骤才形成了最后的可执行文件。</p>
+<p>现在，我将探讨这些阶段究竟发生了什么，就让我用经典的helloworld程序来示例吧。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;hello world!&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h5 id="预编译"><a href="#预编译" class="headerlink" title="预编译"></a>预编译</h5><p><code>gcc -E helloworld.cc -o helloworld.i</code></p>
+<p>预编译展开所有的宏<code>#define</code>，展开所有包含的其他头文件<code>#include</code>，处理条件编译<code>#if系列</code>，删除注释，添加行号和文件名标识<code>如# 2 &quot;helloworld.cc&quot; 2</code>。</p>
+<p>经过预编译后的文件任然是文本文件，只是内容经过替换之后文本将膨胀<code>如下可以看到helloworld程序预编译后差不多有900行代码</code>。</p>
+<p><img src="/2022/04/07/%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E7%9A%84%E9%93%BE%E6%8E%A5/image-20220407103014120.png" srcset="/img/loading.gif" lazyload alt="image-20220407103014120"></p>
+<h5 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h5><p><code>gcc -S helloworld.cc -o helloworld.s</code></p>
+<p>编译将膨胀后的文本文件进行一系列词法分析<code>将语句分割成一系列记号</code>、语法分析<code>对记号进行语法分析产生语法树(表达式树)</code>、语义分析<code>对语法树中的操作进行语义分析(比如两个指针做乘法运算就是不合法的)</code>、并进行优化后产生相应汇编代码。</p>
+<p>经过编译后的文件变成了汇编文件，里面都是汇编指令。<code>注意以.开头的名称并不是指令的助记符，不会被翻译成机器指令，而是给汇编器一些特殊指示，称为汇编指示（Assembler Directive）或伪操作（Pseudo-operation），由于它不是真正的指令所以加个“伪”字。这些都是在链接阶段时编译器需要的辅助信息</code>。</p>
+<p><img src="/2022/04/07/%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E7%9A%84%E9%93%BE%E6%8E%A5/image-20220407104409166.png" srcset="/img/loading.gif" lazyload alt="image-20220407104409166"></p>
+<h5 id="汇编"><a href="#汇编" class="headerlink" title="汇编"></a>汇编</h5><p><code>gcc -c helloworld.cc -o helloworld.o</code></p>
+<p>汇编是将编译后得到的汇编指令<code>翻译</code>成机器指令。</p>
+<p>使用<code>readelf</code>查看目标文件。<code>注意.o目标文件与最终的可执行文件在Linux下都是ELF = &#39;Executable Linkable Format&#39;格式, 在windos下都为PE = &#39;Portable Executable&#39;格式</code>。注意elf文件含有各种段，如下图显示了0~30共31个段，其中就包含有我们熟知的<code>.text .data .rodata .bss段</code>。内核装载ELF文件通过fork和exec系统调用来完成一个程序的装载。</p>
+<p>看<code>.symtab</code>就是我们说的符号表，表项的Ndx字段<code>Ndx == UND</code>为未定义的说明该符号是在其他模块定义，如果链接时在其他模块也找不到该符号就会产生链接错误。</p>
+<p><img src="/2022/04/07/%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E7%9A%84%E9%93%BE%E6%8E%A5/image-20220407154425527.png" srcset="/img/loading.gif" lazyload alt="image-20220407154425527"></p>
+<h5 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h5><p><code>ld helloworld.o -lc -dynamic-linker /lib64/ld-linux-x86-64.so.2  -o helloworld -e main</code>。</p>
+<p>其中-lc链接libc.so.6，还要使用到动态链接器<code>/lib64/ld-linux-x86-64.so.2</code>，-e是指定入口函数为main<code>(默认是指定为_start函数, 但调用那个函数还要链接其他模块)</code>。</p>
+<p>运行helloworld报段错误，猜测与_start函数有关。</p>
+<p>【helloworld】</p>
+<p><img src="/2022/04/07/%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E7%9A%84%E9%93%BE%E6%8E%A5/image-20220407155058442.png" srcset="/img/loading.gif" lazyload alt="image-20220407155058442"></p>
+<h3 id="链接的重定向"><a href="#链接的重定向" class="headerlink" title="链接的重定向"></a>链接的重定向</h3><p>用下面的几个文件做演示。</p>
+<p><code>注意include和extern的区别！假设在头文件a.h中定义了全局变量后，若用include导入全局变量，则链接时c.o包含该符号，同时a.o也包含了该符号，最终导致链接时出现符号重复定义错误。这里我将a.h的全局变量定义为extern类型，并且在a.cc中真正定义该全局变量。由此一来，链接时仅有a.o包含该符号</code>。</p>
+<p>为什么b.h中的全局变量没加extern关键字？因为我是在c.cc中用extern声明了要使用的b中的符号，并没有使用include包含b.h，而最后将b.cc一起进行编译链接。链接时c.o会在b.o中找到外部符号。</p>
+<h5 id="a-h和a-cc"><a href="#a-h和a-cc" class="headerlink" title="a.h和a.cc"></a>a.h和a.cc</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// a.h</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">ifndef</span> LINK_A_H</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> LINK_A_H</span><br><br><span class="hljs-keyword">extern</span> <span class="hljs-keyword">int</span> a_global_int_uninit;<br><span class="hljs-keyword">extern</span> <span class="hljs-keyword">int</span> a_global_int_init;<br><span class="hljs-function"><span class="hljs-keyword">extern</span> <span class="hljs-keyword">int</span> <span class="hljs-title">a_global_func</span><span class="hljs-params">(<span class="hljs-keyword">int</span>)</span></span>;<br><br><span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span><br><br><span class="hljs-comment">// a.cc</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstdio&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;a.h&quot;</span></span><br><br><span class="hljs-keyword">int</span> a_global_int_uninit = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">int</span> a_global_int_init = <span class="hljs-number">333</span>;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">a_global_func</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span></span>&#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s(%d)\n&quot;</span>, __FUNCTION__, x);<br>    <span class="hljs-keyword">return</span> a_global_int_init;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h5 id="b-h和b-cc"><a href="#b-h和b-cc" class="headerlink" title="b.h和b.cc"></a>b.h和b.cc</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// b.h</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">ifndef</span> LINK_B_H</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> LINK_B_H</span><br><br><span class="hljs-keyword">int</span> b_global_int_uninit = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">int</span> b_global_int_init = <span class="hljs-number">22</span>;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">b_global_func</span><span class="hljs-params">(<span class="hljs-keyword">int</span>)</span></span>;<br><br><span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span><br><br><span class="hljs-comment">// b.cc</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstdio&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;b.h&quot;</span></span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">b_global_func</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span></span>&#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s(%d)\n&quot;</span>, __FUNCTION__, x);<br>    <span class="hljs-keyword">return</span> b_global_int_init;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h5 id="c-cc"><a href="#c-cc" class="headerlink" title="c.cc"></a>c.cc</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// c.cc</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstdio&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;a.h&quot;</span></span><br><br><span class="hljs-keyword">int</span> c_global_int_uninit = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">int</span> c_global_int_init = <span class="hljs-number">1</span>;<br><br><span class="hljs-keyword">extern</span> <span class="hljs-keyword">int</span> b_global_int_init;<br><span class="hljs-function"><span class="hljs-keyword">extern</span> <span class="hljs-keyword">int</span> <span class="hljs-title">b_global_func</span><span class="hljs-params">(<span class="hljs-keyword">int</span>)</span></span>;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">c_global_func</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span></span>&#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s(%d)\n&quot;</span>, __FUNCTION__, x);<br>    <span class="hljs-keyword">return</span> c_global_int_init;<br>&#125;<br><br><span class="hljs-meta">#<span class="hljs-meta-keyword">if</span> 1</span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br><br>    a_global_func(a_global_int_init);<br>    b_global_func(b_global_int_init);<br>    c_global_func(c_global_int_init);<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span><br></code></pre></td></tr></table></figure>
+
+<h5 id="编译出每个模块的目标文件"><a href="#编译出每个模块的目标文件" class="headerlink" title="编译出每个模块的目标文件"></a>编译出每个模块的目标文件</h5><p><code>gcc -c c.cc b.cc a.cc</code></p>
+<p>该命令会产生所有模块的目标文件c.o、b.o、a.o。这些目标文件中的代码不是地址无关代码，因此不能用这类.o文件创建动态库。</p>
+<p>使用<code>-fPIC参数</code>来生成<code>Position Independent Code</code>地址无关代码，加了该参数后得到的.o文件才能创建动态库。</p>
+<p><code>gcc -c -fPIC c.cc b.cc a.cc</code></p>
+<h5 id="静态链接【链接时重定位，链接该段时知道符号的地址，从而直接修改文件中的符号地址】"><a href="#静态链接【链接时重定位，链接该段时知道符号的地址，从而直接修改文件中的符号地址】" class="headerlink" title="静态链接【链接时重定位，链接该段时知道符号的地址，从而直接修改文件中的符号地址】"></a>静态链接【链接时重定位，链接该段时知道符号的地址，从而直接修改文件中的符号地址】</h5><p>所谓的静态库实际上就是打包一堆.o目标文件，最终形成一个.a文件称为静态库。</p>
+<p>使用<code>ar -r libab.a a.o b.o</code>将a.o和b.o打包成静态库ab。一般打包后的静态库我们用名字libxxx.a表示一个静态库xxx，从而与普通的.o文件区分开。</p>
+<p>静态链接时链接器如何知道哪些符号需要重定位呢？静态链接包含两个步骤(分配合并后的地址空间，合并时要重定位符号)。 显然连接器在分配好地址空间后就已经知道各符号在什么地址，比如<code>.text</code>代码段有要重定位的地方，那么就会有一个<code>.rel.text段</code>，该段包含了代码段的重定位表，该表每个表项指定了在<code>.text段中偏移量为x的地方，使用什么重定位修正方法(绝对寻址修正/相对寻址修正)，该符号为y</code>。同样的，如果<code>.data</code>数据段有要重定位的地方，那么就会有一个<code>.rel.data段</code>，该段包含了数据段的重定位表。</p>
+<p>【a.o】</p>
+<p><img src="/2022/04/07/%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E7%9A%84%E9%93%BE%E6%8E%A5/image-20220407141832992.png" srcset="/img/loading.gif" lazyload alt="image-20220407141832992"></p>
+<p>【b.o】</p>
+<p><img src="/2022/04/07/%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E7%9A%84%E9%93%BE%E6%8E%A5/image-20220407141939350.png" srcset="/img/loading.gif" lazyload alt="image-20220407141939350"></p>
+<p>【libab.a】</p>
+<p><img src="/2022/04/07/%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E7%9A%84%E9%93%BE%E6%8E%A5/image-20220407142133364.png" srcset="/img/loading.gif" lazyload alt="image-20220407142133364"></p>
+<p>明显可以看到libab.a就是将a.o和b.o放到同一个文件中而已！</p>
+<p>接下来我用<code>ld</code>链接静态库libab.o和目标文件c.o。</p>
+<p><code>ld c.o libab.a -lc -dynamic-linker /lib64/ld-linux-x86-64.so.2  -o static_link_c -e main</code>。其中-lc链接libc.so.6，还要使用到动态链接器<code>/lib64/ld-linux-x86-64.so.2</code>，-e是指定入口函数为main<code>(默认是指定为_start函数, 但调用那个函数还要链接其他模块)</code>。</p>
+<p>【执行结果】</p>
+<p>可以分析一下为啥出现了段错误，应该与_start函数有关！</p>
+<p><img src="/2022/04/07/%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E7%9A%84%E9%93%BE%E6%8E%A5/image-20220407144744642.png" srcset="/img/loading.gif" lazyload alt="image-20220407144744642"></p>
+<p>【static_link_c】</p>
+<p><img src="/2022/04/07/%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E7%9A%84%E9%93%BE%E6%8E%A5/image-20220407144547276.png" srcset="/img/loading.gif" lazyload alt="image-20220407144547276"></p>
+<h5 id="动态链接【装载时链接，边装载边链接。装载时重定位，装载该段时才知道符号的地址，使全局偏移量表GOT获取符号地址】"><a href="#动态链接【装载时链接，边装载边链接。装载时重定位，装载该段时才知道符号的地址，使全局偏移量表GOT获取符号地址】" class="headerlink" title="动态链接【装载时链接，边装载边链接。装载时重定位，装载该段时才知道符号的地址，使全局偏移量表GOT获取符号地址】"></a>动态链接【装载时链接，边装载边链接。装载时重定位，装载该段时才知道符号的地址，使全局偏移量表GOT获取符号地址】</h5><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">需要注意的是使用dlopen是运行时链接，在运行时重定位。<br></code></pre></td></tr></table></figure>
+
+<p>所谓的动态库实际上就是打包一堆.o目标文件，最终形成一个.so文件称为动态库。</p>
+<p>使用<code>gcc -shared -fPIC libab.so a.o b.o</code>将a.o和b.o打包成动态库ab。一般打包后的动态库我们用名字libxxx.so表示一个动态库xxx，从而与普通的.o文件区分开。</p>
+<p>【a.o】</p>
+<p><img src="/2022/04/07/%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E7%9A%84%E9%93%BE%E6%8E%A5/image-20220407150028637.png" srcset="/img/loading.gif" lazyload alt="image-20220407150028637"></p>
+<p>【b.o】</p>
+<p><img src="/2022/04/07/%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E7%9A%84%E9%93%BE%E6%8E%A5/image-20220407150116650.png" srcset="/img/loading.gif" lazyload alt="image-20220407150116650"></p>
+<p>【libab.so】</p>
+<p><img src="/2022/04/07/%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E7%9A%84%E9%93%BE%E6%8E%A5/image-20220407150218268.png" srcset="/img/loading.gif" lazyload alt="image-20220407150218268"></p>
+<p>接下来我用<code>ld</code>链接动态库libab.so和目标文件c.o。</p>
+<p><code>ld c.o libab.so -lc -dynamic-linker /lib64/ld-linux-x86-64.so.2  -o dynamic_link_c -e main</code>。其中-lc链接libc.so.6，还要使用动态链接器<code>/lib64/ld-linux-x86-64.so.2</code>，-e是指定入口函数为main<code>(默认是指定为_start函数, 但调用那个函数还要链接其他模块)</code>。</p>
+<p>【执行结果】</p>
+<p>可以分析一下为啥出现了段错误，应该与_start函数有关！</p>
+<p><img src="/2022/04/07/%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E7%9A%84%E9%93%BE%E6%8E%A5/image-20220407150931567.png" srcset="/img/loading.gif" lazyload alt="image-20220407150931567"></p>
+<p>【dynamic_link_c】</p>
+<p><img src="/2022/04/07/%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E7%9A%84%E9%93%BE%E6%8E%A5/image-20220407151343556.png" srcset="/img/loading.gif" lazyload alt="image-20220407151343556"></p>
+<h3 id="全局偏移表GOT和过程链接表PLT"><a href="#全局偏移表GOT和过程链接表PLT" class="headerlink" title="全局偏移表GOT和过程链接表PLT"></a>全局偏移表GOT和过程链接表PLT</h3><h3 id="ELF文件的装载过程"><a href="#ELF文件的装载过程" class="headerlink" title="ELF文件的装载过程"></a>ELF文件的装载过程</h3><p>大致流程：首先在用户层面,bash进程会调用 fork系统调用创建一个新的进程, 然后新的进程调用execve()系统调用执行指定的ELF文件, 原先的bash进程 返回继续等待过程启动的新进程结束, 然后继续等待用户输入命令。</p>
+<p>使用execve()要包含头文件unistd.h。</p>
+<p>在进入execve系统调用后, Linux内核开始进入真正的装载工作。</p>
+<h5 id="execve-过程"><a href="#execve-过程" class="headerlink" title="execve()过程"></a>execve()过程</h5><p>1、在内核中,execve系统调用相应的入口是sys_execve()</p>
+<p>2、在进行一些参数的复制后, 调用do_execve()</p>
+<p>3、do_execve()会先查找被执行的文件, 如果找到了, 读前128个字节,</p>
+<p>4、因为linux支持的可执行文件不止一种, a.out、java等</p>
+<p>5、我们通过魔数来判断究竟是哪种可执行文件</p>
+<p>6、当do_execve()读取了128个byte后, 调用search_binary_handle()去搜索和匹配 合适的 可执行文件装载处理过程</p>
+<p>7、比如ELF可执行文件对应的装载过程的函数 名叫 load_elf_binary</p>
+<p>8、a.out叫 load_aout_binary</p>
+<p>9、脚本类叫 load_script_binary</p>
+<p>10、load_elf_binary</p>
+<ul>
+<li><p>10.1、检查文件有效性 比如魔数, segment数量</p>
+</li>
+<li><p>10.2、寻找.interp段, 设置动态链接器路径</p>
+</li>
+<li><p>10.3、根据ELF文件程序头表的描述 ,对ELF文件进行映射, 比如代码, 数据,只读数据</p>
+</li>
+<li><p>10.4、初始化ELF进程环境,</p>
+</li>
+<li><p>10.5、将系统调用的返回地址修改成ELF文件可执行文件的入口点</p>
+<p>对于静态链接而言入口点是e_entry所指的地址</p>
+<p>对于动态链接而言入口点是动态链接器</p>
+</li>
+</ul>
+<p>11、当load_elf_binary()执行完成后,系统调用的返回地址已经修改成被装载的ELF文件的入口地址了, sys_execve()系统调用从内核态返回到用户态的时候, EIP寄存器直接跳转到了 ELF程序的入口地址。</p>
+<p>12、至此, 新的程序开始执行, ELF可执行文件装载完成。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-info">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/04/08/X86-32CPU%E7%9A%84%E5%AF%84%E5%AD%98%E5%99%A8/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">X86-32CPU的寄存器</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/04/06/%E6%8D%A2%E6%A0%B9DP/">
+                        <span class="hidden-mobile">换根DP</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

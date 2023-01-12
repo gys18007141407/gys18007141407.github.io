@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.3k 字
+      3.7k 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      39
+      42
        分钟
     </span>
   
@@ -238,16 +238,14 @@
           <article class="post-content mx-auto">
             <!-- SEO header -->
             <h1 style="display: none">linux内核</h1>
-	    <time updated datetime="2021-12-08 17:03"></time>
+	    <time updated datetime="2022-09-16 16:10"></time>
             
             <div class="markdown-body">
               <h4 id="操作体系结构"><a href="#操作体系结构" class="headerlink" title="操作体系结构"></a>操作体系结构</h4><img src="/2021/11/28/linux%E5%86%85%E6%A0%B8/image-20211129103555008.png" srcset="/img/loading.gif" lazyload alt="image-20211129103555008" style="zoom:25%;">
 
-<img src="/2021/11/28/linux%E5%86%85%E6%A0%B8/image-20211129105115274.png" srcset="/img/loading.gif" lazyload alt="image-20211129105115274" style="zoom:25%;">
-
 <p>操作系统内核提供内存管理(分配、回收、溢出)、进程管理(创建、切换、调度、销毁)、文件管理(打开、读写、关闭。提供虚拟文件系统VFS，把硬件当成文件来处理)、设备管理(也即驱动管理，分为3类：字符型设备管理、块设备管理、网络设备管理。这里没有实现驱动， 设备驱动的实现当作操作系统的下一层即硬件系统，硬件系统与物理硬件通信。这里主要是查看设备状态、设备地址识别)。<strong>计算机资源的管理者是对操作系统所起作用最直观的理解，管理和实现是分开的</strong></p>
 <p>用户程序不可以直接调用内核函数，但是内核会在上面抽象一层操作系统的服务层，这样用户程序可以通过服务层来调用(比如sys_call)操作系统提供的各种服务。</p>
-<h4 id="中断机制"><a href="#中断机制" class="headerlink" title="中断机制"></a>中断机制</h4><h5 id="区分异常："><a href="#区分异常：" class="headerlink" title="区分异常："></a>区分异常：</h5><p>异常是指CPU内部出现的中断，即在CPU执行特定指令时出现的非法情况，如整数除0，引发异常是与正在执行的指令相关的，而引发中断是与当前正在执行的指令无关的。同时异常也称为同步中断，因此只有在一条指令执行后才会发出中断，不可能在指令执行期间发生异常。</p>
+<h4 id="中断机制"><a href="#中断机制" class="headerlink" title="中断机制"></a>中断机制</h4><h5 id="区分异常："><a href="#区分异常：" class="headerlink" title="区分异常："></a>区分异常：</h5><p>异常是指CPU内部出现的中断，即在CPU执行特定指令时出现的非法情况，如整数除0，<strong>引发异常是与正在执行的指令相关的，而引发中断是与当前正在执行的指令无关的</strong>。同时异常也称为同步中断，因此只有在一条指令执行后才会发出中断，不可能在指令执行期间发生异常。</p>
 <h5 id="中断分类："><a href="#中断分类：" class="headerlink" title="中断分类："></a>中断分类：</h5><p>1、硬件中断。（键盘、鼠标）</p>
 <p>2、软件中断。（系统调用sys_call）</p>
 <h5 id="软中断、硬中断、信号的区别"><a href="#软中断、硬中断、信号的区别" class="headerlink" title="软中断、硬中断、信号的区别:"></a>软中断、硬中断、信号的区别:</h5><p>硬中断是外部设备对CPU的中断。软中断通常是硬中断服务程序对内核的中断。信号是内核(或其他进程)对某个进程的中断。</p>
@@ -266,6 +264,11 @@
 <h5 id="分析内核代码："><a href="#分析内核代码：" class="headerlink" title="分析内核代码："></a>分析内核代码：</h5><p>中断类型：中断前的处理和执行完中断的恢复过程                    中断执行过程</p>
 <p>硬件中断：asm.s                                                                            traps.c</p>
 <p>软件中断：system_call.s                                                               fork.c signal.c exit.c sys.c </p>
+<h5 id="用户态切换到内核态"><a href="#用户态切换到内核态" class="headerlink" title="用户态切换到内核态"></a>用户态切换到内核态</h5><p>在Linux中，所有中断服务程序都属于内核代码。【引起状态切换的3种情况：1、系统调用(0x80中断)。2、中断。 3、异常】</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-number">0x80</span>中断时，由于系统启动时注册了<span class="hljs-number">0x80</span>的中断函数[内核汇编方法为<span class="hljs-function">call *<span class="hljs-title">sys_call_table</span><span class="hljs-params">(, %eax, <span class="hljs-number">4</span>)</span></span>; 在用户态库封装的方法为<span class="hljs-function"><span class="hljs-keyword">long</span> <span class="hljs-title">syscall</span><span class="hljs-params">(<span class="hljs-keyword">long</span> number, ...)</span></span>;]，该函数通过系统调用号number查询系统调用表，得到系统调用的函数地址，最后执行系统调用。<br></code></pre></td></tr></table></figure>
+
+<p>若中断时，进程在执行用户态的代码，该中断会引起CPU特权级<strong>CPL从3级到0级</strong>的切换，此时CPU会进行<strong>堆栈的切换</strong>，CPU会从当前任务的TSS中取到新堆栈的段选择符和偏移值；CPU首先会把<strong>原用户态的堆栈指针ss和esp压入内核态堆栈</strong>，随后把标志寄存器eflags的内容和此次中断的返回位置cs，eip压入内核态堆栈。当中断处理函数结束后，将<strong>恢复内核栈中的数据，并继续处理被中断的进程</strong>。</p>
+<p>若中断时，进程正在执行内核态的代码，则不需要堆栈的切换，CPU仅把eflags的内容和此次中断的返回位置cs，eip压入内核态堆栈，然后执行中断服务程序。</p>
 
             </div>
             <hr>

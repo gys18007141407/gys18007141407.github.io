@@ -238,7 +238,7 @@
           <article class="post-content mx-auto">
             <!-- SEO header -->
             <h1 style="display: none">memcpy内存重叠</h1>
-	    <time updated datetime="2022-01-07 13:32"></time>
+	    <time updated datetime="2022-02-05 21:41"></time>
             
             <div class="markdown-body">
               <h2 id="memcpy-strcpy-内存重叠"><a href="#memcpy-strcpy-内存重叠" class="headerlink" title="memcpy/strcpy 内存重叠"></a>memcpy/strcpy 内存重叠</h2><p>因为memcpy，strcpy这两个函数没有对内存重叠进行处理。使用这两个函数的时候程序员必须要保证源地址与目标地址内存不重叠，或者直接使用memmove函数进行内存复制。</p>

@@ -1,0 +1,511 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  
+  <title>阿里存储基础技术二面 - gys的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gys18007141407.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>gys的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="阿里存储基础技术二面">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-02-26 11:03" pubdate>
+        2022年2月26日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      36
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">阿里存储基础技术二面</h1>
+	    <time updated datetime="2022-11-17 13:34"></time>
+            
+            <div class="markdown-body">
+              <h3 id="阿里存储基础技术二面"><a href="#阿里存储基础技术二面" class="headerlink" title="阿里存储基础技术二面"></a>阿里存储基础技术二面</h3><p>1、rpc从网卡接收到数据到返回响应数据到网卡的过程，越详细越好，从内存管理，操作系统、计算机网络方面越清楚越细节越好。</p>
+<h5 id="网卡收包流程"><a href="#网卡收包流程" class="headerlink" title="网卡收包流程"></a>网卡收包流程</h5><p>【网卡DMA到内核，硬件中断，CPU响应硬件中断(主要是重置一些标志位)并将中断处理程序加入到软中断队列中，软中断被调度，协议栈处理，sk_buff拷贝到套接字缓冲区，唤醒阻塞在该套接字上的线程】</p>
+<p>数据包到达网卡后存储在网卡的硬件接收队列RX；网卡对这个数据包的目的mac地址进行匹配并验证以太网检验和；</p>
+<p>网卡驱动在内核中预分配了包缓冲区(packet buffer队列)用来存储网卡接收到的实际数据包(insmod)，也预分配了环形接收/发送缓存队列(RX/TX，保存对应packet buffer的地址和长度)；环形缓冲队列由网卡硬件和网卡驱动共享；</p>
+<p>网卡硬件通过DMA将硬件接收队列中的数据包【拷贝】到内核环形接收缓存队列队尾指向的包缓冲区；然后网卡产生了硬件中断；</p>
+<p>硬件中断通过PCI总线通知到了CPU，所以CPU转到内核态处理该中断信号，CPU查询中断向量表得到了该中断的中断处理程序入口地址；但此时CPU并不直接执行中断处理程序，因为中断处理程序可能是很耗时的，所以linux将中断分为了上半部和下半部，上半部仅仅是响应中断，下半部真正处理该中断；CPU将中断处理程序加入到中断请求队列IRQ中；硬件中断响应完毕，CPU转到用户态继续执行原程序；</p>
+<p>内核软中断请求守护线程ksoftirqd周期性地遍历软中断向量表，执行对应的处理函数；当CPU调度了内核线程，CPU切换至内核态处理下半部的中断处理程序；动态地为存储在包缓冲区的数据包分配一个叫sk_buffer的数据结构，该数据结构中描述了数据包的相关信息(协议头指针、数据指针等等)，也就是说利用数据包来初始化这个分配的sk_buffer，然后将其转交给网络协议栈去处理；</p>
+<p> 首先调用的是第三层ip协议处理程序，因为以太网头在前面初始化sk_buffer的时候被移除了；ip协议处理程序匹配ip目的地、检验和、移除ip协议头、路由查询、组片分片；然后调用第四层的tcp协议处理程序，由于我们在应用层创建socket绑定端口后会在内核中为该套接字分配读写缓冲区，所以四层处理程序将这个sk_buffer数据结构放到套接字读缓冲区；然后触发了该套接字的可读事件，也就是唤醒在该套接字的等待队列中的线程；</p>
+<p>我们在应用层通过read系统调用把读缓冲区中sk_buffer指向的数据包(packet buffer)【拷贝】至用户态缓冲区；将sk_buffer从套接字读缓冲区中出队并释放空间；</p>
+<h5 id="网卡发包流程"><a href="#网卡发包流程" class="headerlink" title="网卡发包流程"></a>网卡发包流程</h5><p>我们在应用层<strong>通过write系统调用将用户态缓冲区中的数据【拷贝】到内核的包缓冲区(packet buffer)；通过send系统调用唤醒第四层的tcp协议处理程序</strong>；四层处理程序动态地分配一个sk_buffer数据结构，用包缓冲区中的数据初始化该sk_buffer数据结构，然后将该sk_buffer入队到内核套接字写缓冲区；然后调用第三层ip协议处理程序，三层处理程序继续初始化sk_buffer相关信息，还有可能分片；然后调用第二层协议处理程序，二层处理程序将该sk_buffer入队到一个排序队列(Queue Discipline；比如urg标志位紧急包要放在前面)；然后唤醒网卡驱动程序的发送函数；网卡驱动程序唤醒网卡硬件的DMA控制器将sk_buffer指向的数据包【拷贝】到网卡的硬件接收队列；网卡硬件将数据包发出去以后产生一个硬件中断信号；网卡驱动程序收到硬件中断信号后释放sk_buffer；</p>
+<p>2、数据从网卡的接收队列接收到发送队列发送一共经过了几次拷贝？数据从read到用户态后到网卡发送出去经过了几次拷贝？</p>
+<p>网络通信接收和发送经过了4次拷贝；接收后，</p>
+<p>用接收数据初始化序列化器1次拷贝，序列化器反序列化到对象1次拷贝；</p>
+<p>执行rpc函数调用，生成响应信息；</p>
+<p>将响应信息序列化到序列化器1次拷贝；将序列化器中的数据发送，</p>
+<p>3、如果一个rpc请求有100M而你的用户态缓冲区只有8k，那么你如何处理这种情况？</p>
+<p>限制最大接收长度、边反序列化边接收。</p>
+<p>4、环形缓冲队列</p>
+<p>5、docker隔离是如何实现的</p>
+<p>借助了Linux内核的Namespace技术来实现的</p>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><h5 id="epoll原理"><a href="#epoll原理" class="headerlink" title="epoll原理"></a>epoll原理</h5><p>accept时会创建一个新的套接字相关描述符，并将其插入到该进程的文件打开列表里面。</p>
+<p>epoll_create也会创建一个eventpoll的内核对象，该对象拥红黑树、就绪链表，并将其插入到该进程的文件打开列表里面。</p>
+<p>调用epoll_ctl添加fd时，创建一个新的红黑树节点、添加等待事件到socket_fd的等待队列中，设置事件的回调为通知eventpoll对象，最后插入到红黑树上。</p>
+<p>当套接字的内核缓冲区有数据时，查看socket_fd等待队列的事件，该事件找到与该套接字相关联的红黑树节点，将其插入到就绪链表中，如果epoll上有阻塞的进程则唤醒。</p>
+<p>当调用epoll_wait时，cpu进入内核态查看就绪链表是否有事件到达，如果没有就阻塞(可以设置超时时间，当就绪链表新增事件时唤醒epoll_wait)，如果就绪链表有事件就将就绪链表拷贝到用户态，用户态遍历所有事件执行相应的回调函数。</p>
+<h5 id="protobuf优缺点"><a href="#protobuf优缺点" class="headerlink" title="protobuf优缺点"></a>protobuf优缺点</h5><p>优点：</p>
+<p>1、编码效率高。性能好(序列化的数据更小)</p>
+<p>2、有代码生成机制。安全检查(通过stub来检查函数存在性和参数合法性)</p>
+<p>3、多语言适用</p>
+<p>4、兼容性</p>
+<p>缺点：</p>
+<p>1、二进制流的可读性变差。其他像json格式的序列化可读性较好。</p>
+<p>2、通用性差。虽然支持多语言，但并没用json格式的通用性强。</p>
+<h5 id="protobuf中整型数据的编码"><a href="#protobuf中整型数据的编码" class="headerlink" title="protobuf中整型数据的编码"></a>protobuf中整型数据的编码</h5><p>protobuf中采用Varints编码对整型数据进行编码,经过Varints编码后的数据，它的每一个字节的高位是一个标记位。如果标记位是1，则代表下一个字节仍然是当前整型数据的组成；如果标记位是0，则代表当前数据结束了。</p>
+<h5 id="protobuf中字符串的编码"><a href="#protobuf中字符串的编码" class="headerlink" title="protobuf中字符串的编码"></a>protobuf中字符串的编码</h5><p>字符串本身使用UTF8编码，整个字符串字段使用key-len-value形式存储，</p>
+<h5 id="protobuf中嵌套消息的编码"><a href="#protobuf中嵌套消息的编码" class="headerlink" title="protobuf中嵌套消息的编码"></a>protobuf中嵌套消息的编码</h5><p>类似于字符串，采用key-len-value来存储，len表示该字段对应的消息所需要的消息长度</p>
+<h5 id="protobuf整体的编码"><a href="#protobuf整体的编码" class="headerlink" title="protobuf整体的编码"></a>protobuf整体的编码</h5><p>protobuf的消息是经过编码序列化的一系列key-value对，一个类型的数据对应一个key-value。其中key由field number参数序号和wire type参数类型组成，而value就是原始数据经过编码后的数据。根据参数类型来判断是key后面跟的是value【比如参数类型是整型】还是length+value【比如参数类型是字符串】。</p>
+<h5 id="函数调用压栈过程"><a href="#函数调用压栈过程" class="headerlink" title="函数调用压栈过程"></a>函数调用压栈过程</h5><p>将当前栈底指针压栈，函数返回地址压栈，然后将参数从右向左压栈，执行函数后，回到原函数，并恢复原来的栈底指针。</p>
+<h5 id="孤儿进程和僵尸进程"><a href="#孤儿进程和僵尸进程" class="headerlink" title="孤儿进程和僵尸进程"></a>孤儿进程和僵尸进程</h5><p>当父进程退出后子进程还在运行时，这个子进程就变成了孤儿进程，但是它会被init初始进程接管，成为初始进程的子进程。解决方案：1、kill直接杀死进程</p>
+<p>当子进程已经退出后，父进程没有调用wait或waitpid回收子进程的状态信息，这个子进程的pid仍存在系统之中，就成为了僵尸进程。解决方案：1、杀死父进程。2、关闭电脑。</p>
+<h5 id="GDB原理"><a href="#GDB原理" class="headerlink" title="GDB原理"></a><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Tq4y1i77j?spm_id_from=333.999.0.0">GDB原理</a></h5><p>ptrace系统调用提供了一种使父进程得以监视和控制其它进程的方式，它还能够改变子进程中的寄存器和内核映像，因而可以实现断点调试和系统调用的跟踪。</p>
+<p>1、父进程gdb调用fork。</p>
+<p>2、子进程调用ptrace并传递PTRACE_TRACEME参数，该参数使得该进程可以被父进程追踪。</p>
+<p>3、子进程调用execl，将被调试程序装入自己的地址空间。</p>
+<p>4、父进程gdb在fork后便调用wait等待子进程退出</p>
+<p>5、子进程退出后父进程收到子进程的信号</p>
+<p>6、父进程根据子进程信号来做相应处理【比如断点的实现原理,就是在指定的位置插入断点指令<code>调试中断INT 3;系统调用是INT 0x80</code>,当被调试的程序运行到断点的时候,产生SIGTRAP信号。该信号被gdb捕获并进行断点命中判定,当gdb判断出这次SIGTRAP是断点命中之后就会转入等待用户输入进行下一步处理】</p>
+<h5 id="strace"><a href="#strace" class="headerlink" title="strace"></a>strace</h5><p>system trace是一个功能强大的调试、分析、诊断工具，跟踪程序或进程执行时的系统调用和所接收的信号。可将所调用的系统调用的名称、参数和返回值输出到标准输出或者输出到-o指定的文件。</p>
+<h5 id="为什么要字节对齐"><a href="#为什么要字节对齐" class="headerlink" title="为什么要字节对齐"></a>为什么要字节对齐</h5><p>CPU一般可能以双字节、四字节等为单位存取内存，如果没有进行内存对齐，CPU有可能就需要两次访存取数才可以读取出数据，而进行内存对齐可以一次性把数据全部读取出来，提高CPU从内存取数的效率。</p>
+<h5 id="为什么要cache-line对齐"><a href="#为什么要cache-line对齐" class="headerlink" title="为什么要cache line对齐"></a>为什么要cache line对齐</h5><p>CPU的每个核具有单独的L1和L2缓存，假设cpu的cache line大小为64B，那么当cpu0把64B加载进自己的缓存后想要修改前32B(假设是数据结构A)，而cpu1也加载了相同的64B到自己的缓存，只不过cpu1只想使用后32B(假设是数据结构B)。那么cpu0会对这个cache line的64B全部加总线锁，阻塞其他cpu访问内存中的这64B，使得cpu1的缓存中的64B全部失效。</p>
+<p>如果在声明数据结构A和B时使用cache line对齐，A和B就处于不同的cache line中。这样就不会出现上述问题。</p>
+<h5 id="结构体变量偏移"><a href="#结构体变量偏移" class="headerlink" title="结构体变量偏移"></a>结构体变量偏移</h5><p>使用以0为首地址的指针指向对应的成员，取指针的地址就是变量的偏移。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">A</span>&#123;</span><br>    <span class="hljs-keyword">int</span> a;<br>    <span class="hljs-keyword">char</span> b[<span class="hljs-number">11</span>];<br>    <span class="hljs-keyword">double</span> c;<br>&#125;;<br><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    cout &lt;&lt; <span class="hljs-string">&quot;sizeof (A) = &quot;</span> &lt;&lt; <span class="hljs-built_in"><span class="hljs-keyword">sizeof</span></span>(A) &lt;&lt; endl;<br>    cout &lt;&lt; <span class="hljs-string">&quot;offset of (a) = &quot;</span> &lt;&lt; (<span class="hljs-keyword">int64_t</span>)(&amp;((A*)<span class="hljs-number">0</span>)-&gt;a) &lt;&lt; endl;<br>    cout &lt;&lt; <span class="hljs-string">&quot;offset of (b) = &quot;</span> &lt;&lt; (<span class="hljs-keyword">int64_t</span>)(&amp;((A*)<span class="hljs-number">0</span>)-&gt;b) &lt;&lt; endl;<br>    cout &lt;&lt; <span class="hljs-string">&quot;offset of (c) = &quot;</span> &lt;&lt; (<span class="hljs-keyword">int64_t</span>)(&amp;((A*)<span class="hljs-number">0</span>)-&gt;c) &lt;&lt; endl;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h5 id="结构体大小"><a href="#结构体大小" class="headerlink" title="结构体大小"></a>结构体大小</h5><p>以下是计算结构体大小的完整步骤</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">A</span>&#123;</span><br>    <span class="hljs-keyword">int8_t</span> a[<span class="hljs-number">3</span>];    <span class="hljs-comment">// 首地址0 3bytes</span><br>    <span class="hljs-keyword">int32_t</span> b;      <span class="hljs-comment">// 要以4字节对齐的首地址4bytes 8bytes</span><br>    <span class="hljs-keyword">char</span> c;         <span class="hljs-comment">// 要以1字节对齐的首地址8bytes 9bytes</span><br>    <span class="hljs-keyword">int64_t</span> d;      <span class="hljs-comment">// 要以8字节对齐的首地址18bytes 26bytes</span><br>    <span class="hljs-keyword">int16_t</span> e[<span class="hljs-number">5</span>];   <span class="hljs-comment">// 要以2字节对齐的首地址26bytes 36bytes</span><br>    <span class="hljs-keyword">double</span> f;       <span class="hljs-comment">// 要以8字节对齐的首地址40bytes 48bytes</span><br>    <span class="hljs-keyword">float</span> g;        <span class="hljs-comment">// 要以4字节对齐的首地址48bytes 52bytes</span><br>    <span class="hljs-keyword">char</span> h;         <span class="hljs-comment">// 要以1字节对齐的首地址52bytes 53bytes</span><br>&#125;;                  <span class="hljs-comment">// 整个结构体大小要以最大成员8字节对齐  56bytes</span><br><br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    cout &lt;&lt; <span class="hljs-string">&quot;sizeof (A) = &quot;</span> &lt;&lt; <span class="hljs-built_in"><span class="hljs-keyword">sizeof</span></span>(A) &lt;&lt; endl;   <span class="hljs-comment">// sizeof (A) = 56</span><br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>可以在结构体声明的右括号处增加__attribute__((aligned(16)))，让整个结构体大小以16字节对齐，这只影响最终的结构体大小，对于结构体内部的数据对齐不影响。【注意：aligned参数如果不大于结构体最大成员的大小时该语句将不起任何作用】</p>
+<p>可以在结构体声明的右括号处增加__attribute__((packed))，让结构体内部成员全部以1字节对齐。</p>
+<h5 id="c-的lambda函数怎么实现的"><a href="#c-的lambda函数怎么实现的" class="headerlink" title="c++的lambda函数怎么实现的"></a>c++的lambda函数怎么实现的</h5><p>通过仿函数实现。定义一个lambda函数后编译器帮我们定义了一个类，类中重载了()操作符。其中[]捕捉列表就相当于传递给类的构造函数的参数。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%9D%A2%E8%AF%95/">面试</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-info">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/03/01/%E8%85%BE%E8%AE%AFPCG%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91hr%E9%9D%A2/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">腾讯PCG后台开发hr面</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/02/23/%E9%98%BF%E9%87%8C%E5%AD%98%E5%82%A8%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF%E4%B8%80%E9%9D%A2/">
+                        <span class="hidden-mobile">阿里存储基础技术一面</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

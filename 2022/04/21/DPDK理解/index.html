@@ -1,0 +1,542 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  
+  <title>DPDK理解 - gys的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gys18007141407.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>gys的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/miku7.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="DPDK理解">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-04-21 14:31" pubdate>
+        2022年4月21日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      38
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">DPDK理解</h1>
+	    <time updated datetime="2022-05-03 17:45"></time>
+            
+            <div class="markdown-body">
+              <h3 id="DPDK理解"><a href="#DPDK理解" class="headerlink" title="DPDK理解"></a>DPDK理解</h3><p>网络模块，传统Linux网络层数据包流程：硬件中断—&gt;向内核线程分发数据包—&gt;<a target="_blank" rel="noopener" href="https://yingsheng.elecfans.com/app">软件</a>中断—&gt;线程在协议栈中处理数据包—&gt;通知用户层—&gt;用户层接收数据包—&gt;网络层—&gt;逻辑层—&gt;业务层。</p>
+<p>DPDK网络层数据包流程：硬件中断—&gt;放弃中断—&gt;用户层通过设备映射接收数据包—&gt;用户层协议栈—&gt;网络层—&gt;逻辑层—&gt;业务层。</p>
+<p>DPDK拦截中断机制，不触发后续中断和流程流程，绕过协议栈直接从网卡驱动获取到数据包，把包提交给用户空间，减去了中断和内核中内存拷贝消耗的时间，加快了数据包的处理速度。</p>
+<p>核心技术：</p>
+<p>1）将协议栈上移到用户态，利用UIO技术直接将设备数据映射拷贝到用户态</p>
+<p>2）利用大页技术，降低TLB cache miss，提高TLB访问命中率</p>
+<p>3）通过CPU亲和性，绑定网卡和线程到固定的core，减少cpu任务切换</p>
+<p>4）通过无锁队列，减少资源的竞争</p>
+<p>优势：</p>
+<p>1）减少中断次数；</p>
+<p>2）减少内存拷贝次数</p>
+<p>3）绕过linux的协议栈，用户获得协议栈的控制权，能够定制化协议栈以降低复杂度；</p>
+<p>劣势：</p>
+<p>1）内核栈转移至用户层增加了开发成本</p>
+<p>2）低负荷服务器不实用，会造成cpu空转</p>
+<p>dpdk绑定网卡和igb_uio驱动过程中的kernel part会通过uio_register_device 注册对应的uio设备，获取pcie的配置空间BAR信息包括addr、name、size、offset填充到map/map0中，这些在用户态会将其读出，并mmap至用户态进程空间，这样用户态便可直接操作设备的内存空间。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_48006170/article/details/123242414">PCI</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/394524478">PCIe空间配置</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/138887e448fd">PCIe空间配置、地址、访问方法</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.icode9.com/content-3-735889.html">PCIE的mmio内存映射访问机制+ 配置空间</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.sohu.com/a/300238384_505795">PCI的dfs序扫描过程</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.ssdfans.com/?p=8213">PCIe的Root Complex</a></p>
+<p>PCIE应用程序编程，首先就要理清PCIE BAR空间到底说的是什么。在PCIE配置空间里，0x10开始后面有6个32位的BAR寄存器，BAR寄存器中存储的数据是表示PCIE设备在PCIE地址空间中的基地址，注意这里不是表示PCIE设备内存在CPU内存中的映射地址，关于这两者的关系以及两者如何转换后面会有介绍。</p>
+<pre><code>1、BAR寄存器的数据格式，BAR寄存器表示的设备存储类型有memory space BAR和IO space BAR两种，
+      对于memory space BAR，数组格式如下面所示
+       31-----------------------------------4 |        3     |     2-1     |       0
+      16-Byte aligned Base Adress               prefetchable       Type           always 0
+
+       对于IO space BAR，数组格式如下所示
+       31-----------------------------------2 |      1      |     0
+       4-Byte Aligned Base Address                  reserve       always 0
+
+       对于memory space BAR的16-Byte aligned Base Address 这里的Base Address代表的是16个byte数据的地址。
+      对于IO space BAR的4-Byte aligned Base Address这里的BaseAddress代表的是4个byte数据的地址。
+2、BAR寄存器数据的初始化
+      BAR寄存器的数据是怎么初始化，由谁进行初始化的？因为初始化的数据是PCIE设备所在的总线域的地址空间，所以肯定不会是EP(endpoint device)自己进行初始化，因为如果这样EP是不知道其他PCIE设备对应的总线地址空间的，所以可能会引起总线地址空间的冲突，所以BAR寄存器的初始化是由内核进行初始化的，在系统开机时，内核会遍历查找哥哥PCIE设备，然后为PCIE设备分配对应的总线地址空间。
+
+3、BAR寄存器存储的总线地址和应用程序内存地址的关系
+      BAR寄存器存储的总线地址，应用程序是不能直接利用的，应用程序首先要做的就是读出BAR寄存器的值，然后用mmap函数建立应用程序内存空间和总线地址空间的映射关系。这样应用程序往PCIE设备内存读写数据的时候，直接利用PCIE设备映射到应用程序中的内存地址即可。但是应用程序的内存地址该由谁解析到PCIE设备对应的总线空间给EP呢，这个工作是由北桥或者是RC(root complex)来完成的，解析到总线地址空间之后，EP会把总线的地址空间解析成PCIE设备对应的设备内存地址。
+</code></pre>
+<p>首先，考虑linux中一切皆文件的概念。当主机上插入了一个外设后，我们需要安装相应的驱动程序，才能使用这个外设。对于常用的外设，系统中已经提供了通用的默认驱动程序。假设当前设备是一个新设备，系统中并没有相应的驱动程序，那么显然该设备无法正常工作。此时，我们需要编写一个设备驱动程序，注册该驱动<code>module_init(cur_device_init)</code>，编译好之后最后通过<code>insmod</code>安装这个驱动程序。在初始化函数<code>cur_device_init</code>中我们使用<code>mkdev(主从设备号)</code>来在<code>/dev</code>目录下创建一个设备文件，然后，把设备文件相关的文件操作函数手动实现，例如<code>mmap、read、open、close、write、ioctl</code>等等。即使是这样，我们目前仍然未可知如何读取设备中的数据，即我们在实现<code>read</code>函数时，怎么读取设备的数据。</p>
+<p>以上是对于字符设备和块设备而言的，再回到网络设备，__网络设备从来不出现在 <code>/dev</code> 中__。<code>tun</code>是虚拟网卡对应的字符设备。</p>
+<p>网卡工作在物理层和数据链路层，主要由<code>PHY/MAC</code>芯片、<code>Tx/Rx FIFO</code>、<code>DMA</code>等组成，其中网线通过变压器接PHY芯片、<code>PHY</code>芯片通过<code>MII</code>接<code>MAC</code>芯片、<code>MAC</code>芯片接<code>PCI</code>总线。</p>
+<h5 id="网卡驱动ixgbe初始化"><a href="#网卡驱动ixgbe初始化" class="headerlink" title="网卡驱动ixgbe初始化"></a>网卡驱动ixgbe初始化</h5><p>网卡驱动为每个新的接口在一个全局的网络设备列表里插入一个数据结构，每个接口由一个结构 <code>net_device</code> 项来描述, 它在<code>&lt;linux/netdevice.h&gt;</code>里定义。该结构必须动态分配。</p>
+<p>每个网卡，无论是物理还是虚拟的网卡，都必须有一个：<code>net_device</code>，这个<code>struct</code>是在网卡驱动中分配创建的，不同的网卡，对应厂商不同的驱动，那么看看<code>ixgbe</code>的驱动初始化; 创建<code>net_device</code> 的函数是: <code>alloc_etherdev</code>, 或者： <code>alloc_etherdev_mq</code>。</p>
+<h5 id="pci设备："><a href="#pci设备：" class="headerlink" title="pci设备："></a>pci设备：</h5><p>在内核中，一个<code>PCI</code>设备，使用<code>struct pci_driver</code>结构来描述, 因为在系统引导的时候，<code>PCI</code>设备已经被识别，当内核发现一个已经检测到的设备和驱动注册的<code>id_table</code>中的信息相匹配时，它就会触发驱动的<code>probe</code>函数,比如，看看<code>ixgbe</code> 驱动：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">pci_driver</span> <span class="hljs-title">ixgb_driver</span> =</span> &#123;<br>    .name     = ixgb_driver_name,<br>    .id_table = ixgb_pci_tbl,<br>    .probe    = ixgb_probe,<br>    .remove   = ixgb_remove,<br>    .err_handler = &amp;ixgb_err_handler<br>&#125;;<br><span class="hljs-meta">#vim drivers/net/ethernet/intel/ixgbe/ixgbe_main.c</span><br><br>module_init<br>    ixgbe_init_module<br>        pci_register_driver<br></code></pre></td></tr></table></figure>
+
+<p>当<code>probe</code>函数被调用，证明已经发现了我们所支持的网卡，这样，就可以调用<code>register_netdev</code>函数向内核注册网络设备了，注册之前，一般会调用<code>alloc_etherdev</code>分配一个<code>net_device</code>，然后初始化它的重要成员。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs cpp">ixgbe_probe  <br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">net_device</span> *<span class="hljs-title">netdev</span>;</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">pci_dev</span> *<span class="hljs-title">pdev</span>;</span><br>    <span class="hljs-built_in">pci_enable_device_mem</span>(pdev);<br>    <span class="hljs-built_in">pci_request_mem_regions</span>(pdev, ixgbe_driver_name);<br>    <span class="hljs-built_in">pci_set_master</span>(pdev);<br>    <span class="hljs-built_in">pci_save_state</span>(pdev);<br>    netdev = <span class="hljs-built_in">alloc_etherdev_mq</span>(<span class="hljs-built_in"><span class="hljs-keyword">sizeof</span></span>(struct ixgbe_adapter), indices);<span class="hljs-comment">// 这里分配struct net_device</span><br>    	<span class="hljs-function">alloc_etherdev_mqs</span><br><span class="hljs-function">    		<span class="hljs-title">alloc_netdev_mqs</span><span class="hljs-params">(sizeof_priv, <span class="hljs-string">&quot;eth%d&quot;</span>, NET_NAME_UNKNOWN, ether_setup, txqs, rxqs)</span></span>;<br>    			ether_setup  <span class="hljs-comment">// Initial struct net_device</span><br>    			<br>    <span class="hljs-built_in">SET_NETDEV_DEV</span>(netdev, &amp;pdev-&gt;dev);<br>    adapter = <span class="hljs-built_in">netdev_priv</span>(netdev);<br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-built_in">alloc_etherdev_mqs</span>() -&gt; <span class="hljs-built_in">ether_setup</span>()<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ether_setup</span><span class="hljs-params">(struct net_device *dev)</span></span><br><span class="hljs-function"></span>&#123;<br>    dev-&gt;header_ops     = &amp;eth_header_ops;<br>    dev-&gt;type       = ARPHRD_ETHER;<br>    dev-&gt;hard_header_len    = ETH_HLEN;<br>    dev-&gt;min_header_len = ETH_HLEN;<br>    dev-&gt;mtu        = ETH_DATA_LEN;<br>    dev-&gt;addr_len       = ETH_ALEN;<br>    dev-&gt;tx_queue_len   = <span class="hljs-number">1000</span>; <span class="hljs-comment">/* Ethernet wants good queues */</span><br>    dev-&gt;flags      = IFF_BROADCAST|IFF_MULTICAST;<br>    dev-&gt;priv_flags     |= IFF_TX_SKB_SHARING;<br><br>    <span class="hljs-built_in">eth_broadcast_addr</span>(dev-&gt;broadcast);<br><br>&#125;<br><span class="hljs-built_in">EXPORT_SYMBOL</span>(ether_setup);<br><span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">pci_driver</span> <span class="hljs-title">ixgbe_driver</span> =</span> &#123;<br>	.name     = ixgbe_driver_name,<br>	.id_table = ixgbe_pci_tbl,<br>	.probe    = ixgbe_probe, <span class="hljs-comment">// 系统探测到ixgbe网卡后调用ixgbe_probe()</span><br>	.remove   = ixgbe_remove,<br><span class="hljs-meta">#<span class="hljs-meta-keyword">ifdef</span> CONFIG_PM</span><br>	.suspend  = ixgbe_suspend,<br>	.resume   = ixgbe_resume,<br><span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span><br>	.shutdown = ixgbe_shutdown,<br>	.sriov_configure = ixgbe_pci_sriov_configure,<br>	.err_handler = &amp;ixgbe_err_handler<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> __init <span class="hljs-title">ixgbe_init_module</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span></span><br><span class="hljs-function"></span>&#123;<br>	...<br>	ret = <span class="hljs-built_in">pci_register_driver</span>(&amp;ixgbe_driver); <span class="hljs-comment">// 注册ixgbe_driver</span><br>	...<br>&#125;<br><br><span class="hljs-built_in">module_init</span>(ixgbe_init_module);<br><br><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> __exit <span class="hljs-title">ixgbe_exit_module</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span></span><br><span class="hljs-function"></span>&#123;<br>	...<br>	<span class="hljs-built_in">pci_unregister_driver</span>(&amp;ixgbe_driver); <span class="hljs-comment">// 注销ixgbe_driver</span><br>	...<br>&#125;<br><br><span class="hljs-built_in">module_exit</span>(ixgbe_exit_module);<br></code></pre></td></tr></table></figure>
+
+<h5 id="中断注册"><a href="#中断注册" class="headerlink" title="中断注册"></a>中断注册</h5><p>内核初始化期间，<code>softirq_init</code>会注册<code>TASKLET_SOFTIRQ</code>以及<code>HI_SOFTIRQ</code>相关联的处理函数。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">void</span> __init <span class="hljs-title">softirq_init</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span></span><br><span class="hljs-function"></span>&#123;<br>    ......<br> <br>    <span class="hljs-built_in">open_softirq</span>(TASKLET_SOFTIRQ, tasklet_action);<br>    <span class="hljs-built_in">open_softirq</span>(HI_SOFTIRQ, tasklet_hi_action);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>网络子系统分两种soft IRQ。<code>NET_TX_SOFTIRQ</code>和<code>NET_RX_SOFTIRQ</code>，分别处理发送数据包和接收数据包。这两个soft IRQ在<code>net_dev_init</code>函数（<code>net/core/dev.c</code>）中注册：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-built_in">open_softirq</span>(NET_TX_SOFTIRQ, net_tx_action);<br>    <span class="hljs-built_in">open_softirq</span>(NET_RX_SOFTIRQ, net_rx_action);<br></code></pre></td></tr></table></figure>
+
+<p>收发数据包的软中断处理函数被注册为<code>net_rx_action</code>和<code>net_tx_action</code>。<br>其中<code>open_softirq</code>实现为：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">open_softirq</span><span class="hljs-params">(<span class="hljs-keyword">int</span> nr, <span class="hljs-keyword">void</span> (*action)(struct softirq_action *))</span></span><br><span class="hljs-function"></span>&#123;<br>    softirq_vec[nr].action = action;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h5 id="重要结构体初始化"><a href="#重要结构体初始化" class="headerlink" title="重要结构体初始化"></a>重要结构体初始化</h5><h5 id="一致性DMA和流式DMA"><a href="#一致性DMA和流式DMA" class="headerlink" title="一致性DMA和流式DMA"></a>一致性DMA和流式DMA</h5><p>一致性DMA映射可以理解为简单粗暴地关闭了cache，以此保证数据一致性；<br>而流式DMA映射是怎么保证数据一致性的呢，它的方式更加复杂，让我们从数据的两个方向来分析：</p>
+<ul>
+<li>DMA_TO_DEVICE<br>CPU将数据写入cache，然后同步cache与RAM(映射区域)，同步操作完成后设备再从RAM(映射区域)获取数据</li>
+<li>DMA_FROM_DEVICE<br>CPU标记RAM(映射区域)对应的cache line为无效状态，以避免设备将数据写入RAM(映射区域)后，CPU从cache中获得”脏数据”</li>
+</ul>
+<p>从上述分析总结来看，流式DMA映射根据数据方向对cache进行”flush/invalid”，既保证了数据一致性，也避免了完全关闭cache带来的性能影响。</p>
+<p>既如此，为什么不抛弃一致性DMA映射，全面拥抱“更强大”的流式DMA映射呢？<br>我想到了一个场景来解释这个问题：<br>假设有一段内存空间，范围小且有被频繁访问的需求，在这种场景下，因为内存空间小，开/关cache对性能影响微乎其微，如果采用流式DMA映射反而带来了等同访问频次的”cache flush/invalid”操作，莫不如完全关闭cache，采用一致性DMA映射。</p>
+<p>bar寄存器保存了当前设备的pci地址的基址。</p>
+<p>mmap利用给定的逻辑地址来和物理地址建立映射，ioremap利用给定的物理地址来和逻辑地址建立映射。他们建立的都是逻辑地址到物理地址的映射。</p>
+<p>没有dpdk时，设备将数据发送到</p>
+<p>使用dpdk时，设备直接将数据发送到mbuf中，pmd轮询访问mbuf是否收到数据，若收到数据进行处理。</p>
+<p><code>igb_uio</code>驱动主要做的就是注册一个<code>pci</code>设备。但是<code>igbuio_pci_driver</code>对应的保存<code>pci</code>设备信息的<code>id_table</code>指针为空，这样在内核注册此<code>pci</code>设备时，会找不到匹配的设备，就不会调用<code>igb_uio</code>驱动中的探测<code>probe</code>函数，只会在<code>/sys</code>目录下创建<code>igb_uio</code>相应的目录。</p>
+<p>将<code>eth1</code>网卡绑定到<code>igb_uio_module</code>后查看<code>dmesg</code>就会看到<code>igb_uio_module</code>的<code>probe</code>函数执行了，也就是意味着扫描到了匹配的<code>pci</code>设备。</p>
+<p>解绑的动作就是将igb模块信息和此pci设备Dev去关联。将dev-&gt;driver指针置为空，这个很重要。在内核处理pci设备注册的函数中，就算驱动的vendor ID和device ID与设备的都匹配上了，如果此设备的dev-&gt;driver指针不为空，也不会调用probe函数的。</p>
+<p>igb_uio记录设备的资源</p>
+<p>igb_uio模块遍历此PCI设备BAR空间，对应于类型为存储器空间IORESOURCE_MEM的BAR，将其物理地址、大小等信息保存到uio_info结构的mem数组中之中；类型为寄存器空间IORESOURCE_IO的BAR，将其物理地址、大小等信息保存到uio_info结构的port数组中。</p>
+<p>igb驱动也会遍历BAR空间，但是它不会记录空间的物理地址，而是调用ioremap函数将物理地址映射为虚拟地址，驱动在内核态读写操作映射出来的虚拟地址。</p>
+<p>Linux上的驱动设备一般都是运行在内核态的，提供接口函数给用户态函数调用即可。而新引入的UIO技术，则是将驱动的大部分事情移到了用户态。前面讲到probe函数会记录设备的资源，具体而言就是PCI设备BAR空间的物理地址、大小等信息记录下来传给用户态。除了记录BAR空间资源信息，uio框架还会在内核态实现中断处理相关的初始化工作。</p>
+<p>注册的uio设备名为igb_uio，内核态中断处理函数为igbuio_pci_irqhandler，中断控制函数igbuio_pci_irqcontrol。这两个函数有什么用呢？</p>
+<p>1、 初始化uio_device结构体指针idev，主要包括等待队列wait、中断事件计数event、</p>
+<p>次设备号minor等。</p>
+<p>2、在/dev目录下创建了一个uio设备，设备名为uio%d，%d对应的就是次设备号minor。</p>
+<p>3、接着就是调用uio_dev_add_attributes函数在/sys/class/uio/uioX/目录下创建maps和portio接口。前面讲到会遍历此PCI设备的BAR空间，将存储器空间类型的BAR的物理地址等信息存储在uio_info的mem数组中，这里就会根据此mem数组在maps目录下为每个寄存器类型的BAR创建一个目录<br>4、最后就是注册中断了，中断的中断号、中断标志等在前面有讲到，这里看下注册的中断处理函数uio_interrupt。此函数首先调用igb_uio驱动中设置的中断处理函数igbuio_pci_irqhandler来检查中断是不是此设备的中断，如果是就返回IRQ_HANDLED表示需要处理，接着调用函数uio_event_notify来唤醒等待队列wait上进程来处理中断事宜。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Linux/">Linux</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Linux/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Linux/">Linux</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-info">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/04/23/%E5%BE%AE%E6%9C%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E6%8E%A5%E5%8F%A3%E6%8A%80%E6%9C%AF/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">微机原理与接口技术</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/04/18/%E5%BA%8F%E5%88%97%E5%8C%96%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
+                        <span class="hidden-mobile">序列化反序列化</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

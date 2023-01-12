@@ -18,7 +18,7 @@
   <meta name="author" content="">
   <meta name="keywords" content="">
   
-  <title>linux下getopt函数 - gys的博客</title>
+  <title>阿里存储基础技术一面 - gys的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -170,12 +170,12 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('/img/miku1.png') no-repeat center center;
+         style="background: url('/img/default.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="linux下getopt函数">
+            <span class="h2" id="subtitle" title="阿里存储基础技术一面">
               
             </span>
 
@@ -185,8 +185,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-07-29 15:06" pubdate>
-        2021年7月29日 下午
+      <time datetime="2022-02-23 20:33" pubdate>
+        2022年2月23日 晚上
       </time>
     </span>
   
@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      677 字
+      1.3k 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      9
+      14
        分钟
     </span>
   
@@ -237,21 +237,42 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">linux下getopt函数</h1>
-	    <time updated datetime="2021-12-02 16:29"></time>
+            <h1 style="display: none">阿里存储基础技术一面</h1>
+	    <time updated datetime="2023-01-13 00:59"></time>
             
             <div class="markdown-body">
-              <h2 id="int-getopt-int-argc-char-const-argv-const-char-option-str"><a href="#int-getopt-int-argc-char-const-argv-const-char-option-str" class="headerlink" title="int getopt(int argc, char* const * argv, const char* option_str)"></a>int getopt(int argc, char* const * argv, const char* option_str)</h2><p>getopt是用来解析命令行选项参数的，但是只能解析短选项: -d 100,不能解析长选项。</p>
-<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><p>argc：函数传递过来的参数的个数<br>argv：函数传递过来的参数的字符串指针数组<br>option_str：选项字符串，告知 getopt()可以处理哪个选项以及哪个选项需要参数</p>
-<hr>
-<h3 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h3><p>如果选项成功找到，返回选项字母；<br>如果所有命令行选项都解析完毕，返回 -1；<br>如果遇到选项字符不在 option_str 中，返回字符 ‘?’；<br>如果遇到丢失参数，那么返回值依赖于 option_str 中第一个字符，如果第一个字符是 ‘:’ 则返回’:’，否则返回’?’并提示出错误信息。</p>
-<hr>
-<h3 id="option-str"><a href="#option-str" class="headerlink" title="option_str"></a>option_str</h3><p>char*option_str = “ab:c::”;<br>单个字符a          表示选项a没有参数            格式：-a即可，不加参数<br>单字符加冒号b:     表示选项b有且必须加参数      格式：-b 100或-b100,但-b=100错<br>单字符加2冒号c::   表示选项c可以有(必须紧跟参数)，也可以无     格式：-c200，其它格式错误</p>
-<p>如上option_str, getopt函数将依次检查命令行是否指定了 -a， -b， -c(这需要多次调用getopt函数，直到其返回-1)，当检查到上面某一个参数被指定时，函数会返回被指定的参数名称(即该字母)</p>
-<hr>
-<h3 id="getopt设置的全局变量"><a href="#getopt设置的全局变量" class="headerlink" title="getopt设置的全局变量"></a>getopt设置的全局变量</h3><p>optarg —— 指向当前选项参数(如果有)的指针。<br>optind —— 再次调用 getopt() 时的下一个 argv指针的索引。<br>optopt —— 最后一个未知选项。<br>opterr ­— 如果不希望getopt()打印出错信息，则只要将全域变量opterr设为0即可。</p>
-<hr>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><br><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;unistd.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span>** argv)</span></span>&#123;<br><br>    <span class="hljs-keyword">char</span> opt;<br>    <span class="hljs-keyword">while</span>((opt = <span class="hljs-built_in">getopt</span>(argc, argv, <span class="hljs-string">&quot;o:O::e:d&quot;</span>)) != <span class="hljs-number">-1</span>)&#123;<br>        cout &lt;&lt; <span class="hljs-string">&quot;option: &quot;</span> &lt;&lt; opt &lt;&lt; <span class="hljs-string">&quot;\t&quot;</span>;<br>        cout &lt;&lt; <span class="hljs-string">&quot;params: &quot;</span> &lt;&lt; optarg &lt;&lt; <span class="hljs-string">&quot;\t&quot;</span>;<br>        cout &lt;&lt; <span class="hljs-string">&quot;nextPos: &quot;</span> &lt;&lt; optind &lt;&lt; <span class="hljs-string">&quot;\t&quot;</span>;<br>        cout &lt;&lt; <span class="hljs-string">&quot;optopt: &quot;</span> &lt;&lt; optopt &lt;&lt; <span class="hljs-string">&quot;\t&quot;</span>;<br>        cout &lt;&lt; <span class="hljs-string">&quot;opterr: &quot;</span> &lt;&lt; opterr &lt;&lt; endl;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br><br>    <span class="hljs-comment">// .\test_getopt.exe -o 1 -O 3</span><br>    <span class="hljs-comment">// option: o       params: 1       nextPos: 3      optopt: 63      opterr: 1</span><br>    <span class="hljs-comment">// option: O       params:</span><br><br>    <span class="hljs-comment">// .\test_getopt.exe -o 1 -O3 </span><br>    <span class="hljs-comment">// option: o       params: 1       nextPos: 3      optopt: 63      opterr: 1</span><br>    <span class="hljs-comment">// option: O       params: 3       nextPos: 4      optopt: 63      opterr: 1</span><br><br>    <span class="hljs-comment">// .\test_getopt.exe -o 1 -O3 -e</span><br>    <span class="hljs-comment">// option: o       params: 1       nextPos: 3      optopt: 63      opterr: 1</span><br>    <span class="hljs-comment">// option: O       params: 3       nextPos: 4      optopt: 63      opterr: 1</span><br>    <span class="hljs-comment">// D:\CPP\test\a.exe: unknown option -- e</span><br>    <span class="hljs-comment">// option: ?       params:</span><br><br>    <span class="hljs-comment">// .\test_getopt.exe  -e </span><br>    <span class="hljs-comment">// D:\CPP\test\test_getopt.exe: option requires an argument -- e</span><br>    <span class="hljs-comment">// option: ?       params:</span><br><br>    <span class="hljs-comment">// .\test_getopt.exe  -o</span><br>    <span class="hljs-comment">// D:\CPP\test\test_getopt.exe: option requires an argument -- o</span><br>    <span class="hljs-comment">// option: ?       params:</span><br><br>    <span class="hljs-comment">// .\test_getopt.exe  -o -O2</span><br>    <span class="hljs-comment">// option: o       params: -O2     nextPos: 3      optopt: 63      opterr: 1</span><br><br><br>    <span class="hljs-comment">// opt = getopt(argc, argv, &quot;:o:O::e:d&quot;</span><br>    <span class="hljs-comment">// .\test_getopt.exe  -o    </span><br>    <span class="hljs-comment">// option: :       params: </span><br><br>&#125;<br><br></code></pre></td></tr></table></figure>
+              <h3 id="阿里存储基础技术一面"><a href="#阿里存储基础技术一面" class="headerlink" title="阿里存储基础技术一面"></a>阿里存储基础技术一面</h3><p>1、rpc框架细问</p>
+<p>2、给业务场景问解决方案</p>
+<p>3、你的rpc如何解决一次通信调用多个服务端方法？</p>
+<p>限制客户端每次只能调用一个服务端的方法</p>
+<p>4、你的rpc如何实现定时器</p>
+<p>可以用epoll实现，时间轮</p>
+<p>5、你的rpc如何实现跨平台调用</p>
+<p>将序列化模块单独分离出来实现一个与语言无关的序列化器</p>
+<p>6、你的rpc如何像类似google的protobuf那样做到版本兼容</p>
+<p>protobuf的编码方式。也就是问：如果服务端使用新协议在某个结构中增加了新字段，那么客户端使用老协议如何正常的将序列化后的对象反序列化回来？因为在序列化编码时会保存对象的类型、标记和(长度)作为键值对的key，当老协议读取到一个未知的key时，可以通过描述信息跳过该字段的序列化数据的长度，不序列化该字段。</p>
+<p>如此一来，旧的协议也能反序列化新的协议序列化后的数据。（客户端之前本来就不需要该字段，该字段是服务器端添加的字段）</p>
+<p>靠optional字段，对于接收方，如果能够识别可选字段就进行相应的处理，如果无法识别，则忽略该字段，消息中的其它字段正常处理。因为optional字段的特性，很多接口在升级版本中都把后来添加的字段都统一的设置为optional字段，这样老的版本无需升级程序也可以正常的与新的软件进行通信，只不过新的字段无法识别而已，因为并不是每个节点都需要新的功能，因此可以做到按需升级和平滑过渡。</p>
+<p>靠字段编号，在反序列化的时候，protobuf会从输入流中读取出字段编号，然后再设置message中对应的值。如果读出来的字段编号是message中没有的，就直接忽略，如果message中有字段编号是输入流中没有的，则该字段不会被设置。所以即使通信的两端存在一方比另一方多出编号，也不会影响反序列化。但是如果两端同一编号的字段规则或者字段类型不一样，那就肯定会影响反序列化了。__所以一般调整proto文件的时候，尽量选择加字段或者删字段，而不是修改字段编号或者字段类型__。</p>
+<p>7、new/free混用</p>
+<p>在析构函数中释放内存，这时free不能用。</p>
+<p>8、零拷贝原理</p>
+<p>sendfile。</p>
+<p>【一般read/write】</p>
+<p>当调用read系统调用时，通过DMA（Direct Memory Access）将数据copy到内核模式<br>然后由CPU控制将内核模式数据copy到用户模式下的 buffer中<br>read调用完成后，write调用首先将用户模式下 buffer中的数据copy到内核模式下的socket buffer中<br>最后通过DMA copy将内核模式下的socket buffer中的数据copy到网卡设备中传送。</p>
+<p>从上面的过程可以看出，数据白白从内核模式到用户模式走了一 圈，浪费了两次copy，而这两次copy都是CPU copy，即占用CPU资源。</p>
+<p>【2.1版本的sendfile】</p>
+<p>首先通过DMA copy将数据从磁盘读取到kernel buffer中<br>然后通过CPU copy将数据从kernel buffer copy到sokcet buffer中<br>最终通过DMA copy将socket buffer中数据copy到网卡buffer中发送</p>
+<p>sendfile与read/write方式相比，少了 一次模式切换一次CPU copy。但是从上述过程中也可以发现从kernel buffer中将数据copy到socket buffer是没必要的。</p>
+<p>【2.4版本的sendfile】</p>
+<p>DMA copy将磁盘数据copy到kernel buffer中<br>向socket buffer中追加当前要发送的数据在kernel buffer中的位置和偏移量<br>DMA gather copy根据socket buffer中的位置和偏移量直接将kernel buffer中的数据copy到网卡上。</p>
+<p>9、内存有15G，malloc10G会成功吗？</p>
+<p>内存碎片会影响到你“一次”申请到的最大内存空间。比如你有10M空间，申请两次2M，一次1M，一次5M没有问题。但如果你申请两次2M，一次4M，一次1M，释放4M，那么剩下的空间虽然够5M，但是由于已经不是连续的内存区域，malloc也会失败。</p>
+<p>系统也会限制你的程序使用malloc申请到的最大内存。Windows下32位程序如果单纯看地址空间能有4G左右的内存可用，不过实际上系统会把其中2G的地址留给内核使用，所以你的程序最大能用2G的内存。除去其他开销，你能用malloc申请到的内存只有1.9G左右。</p>
+<p>10、epoll线程安全问题</p>
+<p>epoll是通过锁来保证线程安全的, 使用自旋锁来操作就绪队列, 使用互斥锁来操作红黑树。</p>
+<p>11、如何优雅的关闭服务器？</p>
+<p>在进程中注册信号中断回调函数，回调函数中释放服务器的资源</p>
 
             </div>
             <hr>
@@ -261,9 +282,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/C/">C++</a>
-                    
-                      <a class="hover-with-bg" href="/categories/C/code/">code</a>
+                      <a class="hover-with-bg" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a>
                     
                   </div>
                 
@@ -271,9 +290,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/C/">C++</a>
-                    
-                      <a class="hover-with-bg" href="/tags/code/">code</a>
+                      <a class="hover-with-bg" href="/tags/%E9%9D%A2%E8%AF%95/">面试</a>
                     
                   </div>
                 
@@ -290,9 +307,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/08/04/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%93%88%E5%B8%8C/">
+                      <a href="/2022/02/26/%E9%98%BF%E9%87%8C%E5%AD%98%E5%82%A8%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF%E4%BA%8C%E9%9D%A2/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">字符串哈希</span>
+                        <span class="hidden-mobile">阿里存储基础技术二面</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -300,8 +317,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/07/26/index-sequence/">
-                        <span class="hidden-mobile">index_sequence</span>
+                      <a href="/2022/02/23/%E8%85%BE%E8%AE%AFPCG%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E4%BA%8C%E9%9D%A2/">
+                        <span class="hidden-mobile">腾讯PCG后台开发二面</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

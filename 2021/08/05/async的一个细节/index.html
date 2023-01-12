@@ -238,10 +238,10 @@
           <article class="post-content mx-auto">
             <!-- SEO header -->
             <h1 style="display: none">async的一个细节</h1>
-	    <time updated datetime="2021-08-05 16:24"></time>
+	    <time updated datetime="2022-03-20 12:34"></time>
             
             <div class="markdown-body">
-              <h2 id="std-async使用时容易忽略的一些问题"><a href="#std-async使用时容易忽略的一些问题" class="headerlink" title="std::async使用时容易忽略的一些问题"></a>std::async使用时容易忽略的一些问题</h2><p>一、最好带上第一个参数，指定同步执行还是异步执行。<br>std::launch::async<br>std::launch::deferred<br>std::launch::async | std::launch::deferred （自动选择）</p>
+              <h3 id="std-async使用时容易忽略的一些问题"><a href="#std-async使用时容易忽略的一些问题" class="headerlink" title="std::async使用时容易忽略的一些问题"></a>std::async使用时容易忽略的一些问题</h3><p>一、最好带上第一个参数，指定同步执行还是异步执行。<br>std::launch::async<br>std::launch::deferred<br>std::launch::async | std::launch::deferred （自动选择）</p>
 <p>二、如果忽略返回值，则会阻塞！！！因为async的返回值是一个future对象，在析构时要等待异步任务执行结束。</p>
 <p>坑点：在这里debug了很久。。。。。</p>
 

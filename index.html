@@ -192,32 +192,27 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2022/01/04/%E5%9F%BA%E7%8E%AF%E6%A0%91/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="基环树">
+        <a href="/2022/09/12/%E5%86%85%E6%A0%B8tcp%E5%8A%A8%E6%80%81%E8%B0%83%E6%95%B4%E7%AA%97%E5%8F%A3/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="内核tcp动态调整窗口">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2022/01/04/%E5%9F%BA%E7%8E%AF%E6%A0%91/" target="_self">
-          基环树
+        <a href="/2022/09/12/%E5%86%85%E6%A0%B8tcp%E5%8A%A8%E6%80%81%E8%B0%83%E6%95%B4%E7%AA%97%E5%8F%A3/" target="_self">
+          内核tcp动态调整窗口
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2022/01/04/%E5%9F%BA%E7%8E%AF%E6%A0%91/" target="_self">
+        <a href="/2022/09/12/%E5%86%85%E6%A0%B8tcp%E5%8A%A8%E6%80%81%E8%B0%83%E6%95%B4%E7%AA%97%E5%8F%A3/" target="_self">
           
           
             
           
-          基环树其本质就是环套树：众所周知，Ｎ个点的树有Ｎ－１条边，若在树上任意添加一条边，则会形成一个环，除了环之外，其余部分由若干棵子树构成。我们把这种Ｎ个点Ｎ条边的连通无向图，即在树上加一条边构成的恰好包含一个环的图，称为“基环树”。如果不保证连通，那么Ｎ个点Ｎ条边的无向图也可能是若干棵基环树组成的森林，简称为“基环树森林“。
-有以下3种基环树
-
-题目链接1
-
-
-1234567891011121314
+          内核tcp自动调整窗口接收端1、recvBufferLinux在2.6.17以后增加了recvBuffer自动调节机制，recvbuffer的实际大小会自动在最小值和最大值之间浮动，以期找到性能和资源的平衡点，因此大多数情况下不建议将recvbuffer手工设置成固定值。
+当net.ipv4.tcp_moderate_rcvbuf = 1时，自动调节机制生效，每个TCP连接的recvBuffer由
         </a>
       </p>
 
@@ -225,8 +220,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-01-04 09:30" pubdate>
-              2022-01-04
+            <time datetime="2022-09-12 10:37" pubdate>
+              2022-09-12
             </time>
           </div>
         
@@ -234,7 +229,7 @@
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
             
           </div>
         
@@ -242,7 +237,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
             
           </div>
         
@@ -254,31 +249,28 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/12/28/%E6%B1%82%E5%87%B8%E5%8C%85%E7%AE%97%E6%B3%95/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="求凸包算法">
+        <a href="/2022/09/11/BBR%E7%AE%97%E6%B3%95/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="BBR算法">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/12/28/%E6%B1%82%E5%87%B8%E5%8C%85%E7%AE%97%E6%B3%95/" target="_self">
-          求凸包算法
+        <a href="/2022/09/11/BBR%E7%AE%97%E6%B3%95/" target="_self">
+          BBR算法
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/12/28/%E6%B1%82%E5%87%B8%E5%8C%85%E7%AE%97%E6%B3%95/" target="_self">
+        <a href="/2022/09/11/BBR%E7%AE%97%E6%B3%95/" target="_self">
           
           
             
           
-          Graham和Andrew求凸包题目链接1
-
-
-Graham步骤一：以任意点为原点(一般以最左下角的点为原点)
-步骤二：将除原点外的其他点按照与原点连成的向量排序，排序规则为：若向量x叉乘向量y大于0(即y在x方向的左侧)，则点x排在点y之前；若向量x叉乘向量y小于0(即y在x方向的右侧)，则点x排在点y之后；若若向量x叉乘向量y等于0(即y和x在同一直线上)，则按照点到原点的距离从小到大排序；
-
+          区别BBR背后是一种自主的拥塞控制机制，与此相反，传统的拥塞控制算法则是相对盲目的基于事件的被动反馈。这两者之间的差异决定了它们在性能上的表现。
+浅显的道理先从显而易见的视角来解释一下。 如果你了解到的信息越多，你就越不容易被欺骗，相反，如果你被告知不允许了解任何信息，那么你唯一可以依靠的只有信任本身，如果这点不能保障，你就很容易被欺骗。
+BBR之前的拥塞控制算法所有传统拥塞控制算法大体思路基本一
         </a>
       </p>
 
@@ -286,8 +278,8 @@ Graham步骤一：以任意点为原点(一般以最左下角的点为原点)
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-12-28 17:10" pubdate>
-              2021-12-28
+            <time datetime="2022-09-11 16:32" pubdate>
+              2022-09-11
             </time>
           </div>
         
@@ -295,7 +287,7 @@ Graham步骤一：以任意点为原点(一般以最左下角的点为原点)
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
             
           </div>
         
@@ -303,7 +295,7 @@ Graham步骤一：以任意点为原点(一般以最左下角的点为原点)
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
             
           </div>
         
@@ -315,27 +307,32 @@ Graham步骤一：以任意点为原点(一般以最左下角的点为原点)
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/12/28/%E5%B8%8C%E8%85%8A%E5%AD%97%E6%AF%8D%E8%8B%B1%E6%96%87%E5%AF%B9%E7%85%A7%E8%A1%A8/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="希腊字母英文对照表">
+        <a href="/2022/09/09/%E5%BF%AB%E6%89%8BC++%E5%BC%80%E5%8F%91%E4%B8%80%E9%9D%A2/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="快手C++开发一面">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/12/28/%E5%B8%8C%E8%85%8A%E5%AD%97%E6%AF%8D%E8%8B%B1%E6%96%87%E5%AF%B9%E7%85%A7%E8%A1%A8/" target="_self">
-          希腊字母英文对照表
+        <a href="/2022/09/09/%E5%BF%AB%E6%89%8BC++%E5%BC%80%E5%8F%91%E4%B8%80%E9%9D%A2/" target="_self">
+          快手C++开发一面
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/12/28/%E5%B8%8C%E8%85%8A%E5%AD%97%E6%AF%8D%E8%8B%B1%E6%96%87%E5%AF%B9%E7%85%A7%E8%A1%A8/" target="_self">
+        <a href="/2022/09/09/%E5%BF%AB%E6%89%8BC++%E5%BC%80%E5%8F%91%E4%B8%80%E9%9D%A2/" target="_self">
           
           
             
           
-          
+          1、四级页表
+PGD: Page Global Directory (页目录)
+PUD: Page Upper Directory (页目录)
+PMD: Page Middle Directory (页目录)
+PTE: Page Table Entry (页表项)
 
+2、page fault时机在Linux中，进程和内核都是通过页表PTE访问一个物理页面的，如果无法访问到正确的地址，将产生page
         </a>
       </p>
 
@@ -343,8 +340,8 @@ Graham步骤一：以任意点为原点(一般以最左下角的点为原点)
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-12-28 15:54" pubdate>
-              2021-12-28
+            <time datetime="2022-09-09 15:23" pubdate>
+              2022-09-09
             </time>
           </div>
         
@@ -352,7 +349,7 @@ Graham步骤一：以任意点为原点(一般以最左下角的点为原点)
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/%E5%85%B6%E4%BB%96/">其他</a>
+              <a href="/categories/%E9%9D%A2%E8%AF%95/">面试</a>
             
           </div>
         
@@ -360,7 +357,7 @@ Graham步骤一：以任意点为原点(一般以最左下角的点为原点)
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E5%85%B6%E4%BB%96/">其他</a>
+              <a href="/tags/%E9%9D%A2%E8%AF%95/">面试</a>
             
           </div>
         
@@ -372,32 +369,33 @@ Graham步骤一：以任意点为原点(一般以最左下角的点为原点)
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/12/11/%E6%9C%80%E5%A4%A7%E6%B5%81%E6%9C%80%E5%B0%8F%E5%89%B2/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="最大流最小割">
+        <a href="/2022/09/07/IEG%E6%B8%B8%E6%88%8F%E6%8A%80%E6%9C%AF%E8%BF%90%E8%90%A5-%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E4%BA%8C%E9%9D%A2/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="IEG游戏技术运营-后台开发二面">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/12/11/%E6%9C%80%E5%A4%A7%E6%B5%81%E6%9C%80%E5%B0%8F%E5%89%B2/" target="_self">
-          最大流最小割
+        <a href="/2022/09/07/IEG%E6%B8%B8%E6%88%8F%E6%8A%80%E6%9C%AF%E8%BF%90%E8%90%A5-%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E4%BA%8C%E9%9D%A2/" target="_self">
+          IEG游戏技术运营-后台开发二面
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/12/11/%E6%9C%80%E5%A4%A7%E6%B5%81%E6%9C%80%E5%B0%8F%E5%89%B2/" target="_self">
+        <a href="/2022/09/07/IEG%E6%B8%B8%E6%88%8F%E6%8A%80%E6%9C%AF%E8%BF%90%E8%90%A5-%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E4%BA%8C%E9%9D%A2/" target="_self">
           
           
             
           
-          最大流也就是最大可行流。
-一个有向图的可行流是指满足以下两个条件的网络流：
-1、所有边的流量不超过该边的容量，即容量限制。
-2、除了源点和汇点之外的所有点，进入流量等于流出流量，即流量守恒。
-可行流的流量是指源点流出的总流量或者汇点汇集的总流量。
-最大流是指所有可行流中最大的可行流。
-残余网络是根据原有向图和可行流而构建的图，残余网络包含所有原有向图的顶点。对于原有向图中的所有边，将该边的容量减去
+          1、不支持事务的数据库
+MyISAM引擎的数据库
+2、etcd分布式锁的原理
+利用租约在etcd集群中创建一个key,这个key有两种形态,存在和不存在,而这两种形态就是互斥量
+如果这个key不存在,那么线程创建key,成功则获取到锁
+3、redis高并发集群的部署方式
+1.主从复制；2.Sentinel哨兵机制；3.cluster集群。
+第一种集群方式，部署简单，分为一主一从，或一主N从。数据分
         </a>
       </p>
 
@@ -405,8 +403,8 @@ Graham步骤一：以任意点为原点(一般以最左下角的点为原点)
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-12-11 14:17" pubdate>
-              2021-12-11
+            <time datetime="2022-09-07 17:02" pubdate>
+              2022-09-07
             </time>
           </div>
         
@@ -414,7 +412,7 @@ Graham步骤一：以任意点为原点(一般以最左下角的点为原点)
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              <a href="/categories/%E9%9D%A2%E8%AF%95/">面试</a>
             
           </div>
         
@@ -422,7 +420,7 @@ Graham步骤一：以任意点为原点(一般以最左下角的点为原点)
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
+              <a href="/tags/%E9%9D%A2%E8%AF%95/">面试</a>
             
           </div>
         
@@ -434,27 +432,26 @@ Graham步骤一：以任意点为原点(一般以最左下角的点为原点)
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/12/08/%E5%9F%BA%E4%BA%8Ec++11%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="线程池">
+        <a href="/2022/08/31/%E9%9D%A2%E8%AF%95%E5%8F%8D%E9%97%AE%E7%8E%AF%E8%8A%82/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="面试反问环节">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/12/08/%E5%9F%BA%E4%BA%8Ec++11%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0/" target="_self">
-          线程池
+        <a href="/2022/08/31/%E9%9D%A2%E8%AF%95%E5%8F%8D%E9%97%AE%E7%8E%AF%E8%8A%82/" target="_self">
+          面试反问环节
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/12/08/%E5%9F%BA%E4%BA%8Ec++11%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0/" target="_self">
+        <a href="/2022/08/31/%E9%9D%A2%E8%AF%95%E5%8F%8D%E9%97%AE%E7%8E%AF%E8%8A%82/" target="_self">
           
           
             
           
-          线程池之前一直写线程池用的都是有锁任务队列，现在整合了无锁任务队列。
-1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768/* * *@*	Description:  * *@*	Version: 
+          1、一面问技术2、二面问业务
         </a>
       </p>
 
@@ -462,8 +459,8 @@ Graham步骤一：以任意点为原点(一般以最左下角的点为原点)
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-12-08 10:04" pubdate>
-              2021-12-08
+            <time datetime="2022-08-31 08:50" pubdate>
+              2022-08-31
             </time>
           </div>
         
@@ -471,9 +468,7 @@ Graham步骤一：以任意点为原点(一般以最左下角的点为原点)
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/C/">C++</a>
-            
-              <a href="/categories/C/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a>
+              <a href="/categories/%E9%9D%A2%E8%AF%95/">面试</a>
             
           </div>
         
@@ -481,9 +476,7 @@ Graham步骤一：以任意点为原点(一般以最左下角的点为原点)
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/C/">C++</a>
-            
-              <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a>
+              <a href="/tags/%E9%9D%A2%E8%AF%95/">面试</a>
             
           </div>
         
@@ -495,30 +488,29 @@ Graham步骤一：以任意点为原点(一般以最左下角的点为原点)
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/11/28/linux%E5%86%85%E6%A0%B8/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="linux内核">
+        <a href="/2022/08/20/screen%E5%92%8Cvim/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="screen和vim">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/11/28/linux%E5%86%85%E6%A0%B8/" target="_self">
-          linux内核
+        <a href="/2022/08/20/screen%E5%92%8Cvim/" target="_self">
+          screen和vim
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/11/28/linux%E5%86%85%E6%A0%B8/" target="_self">
+        <a href="/2022/08/20/screen%E5%92%8Cvim/" target="_self">
           
           
             
           
-          操作体系结构
+          screen
+配置文件
 
-
-
-操作系统内核提供内存管理(分配、回收、溢出)、进程管理(创建、切换、调度、销毁)、文件管理(打开、读写、关闭。提供虚拟文件系统VFS，把硬件当成文件来处理)、设备管理(也即驱动管理，分为3类：字符型设备管理、块设备管理、网络设备管理。这里没有实现驱动， 设备驱动的实现当作操作系统的下一层即硬件系统，硬件系统与物理硬件通信。这里主要是查看设备状态、设备地址识别)。计算机资源的管理
+123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657# Set default encoding using utf8defutf8 on## 解决中文乱码,这个要按需配置defencoding utf8encodi
         </a>
       </p>
 
@@ -526,8 +518,8 @@ Graham步骤一：以任意点为原点(一般以最左下角的点为原点)
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-11-28 17:23" pubdate>
-              2021-11-28
+            <time datetime="2022-08-20 13:27" pubdate>
+              2022-08-20
             </time>
           </div>
         
@@ -555,26 +547,30 @@ Graham步骤一：以任意点为原点(一般以最左下角的点为原点)
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/11/23/%E6%97%A0%E9%94%81%E9%98%9F%E5%88%97/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="无锁队列">
+        <a href="/2022/08/20/%E6%9F%A5%E8%AF%A2symbol/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="查询symbol">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/11/23/%E6%97%A0%E9%94%81%E9%98%9F%E5%88%97/" target="_self">
-          无锁队列
+        <a href="/2022/08/20/%E6%9F%A5%E8%AF%A2symbol/" target="_self">
+          查询symbol
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/11/23/%E6%97%A0%E9%94%81%E9%98%9F%E5%88%97/" target="_self">
+        <a href="/2022/08/20/%E6%9F%A5%E8%AF%A2symbol/" target="_self">
           
           
             
           
-          无锁队列链表12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010
+          常用命令nm obj/path 全称name
+grep -nri xxx dir/path
+readelf -s obj/path
+strings obj/path
+
         </a>
       </p>
 
@@ -582,8 +578,8 @@ Graham步骤一：以任意点为原点(一般以最左下角的点为原点)
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-11-23 15:41" pubdate>
-              2021-11-23
+            <time datetime="2022-08-20 13:22" pubdate>
+              2022-08-20
             </time>
           </div>
         
@@ -591,9 +587,7 @@ Graham步骤一：以任意点为原点(一般以最左下角的点为原点)
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/C/">C++</a>
-            
-              <a href="/categories/C/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a>
+              <a href="/categories/Linux/">Linux</a>
             
           </div>
         
@@ -601,9 +595,7 @@ Graham步骤一：以任意点为原点(一般以最左下角的点为原点)
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/C/">C++</a>
-            
-              <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a>
+              <a href="/tags/Linux/">Linux</a>
             
           </div>
         
@@ -615,36 +607,29 @@ Graham步骤一：以任意点为原点(一般以最左下角的点为原点)
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/11/22/%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="共享内存">
+        <a href="/2022/05/24/%E4%BA%91%E8%AE%A1%E7%AE%97/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="云计算">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/11/22/%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98/" target="_self">
-          共享内存
+        <a href="/2022/05/24/%E4%BA%91%E8%AE%A1%E7%AE%97/" target="_self">
+          云计算
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/11/22/%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98/" target="_self">
+        <a href="/2022/05/24/%E4%BA%91%E8%AE%A1%E7%AE%97/" target="_self">
           
           
             
           
-          linux查看进程间通信资源消息队列是内核相关，进程必须显示创建和销毁消息队列，管道是进程相关，进程结束后该管道被销毁。
-ipcs查看进程间通信资源
-
-
-ipcmk创建进程间通信资源
-
-
-ipcrm删除进程间通信资源
-
-
-先了解mmap12int fd = ::open(&quot;./temp.shared&quot;,   O_RDWR ,  S_IRUSR | S_IWUSR);void* 
+          定义云计算把许多计算资源集合起来，通过软件实现自动化管理，只需要很少的人参与，就能让资源被快速提供。也就是说，计算能力作为一种商品，可以在互联网上流通
+一、云计算的三种服务模式/类型(以菜品为例)1、IaaS（Infrastructure as-a-service）提供锅、燃气灶、电、水等基础设施，用户需要自己利用这些设施来做出这道菜
+【只提供硬件设施】
+2、PaaS（Platform as-a-
         </a>
       </p>
 
@@ -652,8 +637,8 @@ ipcrm删除进程间通信资源
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-11-22 14:50" pubdate>
-              2021-11-22
+            <time datetime="2022-05-24 10:19" pubdate>
+              2022-05-24
             </time>
           </div>
         
@@ -661,9 +646,7 @@ ipcrm删除进程间通信资源
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98/">共享内存</a>
-            
-              <a href="/categories/%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98/C/">C++</a>
+              <a href="/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
             
           </div>
         
@@ -671,9 +654,7 @@ ipcrm删除进程间通信资源
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/C/">C++</a>
-            
-              <a href="/tags/%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98/">共享内存</a>
+              <a href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
             
           </div>
         
@@ -685,30 +666,34 @@ ipcrm删除进程间通信资源
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/11/20/%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="模拟退火">
+        <a href="/2022/04/23/%E5%BE%AE%E6%9C%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E6%8E%A5%E5%8F%A3%E6%8A%80%E6%9C%AF/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="微机原理与接口技术">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/11/20/%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB/" target="_self">
-          模拟退火
+        <a href="/2022/04/23/%E5%BE%AE%E6%9C%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E6%8E%A5%E5%8F%A3%E6%8A%80%E6%9C%AF/" target="_self">
+          微机原理与接口技术
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/11/20/%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB/" target="_self">
+        <a href="/2022/04/23/%E5%BE%AE%E6%9C%BA%E5%8E%9F%E7%90%86%E4%B8%8E%E6%8E%A5%E5%8F%A3%E6%8A%80%E6%9C%AF/" target="_self">
           
           
             
           
-          模板题链接
-解决问题类型：求二维平面最优点
-
-
-1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586// 模拟退火模板#inc
+          微机原理与接口技术【西安电子科技大学 周佳社】
+DMA可参考博客
+DMAC 8237A介绍
+三总线：数据总线，地址总线，控制总线
+通过系统总线形成电路来复用CPU引脚
+硬件都是挂在三总线上的
+任何io设备都不能直接与CPU通信，通过接口电路来通信！
+CPU要访问接口电路那么就要给接口电路分配地址，这个地址就被称为IO接口地址。
+什么是io接口？如主板上的usb口，网口等。什么是io设备？插在io接
         </a>
       </p>
 
@@ -716,8 +701,8 @@ ipcrm删除进程间通信资源
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-11-20 15:59" pubdate>
-              2021-11-20
+            <time datetime="2022-04-23 12:36" pubdate>
+              2022-04-23
             </time>
           </div>
         
@@ -725,7 +710,7 @@ ipcrm删除进程间通信资源
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              <a href="/categories/%E7%A1%AC%E4%BB%B6/">硬件</a>
             
           </div>
         
@@ -733,7 +718,7 @@ ipcrm删除进程间通信资源
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
+              <a href="/tags/%E7%A1%AC%E4%BB%B6/">硬件</a>
             
           </div>
         
@@ -745,29 +730,27 @@ ipcrm删除进程间通信资源
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/11/20/%E6%96%AF%E7%89%B9%E6%9E%97%E6%95%B0/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="斯特林数">
+        <a href="/2022/04/21/DPDK%E7%90%86%E8%A7%A3/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="DPDK理解">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/11/20/%E6%96%AF%E7%89%B9%E6%9E%97%E6%95%B0/" target="_self">
-          斯特林数
+        <a href="/2022/04/21/DPDK%E7%90%86%E8%A7%A3/" target="_self">
+          DPDK理解
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/11/20/%E6%96%AF%E7%89%B9%E6%9E%97%E6%95%B0/" target="_self">
+        <a href="/2022/04/21/DPDK%E7%90%86%E8%A7%A3/" target="_self">
           
           
             
           
-          第一类斯特林数题目1
-
-
-1234567891011121314151617181920212223242526272829303132#include &lt;iostream&gt;#include &lt;cstring&gt;#include &lt;algorithm&gt;using namespace std;const int N = 1010;const int mod = 1e
+          DPDK理解网络模块，传统Linux网络层数据包流程：硬件中断—&gt;向内核线程分发数据包—&gt;软件中断—&gt;线程在协议栈中处理数据包—&gt;通知用户层—&gt;用户层接收数据包—&gt;网络层—&gt;逻辑层—&gt;业务层。
+DPDK网络层数据包流程：硬件中断—&gt;放弃中断—&gt;用户层通过设备映射接收数据包—&gt;用户层协议栈—&gt;网络层—&gt;逻辑层—&gt;业务
         </a>
       </p>
 
@@ -775,8 +758,8 @@ ipcrm删除进程间通信资源
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-11-20 15:33" pubdate>
-              2021-11-20
+            <time datetime="2022-04-21 14:31" pubdate>
+              2022-04-21
             </time>
           </div>
         
@@ -784,7 +767,9 @@ ipcrm删除进程间通信资源
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              <a href="/categories/Linux/">Linux</a>
+            
+              <a href="/categories/Linux/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
             
           </div>
         
@@ -792,7 +777,9 @@ ipcrm删除进程间通信资源
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+            
+              <a href="/tags/Linux/">Linux</a>
             
           </div>
         
@@ -804,7 +791,7 @@ ipcrm删除进程间通信资源
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/#board">9</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/#board">13</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

@@ -1,0 +1,476 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  
+  <title>gRPC - gys的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gys18007141407.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>gys的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/miku7.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="gRPC">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-04-13 13:45" pubdate>
+        2022年4月13日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      20
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">gRPC</h1>
+	    <time updated datetime="2022-04-16 13:59"></time>
+            
+            <div class="markdown-body">
+              <h3 id="一、gRPC与其他RPC对比"><a href="#一、gRPC与其他RPC对比" class="headerlink" title="一、gRPC与其他RPC对比"></a>一、gRPC与其他RPC对比</h3><h5 id="需要IDL来生成代理"><a href="#需要IDL来生成代理" class="headerlink" title="需要IDL来生成代理"></a>需要IDL来生成代理</h5><p>1、gRPC需要使用<code>IDL(Interface Define Language)</code>接口定义语言来编写<code>proto</code>文件，该文件定义了消息的数据类型和服务，也就是说一个<code>proto</code>文件定义了一个消息传输的协议。通过相同的IDL，服务端生成服务端代理<code>pb.h</code>，客户端生成客户端代理<code>pb.h</code>。服务端要实现代理生成的接口函数<code>(纯虚函数)</code>，客户端要通过客户端代理来调用服务端方法，传输数据。</p>
+<p>2、而有些RPC框架并不使用IDL来生成代理。代理的本质在我理解来就是一个安全检查的作用，让客户端知道如何以正确的方式来调用服务端的函数，因为客户端代理指定了调用时的参数类型，所以gRPC是一种强类型RPC框架，当传输参数类型不匹配时在编译器即可检测到错误。不使用IDL时，那么我们就要定义一个<code>普适的消息传输协议</code>，所有的RPC调用都要遵守这一协议。</p>
+<h5 id="序列化协议protobuf"><a href="#序列化协议protobuf" class="headerlink" title="序列化协议protobuf"></a>序列化协议protobuf</h5><p>1、gRPC使用<code>protocol buffers</code>来序列化传输数据，序列化效率高，占用空间小。并通过<code>http2.0 POST</code>发送序列化后的数据。客户端代理会在http的请求头增加要调用的服务端方法信息，如下示例http2.0的头部。</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs http">:authority : gys.com<br>:method : POST<br>:scheme : https<br>:path : /ServiceName/MethodName<br>te : trailers<br>grpc-timeout : 2S<br>content-type : application/grpc<br>grpc-encoding : gzip<br><br>[注]:以&quot;:&quot;开头的头信息称为保留头信息，http2.0要求保留头信息必须出现在其他头信息之前！<br></code></pre></td></tr></table></figure>
+
+<p>序列化后的数据放在请求体中，之后将该http请求发送给服务端。</p>
+<p>2、而有些RPC框架则直接使用了json来序列化传输数据，比如Java的原生序列化。序列化效率低，占用空间大。</p>
+<h5 id="支持多语言"><a href="#支持多语言" class="headerlink" title="支持多语言"></a>支持多语言</h5><p>1、gRPC使用的<code>protobuf</code>序列化是语言中立的，在编译<code>proto</code>文件时，可以调整参数来生成的各种常见语言的服务端代理和客户端代理。</p>
+<h5 id="支持全双工流通信"><a href="#支持全双工流通信" class="headerlink" title="支持全双工流通信"></a>支持全双工流通信</h5><p>1、gRPC提供了对流的原生支持。</p>
+<h3 id="二、gRPC的通信模式"><a href="#二、gRPC的通信模式" class="headerlink" title="二、gRPC的通信模式"></a>二、gRPC的通信模式</h3><h5 id="一元RPC模式"><a href="#一元RPC模式" class="headerlink" title="一元RPC模式"></a>一元RPC模式</h5><p>一次PRC调用过程中，客户端仅发送一个请求，服务器端对于这个请求仅发送一个响应。随这个响应一起发送<code>(该响应额外包含)</code>的还有状态细节、trailer元数据。</p>
+<h5 id="服务器端流RPC模式"><a href="#服务器端流RPC模式" class="headerlink" title="服务器端流RPC模式"></a>服务器端流RPC模式</h5><p>一次RPC调用过程中，客户端仅发送一个请求，服务器端对于这个请求会发送一系列的响应。这一系列响应所组成的响应序列就被称为<code>流</code>，流提供了<code>Send和Recv</code>方法。当服务器端的响应序列全部发送完毕之后，服务器端最后会以trailer元数据的形式将流的状态发送给客户端，凭借状态来标识这个流已经结束了。</p>
+<p><code>rpc searchOrders(KeyWord) returns (stream Order);</code></p>
+<p>比如服务器端提供了订单搜索功能，客户端调用该服务时提供了搜索词参数，客户端调用该服务会返回一个流对象，客户端通过这个流对象<code>stream.Recv()</code>来获得服务器的响应。 服务器端实现方法时，搜索词和流都是该方法的参数，服务器端也并不是查询到所有满足条件的订单结果后一次性返回查询结果，而是在查询时每碰到一个满足条件的订单便向客户端发送一个响应<code>stream.Send(cur_order)</code>。当查询结束后再向客户端发送结束标识<code>stream.SendAndClose()</code>。</p>
+<h5 id="客户端流RPC模式"><a href="#客户端流RPC模式" class="headerlink" title="客户端流RPC模式"></a>客户端流RPC模式</h5><p>一次RPC调用过程中，客户端会发送一系列的请求，服务器端对于这一系列的请求仅会发送一个响应。当客户端的请求序列全部发送完毕之后，客户端最后会以trailer元数据的形式将流的状态发送给服务器端，凭借状态来标识这个流已经结束了。</p>
+<p><code>rpc updateGoods(stream Goods) returns (GoodsSet)</code></p>
+<p>比如服务器端提供了商品更新功能，客户端调用时该服务时会返回一个流对象。客户端通过这个流对象<code>stream.Send(Goods)</code>来向服务器发送请求，请求序列全部发送完毕后通过<code>stream.Recv()</code>来接收服务器端的响应。服务器端实现方法时，流都是该方法的参数，服务器端通过<code>stream.Recv()</code>来接收客户端的一个更新请求，然后执行更新过程，若更新成功则往响应消息中插入该商品的id。当服务器端接受完客户端的请求之后，便将响应消息通过流<code>stream.SendAndClose(GoodsSet)</code>发送给客户端。</p>
+<h5 id="双向流RPC模式"><a href="#双向流RPC模式" class="headerlink" title="双向流RPC模式"></a>双向流RPC模式</h5><p>一次RPC调用过程中，客户端会发送一系列的请求，服务器端对于这一系列的请求会发送一系列的响应。调用必须由客户端发起，但之后的通信流程完全由客户端和服务器端的程序逻辑决定。</p>
+<p><code>rpc orderCombined(stream Order) returns (stream CombinedOrders)</code></p>
+<p>比如服务器端提供了一个订单打包功能(相同的收货地址打包为一个大订单)，客户端调用该服务时会返回一个流对象。客户端通过这个流对象<code>stream.Send(Order)</code>来向服务器发送请求，请服务器端通过<code>stream.Recv()</code>来接收客户端的一个请求，然后执行处理过程，之后将处理结果通过<code>stream.Send(CombinedOrders)</code>将打包结果发送给客户端，客户端通过<code>stream.Recv()</code>获取处理后的结果。</p>
+<h3 id="三、gRPC的原理"><a href="#三、gRPC的原理" class="headerlink" title="三、gRPC的原理"></a>三、gRPC的原理</h3><h5 id="protoc"><a href="#protoc" class="headerlink" title="protoc"></a>protoc</h5><p><code>protoc</code>程序实际上可以理解为一个编译器，它编译<code>.proto</code>文件，生成对应语言的源文件，该源文件定义了服务和方法。</p>
+<h5 id="编码技术"><a href="#编码技术" class="headerlink" title="编码技术"></a>编码技术</h5><p>__整数__通过变长编码来序列化，对于类型<code>int32、int64、uint32、uint64、bool、enum</code>采用varint编码，varint编码每个字节的最高位表示该数后面是否还存在有效字节，如<code>0b [0]000 0100 [1]011 1111</code>表示正常补码数<code>0b 0000 0010 0011 1111</code>。很显然这种编码方式对于小整数具有优势，但对于负数的编码则要比正常补码数多一个字节。考虑到这种情况，对于特定声明的类型<code>sint32、sint64</code>采用zigzag编码，zigzag编码先将负数映射为正数，然后再使用varint编码。</p>
+<p>当然，gRPC也支持原生的固定字节数量的补码数表示，如类型<code>fixed32、sfixed32、float、fixed64、sfixed64、double</code>就是采用正常补码数的编码方式。</p>
+<p>__字符串__通过基于<code>长度-数据</code>来序列化。首先通过varint编码表示字符串的长度，接下来该长度的字节数就是原来的字符串。</p>
+<h5 id="长度前缀分帧"><a href="#长度前缀分帧" class="headerlink" title="长度前缀分帧"></a>长度前缀分帧</h5><p>发送序列化数据之前先发送该序列化数据的长度，也即在序列化数据之前增加(比如)4个字节来表示本次传输的序列化数据的长度。</p>
+<p>对于一元RPC模式时的简单消息，只需要处理一条带前缀的消息；而对于流RPC模式时的流消息，则要处理多条带前缀的消息。</p>
+<h3 id="四、gRPC的拦截器"><a href="#四、gRPC的拦截器" class="headerlink" title="四、gRPC的拦截器"></a>四、gRPC的拦截器</h3><h3 id="五、gRPC的截止时间"><a href="#五、gRPC的截止时间" class="headerlink" title="五、gRPC的截止时间"></a>五、gRPC的截止时间</h3><h3 id="六、gRPC的强制取消"><a href="#六、gRPC的强制取消" class="headerlink" title="六、gRPC的强制取消"></a>六、gRPC的强制取消</h3><h3 id="七、gRPC的错误处理"><a href="#七、gRPC的错误处理" class="headerlink" title="七、gRPC的错误处理"></a>七、gRPC的错误处理</h3>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/RPC/">RPC</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/RPC/">RPC</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-info">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/04/16/http2%E6%8A%93%E5%8C%85%E7%BB%93%E6%9E%84/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">http2抓包结构</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/04/11/Go%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/">
+                        <span class="hidden-mobile">Go的内存分配</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

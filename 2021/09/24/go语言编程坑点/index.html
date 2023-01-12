@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      343 字
+      329 字
     </span>
   
 
@@ -238,7 +238,7 @@
           <article class="post-content mx-auto">
             <!-- SEO header -->
             <h1 style="display: none">go语言编程坑点</h1>
-	    <time updated datetime="2021-11-02 10:35"></time>
+	    <time updated datetime="2022-03-27 20:38"></time>
             
             <div class="markdown-body">
               <h2 id="go语言编程坑点"><a href="#go语言编程坑点" class="headerlink" title="go语言编程坑点"></a>go语言编程坑点</h2><p><strong>本文将长期追加更新</strong></p>
@@ -249,7 +249,8 @@
 <p>2、defer碰到exit</p>
 <p>os.exit(0)将直接退出程序因此defer将不会被执行。使用runtime.Goexit()执行完defer后再退出程序。</p>
 <p>3、defer、return、panic顺序</p>
-<p><strong>return在执行return语句之后，返回值赋值之前</strong>(return包括 return 语句 和 返回值赋值操作)<strong>执行defer。</strong>(defer可以修改返回值)。<br><strong>defer是按照栈的顺序执行，先进后出。</strong><br><strong>panic直接结束函数调用，panic之前执行defer。最后执行。</strong><br><strong>panic的返回值，通过recover函数来获取。defer中调用recover（defer必须在panic之前声明）可向上屏蔽当前函数引发的panic。</strong></p>
+<p><strong>return的顺序是：返回值赋值，defer延迟函数，汇编ret指令。</strong>【因此defer可以修改返回值】</p>
+<p><strong>defer是按照栈的顺序执行，先进后出。</strong><br><strong>panic直接结束函数调用，panic之前执行defer。</strong><br><strong>panic的返回值，通过recover函数来获取。defer中调用recover（defer必须在panic之前声明）可向上屏蔽当前函数引发的panic。</strong></p>
 
             </div>
             <hr>

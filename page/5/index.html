@@ -192,28 +192,28 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/08/30/go%20mod%E5%9D%91%E7%82%B9/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="go-mod坑点">
+        <a href="/2021/11/28/linux%E5%86%85%E6%A0%B8/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="linux内核">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/08/30/go%20mod%E5%9D%91%E7%82%B9/" target="_self">
-          go-mod坑点
+        <a href="/2021/11/28/linux%E5%86%85%E6%A0%B8/" target="_self">
+          linux内核
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/08/30/go%20mod%E5%9D%91%E7%82%B9/" target="_self">
+        <a href="/2021/11/28/linux%E5%86%85%E6%A0%B8/" target="_self">
           
           
             
           
-          Go的版本管理工具一开始学习go时，关闭了GO111MODULE，然后按照网上教程go get安装依赖时都会把对应文件下载到GOPATH/pkg/mod下，最奇妙的是下载完之后import会显示无法解析符号。后来，我发现import包时需要对应包在GOPATH/src下，故每次都是git clone源代码到GOPATH/src下，最后才可以正常编译运行代码。
+          操作体系结构
 
-顺便记录一下Ubuntu中GoLan
+操作系统内核提供内存管理(分配、回收、溢出)、进程管理(创建、切换、调度、销毁)、文件管理(打开、读写、关闭。提供虚拟文件系统VFS，把硬件当成文件来处理)、设备管理(也即驱动管理，分为3类：字符型设备管理、块设备管理、网络设备管理。这里没有实现驱动， 设备驱动的实现当作操作系统的下一层即硬件系统，硬件系统与物理硬件通信。这里主要是查看设备状态、设备地址识别)。计算机资源的管理者是
         </a>
       </p>
 
@@ -221,8 +221,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-30 10:32" pubdate>
-              2021-08-30
+            <time datetime="2021-11-28 17:23" pubdate>
+              2021-11-28
             </time>
           </div>
         
@@ -230,7 +230,7 @@
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/Golang/">Golang</a>
+              <a href="/categories/Linux/">Linux</a>
             
           </div>
         
@@ -238,7 +238,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/Golang/">Golang</a>
+              <a href="/tags/Linux/">Linux</a>
             
           </div>
         
@@ -250,26 +250,26 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/08/23/session%E4%B8%80%E8%87%B4%E6%80%A7/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="session一致性">
+        <a href="/2021/11/23/%E6%97%A0%E9%94%81%E9%98%9F%E5%88%97/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="无锁队列">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/08/23/session%E4%B8%80%E8%87%B4%E6%80%A7/" target="_self">
-          session一致性
+        <a href="/2021/11/23/%E6%97%A0%E9%94%81%E9%98%9F%E5%88%97/" target="_self">
+          无锁队列
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/08/23/session%E4%B8%80%E8%87%B4%E6%80%A7/" target="_self">
+        <a href="/2021/11/23/%E6%97%A0%E9%94%81%E9%98%9F%E5%88%97/" target="_self">
           
           
             
           
-          session和cookie1234561、session 在服务器端，cookie 在客户端（浏览器）2、session 默认被存在在服务器的一个文件里（不是内存）3、session 的运行依赖 session id，而 session id 是存在 cookie 中的，也就是说，如果浏览器禁用了 cookie ，同时 session 也会失效（通过url重写解决）4、session 可以放在文
+          无锁队列循环数组(DPDK)123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979
         </a>
       </p>
 
@@ -277,260 +277,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-23 15:11" pubdate>
-              2021-08-23
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/session/">session</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/session/">session</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/08/23/istio%E5%92%8Ck8s/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="istio和k8s">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/23/istio%E5%92%8Ck8s/" target="_self">
-          istio和k8s
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/23/istio%E5%92%8Ck8s/" target="_self">
-          
-          
-            
-          
-          istioIstio 提供一种简单的方式来为已部署的服务建立网络，该网络具有负载均衡、服务间认证、监控等功能，而不需要对服务的代码做任何改动。
-简单来说istio就是用来做service mesh[服务网格]的工具链，istio通常搭配k8s来使用。
-如果只用原生k8s，一般采用service来进行负载均衡，但如果想增加一些功能如熔断，限流，灰度等，这些功能在service层面是做不到的。这些高级
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-23 08:52" pubdate>
-              2021-08-23
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/istio/">istio</a>
-            
-              <a href="/categories/istio/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/istio/">istio</a>
-            
-              <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/08/19/docker%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="docker简单使用">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/19/docker%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" target="_self">
-          docker简单使用
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/19/docker%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" target="_self">
-          
-          
-            
-          
-          Dockerdocker是运行在linux环境下的一个应用容器引擎，对于运行在容器中的应用来说，容器就是他们在运行时的虚拟机。
-image是容器镜像，简单来说就是对应虚拟机的snapshot快照功能。docker能够让开发者们打包应用到这个可移植的image中，然后通过该image即可恢复容器。image是分层的，这里暂不多说，主要是为了复用性，比如说image操作系统层是一致的，那么下载两个不同
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-19 08:52" pubdate>
-              2021-08-19
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/docker/">docker</a>
-            
-              <a href="/categories/docker/linux/">linux</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/docker/">docker</a>
-            
-              <a href="/tags/linux/">linux</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/08/19/go-micro%E6%A1%86%E6%9E%B6V3.0.0/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="go-micro框架v3">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/19/go-micro%E6%A1%86%E6%9E%B6V3.0.0/" target="_self">
-          go-micro框架v3
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/19/go-micro%E6%A1%86%E6%9E%B6V3.0.0/" target="_self">
-          
-          
-            
-          
-          go-micro v3测试demo安装安装go-micro框架
-
-需要用到Micro 3.0 环境的micro 工具(二进制可执行文件)，可以快速构建项目。但是在代码中不使用该库。
-
-
-首先看一下帮助
-创建一个新服务micro new serviceName
-
-默认在__当前路径__下生成对应服务的文件
-看一下proto文件
-
-使用make proto编译proto文件
-
-就这样非常简单的生成了一
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-19 08:52" pubdate>
-              2021-08-19
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Golang/">Golang</a>
-            
-              <a href="/categories/Golang/Go-Micro/">Go-Micro</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Golang/">Golang</a>
-            
-              <a href="/tags/Go-Micro/">Go-Micro</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/08/18/boost%E7%9A%84%E5%8D%8F%E7%A8%8B%E5%BA%93%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="boost的协程库使用示例">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/18/boost%E7%9A%84%E5%8D%8F%E7%A8%8B%E5%BA%93%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B/" target="_self">
-          boost的协程库使用示例
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/18/boost%E7%9A%84%E5%8D%8F%E7%A8%8B%E5%BA%93%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B/" target="_self">
-          
-          
-            
-          
-          使用boost库中的协程库1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969798
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-18 17:05" pubdate>
-              2021-08-18
+            <time datetime="2021-11-23 15:41" pubdate>
+              2021-11-23
             </time>
           </div>
         
@@ -562,28 +310,36 @@ image是容器镜像，简单来说就是对应虚拟机的snapshot快照功能�
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/08/18/%E5%8D%8F%E7%A8%8B/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="协程">
+        <a href="/2021/11/22/%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="共享内存">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/08/18/%E5%8D%8F%E7%A8%8B/" target="_self">
-          协程
+        <a href="/2021/11/22/%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98/" target="_self">
+          共享内存
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/08/18/%E5%8D%8F%E7%A8%8B/" target="_self">
+        <a href="/2021/11/22/%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98/" target="_self">
           
           
             
           
-          协程(coroutines)(转载)协程介绍协程就是用户态线程内可以被异步执行的函数。用来在用户态下解决异步问题。
-普通函数：每次调用只能从第一条语句开始执行直到某个出口结束。协程函数：协程函数交出控制权后，可以再次从交出控制权的下一语句开始执行。
-在协程的叫法出现以前，处理异步问题一般会使用操作系统提供的系统级API来解决异步问题。系统级的API都是大多采用回调函数方式实现。后来人们觉得使用异步
+          linux查看进程间通信资源消息队列是内核相关，进程必须显示创建和销毁消息队列，管道是进程相关，进程结束后该管道被销毁。
+ipcs查看进程间通信资源
+
+
+ipcmk创建进程间通信资源
+
+
+ipcrm删除进程间通信资源
+
+
+先了解mmap12int fd = ::open(&quot;./temp.shared&quot;,   O_RDWR ,  S_IRUSR | S_IWUSR);void* 
         </a>
       </p>
 
@@ -591,8 +347,8 @@ image是容器镜像，简单来说就是对应虚拟机的snapshot快照功能�
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-18 14:55" pubdate>
-              2021-08-18
+            <time datetime="2021-11-22 14:50" pubdate>
+              2021-11-22
             </time>
           </div>
         
@@ -600,9 +356,9 @@ image是容器镜像，简单来说就是对应虚拟机的snapshot快照功能�
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/C/">C++</a>
+              <a href="/categories/%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98/">共享内存</a>
             
-              <a href="/categories/C/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a>
+              <a href="/categories/%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98/C/">C++</a>
             
           </div>
         
@@ -612,7 +368,7 @@ image是容器镜像，简单来说就是对应虚拟机的snapshot快照功能�
             
               <a href="/tags/C/">C++</a>
             
-              <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a>
+              <a href="/tags/%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98/">共享内存</a>
             
           </div>
         
@@ -624,27 +380,27 @@ image是容器镜像，简单来说就是对应虚拟机的snapshot快照功能�
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/08/14/consul%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="consul简单使用">
+        <a href="/2021/11/21/ksoftirqd%E7%BA%BF%E7%A8%8B/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="ksoftirqd线程">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/08/14/consul%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" target="_self">
-          consul简单使用
+        <a href="/2021/11/21/ksoftirqd%E7%BA%BF%E7%A8%8B/" target="_self">
+          ksoftirqd线程
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/08/14/consul%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" target="_self">
+        <a href="/2021/11/21/ksoftirqd%E7%BA%BF%E7%A8%8B/" target="_self">
           
           
             
           
-          consul 简介consul是google开源的一个使用go语言开发的__服务发现、配置管理中心服务__。内置了服务注册与发现框架、分布一致性协议实现、健康检查、KV存储、多数据中心方案，不再需要依赖其他工具（比如ZooKeeper等）。
-consul服务部署简单，只有一个可运行的二进制的包。每个节点都需要运行agent，他有两种运行模式server和client。每个数据中心官方建议需要3或5
+          ksoftirqd线程如果当软中断到来时立即执行软中断，并且处理完当前软中断后到来的新软中断也在本次执行，这样可能会导致cpu一直处理软中断而无法正常处理其他任务。如果处理完当前软中断后到来的新软中断在下次执行，这样可能会导致在空闲系统中的资源利用率偏低，因为空闲系统希望立刻执行新软中断任务。
+内核中实现的方案是不会立即处理处理重新触发的软中断。而作为改进，当大量软中断出现的时候，内核会唤醒一组内
         </a>
       </p>
 
@@ -652,8 +408,8 @@ consul服务部署简单，只有一个可运行的二进制的包。每个节�
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-14 16:22" pubdate>
-              2021-08-14
+            <time datetime="2021-11-21 18:12" pubdate>
+              2021-11-21
             </time>
           </div>
         
@@ -661,7 +417,7 @@ consul服务部署简单，只有一个可运行的二进制的包。每个节�
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/consul/">consul</a>
+              <a href="/categories/Linux/">Linux</a>
             
           </div>
         
@@ -669,7 +425,7 @@ consul服务部署简单，只有一个可运行的二进制的包。每个节�
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/consul/">consul</a>
+              <a href="/tags/Linux/">Linux</a>
             
           </div>
         
@@ -681,28 +437,30 @@ consul服务部署简单，只有一个可运行的二进制的包。每个节�
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/08/05/async%E7%9A%84%E4%B8%80%E4%B8%AA%E7%BB%86%E8%8A%82/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="async的一个细节">
+        <a href="/2021/11/20/%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="模拟退火">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/08/05/async%E7%9A%84%E4%B8%80%E4%B8%AA%E7%BB%86%E8%8A%82/" target="_self">
-          async的一个细节
+        <a href="/2021/11/20/%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB/" target="_self">
+          模拟退火
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/08/05/async%E7%9A%84%E4%B8%80%E4%B8%AA%E7%BB%86%E8%8A%82/" target="_self">
+        <a href="/2021/11/20/%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB/" target="_self">
           
           
             
           
-          std::async使用时容易忽略的一些问题一、最好带上第一个参数，指定同步执行还是异步执行。std::launch::asyncstd::launch::deferredstd::launch::async | std::launch::deferred （自动选择）
-二、如果忽略返回值，则会阻塞！！！因为async的返回值是一个future对象，在析构时要等待异步任务执行结束。
-坑点：在这里d
+          模板题链接
+解决问题类型：求二维平面最优点
+
+
+1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586// 模拟退火模板#inc
         </a>
       </p>
 
@@ -710,70 +468,8 @@ consul服务部署简单，只有一个可运行的二进制的包。每个节�
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-05 16:20" pubdate>
-              2021-08-05
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/C/">C++</a>
-            
-              <a href="/categories/C/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/C/">C++</a>
-            
-              <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/08/04/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%93%88%E5%B8%8C/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="字符串哈希">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/04/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%93%88%E5%B8%8C/" target="_self">
-          字符串哈希
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/04/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%93%88%E5%B8%8C/" target="_self">
-          
-          
-            
-          
-          字符串哈希最长重复子串题目链接
-
-12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152// 字符串哈希解法class Solution &#123;public:    static const int N = 30010;    const int base 
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-04 20:13" pubdate>
-              2021-08-04
+            <time datetime="2021-11-20 15:59" pubdate>
+              2021-11-20
             </time>
           </div>
         
@@ -791,7 +487,314 @@ consul服务部署简单，只有一个可运行的二进制的包。每个节�
             
               <a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
             
-              <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%93%88%E5%B8%8C/">字符串哈希</a>
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/11/20/%E6%96%AF%E7%89%B9%E6%9E%97%E6%95%B0/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="斯特林数">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/11/20/%E6%96%AF%E7%89%B9%E6%9E%97%E6%95%B0/" target="_self">
+          斯特林数
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/11/20/%E6%96%AF%E7%89%B9%E6%9E%97%E6%95%B0/" target="_self">
+          
+          
+            
+          
+          第一类斯特林数题目1
+
+
+1234567891011121314151617181920212223242526272829303132#include &lt;iostream&gt;#include &lt;cstring&gt;#include &lt;algorithm&gt;using namespace std;const int N = 1010;const int mod = 1e
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-11-20 15:33" pubdate>
+              2021-11-20
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/11/16/%E6%89%AB%E6%8F%8F%E7%BA%BF%E7%AE%97%E6%B3%95/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="扫描线算法">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/11/16/%E6%89%AB%E6%8F%8F%E7%BA%BF%E7%AE%97%E6%B3%95/" target="_self">
+          扫描线算法
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/11/16/%E6%89%AB%E6%8F%8F%E7%BA%BF%E7%AE%97%E6%B3%95/" target="_self">
+          
+          
+            
+          
+          扫描线算法预备知识: 线段树。前面已经对线段树有所记录，线段树部分不赘述。
+解题方案(示意图更好理解)
+
+1、对于最终所有的矩形而言，我们按照从上到下、或者从左到右的方向，遍历经过的矩形的边。
+2、假设这样遍历了共m条边，那么这m条边应该夹住了m-1个区间(分割的小矩形)。
+3、思考：a、前一次遍历的边与当前遍历的边的距离就是按照扫描线所分割的矩形的宽度；b、但是分割的矩形的长度我们如何能求？
+4
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-11-16 13:42" pubdate>
+              2021-11-16
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/11/07/%E5%9F%BA%E4%BA%8Edpdk%E7%9A%84%E7%94%A8%E6%88%B7%E6%80%81%E5%8D%8F%E8%AE%AE%E6%A0%88/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="基于dpdk的用户态协议栈">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/11/07/%E5%9F%BA%E4%BA%8Edpdk%E7%9A%84%E7%94%A8%E6%88%B7%E6%80%81%E5%8D%8F%E8%AE%AE%E6%A0%88/" target="_self">
+          基于dpdk的用户态协议栈
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/11/07/%E5%9F%BA%E4%BA%8Edpdk%E7%9A%84%E7%94%A8%E6%88%B7%E6%80%81%E5%8D%8F%E8%AE%AE%E6%A0%88/" target="_self">
+          
+          
+            
+          
+          基于DPDK的用户态协议栈安装好了DPDK后，尝试实现用户态协议栈，以下是demo代码
+查看是否使用硬件计算checksum
+ethtool --show-offload [interface_name] | grep checksum
+修改为不使用硬件计算checksum
+ethtool --offload ens160 rx off tx off
+以下代码直接利用examples/skelet
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-11-07 20:31" pubdate>
+              2021-11-07
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Linux/">Linux</a>
+            
+              <a href="/categories/Linux/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+            
+              <a href="/tags/Linux/">Linux</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/11/02/DPDK/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="DPDK">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/11/02/DPDK/" target="_self">
+          DPDK
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/11/02/DPDK/" target="_self">
+          
+          
+            
+          
+          预备在没有深入了解之前，我曾认为像简单的mmap即可完成内存映射文件，从而直接获取网卡数据，也避免了数据拷贝到用户态这一中间过程，然而实际上我们并不能像open一个文件那样直接open一个网卡设备，于是我查了一些资料接触到了用户态协议栈、dpdk、netmap等等，之后的学习让我收获了很多。
+DPDK硬件支持
+Linux没有网卡设备文件在 unix中，一切io相关的实体都被抽象成了文件，之所以抽象
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-11-02 17:29" pubdate>
+              2021-11-02
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Linux/">Linux</a>
+            
+              <a href="/categories/Linux/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+            
+              <a href="/tags/Linux/">Linux</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/10/28/iptables%E5%91%BD%E4%BB%A4%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="iptables命令简单使用">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/10/28/iptables%E5%91%BD%E4%BB%A4%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" target="_self">
+          iptables命令简单使用
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/10/28/iptables%E5%91%BD%E4%BB%A4%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" target="_self">
+          
+          
+            
+          
+          iptables iptables是Linux系统下应用层内置控制防火墙的工具，是内核空间的功能模块，用于监控进/出服务器流量。
+12补充：NAT和NAPT由于NAT实现是私有IP和NAT的公共IP之间的转换，那么，私有网中同时与公共网进行通信的主机数量就受到NAT的公共IP地址数量的限制。为了克服这种限制，NAT被进一步扩展到在进行IP地址转换的同时进行Port的转换，这就是网络地址端口转换NA
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-10-28 10:18" pubdate>
+              2021-10-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Linux/">Linux</a>
+            
+              <a href="/categories/Linux/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+            
+              <a href="/tags/Linux/">Linux</a>
             
           </div>
         
@@ -803,7 +806,7 @@ consul服务部署简单，只有一个可运行的二进制的包。每个节�
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/4/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/#board">6</a><a class="page-number" href="/page/7/#board">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/#board">9</a><a class="extend next" rel="next" href="/page/6/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/4/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/#board">6</a><a class="page-number" href="/page/7/#board">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/#board">13</a><a class="extend next" rel="next" href="/page/6/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

@@ -238,10 +238,10 @@
           <article class="post-content mx-auto">
             <!-- SEO header -->
             <h1 style="display: none">initializer_list</h1>
-	    <time updated datetime="2021-07-26 10:47"></time>
+	    <time updated datetime="2022-03-10 09:48"></time>
             
             <div class="markdown-body">
-              <h2 id="initializer-list"><a href="#initializer-list" class="headerlink" title="initializer_list"></a>initializer_list</h2><p>我常常用 std::vector&lt;int&gt; a = {1, 2, 3}如此来构造一个容器(set、map等等)。一直以来都是这么用的，现在看一下这后面做了什么样的隐式转换。</p>
+              <h3 id="initializer-list"><a href="#initializer-list" class="headerlink" title="initializer_list"></a>initializer_list</h3><p>我常常用 std::vector&lt;int&gt; a = {1, 2, 3}如此来构造一个容器(set、map等等)。一直以来都是这么用的，现在看一下这后面做了什么样的隐式转换。</p>
 <p>initializer_list是C++11提供的新类型，定义在头文件&lt;initializer_list&gt;中, 当然默认容器使用了这个类型作为构造参数，已经包含了该头文件。就像我使用std::pair&lt;T1, T2&gt;一般不会特别的再去包含&lt;utility&gt;一样，除非我没有使用map等关联容器。</p>
 <p>initializer_list用于表示某种特定类型的值的数组，和vector一样，initializer_list也是一种模板类型。</p>
 <p>C++11扩大了初始化列表的适用范围，使其可用于所有内置类型和用户定义的类型。无论是初始化对象还是某些时候为对象赋新值，都可以使用这样一组由花括号括起来的初始值了。使用初始化列表时，可添加=，也可不添加，即也可定义 std::vector&lt;int&gt; a{1, 2, 3}。</p>

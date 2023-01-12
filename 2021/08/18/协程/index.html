@@ -238,10 +238,10 @@
           <article class="post-content mx-auto">
             <!-- SEO header -->
             <h1 style="display: none">协程</h1>
-	    <time updated datetime="2021-12-28 15:53"></time>
+	    <time updated datetime="2022-03-20 12:40"></time>
             
             <div class="markdown-body">
-              <h2 id="协程-coroutines-转载"><a href="#协程-coroutines-转载" class="headerlink" title="协程(coroutines)(转载)"></a>协程(coroutines)(转载)</h2><h3 id="协程介绍"><a href="#协程介绍" class="headerlink" title="协程介绍"></a>协程介绍</h3><p>协程就是用户态线程内可以被异步执行的函数。用来在用户态下解决异步问题。</p>
+              <h3 id="协程-coroutines-转载"><a href="#协程-coroutines-转载" class="headerlink" title="协程(coroutines)(转载)"></a>协程(coroutines)(转载)</h3><p>协程就是用户态线程内可以被异步执行的函数。用来在用户态下解决异步问题。</p>
 <p>普通函数：每次调用只能从第一条语句开始执行直到某个出口结束。<br>协程函数：协程函数交出控制权后，可以再次从交出控制权的下一语句开始执行。</p>
 <p>在协程的叫法出现以前，处理异步问题一般会使用操作系统提供的系统级API来解决异步问题。系统级的API都是大多采用回调函数方式实现。后来人们觉得使用异步回调形式的API比较麻烦，就开始提供异步调用库或者语言级支持。并且起了个优雅的名字–协同程序。</p>
 <p>协程不是线程。协程包含在线程内。协程在用户态，由用户控制。协程的切换比线程切换效率高。<br>同一个线程在一个时间点最多只能跑一个协程；在同一个线程中，协程的运行是穿行的[穿插运行(同一个函数内非顺序运行)，一般认为不同与串行(顺序运行)]。所以没有数据争用(data race)，也不需要锁。<br>原则上，应该尽量避免将同一个协程的主体，放到不同的线程中同时执行。因为这样有很大概率发生数据争用(data race)。[其实这种情况下就是线程的数据争用问题]。所以我们应该在线程中讨论协程；而不是在进程中讨论协程。</p>

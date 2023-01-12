@@ -238,21 +238,21 @@
           <article class="post-content mx-auto">
             <!-- SEO header -->
             <h1 style="display: none">k8s集群部署</h1>
-	    <time updated datetime="2021-11-19 13:16"></time>
+	    <time updated datetime="2022-03-10 09:47"></time>
             
             <div class="markdown-body">
-              <h2 id="一、安装docker及k8s集群相关术语"><a href="#一、安装docker及k8s集群相关术语" class="headerlink" title="一、安装docker及k8s集群相关术语"></a>一、安装docker及k8s集群相关术语</h2><p>前面<a href="https://gys18007141407.github.io/2021/08/19/docker%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">docker简单使用</a>中已经讲过如何安装docker了。</p>
+              <h3 id="一、安装docker及k8s集群相关术语"><a href="#一、安装docker及k8s集群相关术语" class="headerlink" title="一、安装docker及k8s集群相关术语"></a>一、安装docker及k8s集群相关术语</h3><p>前面<a href="https://gys18007141407.github.io/2021/08/19/docker%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">docker简单使用</a>中已经讲过如何安装docker了。</p>
 <p><a target="_blank" rel="noopener" href="https://blog.51cto.com/superleedo/2386713">这里</a>是有关k8s的资料</p>
 <figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">Cluster<br>Cluster是网络、存储、计算各种资源的集合，k8s利用这些资源运行容器应用。<br><br><span class="hljs-keyword">Master</span><br><span class="hljs-title">Master</span>是集群的管理中心，负责调度，决定将应用放置在哪里运行，可以同时运行多个<span class="hljs-literal">master</span>以保证高可用。<br><br><span class="hljs-keyword">Node</span><br><span class="hljs-title">Node</span>是集群的工作节点，负责运行容器应用，<span class="hljs-keyword">node</span><span class="hljs-title">由master</span>管理，<span class="hljs-keyword">node</span><span class="hljs-title">负责监控并汇报容器的状态，同时根据master</span>要求管理容器的生命周期。<span class="hljs-keyword">Node</span><span class="hljs-title">上运行着Kubelet</span>、kube-proxy服务进程，这些服务进程负责Pod的创建、启动、监控、重启、销毁、以及实现软件模式的负载均衡。查看<span class="hljs-keyword">node</span><span class="hljs-title">，kubectl</span> get <span class="hljs-keyword">node</span><span class="hljs-title">，  kubectl</span> describe <span class="hljs-keyword">node</span><br><br><span class="hljs-title">Pod</span><br>pod是k8s的最小工作单元，每个pod包含一个或者多个容器，通常情况下运行单一容器，也即是one-container-per-Pod模式；对于多个容器有紧密联系且需要共享资源的则使用多容器模式。<br>一个pod中的应用容器共享资源：Pod中的不同应用程序可以看到其他应用程序的进程ID；Pod中的多个容器能够访问同一个IP和端口范围；Pod中的多个容器能够使用SystemV IPC或POSIX消息队列进行通信；Pod中的多个容器共享一个主机名；Pod中的各个容器可以访问在Pod级别定义的Volumes；<br>Pod的生命周期通过Replication Controller来管理；通过模板进行定义，然后分配到一个<span class="hljs-keyword">Node</span><span class="hljs-title">上运行，在Pod</span>所包含容器运行结束后，Pod结束。<br>k8s中，用pause容器来作为一个pod中所有容器的父容器。这个pause容器有两个核心的功能，第一，它提供整个pod的Linux命名空间的基础。第二，启用PID命名空间，它在每个pod中都作为PID为<span class="hljs-number">1</span>进程，并回收僵尸进程。<br><br>Controller<br>k8s通常不会直接创建pod，它是通过controller来管理pod，k8s提供了多种controller，有Deployment、ReplicaSet、DaemonSet、StatefuleSet、job等。Deployment管理pod及其副本，并保证pod按照期望的状态运行；ReplicaSet管理多个副本，使用deployment会自动创建ReplicaSet，所以通常不需要直接用ReplicaSet；DaemonSet用于每个<span class="hljs-keyword">node</span><span class="hljs-title">最多运行一个pod</span>副本的场景；StatefuleSet保证pod的每一个副本在整个生命周期中名称是不变的。Job用于运行结束就删除的应用，其他controller的pod通常是长期运行。<br><br>Service<br>一个Service可以看作一组提供相同服务的Pod的对外访问接口，Service作用于哪些Pod是通过Label Selector来定义的，service有自己的ip和端口，为pod提供负载均衡。<br><br>Namecpace<br>namespace是将物理的cluster逻辑上划分成多个虚拟的cluster，每一个cluster就是一个namespace，不同的namespace里的资源是完全隔离的，kubectl get namespace命令查看，default是默认的命名空间，kebe-system是k8s自己创建的系统资源的命名空间。<br><br>Volume<br>volume是pod中能够被多个容器访问的共享目录<br></code></pre></td></tr></table></figure>
 
-<h2 id="二、安装kebulet、kubeadm、kubectl"><a href="#二、安装kebulet、kubeadm、kubectl" class="headerlink" title="二、安装kebulet、kubeadm、kubectl"></a>二、安装kebulet、kubeadm、kubectl</h2><p>1、加载key</p>
+<h3 id="二、安装kebulet、kubeadm、kubectl"><a href="#二、安装kebulet、kubeadm、kubectl" class="headerlink" title="二、安装kebulet、kubeadm、kubectl"></a>二、安装kebulet、kubeadm、kubectl</h3><p>1、加载key</p>
 <p><code>sudo curl https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add - </code></p>
 <p>2、添加源(/etc/apt/source.list.d/kubernetes.list)</p>
 <p>增加语句<code>deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main</code></p>
 <p>3、安装</p>
 <p><code>sudo apt update</code></p>
 <p><code>sudo apt install kubelet kubeadm kubectl</code></p>
-<h2 id="三、创建或者加入集群"><a href="#三、创建或者加入集群" class="headerlink" title="三、创建或者加入集群"></a>三、创建或者加入集群</h2><p>1、关闭交换分区(<code>free -[m|h]</code>或者<code>top</code>查看)</p>
+<h3 id="三、创建或者加入集群"><a href="#三、创建或者加入集群" class="headerlink" title="三、创建或者加入集群"></a>三、创建或者加入集群</h3><p>1、关闭交换分区(<code>free -[m|h]</code>或者<code>top</code>查看)</p>
 <p>临时关闭<code>sudo swapoff -a</code>(相反的操作为<code>swapon -a</code>)</p>
 <p>永久关闭<code>sudo vim /etc/fstab</code>注释其中swap所占那一行(取消挂载磁盘)</p>
 <p>2、关闭selinux</p>
@@ -461,8 +461,8 @@ apiVersion: v1<br>kind: ServiceAccount<br>metadata:<br>name: dashboard-user<br>n
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/10/24/%E8%B4%B9%E9%A9%AC%E5%B0%8F%E5%AE%9A%E7%90%86%E6%B1%82%E9%80%86%E5%85%83(%E7%BB%84%E5%90%88%E6%95%B0)/">
-                        <span class="hidden-mobile">费马小定理求逆元(组合数)</span>
+                      <a href="/2021/10/26/reinterpret_cast/">
+                        <span class="hidden-mobile">reinterpret_cast</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

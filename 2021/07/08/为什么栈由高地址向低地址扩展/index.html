@@ -238,7 +238,7 @@
           <article class="post-content mx-auto">
             <!-- SEO header -->
             <h1 style="display: none">为什么栈由高地址向低地址扩展</h1>
-	    <time updated datetime="2021-07-08 16:12"></time>
+	    <time updated datetime="2022-02-22 13:00"></time>
             
             <div class="markdown-body">
               <h2 id="为什么栈由高地址向低地址扩展"><a href="#为什么栈由高地址向低地址扩展" class="headerlink" title="为什么栈由高地址向低地址扩展"></a>为什么栈由高地址向低地址扩展</h2><p>很久以前，intel计算机内存区域就分了代码区域和栈区域的。    程序计数器(PC)的缺省指向0地址，计算机开机后从程序计数器指向的地址开始执行程序，每执行完一条指令后，程序计数器自动加1。因此很自然的，代码段从低地址区间开始加载，向高地址区间扩展；为了避免栈空间和代码段冲突，最大利用地址空间，这又很自然的，我们会选择把栈底设置在最高地址0xffffffff，然后让栈空间向下增长。</p>

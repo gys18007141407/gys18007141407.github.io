@@ -1,0 +1,518 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  
+  <title>screen和vim - gys的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gys18007141407.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>gys的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/miku7.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="screen和vim">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-08-20 13:27" pubdate>
+        2022年8月20日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      71
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">screen和vim</h1>
+	    <time updated datetime="2022-12-08 20:32"></time>
+            
+            <div class="markdown-body">
+              <h3 id="screen"><a href="#screen" class="headerlink" title="screen"></a>screen</h3><ul>
+<li>配置文件</li>
+</ul>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"># <span class="hljs-keyword">Set</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">encoding</span> <span class="hljs-keyword">using</span> utf8<br>defutf8 <span class="hljs-keyword">on</span><br><br><br>## 解决中文乱码,这个要按需配置<br>defencoding utf8<br><span class="hljs-keyword">encoding</span> utf8 utf8<br> <br><br>#兼容shell 使得.bashrc .profile /etc/profile等里面的别名等设置生效<br>shell -$SHELL<br><br><span class="hljs-meta">#set the startup message</span><br>startup_message <span class="hljs-keyword">off</span><br>term linux<br><br>## 解决无法滚动<br>termcapinfo xterm|xterms|xs ti@:te=\E[<span class="hljs-number">2</span>J<br> <br># 屏幕缓冲区行数<br>defscrollback <span class="hljs-number">10000</span><br> <br># 下标签设置<br>hardstatus <span class="hljs-keyword">on</span><br>caption <span class="hljs-keyword">always</span> &quot;%&#123;= kw&#125;%-w%&#123;= kG&#125;%&#123;+b&#125;[%n %t]%&#123;-b&#125;%&#123;= kw&#125;%+w %=%d %M %0c %&#123;g&#125;%H%&#123;-&#125;&quot;<br> <br>#关闭闪屏<br>vbell <span class="hljs-keyword">off</span><br> <br><span class="hljs-meta">#Keboard binding</span><br># bind Alt+z <span class="hljs-keyword">to</span> <span class="hljs-keyword">move</span> <span class="hljs-keyword">to</span> previous <span class="hljs-keyword">window</span><br>bindkey ^[z prev<br># bind Alt+x <span class="hljs-keyword">to</span> <span class="hljs-keyword">move</span> <span class="hljs-keyword">to</span> next <span class="hljs-keyword">window</span><br>bindkey ^[x next<br><br># bind Alt`~= <span class="hljs-keyword">to</span> screen0~<span class="hljs-number">12</span><br>bindkey &quot;^[`&quot; <span class="hljs-keyword">select</span> <span class="hljs-number">0</span><br>bindkey &quot;^[1&quot; <span class="hljs-keyword">select</span> <span class="hljs-number">1</span><br>bindkey &quot;^[2&quot; <span class="hljs-keyword">select</span> <span class="hljs-number">2</span><br>bindkey &quot;^[3&quot; <span class="hljs-keyword">select</span> <span class="hljs-number">3</span><br>bindkey &quot;^[4&quot; <span class="hljs-keyword">select</span> <span class="hljs-number">4</span><br>bindkey &quot;^[5&quot; <span class="hljs-keyword">select</span> <span class="hljs-number">5</span><br>bindkey &quot;^[6&quot; <span class="hljs-keyword">select</span> <span class="hljs-number">6</span><br>bindkey &quot;^[7&quot; <span class="hljs-keyword">select</span> <span class="hljs-number">7</span><br>bindkey &quot;^[8&quot; <span class="hljs-keyword">select</span> <span class="hljs-number">8</span><br>bindkey &quot;^[9&quot; <span class="hljs-keyword">select</span> <span class="hljs-number">9</span><br>bindkey &quot;^[0&quot; <span class="hljs-keyword">select</span> <span class="hljs-number">10</span><br>bindkey &quot;^[-&quot; <span class="hljs-keyword">select</span> <span class="hljs-number">11</span><br>bindkey &quot;^[=&quot; <span class="hljs-keyword">select</span> <span class="hljs-number">12</span><br># bind F5 <span class="hljs-keyword">to</span> <span class="hljs-keyword">create</span> a <span class="hljs-built_in">new</span> screen<br>bindkey -k k5 screen<br># bind F6 <span class="hljs-keyword">to</span> detach screen <span class="hljs-keyword">session</span> (<span class="hljs-keyword">to</span> background)<br>bindkey -k k6 detach<br># bind F7 <span class="hljs-keyword">to</span> kill <span class="hljs-keyword">current</span> screen <span class="hljs-keyword">window</span><br>bindkey -k k7 kill<br># bind F8 <span class="hljs-keyword">to</span> <span class="hljs-keyword">rename</span> <span class="hljs-keyword">current</span> screen <span class="hljs-keyword">window</span><br>bindkey -k k8 title<br></code></pre></td></tr></table></figure>
+
+<p>screen -S xx：创建</p>
+<p>screen -r xx：恢复</p>
+<p>screen -ls：列表</p>
+<p>ctrl a ctrl d：detach</p>
+<p>exit：退出窗口</p>
+<p>screen -S xx -X quit：关闭</p>
+<p>screen -x xx：共享screen</p>
+<p>ctrl a ctrl c：创建窗口</p>
+<p>ctrl a shift s：分屏</p>
+<p>ctrl a tab：切换分屏</p>
+<p>ctrl a ctrl a：上一个窗口</p>
+<p>ctrl a num：num号窗口</p>
+<h3 id="vim"><a href="#vim" class="headerlink" title="vim"></a>vim</h3><ul>
+<li>配置文件</li>
+</ul>
+<figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br></pre></td><td class="code"><pre><code class="hljs ceylon"><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><br> <br><span class="hljs-string">&quot; 显示相关  </span><br><span class="hljs-string">&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;</span><br><span class="hljs-string">&quot;set shortmess=atI   &quot; 启动的时候不显示那个援助乌干达儿童的提示  </span><br><span class="hljs-string">&quot;winpos 5 5          &quot; 设定窗口位置  </span><br><span class="hljs-string">&quot;set lines=40 columns=155    &quot; 设定窗口大小  </span><br><span class="hljs-string">&quot;set nu              &quot; 显示行号  </span><br><span class="hljs-string">set go=             &quot; 不要图形按钮  </span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot;color asmanian2     &quot; 设置背景主题  </span><br><span class="hljs-string"> </span><br><span class="hljs-string">set guifont=Courier_New:h10:cANSI   &quot; 设置字体  </span><br><span class="hljs-string">&quot;syntax on           &quot; 语法高亮  </span><br><span class="hljs-string">autocmd InsertLeave * se nocul  &quot; 用浅色高亮当前行  </span><br><span class="hljs-string"> </span><br><span class="hljs-string">autocmd InsertEnter * se cul    &quot; 用浅色高亮当前行  </span><br><span class="hljs-string">&quot;set ruler           &quot; 显示标尺  </span><br><span class="hljs-string">set showcmd         &quot; 输入的命令显示出来，看的清楚些  </span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot;set cmdheight=1     &quot; 命令行（在状态行下）的高度，设置为1  </span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot;set whichwrap+=&lt;,&gt;,h,l   &quot; 允许backspace和光标键跨越行边界(不建议)  </span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot;set scrolloff=3     &quot; 光标移动到buffer的顶部和底部时保持3行距离  </span><br><span class="hljs-string"> </span><br><span class="hljs-string">set novisualbell    &quot; 不要闪烁(不明白)  </span><br><span class="hljs-string">set statusline=%F%m%r%h%w\ [FORMAT=%&#123;&amp;ff&#125;]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %&#123;strftime(\&quot;%d/%m/%y\ -\ %H:%M\&quot;)&#125;   &quot;状态行显示的内容  </span><br><span class="hljs-string"> </span><br><span class="hljs-string">set laststatus=1    &quot; 启动显示状态行(1),总是显示状态行(2)  </span><br><span class="hljs-string">set foldenable      &quot; 允许折叠  </span><br><span class="hljs-string"> </span><br><span class="hljs-string">set foldmethod=manual   &quot; 手动折叠  </span><br><span class="hljs-string">&quot;set background=dark &quot;背景使用黑色 </span><br><span class="hljs-string">set nocompatible  &quot;去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限  </span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot; 显示中文帮助</span><br><span class="hljs-string">if version &gt;= 603</span><br><span class="hljs-string">    set helplang=cn</span><br><span class="hljs-string">    set encoding=utf-8</span><br><span class="hljs-string">endif</span><br><span class="hljs-string">&quot; 设置配色方案</span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot;colorscheme murphy</span><br><span class="hljs-string">&quot;字体 </span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot;if (has(&quot;gui_running&quot;)) </span><br><span class="hljs-string">&quot;   set guifont=Bitstream\ Vera\ Sans\ Mono\ 10 </span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot;endif </span><br><span class="hljs-string"> </span><br><span class="hljs-string">set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936</span><br><span class="hljs-string">set termencoding=utf-8</span><br><span class="hljs-string">set encoding=utf-8</span><br><span class="hljs-string">set fileencodings=ucs-bom,utf-8,cp936</span><br><span class="hljs-string">set fileencoding=utf-8</span><br><span class="hljs-string">&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;</span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;</span>新文件标题<span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><br><span class="hljs-string">&quot;新建.c,.h,.sh,.java文件，自动插入文件头 </span><br><span class="hljs-string"> </span><br><span class="hljs-string">autocmd BufNewFile *.cpp,*.[ch],*.sh,*.java exec &quot;</span>:call SetTitle()<span class="hljs-string">&quot; </span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot;</span><span class="hljs-string">&quot;定义函数SetTitle，自动插入文件头 </span><br><span class="hljs-string"> </span><br><span class="hljs-string">func SetTitle() </span><br><span class="hljs-string"> </span><br><span class="hljs-string">    &quot;</span>如果文件类型为.sh文件 <br>    <span class="hljs-keyword">if</span> &amp;filetype == <span class="hljs-string">&#x27;sh&#x27;</span> <br>        call setline(<span class="hljs-number">1</span>,<span class="hljs-string">&quot;\#########################################################################&quot;</span>) <br> <br>        call append(line(<span class="hljs-string">&quot;.&quot;</span>), <span class="hljs-string">&quot;\# File Name: &quot;</span>.expand(<span class="hljs-string">&quot;%&quot;</span>)) <br> <br>        call append(line(<span class="hljs-string">&quot;.&quot;</span>)+<span class="hljs-number">1</span>, <span class="hljs-string">&quot;\# Author: Gao Yusheng&quot;</span>) <br> <br>        call append(line(<span class="hljs-string">&quot;.&quot;</span>)+<span class="hljs-number">2</span>, <span class="hljs-string">&quot;\# mail: gys1407@163.com&quot;</span>) <br> <br>        call append(line(<span class="hljs-string">&quot;.&quot;</span>)+<span class="hljs-number">3</span>, <span class="hljs-string">&quot;\# Created Time: &quot;</span>.strftime(<span class="hljs-string">&quot;%c&quot;</span>)) <br> <br>        call append(line(<span class="hljs-string">&quot;.&quot;</span>)+<span class="hljs-number">4</span>, <span class="hljs-string">&quot;\#########################################################################&quot;</span>) <br> <br>        call append(line(<span class="hljs-string">&quot;.&quot;</span>)+<span class="hljs-number">5</span>, <span class="hljs-string">&quot;\#!/bin/bash&quot;</span>) <br> <br>        call append(line(<span class="hljs-string">&quot;.&quot;</span>)+<span class="hljs-number">6</span>, <span class="hljs-string">&quot;&quot;</span>) <br> <br>    <span class="hljs-keyword">else</span> <br> <br>        call setline(<span class="hljs-number">1</span>, <span class="hljs-string">&quot;/*************************************************************************&quot;</span>) <br> <br>        call append(line(<span class="hljs-string">&quot;.&quot;</span>), <span class="hljs-string">&quot;    &gt; File Name: &quot;</span>.expand(<span class="hljs-string">&quot;%&quot;</span>)) <br> <br>        call append(line(<span class="hljs-string">&quot;.&quot;</span>)+<span class="hljs-number">1</span>, <span class="hljs-string">&quot;    &gt; Author: Gao Yusheng&quot;</span>) <br> <br>        call append(line(<span class="hljs-string">&quot;.&quot;</span>)+<span class="hljs-number">2</span>, <span class="hljs-string">&quot;    &gt; Mail: gys1407@163.com &quot;</span>) <br> <br>        call append(line(<span class="hljs-string">&quot;.&quot;</span>)+<span class="hljs-number">3</span>, <span class="hljs-string">&quot;    &gt; Created Time: &quot;</span>.strftime(<span class="hljs-string">&quot;%c&quot;</span>)) <br> <br>        call append(line(<span class="hljs-string">&quot;.&quot;</span>)+<span class="hljs-number">4</span>, <span class="hljs-string">&quot; ************************************************************************/&quot;</span>) <br> <br>        call append(line(<span class="hljs-string">&quot;.&quot;</span>)+<span class="hljs-number">5</span>, <span class="hljs-string">&quot;&quot;</span>)<br> <br>    endif<br><br> <br>    <span class="hljs-string">&quot;新建文件后，自动定位到文件末尾</span><br><span class="hljs-string">    autocmd BufNewFile * normal G</span><br><span class="hljs-string">endfunc </span><br><span class="hljs-string">&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;</span><br><span class="hljs-string">&quot;键盘命令</span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string"> </span><br><span class="hljs-string"> </span><br><span class="hljs-string"> </span><br><span class="hljs-string">nmap &lt;leader&gt;w :w!&lt;cr&gt;</span><br><span class="hljs-string"> </span><br><span class="hljs-string">nmap &lt;leader&gt;f :find&lt;cr&gt;</span><br><span class="hljs-string"> </span><br><span class="hljs-string"> </span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot; 映射全选+复制 ctrl+a</span><br><span class="hljs-string">map &lt;C-A&gt; ggVGY</span><br><span class="hljs-string">map! &lt;C-A&gt; &lt;Esc&gt;ggVGY</span><br><span class="hljs-string">map &lt;F12&gt; gg=G</span><br><span class="hljs-string">&quot; 选中状态下 Ctrl+c 复制</span><br><span class="hljs-string"> </span><br><span class="hljs-string">vmap &lt;C-c&gt; &quot;+y</span><br><span class="hljs-string">&quot;去空行  </span><br><span class="hljs-string"> </span><br><span class="hljs-string">nnoremap &lt;F2&gt; :g/^\s*$/d&lt;CR&gt; </span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot;比较文件  </span><br><span class="hljs-string">nnoremap &lt;C-F2&gt; :vert diffsplit </span><br><span class="hljs-string">&quot;新建标签  </span><br><span class="hljs-string"> </span><br><span class="hljs-string">map &lt;M-F2&gt; :tabnew&lt;CR&gt;  </span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot;列出当前目录文件  </span><br><span class="hljs-string">map &lt;F3&gt; :tabnew .&lt;CR&gt;  </span><br><span class="hljs-string">&quot;打开树状文件目录  </span><br><span class="hljs-string"> </span><br><span class="hljs-string">map &lt;C-F3&gt; \be  </span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot;C，C++ 按F5编译运行</span><br><span class="hljs-string">map &lt;F5&gt; :call CompileRunGcc()&lt;CR&gt;</span><br><span class="hljs-string">func! CompileRunGcc()</span><br><span class="hljs-string">    exec &quot;w&quot;</span><br><span class="hljs-string">    if &amp;filetype == &#x27;c&#x27;</span><br><span class="hljs-string">        exec &quot;!g++ % -o %&lt;&quot;</span><br><span class="hljs-string">        exec &quot;! ./%&lt;&quot;</span><br><span class="hljs-string">    elseif &amp;filetype == &#x27;cpp&#x27;</span><br><span class="hljs-string">        exec &quot;!g++ % -o %&lt;&quot;</span><br><span class="hljs-string">        exec &quot;! ./%&lt;&quot;</span><br><span class="hljs-string">    elseif &amp;filetype == &#x27;java&#x27; </span><br><span class="hljs-string">        exec &quot;!javac %&quot; </span><br><span class="hljs-string">        exec &quot;!java %&lt;&quot;</span><br><span class="hljs-string">    elseif &amp;filetype == &#x27;sh&#x27;</span><br><span class="hljs-string">        :!./%</span><br><span class="hljs-string">    endif</span><br><span class="hljs-string">endfunc</span><br><span class="hljs-string">&quot;C,C++的调试</span><br><span class="hljs-string"> </span><br><span class="hljs-string">map &lt;F8&gt; :call Rungdb()&lt;CR&gt;</span><br><span class="hljs-string"> </span><br><span class="hljs-string">func! Rungdb()</span><br><span class="hljs-string"> </span><br><span class="hljs-string">    exec &quot;w&quot;</span><br><span class="hljs-string"> </span><br><span class="hljs-string">    exec &quot;!g++ % -g -o %&lt;&quot;</span><br><span class="hljs-string"> </span><br><span class="hljs-string">    exec &quot;!gdb ./%&lt;&quot;</span><br><span class="hljs-string"> </span><br><span class="hljs-string">endfunc</span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot;&quot;实用设置</span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;</span><br><span class="hljs-string">&quot; 设置当文件被改动时自动载入</span><br><span class="hljs-string"> </span><br><span class="hljs-string">set autoread</span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot;</span> quickfix模式<br>autocmd FileType c,cpp map &lt;buffer&gt; &lt;leader&gt;&lt;space&gt; :w&lt;cr&gt;:make&lt;cr&gt;<br><span class="hljs-string">&quot;代码补全 </span><br><span class="hljs-string"> </span><br><span class="hljs-string">set completeopt=preview,menu </span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot;</span>允许插件  <br>filetype plugin on<br><span class="hljs-string">&quot;共享剪贴板  </span><br><span class="hljs-string"> </span><br><span class="hljs-string">set clipboard+=unnamed </span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot;</span>从不备份  <br>set nobackup<br><span class="hljs-string">&quot;make 运行</span><br><span class="hljs-string"> </span><br><span class="hljs-string">:set makeprg=g++\ -Wall\ \ %</span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot;</span>自动保存<br>set autowrite<br>set ruler                   <span class="hljs-string">&quot; 打开状态栏标尺</span><br><span class="hljs-string"> </span><br><span class="hljs-string">set cursorline              &quot;</span> 突出显示当前行<br>set magic                   <span class="hljs-string">&quot; 设置魔术</span><br><span class="hljs-string"> </span><br><span class="hljs-string">set guioptions-=T           &quot;</span> 隐藏工具栏<br>set guioptions-=m           <span class="hljs-string">&quot; 隐藏菜单栏</span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot;</span>set statusline=\ %&lt;%F[%<span class="hljs-number">1</span>*%M%*%n%R%H]%=\ %y\ %<span class="hljs-number">0</span>(%&#123;&amp;fileformat&#125;\ %&#123;&amp;encoding&#125;\ %c:%l/%L%)\<br><span class="hljs-string">&quot; 设置在状态行显示的信息</span><br><span class="hljs-string"> </span><br><span class="hljs-string">set foldcolumn=0</span><br><span class="hljs-string"> </span><br><span class="hljs-string">set foldmethod=indent </span><br><span class="hljs-string"> </span><br><span class="hljs-string">set foldlevel=3 </span><br><span class="hljs-string"> </span><br><span class="hljs-string">set foldenable              &quot;</span> 开始折叠<br><span class="hljs-string">&quot; 不要使用vi的键盘模式，而是vim自己的</span><br><span class="hljs-string"> </span><br><span class="hljs-string">set nocompatible</span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot;</span> 语法高亮<br>set syntax=on<br><span class="hljs-string">&quot; 去掉输入错误的提示声音</span><br><span class="hljs-string"> </span><br><span class="hljs-string">set noeb</span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot;</span> 在处理未保存或只读文件的时候，弹出确认<br>set confirm<br><span class="hljs-string">&quot; 自动缩进</span><br><span class="hljs-string"> </span><br><span class="hljs-string">set autoindent</span><br><span class="hljs-string"> </span><br><span class="hljs-string">set cindent</span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot;</span> Tab键的宽度<br>set tabstop=<span class="hljs-number">4</span><br><span class="hljs-string">&quot; 统一缩进为4</span><br><span class="hljs-string"> </span><br><span class="hljs-string">set softtabstop=4</span><br><span class="hljs-string"> </span><br><span class="hljs-string">set shiftwidth=4</span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot;</span> 不要用空格代替制表符<br>set noexpandtab<br><span class="hljs-string">&quot; 在行和段开始处使用制表符</span><br><span class="hljs-string"> </span><br><span class="hljs-string">set smarttab</span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot;</span> 显示行号<br>set number<br><span class="hljs-string">&quot; 历史记录数</span><br><span class="hljs-string"> </span><br><span class="hljs-string">set history=1000</span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot;</span>禁止生成临时文件<br>set nobackup<br>set noswapfile<br><span class="hljs-string">&quot;搜索忽略大小写</span><br><span class="hljs-string"> </span><br><span class="hljs-string">set ignorecase</span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot;</span>搜索逐字符高亮<br>set hlsearch<br>set incsearch<br><span class="hljs-string">&quot;行内替换</span><br><span class="hljs-string"> </span><br><span class="hljs-string">set gdefault</span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot;</span>编码设置<br>set enc=utf-<span class="hljs-number">8</span><br>set fencs=utf-<span class="hljs-number">8</span>,ucs-bom,shift-jis,gb<span class="hljs-number">18030</span>,gbk,gb<span class="hljs-number">2312</span>,cp<span class="hljs-number">936</span><br><span class="hljs-string">&quot;语言设置</span><br><span class="hljs-string"> </span><br><span class="hljs-string">set langmenu=zh_CN.UTF-8</span><br><span class="hljs-string"> </span><br><span class="hljs-string">set helplang=cn</span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot;</span> 我的状态行显示的内容（包括文件类型和解码）<br><span class="hljs-string">&quot;set statusline=%F%m%r%h%w\ [FORMAT=%&#123;&amp;ff&#125;]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %&#123;strftime(\&quot;</span>%d/%m/%y\ -\ %H:%M\<span class="hljs-string">&quot;)&#125;</span><br><span class="hljs-string">&quot;</span>set statusline=[%F]%y%r%m%*%=[Line:%l/%L,Column:%c][%p%%]<br> <br><span class="hljs-string">&quot; 总是显示状态行</span><br><span class="hljs-string">set laststatus=2</span><br><span class="hljs-string">&quot;</span> 命令行（在状态行下）的高度，默认为<span class="hljs-number">1</span>，这里是<span class="hljs-number">2</span><br> <br>set cmdheight=<span class="hljs-number">2</span><br> <br><span class="hljs-string">&quot; 侦测文件类型</span><br><span class="hljs-string">filetype on</span><br><span class="hljs-string">&quot;</span> 载入文件类型插件<br> <br>filetype plugin on<br> <br><span class="hljs-string">&quot; 为特定文件类型载入相关缩进文件</span><br><span class="hljs-string">filetype indent on</span><br><span class="hljs-string">&quot;</span> 保存全局变量<br> <br>set viminfo+=!<br> <br><span class="hljs-string">&quot; 带有如下符号的单词不要被换行分割</span><br><span class="hljs-string">set iskeyword+=_,$,@,%,#,-</span><br><span class="hljs-string">&quot;</span> 字符间插入的像素行数目<br> <br>set linespace=<span class="hljs-number">0</span><br> <br><span class="hljs-string">&quot; 增强模式中的命令行自动完成操作</span><br><span class="hljs-string">set wildmenu</span><br><span class="hljs-string">&quot;</span> 使回格键（backspace）正常处理indent, eol, start等<br> <br>set backspace=<span class="hljs-number">2</span><br> <br><span class="hljs-string">&quot; 允许backspace和光标键跨越行边界</span><br><span class="hljs-string">set whichwrap+=&lt;,&gt;,h,l</span><br><span class="hljs-string">&quot;</span> 可以在buffer的任何地方使用鼠标（类似office中在工作区双击鼠标定位）<br> <br>set mouse=a<br> <br>set selection=exclusive<br> <br>set selectmode=mouse,key<br> <br><span class="hljs-string">&quot; 通过使用: commands命令，告诉我们文件的哪一行被改变过</span><br><span class="hljs-string">set report=0</span><br><span class="hljs-string">&quot;</span> 在被分割的窗口间显示空白，便于阅读<br> <br>set fillchars=vert:\ ,stl:\ ,stlnc:\<br> <br><span class="hljs-string">&quot; 高亮显示匹配的括号</span><br><span class="hljs-string">set showmatch</span><br><span class="hljs-string">&quot;</span> 匹配括号高亮的时间（单位是十分之一秒）<br> <br>set matchtime=<span class="hljs-number">1</span><br> <br><span class="hljs-string">&quot; 光标移动到buffer的顶部和底部时保持3行距离</span><br><span class="hljs-string">set scrolloff=3</span><br><span class="hljs-string">&quot;</span> 为C程序提供自动缩进<br> <br>set smartindent<br> <br><span class="hljs-string">&quot; 高亮显示普通txt文件（需要txt.vim脚本）</span><br><span class="hljs-string">au BufRead,BufNewFile *  setfiletype txt</span><br><span class="hljs-string">&quot;</span>自动补全<br> <br>:inoremap ( ()&lt;ESC&gt;i<br> <br>:inoremap ) &lt;c-r&gt;=ClosePair(<span class="hljs-string">&#x27;)&#x27;</span>)&lt;CR&gt;<br> <br><span class="hljs-string">&quot; 数组则不换行</span><br><span class="hljs-string">inoremap &#123; &#123;&#125;&lt;ESC&gt;i</span><br><span class="hljs-string">&quot;</span> 函数左括号加回车则换行<br>inoremap &#123;&lt;CR&gt; &#123;&lt;CR&gt;&#125;&lt;ESC&gt;O<br><br>:inoremap &#125; &lt;c-r&gt;=ClosePair(<span class="hljs-string">&#x27;&#125;&#x27;</span>)&lt;CR&gt;<br> <br>:inoremap [ []&lt;ESC&gt;i<br> <br>:inoremap ] &lt;c-r&gt;=ClosePair(<span class="hljs-string">&#x27;]&#x27;</span>)&lt;CR&gt;<br> <br>:inoremap <span class="hljs-string">&quot; &quot;</span><span class="hljs-string">&quot;&lt;ESC&gt;i</span><br><span class="hljs-string">:inoremap &#x27; &#x27;&#x27;&lt;ESC&gt;i</span><br><span class="hljs-string">function! ClosePair(char)</span><br><span class="hljs-string">    if getline(&#x27;.&#x27;)[col(&#x27;.&#x27;) - 1] == a:char</span><br><span class="hljs-string">        return &quot;</span>\&lt;Right&gt;<span class="hljs-string">&quot;</span><br><span class="hljs-string">    else</span><br><span class="hljs-string">        return a:char</span><br><span class="hljs-string">    endif</span><br><span class="hljs-string">endfunction</span><br><span class="hljs-string">filetype plugin indent on </span><br><span class="hljs-string">&quot;</span>打开文件类型检测, 加了这句才可以用智能补全<br> <br>set completeopt=longest,menu<br> <br><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;</span><br><span class="hljs-string">&quot;</span> CTags的设定  <br> <br><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;</span><br><span class="hljs-string">let Tlist_Sort_Type = &quot;</span>name<span class="hljs-string">&quot;    &quot;</span> 按照名称排序  <br> <br><span class="hljs-keyword">let</span> Tlist<span class="hljs-number">_</span>Use<span class="hljs-number">_</span>Right<span class="hljs-number">_</span>Window = <span class="hljs-number">1</span>  <span class="hljs-string">&quot; 在右侧显示窗口  </span><br><span class="hljs-string">let Tlist_Compart_Format = 1    &quot;</span> 压缩方式  <br> <br><span class="hljs-keyword">let</span> Tlist<span class="hljs-number">_</span>Exist<span class="hljs-number">_</span>OnlyWindow = <span class="hljs-number">1</span>  <span class="hljs-string">&quot; 如果只有一个buffer，kill窗口也kill掉buffer  </span><br><span class="hljs-string">let Tlist_File_Fold_Auto_Close = 0  &quot;</span> 不要关闭其他文件的tags  <br> <br><span class="hljs-keyword">let</span> Tlist<span class="hljs-number">_</span>Enable<span class="hljs-number">_</span>Fold<span class="hljs-number">_</span>Column = <span class="hljs-number">0</span>    <span class="hljs-string">&quot; 不要显示折叠树  </span><br><span class="hljs-string">autocmd FileType java set tags+=D:\tools\java\tags  </span><br><span class="hljs-string">&quot;</span>autocmd FileType h,cpp,cc,c set tags+=D:\tools\cpp\tags  <br> <br><span class="hljs-string">&quot;let Tlist_Show_One_File=1            &quot;</span>不同时显示多个文件的tag，只显示当前文件的<br> <br><span class="hljs-string">&quot;设置tags  </span><br><span class="hljs-string">set tags=tags  </span><br><span class="hljs-string">&quot;</span>set autochdir <br> <br> <br> <br><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><br> <br><span class="hljs-string">&quot;其他东东</span><br><span class="hljs-string">&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;</span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot;默认打开Taglist </span><br><span class="hljs-string">let Tlist_Auto_Open=1 </span><br><span class="hljs-string">&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot; </span><br><span class="hljs-string">&quot; Tag list (ctags) </span><br><span class="hljs-string"> </span><br><span class="hljs-string">&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="hljs-string">&quot;&quot;&quot;&quot;&quot; </span><br><span class="hljs-string"> </span><br><span class="hljs-string">let Tlist_Ctags_Cmd = &#x27;/usr/bin/ctags&#x27; </span><br><span class="hljs-string"> </span><br><span class="hljs-string">let Tlist_Show_One_File = 1 &quot;不同时显示多个文件的tag，只显示当前文件的 </span><br><span class="hljs-string">let Tlist_Exit_OnlyWindow = 1 &quot;如果taglist窗口是最后一个窗口，则退出vim </span><br><span class="hljs-string"> </span><br><span class="hljs-string">let Tlist_Use_Right_Window = 1 &quot;在右侧窗口中显示taglist窗口</span><br><span class="hljs-string">&quot; minibufexpl插件的一般设置</span><br><span class="hljs-string"> </span><br><span class="hljs-string">let g:miniBufExplMapWindowNavVim = 1</span><br><span class="hljs-string"> </span><br><span class="hljs-string">let g:miniBufExplMapWindowNavArrows = 1</span><br><span class="hljs-string"> </span><br><span class="hljs-string">let g:miniBufExplMapCTabSwitchBufs = 1</span><br><span class="hljs-string">let g:miniBufExplModSelTarget = 1</span><br><span class="hljs-string"></span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="bashrc设置user-host风格"><a href="#bashrc设置user-host风格" class="headerlink" title=".bashrc设置user@host风格"></a>.bashrc设置user@host风格</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 不要更改原.bashrc文件</span><br><span class="hljs-comment"># 下面都是追加在原文件后面的（Ubuntu中去掉下面一行注释就行）</span><br><span class="hljs-comment"># set a fancy prompt (non-color, unless we know we &quot;want&quot; color)</span><br><span class="hljs-keyword">case</span> <span class="hljs-string">&quot;<span class="hljs-variable">$TERM</span>&quot;</span> <span class="hljs-keyword">in</span><br>    xterm-color|*-256color) color_prompt=yes;;<br><span class="hljs-keyword">esac</span><br> <br><span class="hljs-comment"># uncomment for a colored prompt, if the terminal has the capability; turned</span><br><span class="hljs-comment"># off by default to not distract the user: the focus in a terminal window</span><br><span class="hljs-comment"># should be on the output of commands, not on the prompt</span><br>force_color_prompt=yes   <span class="hljs-comment">#Ubuntu中将这行的注释去掉</span><br> <br><span class="hljs-keyword">if</span> [ -n <span class="hljs-string">&quot;<span class="hljs-variable">$force_color_prompt</span>&quot;</span> ]; <span class="hljs-keyword">then</span><br>    <span class="hljs-keyword">if</span> [ -x /usr/bin/tput ] &amp;&amp; tput setaf 1 &gt;&amp;/dev/null; <span class="hljs-keyword">then</span><br>    <span class="hljs-comment"># We have color support; assume it&#x27;s compliant with Ecma-48</span><br>    <span class="hljs-comment"># (ISO/IEC-6429). (Lack of such support is extremely rare, and such</span><br>    <span class="hljs-comment"># a case would tend to support setf rather than setaf.)</span><br>    color_prompt=yes<br>    <span class="hljs-keyword">else</span><br>    color_prompt=<br>    <span class="hljs-keyword">fi</span><br><span class="hljs-keyword">fi</span><br> <br><span class="hljs-keyword">if</span> [ <span class="hljs-string">&quot;<span class="hljs-variable">$color_prompt</span>&quot;</span> = yes ]; <span class="hljs-keyword">then</span><br>    PS1=<span class="hljs-string">&#x27;$&#123;debian_chroot:+($debian_chroot)&#125;\[\033[01;32m\][\u@\h]\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ &#x27;</span><br><span class="hljs-keyword">else</span><br>    PS1=<span class="hljs-string">&#x27;$&#123;debian_chroot:+($debian_chroot)&#125;[\u@\h]:\w\$ &#x27;</span><br><span class="hljs-keyword">fi</span><br><span class="hljs-built_in">unset</span> color_prompt force_color_prompt<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>打开双屏显示另一个文件（水平切割split，垂直切割vsplit）</li>
+</ul>
+<p>vsp another/file</p>
+<ul>
+<li>窗口之间切换（只开两个窗口，多了太乱）</li>
+</ul>
+<p>ctrl+w+w 循环切换窗口</p>
+<p>ctrl+w+←/h 左边一个窗口</p>
+<p>ctrl+w+→/l 右边一个窗口</p>
+<p>ctrl+w+↑/k 上面一个窗口</p>
+<p>ctrl+w+↓/j 下面一个窗口</p>
+<ul>
+<li>关闭所有窗口</li>
+</ul>
+<p>qall</p>
+<ul>
+<li>只留下当前窗口，其他窗口关闭</li>
+</ul>
+<p>only</p>
+<ul>
+<li>高亮显示当前光标所在单词</li>
+</ul>
+<p>g+d</p>
+<p>n 跳到下方一个高亮的位置</p>
+<p>N 跳到上方一个高亮的位置</p>
+<ul>
+<li>代码跳转</li>
+</ul>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gcode"><span class="hljs-number">1</span>、安装ctags <span class="hljs-comment">(sudo apt install ctags)</span><br><span class="hljs-number">2</span>、在项目工程目录下<span class="hljs-comment">(即源文件目录)</span>执行命令: ctags -R * <span class="hljs-comment">(此命令会生成一个tags文件)</span><br></code></pre></td></tr></table></figure>
+
+<p>ctrl+]  跳转到函数定义处</p>
+<p>ctrl+o 跳转到函数调用处</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs routeros">注: 如果 ctrl+] 显示 : E433: <span class="hljs-literal">No</span> tags file<br>则在 ~/.vimrc 文件中添加：<br><span class="hljs-builtin-name">set</span> <span class="hljs-attribute">tags</span>=./tags,./TAGS,tags;,TAGS;<br><span class="hljs-builtin-name">set</span> autochdir<br>最后 source ~/.vimrc即可<br></code></pre></td></tr></table></figure>
+
+<h3 id="git"><a href="#git" class="headerlink" title="git"></a>git</h3><p>1、远程创建仓库</p>
+<p>2、本地初始化仓库(可能要先设置用户名邮箱啥的git config -l) git init</p>
+<p>3、关联远端 git remote add origin <a href="mailto:&#103;&#x69;&#x74;&#64;&#x67;&#x69;&#116;&#104;&#x75;&#x62;&#x2e;&#99;&#x6f;&#109;">&#103;&#x69;&#x74;&#64;&#x67;&#x69;&#116;&#104;&#x75;&#x62;&#x2e;&#99;&#x6f;&#109;</a>:账号名/仓库名.git</p>
+<p>4、设置上游 git branch –set-upstream-to=origin/master</p>
+<p>5、拉取远端 git pull –rebase （–rebase本地变基）</p>
+<p>6、push本地</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Linux/">Linux</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Linux/">Linux</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-info">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/08/31/%E9%9D%A2%E8%AF%95%E5%8F%8D%E9%97%AE%E7%8E%AF%E8%8A%82/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">面试反问环节</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/08/20/%E6%9F%A5%E8%AF%A2symbol/">
+                        <span class="hidden-mobile">查询symbol</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

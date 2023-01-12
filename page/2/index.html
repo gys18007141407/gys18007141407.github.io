@@ -192,32 +192,26 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/11/16/%E6%89%AB%E6%8F%8F%E7%BA%BF%E7%AE%97%E6%B3%95/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="扫描线算法">
+        <a href="/2022/04/18/%E5%BA%8F%E5%88%97%E5%8C%96%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="序列化反序列化">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/11/16/%E6%89%AB%E6%8F%8F%E7%BA%BF%E7%AE%97%E6%B3%95/" target="_self">
-          扫描线算法
+        <a href="/2022/04/18/%E5%BA%8F%E5%88%97%E5%8C%96%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" target="_self">
+          序列化反序列化
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/11/16/%E6%89%AB%E6%8F%8F%E7%BA%BF%E7%AE%97%E6%B3%95/" target="_self">
+        <a href="/2022/04/18/%E5%BA%8F%E5%88%97%E5%8C%96%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" target="_self">
           
           
             
           
-          扫描线算法预备知识: 线段树。前面已经对线段树有所记录，线段树部分不赘述。
-解题方案(示意图更好理解)
-
-1、对于最终所有的矩形而言，我们按照从上到下、或者从左到右的方向，遍历经过的矩形的边。
-2、假设这样遍历了共m条边，那么这m条边应该夹住了m-1个区间(分割的小矩形)。
-3、思考：a、前一次遍历的边与当前遍历的边的距离就是按照扫描线所分割的矩形的宽度；b、但是分割的矩形的长度我们如何能求？
-4
+          序列化与反序列化首先谈谈自己的理解，也作为一次记录。因为之前自己有写过一个RPC框架，当时自己要实现对象的序列化和反序列化，从简单性出发，直接假定通信双方都处于C++14环境下，并且操作系统和处理器架构都是一致的。这样一来，我在序列化时可以直接发送对象内存数据，并在发送内存数据之前增加数据大小字段即可完成序列化过程！服务器端通过在编译时确定了函数的参数类型，从而去尝试反序列化收到的数据，如果反序列
         </a>
       </p>
 
@@ -225,8 +219,363 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-11-16 13:42" pubdate>
-              2021-11-16
+            <time datetime="2022-04-18 13:26" pubdate>
+              2022-04-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/04/16/http2%E6%8A%93%E5%8C%85%E7%BB%93%E6%9E%84/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="http2抓包结构">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/04/16/http2%E6%8A%93%E5%8C%85%E7%BB%93%E6%9E%84/" target="_self">
+          http2抓包结构
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/04/16/http2%E6%8A%93%E5%8C%85%E7%BB%93%E6%9E%84/" target="_self">
+          
+          
+            
+          
+          http2头部【样例一】
+
+【样例二】
+
+如图:开头的为保留头信息，http2要求保留头信息出现在其他头信息之前。
+二进制数据HTTP/1.1 通过纯文本形式传输数据，使用 Wireshark、Tcpdump 抓包工具就可以非常方便的抓包调试。但 HTTP/2 不再使用明文而全部采用二进制格式。 这样虽然对人类阅读不友好，但却方便了计算机的解析与代码的编写。HTTP/2 把原来的头部与消息体分割为
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-04-16 13:03" pubdate>
+              2022-04-16
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/04/13/gRPC/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="gRPC">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/04/13/gRPC/" target="_self">
+          gRPC
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/04/13/gRPC/" target="_self">
+          
+          
+            
+          
+          一、gRPC与其他RPC对比需要IDL来生成代理1、gRPC需要使用IDL(Interface Define Language)接口定义语言来编写proto文件，该文件定义了消息的数据类型和服务，也就是说一个proto文件定义了一个消息传输的协议。通过相同的IDL，服务端生成服务端代理pb.h，客户端生成客户端代理pb.h。服务端要实现代理生成的接口函数(纯虚函数)，客户端要通过客户端代理来调用服
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-04-13 13:45" pubdate>
+              2022-04-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/RPC/">RPC</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/RPC/">RPC</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/04/11/Go%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="Go的内存分配">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/04/11/Go%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" target="_self">
+          Go的内存分配
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/04/11/Go%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" target="_self">
+          
+          
+            
+          
+          Go的内存分配mcache线程本地内存
+mcentral中央内存
+mheap堆
+
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-04-11 16:31" pubdate>
+              2022-04-11
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Golang/">Golang</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Golang/">Golang</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/04/08/X86-32CPU%E7%9A%84%E5%AF%84%E5%AD%98%E5%99%A8/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="X86-32CPU的寄存器">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/04/08/X86-32CPU%E7%9A%84%E5%AF%84%E5%AD%98%E5%99%A8/" target="_self">
+          X86-32CPU的寄存器
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/04/08/X86-32CPU%E7%9A%84%E5%AF%84%E5%AD%98%E5%99%A8/" target="_self">
+          
+          
+            
+          
+          X86-32CPU的寄存器【注意：X86-64在寄存器名称前面加字符R，用以区分X86-32在寄存器名称前面的字符E。】
+4个数据寄存器EAX：累加寄存器【也是默认存储函数返回值的寄存器】
+EBX：基址寄存器
+ECX：计数寄存器
+EDX：数据寄存器
+2个指针寄存器EBP：基指针寄存器【用来配合SS访问栈中的数据，因为SP始终是栈顶到SS的偏移量，我们不能修改SP，故要额外使用BP来访问栈中数据。S
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-04-08 11:17" pubdate>
+              2022-04-08
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%B1%87%E7%BC%96/">汇编</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%B1%87%E7%BC%96/">汇编</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/04/07/%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E7%9A%84%E9%93%BE%E6%8E%A5/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="目标文件的链接">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/04/07/%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E7%9A%84%E9%93%BE%E6%8E%A5/" target="_self">
+          目标文件的链接
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/04/07/%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6%E7%9A%84%E9%93%BE%E6%8E%A5/" target="_self">
+          
+          
+            
+          
+          程序从源文件到可执行文件的步骤我们知道一个C/C++源文件要经历预编译gcc -E、编译gcc -S、汇编gcc -c、链接ld这四个步骤才形成了最后的可执行文件。
+现在，我将探讨这些阶段究竟发生了什么，就让我用经典的helloworld程序来示例吧。
+12345#include &lt;stdio.h&gt;int main()&#123;    printf(&quot;hello world
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-04-07 10:08" pubdate>
+              2022-04-07
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/04/06/%E6%8D%A2%E6%A0%B9DP/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="换根DP">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/04/06/%E6%8D%A2%E6%A0%B9DP/" target="_self">
+          换根DP
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/04/06/%E6%8D%A2%E6%A0%B9DP/" target="_self">
+          
+          
+            
+          
+          换根DP题目链接1
+
+
+
+12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273#include &lt;iostream&gt;#include &lt;cstring&gt;#
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-04-06 14:48" pubdate>
+              2022-04-06
             </time>
           </div>
         
@@ -254,31 +603,26 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/11/07/%E5%9F%BA%E4%BA%8Edpdk%E7%9A%84%E7%94%A8%E6%88%B7%E6%80%81%E5%8D%8F%E8%AE%AE%E6%A0%88/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="基于dpdk的用户态协议栈">
+        <a href="/2022/03/28/c%E5%BA%93%E7%9A%84signal%E4%BD%BF%E7%94%A8/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="c库的signal使用">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/11/07/%E5%9F%BA%E4%BA%8Edpdk%E7%9A%84%E7%94%A8%E6%88%B7%E6%80%81%E5%8D%8F%E8%AE%AE%E6%A0%88/" target="_self">
-          基于dpdk的用户态协议栈
+        <a href="/2022/03/28/c%E5%BA%93%E7%9A%84signal%E4%BD%BF%E7%94%A8/" target="_self">
+          c库的signal使用
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/11/07/%E5%9F%BA%E4%BA%8Edpdk%E7%9A%84%E7%94%A8%E6%88%B7%E6%80%81%E5%8D%8F%E8%AE%AE%E6%A0%88/" target="_self">
+        <a href="/2022/03/28/c%E5%BA%93%E7%9A%84signal%E4%BD%BF%E7%94%A8/" target="_self">
           
           
             
           
-          基于DPDK的用户态协议栈安装好了DPDK后，尝试实现用户态协议栈，以下是demo代码
-查看是否使用硬件计算checksum
-ethtool --show-offload [interface_name] | grep checksum
-修改为不使用硬件计算checksum
-ethtool --offload ens160 rx off tx off
-以下代码直接利用examples/skelet
+          c库的signal使用1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768#include &lt;time.h&gt;  // 加上动态库 -lrt#include &lt;signal.h&gt
         </a>
       </p>
 
@@ -286,8 +630,8 @@ ethtool --offload ens160 rx off tx off
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-11-07 20:31" pubdate>
-              2021-11-07
+            <time datetime="2022-03-28 10:16" pubdate>
+              2022-03-28
             </time>
           </div>
         
@@ -295,9 +639,7 @@ ethtool --offload ens160 rx off tx off
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/Linux/">Linux</a>
-            
-              <a href="/categories/Linux/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+              <a href="/categories/C/">C++</a>
             
           </div>
         
@@ -305,9 +647,7 @@ ethtool --offload ens160 rx off tx off
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/Linux/">Linux</a>
-            
-              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+              <a href="/tags/C/">C++</a>
             
           </div>
         
@@ -319,28 +659,26 @@ ethtool --offload ens160 rx off tx off
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/11/02/DPDK/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="DPDK">
+        <a href="/2022/03/27/%E4%B9%A6%E7%B1%8D%E5%AD%A6%E4%B9%A0/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="书籍学习">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/11/02/DPDK/" target="_self">
-          DPDK
+        <a href="/2022/03/27/%E4%B9%A6%E7%B1%8D%E5%AD%A6%E4%B9%A0/" target="_self">
+          书籍学习
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/11/02/DPDK/" target="_self">
+        <a href="/2022/03/27/%E4%B9%A6%E7%B1%8D%E5%AD%A6%E4%B9%A0/" target="_self">
           
           
             
           
-          预备在没有深入了解之前，我曾认为像简单的mmap即可完成内存映射文件，从而直接获取网卡数据，也避免了数据拷贝到用户态这一中间过程，然而实际上我们并不能像open一个文件那样直接open一个网卡设备，于是我查了一些资料接触到了用户态协议栈、dpdk、netmap等等，之后的学习让我收获了很多。
-DPDK硬件支持
-Linux没有网卡设备文件在 unix中，一切io相关的实体都被抽象成了文件，之所以抽象
+          go学习1、《Go语言学习笔记》雨痕/著2、RPC学习1、《gRPC与云原生应用开发》卡山·因德拉西里/著 张卫滨/译2、《深入理解序列化与反序列化》洪潘安/著Linux学习1、《深入理解Linux内核》2、《Linux内核分析及应用》 陈科/著3、《庖丁解牛Linux内核分析》 孟宁 娄嘉鹏 刘宇栋/著其他书籍1、《深入浅出DPDK》2、《程序员的自我修养-链接、装载与库》 俞甲子 石凡 潘爱民
         </a>
       </p>
 
@@ -348,8 +686,8 @@ Linux没有网卡设备文件在 unix中，一切io相关的实体都被抽象�
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-11-02 17:29" pubdate>
-              2021-11-02
+            <time datetime="2022-03-27 16:32" pubdate>
+              2022-03-27
             </time>
           </div>
         
@@ -357,9 +695,7 @@ Linux没有网卡设备文件在 unix中，一切io相关的实体都被抽象�
           <div class="post-meta mr-3">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/Linux/">Linux</a>
-            
-              <a href="/categories/Linux/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+              <a href="/categories/Golang/">Golang</a>
             
           </div>
         
@@ -367,9 +703,7 @@ Linux没有网卡设备文件在 unix中，一切io相关的实体都被抽象�
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/Linux/">Linux</a>
-            
-              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+              <a href="/tags/Golang/">Golang</a>
             
           </div>
         
@@ -381,27 +715,28 @@ Linux没有网卡设备文件在 unix中，一切io相关的实体都被抽象�
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/10/28/iptables%E5%91%BD%E4%BB%A4%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="iptables命令简单使用">
+        <a href="/2022/03/27/%E5%80%8D%E5%A2%9E%E6%B3%95%E6%B1%82LCA/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="倍增法求LCA">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/10/28/iptables%E5%91%BD%E4%BB%A4%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" target="_self">
-          iptables命令简单使用
+        <a href="/2022/03/27/%E5%80%8D%E5%A2%9E%E6%B3%95%E6%B1%82LCA/" target="_self">
+          倍增法求LCA
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/10/28/iptables%E5%91%BD%E4%BB%A4%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" target="_self">
+        <a href="/2022/03/27/%E5%80%8D%E5%A2%9E%E6%B3%95%E6%B1%82LCA/" target="_self">
           
           
             
           
-          iptables iptables是Linux系统下应用层内置控制防火墙的工具，是内核空间的功能模块，用于监控进/出服务器流量。
-12补充：NAT和NAPT由于NAT实现是私有IP和NAT的公共IP之间的转换，那么，私有网中同时与公共网进行通信的主机数量就受到NAT的公共IP地址数量的限制。为了克服这种限制，NAT被进一步扩展到在进行IP地址转换的同时进行Port的转换，这就是网络地址端口转换NA
+          倍增法求LCA模板题题目链接
+
+1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969
         </a>
       </p>
 
@@ -409,133 +744,8 @@ Linux没有网卡设备文件在 unix中，一切io相关的实体都被抽象�
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-10-28 10:18" pubdate>
-              2021-10-28
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Linux/">Linux</a>
-            
-              <a href="/categories/Linux/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Linux/">Linux</a>
-            
-              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/10/26/k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="k8s集群部署">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/10/26/k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/" target="_self">
-          k8s集群部署
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/10/26/k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/" target="_self">
-          
-          
-            
-          
-          一、安装docker及k8s集群相关术语前面docker简单使用中已经讲过如何安装docker了。
-这里是有关k8s的资料
-1234567891011121314151617181920212223242526ClusterCluster是网络、存储、计算各种资源的集合，k8s利用这些资源运行容器应用。MasterMaster是集群的管理中心，负责调度，决定将应用放置在哪里运行，可以同时运行多个m
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-10-26 20:18" pubdate>
-              2021-10-26
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
-            
-              <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/k8s/">k8s</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
-            
-              <a href="/tags/k8s/">k8s</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/10/24/%E8%B4%B9%E9%A9%AC%E5%B0%8F%E5%AE%9A%E7%90%86%E6%B1%82%E9%80%86%E5%85%83(%E7%BB%84%E5%90%88%E6%95%B0)/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="费马小定理求逆元(组合数)">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/10/24/%E8%B4%B9%E9%A9%AC%E5%B0%8F%E5%AE%9A%E7%90%86%E6%B1%82%E9%80%86%E5%85%83(%E7%BB%84%E5%90%88%E6%95%B0)/" target="_self">
-          费马小定理求逆元(组合数)
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/10/24/%E8%B4%B9%E9%A9%AC%E5%B0%8F%E5%AE%9A%E7%90%86%E6%B1%82%E9%80%86%E5%85%83(%E7%BB%84%E5%90%88%E6%95%B0)/" target="_self">
-          
-          
-            
-          
-          求组合数题目链接1
-
-
-1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465#include &lt;iostream&gt;#include &lt;cstring&gt;#include &lt;algor
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-10-24 17:49" pubdate>
-              2021-10-24
+            <time datetime="2022-03-27 14:55" pubdate>
+              2022-03-27
             </time>
           </div>
         
@@ -552,245 +762,6 @@ Linux没有网卡设备文件在 unix中，一切io相关的实体都被抽象�
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
-            
-              <a href="/tags/%E6%95%B0%E8%AE%BA/">数论</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/10/22/Dockerfile%E5%92%8Cdocker-compose/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="Dockerfile和docker-compose">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/10/22/Dockerfile%E5%92%8Cdocker-compose/" target="_self">
-          Dockerfile和docker-compose
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/10/22/Dockerfile%E5%92%8Cdocker-compose/" target="_self">
-          
-          
-            
-          
-          预备1、什么时候使用Dockerfile
-通常我们直接使用命令docker pull [image_name]来拉取一个镜像到本地。但是有些时候，我们所需要的应用程序没有对应的镜像可供下载，于是乎，聪明的人们使用Dockerfile将该应用程序描述清楚，然后将Dockerfile和其描述信息中提到的(依赖的)数据一并打包发送给别人，别人收到这个打包数据后，使用命令docker build -f [
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-10-22 20:07" pubdate>
-              2021-10-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/docker/">docker</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/docker/">docker</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/10/20/Kafka/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="Kafka">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/10/20/Kafka/" target="_self">
-          Kafka
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/10/20/Kafka/" target="_self">
-          
-          
-            
-          
-          预备下载地址，方便起见，这里直接下载了编译好的二进制文件。
-注意设置好config/zookeeper.properties文件中的maxClientCnxns选项, 当连接到zookeeper的客户端数量超过maxClientCnxns的值就连接不上zookeeper了.
-拓扑结构此图感觉有误，现在版本更新后貌似producer和consumer都是直接访问broker集群的，zookeeper
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-10-20 14:12" pubdate>
-              2021-10-20
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/10/17/%E5%B7%AE%E5%88%86%E7%BA%A6%E6%9D%9F%E7%B3%BB%E7%BB%9F/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="差分约束">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/10/17/%E5%B7%AE%E5%88%86%E7%BA%A6%E6%9D%9F%E7%B3%BB%E7%BB%9F/" target="_self">
-          差分约束
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/10/17/%E5%B7%AE%E5%88%86%E7%BA%A6%E6%9D%9F%E7%B3%BB%E7%BB%9F/" target="_self">
-          
-          
-            
-          
-          先考虑一些常见的问题12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152题目一、	以下不等式中 k1,k2,k3均为常数，求max(a-c)。            a - b &lt;= k1;            b - c &lt;= k2;      
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-10-17 17:11" pubdate>
-              2021-10-17
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
-            
-              <a href="/tags/%E5%B7%AE%E5%88%86%E7%BA%A6%E6%9D%9F/">差分约束</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/10/15/mysql%E4%B8%BB%E4%BB%8E%E7%83%AD%E5%A4%87/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="mysql主从热备">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/10/15/mysql%E4%B8%BB%E4%BB%8E%E7%83%AD%E5%A4%87/" target="_self">
-          mysql主从热备
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/10/15/mysql%E4%B8%BB%E4%BB%8E%E7%83%AD%E5%A4%87/" target="_self">
-          
-          
-            
-          
-          mysql主从热备原理一、主库db的更新事件(update、insert、delete)被写到二进制日志文件binlog中
-二、从库发起连接，连接到主库
-三、此时主库创建一个binlog dump thread线程，把binlog的内容发送到从库
-四、从库启动后，也会创建一个I/O线程，读取主库传过来的binlog内容并写入到中继日志relay log中.
-五、从库启动后，还会创建一个SQL线程，
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-10-15 15:25" pubdate>
-              2021-10-15
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
-            
-              <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/mysql/">mysql</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
-            
-              <a href="/tags/mysql/">mysql</a>
             
           </div>
         
@@ -802,7 +773,7 @@ Linux没有网卡设备文件在 unix中，一切io相关的实体都被抽象�
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/#board">9</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/#board">13</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

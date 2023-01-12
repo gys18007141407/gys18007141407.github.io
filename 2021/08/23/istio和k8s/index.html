@@ -238,10 +238,10 @@
           <article class="post-content mx-auto">
             <!-- SEO header -->
             <h1 style="display: none">istio和k8s</h1>
-	    <time updated datetime="2021-11-10 14:42"></time>
+	    <time updated datetime="2022-03-10 09:48"></time>
             
             <div class="markdown-body">
-              <h2 id="istio"><a href="#istio" class="headerlink" title="istio"></a>istio</h2><p>Istio 提供一种简单的方式来为已部署的服务建立网络，该网络具有负载均衡、服务间认证、监控等功能，而不需要对服务的代码做任何改动。</p>
+              <h3 id="istio"><a href="#istio" class="headerlink" title="istio"></a>istio</h3><p>Istio 提供一种简单的方式来为已部署的服务建立网络，该网络具有负载均衡、服务间认证、监控等功能，而不需要对服务的代码做任何改动。</p>
 <p>简单来说istio就是用来做service mesh[服务网格]的工具链，istio通常搭配k8s来使用。</p>
 <p>如果只用原生k8s，一般采用service来进行负载均衡，但如果想增加一些功能如熔断，限流，灰度等，这些功能在service层面是做不到的。这些高级功能通常采用service mesh这样一个工具或者说思路来进行实现。</p>
 <h3 id="K8S"><a href="#K8S" class="headerlink" title="K8S"></a>K8S</h3><p>K8S是当前主流的容器编排系统, 服务编排系统要想实现服务的自动化部署和运行离不开容器编排系统。</p>
@@ -263,13 +263,11 @@
 <p>​    源POD –&gt; service(Virtual IP) –&gt; 目标POD</p>
 <p>k8s+service mesh方案：</p>
 <p>​    源POD –&gt; iptables REDIRECT(目标改写，流量拦截) –&gt; istio-proxy –&gt; 目标POD</p>
-<hr>
 <p><strong>特性</strong></p>
 <p>istio 适用于容器或虚拟机环境（特别是 k8s），兼容异构架构。istio 使用 sidecar（边车模式）代理服务的网络，不需要对业务代本身做任何的改动。</p>
 <p>HTTP、gRPC、WebSocket 和 TCP 流量的自动负载均衡。</p>
 <p>istio 通过丰富的路由规则、重试、故障转移和故障注入，可以对流量行为进行细粒度控制；支持访问控制、速率限制和配额。</p>
 <p>istio 对出入集群入口和出口中所有流量的自动度量指标、日志记录和跟踪。</p>
-<hr>
 <h3 id="预备工作"><a href="#预备工作" class="headerlink" title="预备工作"></a>预备工作</h3><p><code>额外安装方法可参考</code><a target="_blank" rel="noopener" href="https://blog.csdn.net/CANGYE0504/article/details/106159649/">csdn</a></p>
 <h4 id="安装-minikube"><a href="#安装-minikube" class="headerlink" title="安装 minikube"></a>安装 <a target="_blank" rel="noopener" href="https://minikube.sigs.k8s.io/docs/start/">minikube</a></h4><p><img src="/2021/08/23/istio%E5%92%8Ck8s/image-20210828111221184.png" srcset="/img/loading.gif" lazyload alt="image-20210828111221184"></p>
 <h4 id="启动minikube-minikube-start"><a href="#启动minikube-minikube-start" class="headerlink" title="启动minikube: minikube start"></a>启动minikube: minikube start</h4><p><img src="/2021/08/23/istio%E5%92%8Ck8s/image-20210828144140108.png" srcset="/img/loading.gif" lazyload alt="image-20210828144140108"></p>

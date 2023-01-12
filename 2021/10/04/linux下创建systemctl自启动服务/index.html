@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      694 字
+      757 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      9
        分钟
     </span>
   
@@ -238,7 +238,7 @@
           <article class="post-content mx-auto">
             <!-- SEO header -->
             <h1 style="display: none">创建systemctl自启动服务</h1>
-	    <time updated datetime="2021-10-04 21:08"></time>
+	    <time updated datetime="2022-12-20 15:34"></time>
             
             <div class="markdown-body">
               <h3 id="systemctl目录"><a href="#systemctl目录" class="headerlink" title="systemctl目录"></a>systemctl目录</h3><p>这是<a target="_blank" rel="noopener" href="https://www.linuxidc.com/Linux/2018-08/153545.htm">相关信息1</a> <a target="_blank" rel="noopener" href="https://blog.csdn.net/taoxicun/article/details/119240944">相关信息2</a></p>
@@ -281,6 +281,8 @@
 <h3 id="编写Unit文件"><a href="#编写Unit文件" class="headerlink" title="编写Unit文件"></a>编写Unit文件</h3><p><img src="/2021/10/04/linux%E4%B8%8B%E5%88%9B%E5%BB%BAsystemctl%E8%87%AA%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1/image-20211004203218575.png" srcset="/img/loading.gif" lazyload alt="image-20211004203218575"></p>
 <h3 id="查看效果"><a href="#查看效果" class="headerlink" title="查看效果"></a>查看效果</h3><p><img src="/2021/10/04/linux%E4%B8%8B%E5%88%9B%E5%BB%BAsystemctl%E8%87%AA%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1/image-20211004203154413.png" srcset="/img/loading.gif" lazyload alt="image-20211004203154413"></p>
 <p><img src="/2021/10/04/linux%E4%B8%8B%E5%88%9B%E5%BB%BAsystemctl%E8%87%AA%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1/image-20211004210835629.png" srcset="/img/loading.gif" lazyload alt="image-20211004210835629"></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs routeros">1、/lib/systemd<span class="hljs-built_in">/system </span> 编辑.service文件<br>[Unit]<br><span class="hljs-attribute">Description</span>=gys&#x27;s tencent ecs based frp<span class="hljs-built_in"> client</span><br><span class="hljs-built_in"></span><span class="hljs-attribute">After</span>=network.target<br><br>[Service]<br><span class="hljs-attribute">Type</span>=forking<br><span class="hljs-attribute">User</span>=UESTC-1<br><span class="hljs-attribute">ExecStart</span>=<span class="hljs-string">&quot;/home/UESTC-1/gys_frp/tencent_ecs/frpc&quot;</span> -c <span class="hljs-string">&quot;/home/UESTC-1/gys_frp/tencent_ecs/frpc.ini&quot;</span><br><span class="hljs-attribute">Restart</span>=always<br><span class="hljs-attribute">RestartSec</span>=5<br><br>[Install]<br><span class="hljs-attribute">Alias</span>=gys_frp_tencent<br><span class="hljs-attribute">WantedBy</span>=multi-user.target<br><br>2、sudo systemctl <span class="hljs-builtin-name">enable</span> xx	设置开机自启<br></code></pre></td></tr></table></figure>
+
 
             </div>
             <hr>

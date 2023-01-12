@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      541 字
+      584 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      8
        分钟
     </span>
   
@@ -238,7 +238,7 @@
           <article class="post-content mx-auto">
             <!-- SEO header -->
             <h1 style="display: none">docker中使用redis和mysql</h1>
-	    <time updated datetime="2021-10-21 20:00"></time>
+	    <time updated datetime="2022-09-08 22:25"></time>
             
             <div class="markdown-body">
               <h2 id="在docker中使用redis"><a href="#在docker中使用redis" class="headerlink" title="在docker中使用redis"></a>在docker中使用redis</h2><p>安装好<code>docker</code>后，拉取<code>redis</code>镜像。其余操作与<code>consul简单使用</code>类似。</p>
@@ -260,6 +260,10 @@
 <p>运行如下指令</p>
 <p><img src="/2021/09/01/docker%E4%B8%AD%E4%BD%BF%E7%94%A8redis%E5%92%8Cmysql/image-20210903144316082.png" srcset="/img/loading.gif" lazyload alt="image-20210903144316082"></p>
 <p>指定密码为456</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gradle">sudo docker run --name mysql1 --net diy-<span class="hljs-keyword">static</span>-net --ip <span class="hljs-number">172.20</span>.<span class="hljs-number">0.2</span> -p <span class="hljs-number">3306</span>:<span class="hljs-number">3306</span> -e MYSQL_ROOT_PASSWORD=<span class="hljs-number">456</span> -v <span class="hljs-regexp">/home/gy</span>s<span class="hljs-regexp">/temp/my</span>sql-config<span class="hljs-regexp">/mysql.config:/</span>etc<span class="hljs-regexp">/mysql/my</span>.conf -v <span class="hljs-regexp">/home/gy</span>s<span class="hljs-regexp">/temp/my</span>sql-data<span class="hljs-regexp">/:/</span>var<span class="hljs-regexp">/lib/my</span>sql-files mysql<br></code></pre></td></tr></table></figure>
+
+
+
 <p><img src="/2021/09/01/docker%E4%B8%AD%E4%BD%BF%E7%94%A8redis%E5%92%8Cmysql/image-20210903151016404.png" srcset="/img/loading.gif" lazyload alt="image-20210903151016404"></p>
 <p>连接成功</p>
 <p><img src="/2021/09/01/docker%E4%B8%AD%E4%BD%BF%E7%94%A8redis%E5%92%8Cmysql/image-20210903150917305.png" srcset="/img/loading.gif" lazyload alt="image-20210903150917305"></p>

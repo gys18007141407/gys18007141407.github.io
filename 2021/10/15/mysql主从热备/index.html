@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.2k 字
+      1.3k 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      15
+      16
        分钟
     </span>
   
@@ -238,10 +238,13 @@
           <article class="post-content mx-auto">
             <!-- SEO header -->
             <h1 style="display: none">mysql主从热备</h1>
-	    <time updated datetime="2021-10-15 14:40"></time>
+	    <time updated datetime="2022-03-02 16:24"></time>
             
             <div class="markdown-body">
-              <h3 id="mysql主从热备"><a href="#mysql主从热备" class="headerlink" title="mysql主从热备"></a>mysql主从热备</h3><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>一、主库db的更新事件(update、insert、delete)被写到二进制日志文件binlog中</p>
+              <h3 id="mysql主从热备"><a href="#mysql主从热备" class="headerlink" title="mysql主从热备"></a>mysql主从热备</h3><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>【主库对于每一个从库创建一个I/O线程，将binlog发送给从库】</p>
+<p>【从库建立一个I/O线程将收到的主库的binlog放到中继日志relaylog中】</p>
+<p>【从库创建一个SQL线程执行中继日志，相当于执行跟主库相同的SQL语句来保证和主库一致】</p>
+<p>一、主库db的更新事件(update、insert、delete)被写到二进制日志文件binlog中</p>
 <p>二、从库发起连接，连接到主库</p>
 <p>三、此时主库创建一个binlog dump thread线程，把binlog的内容发送到从库</p>
 <p>四、从库启动后，也会创建一个I/O线程，读取主库传过来的binlog内容并写入到中继日志relay log中.</p>
