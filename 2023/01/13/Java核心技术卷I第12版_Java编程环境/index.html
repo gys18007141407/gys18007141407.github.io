@@ -1,0 +1,494 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  
+  <title>Java核心技术卷I第12版_Java编程环境 - gys的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gys18007141407.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>gys的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/miku7.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Java核心技术卷I第12版_Java编程环境">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2023-01-13 11:18" pubdate>
+        2023年1月13日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      16
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Java核心技术卷I第12版_Java编程环境</h1>
+	    <time updated datetime="2023-01-14 10:35"></time>
+            
+            <div class="markdown-body">
+              <h3 id="JRE"><a href="#JRE" class="headerlink" title="JRE"></a>JRE</h3><p>Java Runtime Environment，Java运行环境，包括Java虚拟机（jvm）、Java核心类库和支持文件。由于JRE并不包含开发环境，所以没有包含任何开发工具，如编译器、调试器和其它工具。</p>
+<p>当你只需要运行已经编译好的Java程序时，而并不需要写Java代码、编译Java代码或者调试Java代码等等时可以只安装JRE。</p>
+<h3 id="JDK"><a href="#JDK" class="headerlink" title="JDK"></a>JDK</h3><p>Java Development Kit，Java开发工具包，包含java开发工具以及该jdk专用的jre。因为java开发工具也是由java语言编写的，因此要使用java开发工具必然要具备java运行环境。</p>
+<p>JDK自带的jre称为专用jre，单独安装的jre称为公共jre。如果安装了JDK的话，其实是没必要再安装公共jre的。因为公共JRE是一个独立的JRE系统，会单独安装在系统的其它路径下。<strong>公共JRE会向Internet Explorer浏览器和系统中注册Java运行时环境。通过这种方式，系统中任何应用程序都可以使用公用JRE。由于现在网页上执行Applet的机会越来越少，而且完成可以选择JDK目录下的JRE来运行任何Java程序，因此没有太大必要安装公共JRE。</strong>只要正常安装JDK，指定好环境变量后，就OK了</p>
+<p>注：<strong>Applet</strong>是采用Java编程语言编写的小应用程序，该程序可以包含在 HTML（标准通用标记语言的一个应用）页中，与在页中包含图像的方式大致相同。</p>
+<h3 id="Java三大版本：Java-SE、Java-EE、Java-ME"><a href="#Java三大版本：Java-SE、Java-EE、Java-ME" class="headerlink" title="Java三大版本：Java SE、Java EE、Java ME"></a>Java三大版本：Java SE、Java EE、Java ME</h3><p>JSE即标准版（standard edition），包含了Java核心类库，主要用来开发<strong>桌面应用</strong>。</p>
+<p>EE即企业版（enterprise edition），包含SE，又有扩展部分（Servlet，JDBC等），主要用来开发<strong>分布式网络程序</strong>。</p>
+<p>ME即微型版（micro edition），包含了SE中部分类库，又有自己扩展部分，主要用来做<strong>移动类、嵌入式开发</strong>。</p>
+<h3 id="Java-Web"><a href="#Java-Web" class="headerlink" title="Java Web"></a>Java Web</h3><p>定义：Java Web应用由一组Servlet、HTML页、类、以及其它可以被绑定的资源构成。它可以在各种供应商提供的实现Servlet规范的 Servlet容器 中运行。</p>
+<p>重点在于Web，显然Java Web是企业级开发的重要组成部分，只能算是企业级Java开发的一个子集，主要包括jsp、servlet等为基础的一系列技术，当然现在的企业开发已经见不到jsp和servlet了，取而代之的是SSM或Spring Boot等一系列开发框架（但其实这些框架不仅仅局限于Web开发）</p>
+<p>对于现在的开发而已，这已经被分为两个领域了，分为“服务端”和“客户端”，也就是两个岗位，一个是后端，一个是前端。</p>
+<h3 id="JSP"><a href="#JSP" class="headerlink" title="JSP"></a>JSP</h3><p>JSP全称Java Server Pages，是一种动态网页开发技术。它使用JSP标签在HTML网页中插入Java代码。标签通常以&lt;%开头以%&gt;结束。</p>
+<p>JSP是一种Java servlet，主要用于实现Java web应用程序的用户界面部分。网页开发者们通过结合HTML代码、XHTML代码、XML元素以及嵌入JSP操作和命令来编写JSP。</p>
+<p>JSP通过网页表单获取用户输入数据、访问数据库及其他数据源，然后动态地创建网页。</p>
+<p>JSP标签有多种功能，比如访问数据库、记录用户选择信息、访问JavaBeans组件等，还可以在不同的网页中传递控制信息和共享信息。</p>
+<h3 id="示例：安装Java-SE-17-LTS-JDK"><a href="#示例：安装Java-SE-17-LTS-JDK" class="headerlink" title="示例：安装Java SE 17 (LTS) JDK"></a>示例：安装Java SE 17 (LTS) JDK</h3><h4 id="1、Oracle网站下载JDK"><a href="#1、Oracle网站下载JDK" class="headerlink" title="1、Oracle网站下载JDK"></a>1、<a target="_blank" rel="noopener" href="https://www.oracle.com/java/technologies/downloads/archive/">Oracle网站下载JDK</a></h4><p><img src="/2023/01/13/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7I%E7%AC%AC12%E7%89%88_Java%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/image-20230113175713295.png" srcset="/img/loading.gif" lazyload alt="image-20230113175713295"></p>
+<p>选择Java SE 17下载installer</p>
+<h4 id="2、运行installer，安装JDK"><a href="#2、运行installer，安装JDK" class="headerlink" title="2、运行installer，安装JDK"></a>2、运行installer，安装JDK</h4><h5 id="2-1-Windows"><a href="#2-1-Windows" class="headerlink" title="2.1 Windows"></a>2.1 Windows</h5><p>直接图像交互界面下载安装</p>
+<p><img src="/2023/01/13/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7I%E7%AC%AC12%E7%89%88_Java%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/image-20230113175950241.png" srcset="/img/loading.gif" lazyload alt="image-20230113175950241"></p>
+<h5 id="2-2-Linux"><a href="#2-2-Linux" class="headerlink" title="2.2 Linux"></a>2.2 Linux</h5><p>首先查看系统支持的软件包格式</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs vim">rpm --<span class="hljs-keyword">version</span>则表示支持rpm<br>debian --<span class="hljs-keyword">version</span>则表示支持<span class="hljs-keyword">deb</span><br></code></pre></td></tr></table></figure>
+
+<p>然后下载对应的软件包并安装</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs awk">wget https:<span class="hljs-regexp">//</span>download.oracle.com<span class="hljs-regexp">/java/</span><span class="hljs-number">17</span><span class="hljs-regexp">/archive/</span>jdk-<span class="hljs-number">17.0</span>.<span class="hljs-number">5</span>_linux-x64_bin.rpm<br>rpm -i jdk-<span class="hljs-number">17.0</span>.<span class="hljs-number">5</span>_linux-x64_bin.rpm<br>或者<br>wget https:<span class="hljs-regexp">//</span>download.oracle.com<span class="hljs-regexp">/java/</span><span class="hljs-number">17</span><span class="hljs-regexp">/archive/</span>jdk-<span class="hljs-number">17.0</span>.<span class="hljs-number">5</span>_linux-x64_bin.deb<br>dbkg -i jdk-<span class="hljs-number">17.0</span>.<span class="hljs-number">5</span>_linux-x64_bin.deb<br><br></code></pre></td></tr></table></figure>
+
+<h4 id="3、验证是否安装成功：javac-–version"><a href="#3、验证是否安装成功：javac-–version" class="headerlink" title="3、验证是否安装成功：javac –version"></a>3、验证是否安装成功：javac –version</h4><p>注：一般来说，安装时会自动添加相关的环境变量，如果安装时没有报错，但执行命令却提示未找到该命令，这时应该先检查环境变量（Java/jdk-x.x.x/bin）是否被添加。</p>
+<p><img src="/2023/01/13/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7I%E7%AC%AC12%E7%89%88_Java%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/image-20230113215000198.png" srcset="/img/loading.gif" lazyload alt="image-20230113215000198"></p>
+<p><img src="/2023/01/13/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7I%E7%AC%AC12%E7%89%88_Java%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/image-20230113220457625.png" srcset="/img/loading.gif" lazyload alt="image-20230113220457625"></p>
+<h4 id="4、如果需要查看java源码，则要安装源文件和文档"><a href="#4、如果需要查看java源码，则要安装源文件和文档" class="headerlink" title="4、如果需要查看java源码，则要安装源文件和文档"></a>4、如果需要查看java源码，则要安装源文件和文档</h4><h5 id="4-1-进入安装根目录下的lib目录找到src-zip文件"><a href="#4-1-进入安装根目录下的lib目录找到src-zip文件" class="headerlink" title="4.1 进入安装根目录下的lib目录找到src.zip文件"></a>4.1 进入安装根目录下的lib目录找到src.zip文件</h5><p>注：src.zip文件包含了所有公共类库的源代码，也就是说我们在写java程序用到的 java.lang.String ,java.lang.date等所有的类都能在src压缩包中找到源代码。</p>
+<p><img src="/2023/01/13/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7I%E7%AC%AC12%E7%89%88_Java%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/image-20230113221700290.png" srcset="/img/loading.gif" lazyload alt="image-20230113221700290"></p>
+<p><img src="/2023/01/13/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7I%E7%AC%AC12%E7%89%88_Java%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/image-20230113221410316.png" srcset="/img/loading.gif" lazyload alt="image-20230113221410316"></p>
+<h5 id="4-2-将src-zip文件解压缩"><a href="#4-2-将src-zip文件解压缩" class="headerlink" title="4.2 将src.zip文件解压缩"></a>4.2 将src.zip文件解压缩</h5><p>一般我们在src.zip的同级目录创建src目录，然后将src.zip文件解压缩到src目录下。</p>
+<p>注：在集成开发环境下，一般我们不需要自己去解压缩src.zip文件，只需要在集成开发环境中设置源代码路径(就是src.zip的路径)即可。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css">mkdir <span class="hljs-attribute">src</span><br>cd <span class="hljs-attribute">src</span><br>jar xvf ../<span class="hljs-attribute">src</span><span class="hljs-selector-class">.zip</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="5、第一个java程序：HelloWorld"><a href="#5、第一个java程序：HelloWorld" class="headerlink" title="5、第一个java程序：HelloWorld"></a>5、第一个java程序：HelloWorld</h4><p>简单来说整个流程就是：javac将.java源代码文件编译成.class文件，然后jvm加载.class文件运行程序。</p>
+<p>注：运行时不要加.class后缀。用java Helloworld.class是错误的！</p>
+<p><img src="/2023/01/13/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7I%E7%AC%AC12%E7%89%88_Java%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/image-20230113223340230.png" srcset="/img/loading.gif" lazyload alt="image-20230113223340230"></p>
+<p><img src="/2023/01/13/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7I%E7%AC%AC12%E7%89%88_Java%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/image-20230113223042782.png" srcset="/img/loading.gif" lazyload alt="image-20230113223042782"></p>
+<h4 id="6、class文件中的字节码"><a href="#6、class文件中的字节码" class="headerlink" title="6、class文件中的字节码"></a>6、class文件中的字节码</h4><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-number">1</span>、vim二进制打开.<span class="hljs-keyword">class</span>文件<br>vim -b <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">HelloWorld</span>.</span></span><span class="hljs-keyword">class</span> <br><span class="hljs-number">2</span>、vim中转换为<span class="hljs-number">16</span>进制<br>%!xxd<br><span class="hljs-number">3</span>、vim中恢复为<span class="hljs-number">2</span>进制<br>%!xxd -r<br></code></pre></td></tr></table></figure>
+
+<p>HelloWorld.class文件中前4个字节是固定的magic number: cafe babe，图中是符合预期的。javac将java代码编译为字节码后，jvm将字节码再转换为机器指令运行。因此可见，<strong>字节码是中间代码，而通过jvm可以将相同的字节码在不同机器上转为不同的机器指令，从而实现跨平台的功能</strong>。</p>
+<p><img src="/2023/01/13/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7I%E7%AC%AC12%E7%89%88_Java%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/image-20230113233826753.png" srcset="/img/loading.gif" lazyload alt="image-20230113233826753"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%8E%AF%E5%A2%83/">环境</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/java/">java</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-info">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/01/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7I%E7%AC%AC12%E7%89%88_Java%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Java核心技术卷I第12版_Java的基本程序设计结构</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/09/12/%E5%86%85%E6%A0%B8tcp%E5%8A%A8%E6%80%81%E8%B0%83%E6%95%B4%E7%AA%97%E5%8F%A3/">
+                        <span class="hidden-mobile">内核tcp动态调整窗口</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

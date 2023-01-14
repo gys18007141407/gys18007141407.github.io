@@ -192,6 +192,129 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/11/02/DPDK/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="DPDK">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/11/02/DPDK/" target="_self">
+          DPDK
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/11/02/DPDK/" target="_self">
+          
+          
+            
+          
+          预备在没有深入了解之前，我曾认为像简单的mmap即可完成内存映射文件，从而直接获取网卡数据，也避免了数据拷贝到用户态这一中间过程，然而实际上我们并不能像open一个文件那样直接open一个网卡设备，于是我查了一些资料接触到了用户态协议栈、dpdk、netmap等等，之后的学习让我收获了很多。
+DPDK硬件支持
+Linux没有网卡设备文件在 unix中，一切io相关的实体都被抽象成了文件，之所以抽象
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-11-02 17:29" pubdate>
+              2021-11-02
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Linux/">Linux</a>
+            
+              <a href="/categories/Linux/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+            
+              <a href="/tags/Linux/">Linux</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/10/28/iptables%E5%91%BD%E4%BB%A4%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="iptables命令简单使用">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/10/28/iptables%E5%91%BD%E4%BB%A4%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" target="_self">
+          iptables命令简单使用
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/10/28/iptables%E5%91%BD%E4%BB%A4%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" target="_self">
+          
+          
+            
+          
+          iptables iptables是Linux系统下应用层内置控制防火墙的工具，是内核空间的功能模块，用于监控进/出服务器流量。
+12补充：NAT和NAPT由于NAT实现是私有IP和NAT的公共IP之间的转换，那么，私有网中同时与公共网进行通信的主机数量就受到NAT的公共IP地址数量的限制。为了克服这种限制，NAT被进一步扩展到在进行IP地址转换的同时进行Port的转换，这就是网络地址端口转换NA
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-10-28 10:18" pubdate>
+              2021-10-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Linux/">Linux</a>
+            
+              <a href="/categories/Linux/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+            
+              <a href="/tags/Linux/">Linux</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2021/10/26/k8s%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/" target="_self">
           <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="k8s集群部署">
         </a>
@@ -644,127 +767,6 @@ const_cast用于去掉类型的const或volatile属性
             <i class="iconfont icon-date"></i>
             <time datetime="2021-10-11 19:37" pubdate>
               2021-10-11
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/10/11/LVS+keepalived%E9%85%8D%E7%BD%AE/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="LVS+keepalived">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/10/11/LVS+keepalived%E9%85%8D%E7%BD%AE/" target="_self">
-          LVS+keepalived
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/10/11/LVS+keepalived%E9%85%8D%E7%BD%AE/" target="_self">
-          
-          
-            
-          
-          LVS = Linux Virtual Server(Linux虚拟服务器) 
-LVS集群采用IP负载均衡技术和基于内容请求分发技术。调取器具有很好的吞吐率，将请求均衡的转移到不同的服务器执行，且调度器自动屏蔽掉服务器的故障，从而将一组服务器构成一个高性能，高可用的虚拟服务器。
-linux内核支持LVS功能模块。也就是说，LVS是内核提供的一个功能模块。
-apt install ipvsadm。使
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-10-11 17:42" pubdate>
-              2021-10-11
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
-            
-              <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/">负载均衡</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
-            
-              <a href="/tags/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/">负载均衡</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/10/10/%E5%A4%9A%E9%87%8D%E8%83%8C%E5%8C%85%E7%9A%84%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="多重背包的单调队列优化">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/10/10/%E5%A4%9A%E9%87%8D%E8%83%8C%E5%8C%85%E7%9A%84%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96/" target="_self">
-          多重背包的单调队列优化
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/10/10/%E5%A4%9A%E9%87%8D%E8%83%8C%E5%8C%85%E7%9A%84%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97%E4%BC%98%E5%8C%96/" target="_self">
-          
-          
-            
-          
-          多重背包单调队列优化这是题目链接
-
-12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-10-10 19:41" pubdate>
-              2021-10-10
             </time>
           </div>
         

@@ -192,6 +192,120 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/08/30/go%20mod%E5%9D%91%E7%82%B9/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="go-mod坑点">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/30/go%20mod%E5%9D%91%E7%82%B9/" target="_self">
+          go-mod坑点
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/30/go%20mod%E5%9D%91%E7%82%B9/" target="_self">
+          
+          
+            
+          
+          Go的版本管理工具一开始学习go时，关闭了GO111MODULE，然后按照网上教程go get安装依赖时都会把对应文件下载到GOPATH/pkg/mod下，最奇妙的是下载完之后import会显示无法解析符号。后来，我发现import包时需要对应包在GOPATH/src下，故每次都是git clone源代码到GOPATH/src下，最后才可以正常编译运行代码。
+
+顺便记录一下Ubuntu中GoLan
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-30 10:32" pubdate>
+              2021-08-30
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Golang/">Golang</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Golang/">Golang</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/08/23/session%E4%B8%80%E8%87%B4%E6%80%A7/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="session一致性">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/23/session%E4%B8%80%E8%87%B4%E6%80%A7/" target="_self">
+          session一致性
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/23/session%E4%B8%80%E8%87%B4%E6%80%A7/" target="_self">
+          
+          
+            
+          
+          session和cookie1234561、session 在服务器端，cookie 在客户端（浏览器）2、session 默认被存在在服务器的一个文件里（不是内存）3、session 的运行依赖 session id，而 session id 是存在 cookie 中的，也就是说，如果浏览器禁用了 cookie ，同时 session 也会失效（通过url重写解决）4、session 可以放在文
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-23 15:11" pubdate>
+              2021-08-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/session/">session</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/session/">session</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2021/08/23/istio%E5%92%8Ck8s/" target="_self">
           <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="istio和k8s">
         </a>
@@ -678,130 +792,6 @@ consul服务部署简单，只有一个可运行的二进制的包。每个节�
               <a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
             
               <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%93%88%E5%B8%8C/">字符串哈希</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/07/29/linux%E4%B8%8Bgetopt%E5%87%BD%E6%95%B0/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="linux下getopt函数">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/07/29/linux%E4%B8%8Bgetopt%E5%87%BD%E6%95%B0/" target="_self">
-          linux下getopt函数
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/07/29/linux%E4%B8%8Bgetopt%E5%87%BD%E6%95%B0/" target="_self">
-          
-          
-            
-          
-          int getopt(int argc, char* const * argv, const char* option_str)getopt是用来解析命令行选项参数的，但是只能解析短选项: -d 100,不能解析长选项。
-参数argc：函数传递过来的参数的个数argv：函数传递过来的参数的字符串指针数组option_str：选项字符串，告知 getopt()可以处理哪个选项以及哪个选项需要参数
-
-
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-29 15:06" pubdate>
-              2021-07-29
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/C/">C++</a>
-            
-              <a href="/categories/C/code/">code</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/C/">C++</a>
-            
-              <a href="/tags/code/">code</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/07/26/index-sequence/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="index_sequence">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/07/26/index-sequence/" target="_self">
-          index_sequence
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/07/26/index-sequence/" target="_self">
-          
-          
-            
-          
-          integer_sequence一个空类，仅为了获得编译时常数。因为模板是编译时多态，而有时候我们需要在编译时获得常数，故可利用模板参数来作为常数使用。
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051#include &lt;iostream&gt;#incl
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-26 14:21" pubdate>
-              2021-07-26
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/C/">C++</a>
-            
-              <a href="/categories/C/code/">code</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/C/">C++</a>
-            
-              <a href="/tags/code/">code</a>
             
           </div>
         
