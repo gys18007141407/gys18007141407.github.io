@@ -1,0 +1,493 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  
+  <title>Java核心技术卷I第12版_对象与类 - gys的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gys18007141407.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>gys的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/miku3.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Java核心技术卷I第12版_对象与类">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2023-01-16 10:11" pubdate>
+        2023年1月16日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      22
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Java核心技术卷I第12版_对象与类</h1>
+	    <time updated datetime="2023-01-16 20:57"></time>
+            
+            <div class="markdown-body">
+              <h3 id="1、对象和对象变量"><a href="#1、对象和对象变量" class="headerlink" title="1、对象和对象变量"></a>1、对象和对象变量</h3><p>如下示例，a、b和c是对象变量，new Person()在堆上创建了一个对象，a引用了这个对象！应该将<strong>java中的对象变量当作c++中的对象指针</strong>来理解，java中的对象变量<strong>绝对不是c++中的引用</strong>（注意：c++的引用必须在定义的时候初始化）！</p>
+<p>注：你还记得前面说的null串和空串吗？现在看来空串已经在堆上分配了相关内存，而null串就是一个”空指针”。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs awk">Person a = new Person();	<span class="hljs-regexp">//</span> 此时，a被初始化了，它引用了(<span class="hljs-string">&quot;指向&quot;</span>)一个Person对象<br>a.eat();					<span class="hljs-regexp">//</span> 调用a的<span class="hljs-string">&quot;eat&quot;</span>方法<br><br>Person b;					<span class="hljs-regexp">//</span> b没有初始化，没有引用(<span class="hljs-string">&quot;指向&quot;</span>)任何对象<br>b.eat();					<span class="hljs-regexp">//</span> 编译错误<br><br>Person c = null;			<span class="hljs-regexp">//</span> 显式设置c为null，效果和b一样<br></code></pre></td></tr></table></figure>
+
+<p>java中的对象总是在堆上创建。因此，与c++不同，java中类的构造器总是与new捆绑使用。</p>
+<h3 id="2、更改器set和访问器get"><a href="#2、更改器set和访问器get" class="headerlink" title="2、更改器set和访问器get"></a>2、更改器set和访问器get</h3><p>类中的访问器方法返回可变对象的引用时，应该返回clone对象</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">Person a = <span class="hljs-keyword">new</span> <span class="hljs-constructor">Person()</span>;<br>Car car = a.get<span class="hljs-constructor">Car()</span>;<br>car.set<span class="hljs-constructor">Branch(<span class="hljs-string">&quot;BMW&quot;</span>)</span>;<br><br>注意：a.get<span class="hljs-constructor">Car()</span>返回了Person类中的对象car的引用，之后的代码在类外改变了car的品牌，由于类内car和类外car引用了堆上的同一个Car对象，此时破环了类的封装性。所以我们应该在getCar方法中返回this.car.clone<span class="hljs-literal">()</span>。<br></code></pre></td></tr></table></figure>
+
+<h3 id="3、final属性字段"><a href="#3、final属性字段" class="headerlink" title="3、final属性字段"></a>3、final属性字段</h3><p>final属性字段必须在构造对象时初始化，并且之后再也不能改变该字段。一般来说，我们在java类内部为<strong>基本类型或者不可变类(类中所有方法都不会改变对象)设置final属性</strong>以达到类似c++中的const字段的效果。</p>
+<p>注：对于final修饰的可变对象，有可能会出现意料之外的情况(类似于c++中的指针常量<code>const void *</code>)</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs gradle"><span class="hljs-keyword">class</span> Example &#123;<br>	<span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> StringBuilder builder;<br>	Example() &#123;<br>		builder = <span class="hljs-keyword">new</span> StringBuilder();<br>	&#125;<br>&#125;;<br><br>虽然builder不可变，但是builder引用的对象可以变化。<br>builder.<span class="hljs-keyword">append</span>(<span class="hljs-string">&quot;extra text&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<h3 id="4、静态字段和静态方法"><a href="#4、静态字段和静态方法" class="headerlink" title="4、静态字段和静态方法"></a>4、静态字段和静态方法</h3><p>与c++基本一致。</p>
+<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs vbnet">c++:<br><span class="hljs-symbol">Class:</span>:a、<span class="hljs-keyword">Class</span>::foo()<br><br><span class="hljs-symbol">java:</span><br><span class="hljs-keyword">Class</span>.a、<span class="hljs-keyword">Class</span>.foo()<br></code></pre></td></tr></table></figure>
+
+<h3 id="5、java中的方法参数都是按值调用"><a href="#5、java中的方法参数都是按值调用" class="headerlink" title="5、java中的方法参数都是按值调用"></a>5、java中的方法参数都是按值调用</h3><p>首先，我们可以肯定的是java中只有两大类型的参数：基本类型、类。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs r"><span class="hljs-built_in">class</span> Example &#123;<br>	public <span class="hljs-built_in">T</span> add(<span class="hljs-built_in">T</span> a, <span class="hljs-built_in">T</span> b) &#123;	// 不像<span class="hljs-built_in">c</span>++中额外还有 <span class="hljs-built_in">T</span>*、 <span class="hljs-built_in">T</span>&amp;、<span class="hljs-built_in">T</span>&amp;&amp;<br>		<span class="hljs-built_in">return</span> a + b;<br>	&#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>如上所示，在java中定义一个类的方法时，其参数的语法是固定的。如果T是基本类型（如int），则形参a和b是实参的一个拷贝，属于按值调用。如果T是类类型（如String），则形参a和b也是实参的一个拷贝，也属于按值调用。但通过前面第1节我们已经知道：应该将<strong>java中的对象变量当作c++中的对象指针</strong>来理解，java中的对象变量<strong>绝对不是c++中的引用</strong>。虽然形参a和b是实参的拷贝，但他们是”指针”的拷贝，因此形参和实参都是引用(“指向”)堆中的同一个对象。</p>
+<h3 id="6、方法重载"><a href="#6、方法重载" class="headerlink" title="6、方法重载"></a>6、方法重载</h3><p>和c++的函数重载基本一致。</p>
+<h3 id="7、默认字段初始化值"><a href="#7、默认字段初始化值" class="headerlink" title="7、默认字段初始化值"></a>7、默认字段初始化值</h3><p>与c++不一样，在java类的构造器中，如果没有手动为某个字段赋初始值的话，那么该字段就自动地被赋予默认的值（0、false、null）。</p>
+<h3 id="8、构造器方法"><a href="#8、构造器方法" class="headerlink" title="8、构造器方法"></a>8、构造器方法</h3><p>java中的构造器没有初始化列表，其原因是java不需要避免额外的构造，因为java中字段要么是基本类型要么是对象”指针”。而c++中如果不使用初始化列表，则会在构造函数之前默认构造一次对象a和b，然后在构造函数内部再次调用a和b的赋值构造。</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sqf">c++可以:<br>Example(T1 <span class="hljs-variable">_a</span>, T2 <span class="hljs-variable">_b</span>) : a(<span class="hljs-variable">_a</span>), b(<span class="hljs-variable">_b</span>) &#123;<br>&#125;<br><br>java只能:<br>Example(T1 <span class="hljs-variable">_a</span>, T2 <span class="hljs-variable">_b</span>) &#123;<br>	this.a = <span class="hljs-variable">_a</span>, this.b = <span class="hljs-variable">_b</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>和c++一样，如果在java中程序员不提供类的任何构造器方法，则会自动提供一个默认的无参构造器。而如果程序员只提供了有参构造器，则不会自动再额外提供那个默认的无参构造器，那么我们在创建对象时只能使用有参构造器方法。</p>
+<p>其次，注意java中的委托构造，这里与c++有些许不同。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-title">Example</span>(<span class="hljs-params"></span>)</span> &#123;<br>	<span class="hljs-built_in">this</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>);  <span class="hljs-comment">// 只能用this。使用Example(1, 2)将发生编译错误。</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>java类中可以有花括号定义的初始化块，任何构造器执行时首先运行初始化块中的内容。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Example</span> </span>&#123;<br>	<span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> a;<br>	<span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> b;<br>	<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> sa;<br>	<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> sb;<br>	<br>	<span class="hljs-comment">// 初始化块</span><br>	&#123;<br>		a = <span class="hljs-number">1</span>;<br>		b = <span class="hljs-number">2</span>;<br>	&#125;<br>	<br>	<span class="hljs-comment">// 静态初始化块:初始化静态属性</span><br>	<span class="hljs-keyword">static</span><br>	&#123;<br>		sa = <span class="hljs-number">2</span>;<br>		sb = <span class="hljs-number">1</span>;<br>	&#125;<br>	<br>	<span class="hljs-comment">// 各种构造器方法，在执行时首先运行初始化块中的代码内容</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="9、java中的package和import"><a href="#9、java中的package和import" class="headerlink" title="9、java中的package和import"></a>9、java中的package和import</h3><p>可以理解为c++中namespace和using。绝对不是类似于c++中的include，因为java可以完全不使用import，只要在创建对象时提供完整路径即可，如下示例。</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lasso">java.util.<span class="hljs-built_in">Date</span> <span class="hljs-built_in">date</span> = <span class="hljs-literal">new</span> java.util.<span class="hljs-built_in">Date</span>();<br></code></pre></td></tr></table></figure>
+
+<h3 id="10、创建package"><a href="#10、创建package" class="headerlink" title="10、创建package"></a>10、创建package</h3><p>要想创建一个自定义的package，例如<code>github.gys.java.util</code>包，只需要将要放入该包中的所有类的.java文件首行添加语句<code>package github.gys.java.util;</code>即可。然后将所有源文件(.java和.class文件)移到目录下<code>github/gys/java/util/</code>即可。</p>
+<h3 id="11、classpath"><a href="#11、classpath" class="headerlink" title="11、classpath"></a>11、classpath</h3><p>classpath是jvm用到的一个环境变量，它用来指示jvm如何搜索class。</p>
+<p>因为Java是编译型语言，源码文件是<code>.java</code>，而编译后的<code>.class</code>文件才是真正可以被Jjvm执行的字节码。因此，jvm需要知道，如果要加载一个<code>github.gys.java.util.Test</code>的类，应该去哪搜索对应的<code>Test.class</code>文件。</p>
+<p>现在我们假设classpath是<code>.:/usr/gys/src:/shared</code>，当jvm在加载<code>github.gys.java.util.Test</code>这个类时，会依次查找：</p>
+<ul>
+<li>./github/gys/java/util/Test.class</li>
+<li>/usr/gys/src/github/gys/java/util/Test.class</li>
+<li>/shared/github/gys/java/util/Test.class</li>
+</ul>
+<p>如果jvm在某个路径下找到了对应的class文件，就不再往后继续搜索。如果所有路径下都没有找到，就报错。</p>
+<p>有两种方法配置classpath，方法一：在系统环境变量中设置classpath环境变量，不推荐；<strong>方法二：在启动jvm时设置classpath变量，推荐</strong>。</p>
+<img src="/2023/01/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7I%E7%AC%AC12%E7%89%88_%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/image-20230116204326653.png" srcset="/img/loading.gif" lazyload alt="image-20230116204326653" style="zoom:50%;">
+
+<p>何时需要使用-classpath：</p>
+<ul>
+<li>**java:**当你要编译或执行的类引用了其它的类，但被引用类的.class文件不在当前目录下时，就需要通过-classpath来引入类。</li>
+<li>**javac:**当你要编译的类所在的目录和你执行javac命令的目录不是同一个目录时，就需要指定源文件的路径。</li>
+</ul>
+<p>注：一般来说，工程中classpath是设置为java归档目录(jar)。</p>
+<h3 id="12、jar文件"><a href="#12、jar文件" class="headerlink" title="12、jar文件"></a>12、jar文件</h3><p>人之常情，当我们向用户提供一个应用程序时，用户只希望得到一个单独的文件就行，而不是包含一堆文件的目录结构。java归档文件(jar文件)就是用来干这个事情的！jar文件既可以包含类文件又可以包含声音视频等其他类型的文件，其次jar文件还是zip压缩文件。</p>
+<p>jar 与 zip 唯一的区别就是在 jar 文件的内容中，包含了一个 META-INF/MANIFEST.MF 文件，该文件是在生成 jar 文件的时候自动创建的，作为jar里面的”详情单”，包含了该jar包的版本、创建人和classpth等信息，当然如果是可执行jar包，会包含main-class属性，表明main方法入口。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/java/">java</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-info">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/01/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7I%E7%AC%AC12%E7%89%88_Java%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E7%BB%93%E6%9E%84/">
+                        <span class="hidden-mobile">Java核心技术卷I第12版_Java的基本程序设计结构</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

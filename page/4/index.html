@@ -192,6 +192,62 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/03/02/mmap%E5%8E%9F%E7%90%86/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="mmap原理">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/03/02/mmap%E5%8E%9F%E7%90%86/" target="_self">
+          mmap原理
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/03/02/mmap%E5%8E%9F%E7%90%86/" target="_self">
+          
+          
+            
+          
+          先说现象mmap是file_operations中的成员，open文件时进程获得了文件描述符，发起read系统调用，内核read磁盘，copy_to_user到用户内存中。而采用了mmap之后，建立了内存到磁盘物理地址的映射【页表是逻辑地址到物理地址的映射】，我们此时不采用read而是直接去访问内存，然后触发缺页中断，此时再将磁盘数据直接拷贝到用户内存。若我们直接修改了这一片内存的数据，那么这片内
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-03-02 10:19" pubdate>
+              2022-03-02
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Linux/">Linux</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Linux/">Linux</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2022/03/02/%E9%98%BF%E9%87%8C%E5%AD%98%E5%82%A8%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF%E4%B8%89%E9%9D%A2/" target="_self">
           <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="阿里存储基础技术三面">
         </a>
@@ -738,63 +794,6 @@ Graham步骤一：以任意点为原点(一般以最左下角的点为原点)
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/12/28/%E5%B8%8C%E8%85%8A%E5%AD%97%E6%AF%8D%E8%8B%B1%E6%96%87%E5%AF%B9%E7%85%A7%E8%A1%A8/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="希腊字母英文对照表">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/12/28/%E5%B8%8C%E8%85%8A%E5%AD%97%E6%AF%8D%E8%8B%B1%E6%96%87%E5%AF%B9%E7%85%A7%E8%A1%A8/" target="_self">
-          希腊字母英文对照表
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/12/28/%E5%B8%8C%E8%85%8A%E5%AD%97%E6%AF%8D%E8%8B%B1%E6%96%87%E5%AF%B9%E7%85%A7%E8%A1%A8/" target="_self">
-          
-          
-            
-          
-          
-
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-12-28 15:54" pubdate>
-              2021-12-28
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E5%85%B6%E4%BB%96/">其他</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%85%B6%E4%BB%96/">其他</a>
             
           </div>
         

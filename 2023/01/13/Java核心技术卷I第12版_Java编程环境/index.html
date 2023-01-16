@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.5k 字
+      1.6k 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      16
+      17
        分钟
     </span>
   
@@ -238,7 +238,7 @@
           <article class="post-content mx-auto">
             <!-- SEO header -->
             <h1 style="display: none">Java核心技术卷I第12版_Java编程环境</h1>
-	    <time updated datetime="2023-01-14 10:35"></time>
+	    <time updated datetime="2023-01-16 00:40"></time>
             
             <div class="markdown-body">
               <h3 id="JRE"><a href="#JRE" class="headerlink" title="JRE"></a>JRE</h3><p>Java Runtime Environment，Java运行环境，包括Java虚拟机（jvm）、Java核心类库和支持文件。由于JRE并不包含开发环境，所以没有包含任何开发工具，如编译器、调试器和其它工具。</p>
@@ -284,7 +284,12 @@
 
 <p>HelloWorld.class文件中前4个字节是固定的magic number: cafe babe，图中是符合预期的。javac将java代码编译为字节码后，jvm将字节码再转换为机器指令运行。因此可见，<strong>字节码是中间代码，而通过jvm可以将相同的字节码在不同机器上转为不同的机器指令，从而实现跨平台的功能</strong>。</p>
 <p><img src="/2023/01/13/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7I%E7%AC%AC12%E7%89%88_Java%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/image-20230113233826753.png" srcset="/img/loading.gif" lazyload alt="image-20230113233826753"></p>
+<h4 id="7、jgb调试java程序"><a href="#7、jgb调试java程序" class="headerlink" title="7、jgb调试java程序"></a>7、jgb调试java程序</h4><p>在编译时添加<code>-g</code>参数</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-number">1</span>、设置断点<br>stop<br><span class="hljs-number">2</span>、运行程序<br>run<br><span class="hljs-number">3</span>、查看某个类<br><span class="hljs-keyword">class</span><br><span class="hljs-symbol">4</span>、查看某个类拥有的方法<br><span class="hljs-symbol">methods</span><br><span class="hljs-symbol">5</span>、查看某个类拥有的属性<br><span class="hljs-symbol">fields</span><br><span class="hljs-symbol">6</span>、查看线程<br><span class="hljs-symbol">threads</span><br><span class="hljs-symbol">7</span>、查看当前线程的栈<br><span class="hljs-symbol">wherei</span><br><span class="hljs-symbol">8</span>、查看代码<br><span class="hljs-symbol">list</span><br><span class="hljs-symbol">9</span>、运行下一句代码<br><span class="hljs-symbol">next</span><br></code></pre></td></tr></table></figure>
 
+<img src="/2023/01/13/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7I%E7%AC%AC12%E7%89%88_Java%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/image-20230116003532268.png" srcset="/img/loading.gif" lazyload alt="image-20230116003532268" style="zoom:50%;">
+
+<img src="/2023/01/13/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7I%E7%AC%AC12%E7%89%88_Java%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/image-20230116003802307.png" srcset="/img/loading.gif" lazyload alt="image-20230116003802307" style="zoom:50%;">
             </div>
             <hr>
             <div>
