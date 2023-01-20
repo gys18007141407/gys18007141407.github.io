@@ -192,6 +192,68 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/08/05/async%E7%9A%84%E4%B8%80%E4%B8%AA%E7%BB%86%E8%8A%82/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="async的一个细节">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/08/05/async%E7%9A%84%E4%B8%80%E4%B8%AA%E7%BB%86%E8%8A%82/" target="_self">
+          async的一个细节
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/08/05/async%E7%9A%84%E4%B8%80%E4%B8%AA%E7%BB%86%E8%8A%82/" target="_self">
+          
+          
+            
+          
+          std::async使用时容易忽略的一些问题一、最好带上第一个参数，指定同步执行还是异步执行。std::launch::asyncstd::launch::deferredstd::launch::async | std::launch::deferred （自动选择）
+二、如果忽略返回值，则会阻塞！！！因为async的返回值是一个future对象，在析构时要等待异步任务执行结束。
+坑点：在这里d
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-08-05 16:20" pubdate>
+              2021-08-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/C/">C++</a>
+            
+              <a href="/categories/C/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/C/">C++</a>
+            
+              <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2021/08/04/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%93%88%E5%B8%8C/" target="_self">
           <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="字符串哈希">
         </a>
@@ -726,68 +788,6 @@ C++中调用非静态的类成员函数时，采用的调用规范是__thiscall�
               <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
             
               <a href="/tags/%E5%BB%BA%E7%AD%91%E7%BB%93%E6%9E%84%E6%8D%9F%E4%BC%A4%E5%9B%BE%E5%83%8F%E8%AF%86%E5%88%AB/">建筑结构损伤图像识别</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/07/21/%E4%BA%92%E6%96%A5%E9%94%81%E3%80%81%E4%BF%A1%E5%8F%B7%E9%87%8F%E3%80%81%E8%87%AA%E6%97%8B%E9%94%81/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="互斥锁、信号量、自旋锁">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/07/21/%E4%BA%92%E6%96%A5%E9%94%81%E3%80%81%E4%BF%A1%E5%8F%B7%E9%87%8F%E3%80%81%E8%87%AA%E6%97%8B%E9%94%81/" target="_self">
-          互斥锁、信号量、自旋锁
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/07/21/%E4%BA%92%E6%96%A5%E9%94%81%E3%80%81%E4%BF%A1%E5%8F%B7%E9%87%8F%E3%80%81%E8%87%AA%E6%97%8B%E9%94%81/" target="_self">
-          
-          
-            
-          
-          互斥锁mutex、信号量semaphore、自旋锁spin_lock自旋锁自旋锁是忙等的，当没有可用的锁时，就一直忙等待并不停的进行锁请求，直到得到这个锁为止。这个过程中cpu始终处于尝试加锁状态，不能做别的任务。
-自旋锁的实现是为了保护一段短小的临界区操作代码，保证这个临界区的操作是原子的，从而避免并发的竞争冒险。
-使用内核自旋锁需要阻止在代码运行过程中出现的任何并发干扰。这些“干扰”包括： 中
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-21 13:26" pubdate>
-              2021-07-21
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E5%90%8C%E6%AD%A5%E5%92%8C%E4%BA%92%E6%96%A5/">同步和互斥</a>
-            
-              <a href="/categories/%E5%90%8C%E6%AD%A5%E5%92%8C%E4%BA%92%E6%96%A5/%E9%94%81/">锁</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%90%8C%E6%AD%A5%E5%92%8C%E4%BA%92%E6%96%A5/">同步和互斥</a>
-            
-              <a href="/tags/%E9%94%81/">锁</a>
             
           </div>
         

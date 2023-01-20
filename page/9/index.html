@@ -192,6 +192,72 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/09/01/docker%E4%B8%AD%E4%BD%BF%E7%94%A8redis%E5%92%8Cmysql/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="docker中使用redis和mysql">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/09/01/docker%E4%B8%AD%E4%BD%BF%E7%94%A8redis%E5%92%8Cmysql/" target="_self">
+          docker中使用redis和mysql
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/09/01/docker%E4%B8%AD%E4%BD%BF%E7%94%A8redis%E5%92%8Cmysql/" target="_self">
+          
+          
+            
+          
+          在docker中使用redis安装好docker后，拉取redis镜像。其余操作与consul简单使用类似。
+
+回顾redis常用命令服务器redis-server status查看服务器状态
+
+redis-server start开启服务（可指定配置文件，这里使用默认配置）
+
+客户端redis-cli -h hostname -p port -a password连接redis服务器（可以不指定
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-09-01 10:14" pubdate>
+              2021-09-01
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/docker/">docker</a>
+            
+              <a href="/categories/docker/redis/">redis</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/docker/">docker</a>
+            
+              <a href="/tags/redis/">redis</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2021/08/31/go%E5%AE%9E%E7%8E%B0rpc%E7%9A%84%E7%AE%80%E5%8D%95demo/" target="_self">
           <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="go实现rpc的简单demo">
         </a>
@@ -731,68 +797,6 @@ consul服务部署简单，只有一个可运行的二进制的包。每个节�
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/consul/">consul</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/08/05/async%E7%9A%84%E4%B8%80%E4%B8%AA%E7%BB%86%E8%8A%82/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="async的一个细节">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/08/05/async%E7%9A%84%E4%B8%80%E4%B8%AA%E7%BB%86%E8%8A%82/" target="_self">
-          async的一个细节
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/08/05/async%E7%9A%84%E4%B8%80%E4%B8%AA%E7%BB%86%E8%8A%82/" target="_self">
-          
-          
-            
-          
-          std::async使用时容易忽略的一些问题一、最好带上第一个参数，指定同步执行还是异步执行。std::launch::asyncstd::launch::deferredstd::launch::async | std::launch::deferred （自动选择）
-二、如果忽略返回值，则会阻塞！！！因为async的返回值是一个future对象，在析构时要等待异步任务执行结束。
-坑点：在这里d
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-08-05 16:20" pubdate>
-              2021-08-05
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/C/">C++</a>
-            
-              <a href="/categories/C/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/C/">C++</a>
-            
-              <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a>
             
           </div>
         

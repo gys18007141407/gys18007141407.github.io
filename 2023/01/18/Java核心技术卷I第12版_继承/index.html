@@ -1,0 +1,511 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  
+  <title>Java核心技术卷I第12版_继承 - gys的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"gys18007141407.github.io","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>gys的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/miku4.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Java核心技术卷I第12版_继承">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2023-01-18 14:45" pubdate>
+        2023年1月18日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      32
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Java核心技术卷I第12版_继承</h1>
+	    <time updated datetime="2023-01-20 15:04"></time>
+            
+            <div class="markdown-body">
+              <h3 id="一、语法"><a href="#一、语法" class="headerlink" title="一、语法"></a>一、语法</h3><p>与c++不同，java中有且只有public继承方式。因此，Base类中声明为private的属性不能被Derive类访问。</p>
+<p>与c++不同，java中只有单一继承没有多重继承，java中派生类的基类只能有一个。</p>
+<p>在派生类中使用基类的属性或方法（包括构造器方法）是通过super来访问的，例如。而在c++中是指定作用域，如Base::getName()。</p>
+<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs isbl"><span class="hljs-variable">java</span>:<br><span class="hljs-variable">super.getName</span>()、<span class="hljs-function"><span class="hljs-title">super</span>()、<span class="hljs-title">super</span>(<span class="hljs-number">2</span>)</span><br><br><span class="hljs-variable">c</span>++:基类构造器方法是在派生类构造器的初始化列表中调用的<br><span class="hljs-variable">Base</span>::<span class="hljs-function"><span class="hljs-title">getName</span>()、<span class="hljs-title">Base</span>()、<span class="hljs-title">Base</span>(<span class="hljs-number">2</span>)</span><br></code></pre></td></tr></table></figure>
+
+<p>如果在构造派生类时没有显式地调用基类的构造器方法，那么基类必须要有一个无参构造器方法，该构造器方法会在派生类构造前调用。需要注意的是，<strong>super调用基类构造器必须是派生类构造器中的第一句</strong>。</p>
+<p>要让一个类不能被继承，只需要在class前加final关键字即可。<strong>注：枚举和记录总是final的</strong></p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Derive</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Base</span> </span>&#123;<br>	<span class="hljs-keyword">private</span> <span class="hljs-type">String</span> name; <br>	<br>	<span class="hljs-comment">// 派生类构造器</span><br>	<span class="hljs-type">Derive</span>(<span class="hljs-type">String</span> group, <span class="hljs-type">String</span> _name) &#123;<br>		<span class="hljs-comment">// 调用基类的构造器：该语句必须是派生类构造器中的第一句</span><br>		<span class="hljs-keyword">super</span>(group);<br>		name = _name;<br>	&#125;<br>	<br>	<span class="hljs-comment">// 派生类重写基类方法</span><br>	public <span class="hljs-type">String</span> getName() &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.getName() + <span class="hljs-keyword">this</span>.name;<br>	&#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<img src="/2023/01/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7I%E7%AC%AC12%E7%89%88_%E7%BB%A7%E6%89%BF/image-20230118152351256.png" srcset="/img/loading.gif" lazyload alt="image-20230118152351256" style="zoom:50%;">
+
+<img src="/2023/01/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7I%E7%AC%AC12%E7%89%88_%E7%BB%A7%E6%89%BF/image-20230118152423568.png" srcset="/img/loading.gif" lazyload alt="image-20230118152423568" style="zoom:50%;">
+
+<p>在重写基类方法时，最好在方法前添加<code>@Override</code>标记当前方法是基类方法的重写。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>&#123;<br>	<span class="hljs-comment">// Overide标记，如果不加这一句，下面的方法不是一个重写的方法，因为他与Object的equals方法的参数类型不同。</span><br>	<span class="hljs-comment">// 其次，当你想重写一些方法时，但不小心打错了方法名（如foo打成了f00），那么就相当于定义了一个新方法，而加了Override标记会在编译期发现该错误。</span><br>	<br>	<span class="hljs-meta">@Override</span> <span class="hljs-keyword">public</span> <span class="hljs-built_in">boolean</span> equals(<span class="hljs-built_in">Object</span> other)<br>	<span class="hljs-keyword">public</span> <span class="hljs-built_in">boolean</span> <span class="hljs-function"><span class="hljs-title">equals</span>(<span class="hljs-params">A Other</span>)</span> &#123;<br>		<br>	&#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h3 id="二、java继承具备的一些特性"><a href="#二、java继承具备的一些特性" class="headerlink" title="二、java继承具备的一些特性"></a>二、java继承具备的一些特性</h3><h4 id="1、多态"><a href="#1、多态" class="headerlink" title="1、多态"></a>1、多态</h4><p>在c++中分为静态多态和动态多态，静态多态是通过函数重载实现（编译器修改了函数名），动态多态是通过虚函数表来实现的。而在java中，并没有virtual这一c++中的关键字，但是java把动态绑定当作是默认的行为，也就是说任何方法都是”virtual”的，要想让一个方法不是”virtual”的可以添加关键字final来达到目的。</p>
+<p>基本上看与c++差别不大。</p>
+<img src="/2023/01/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7I%E7%AC%AC12%E7%89%88_%E7%BB%A7%E6%89%BF/image-20230118153902540.png" srcset="/img/loading.gif" lazyload alt="image-20230118153902540" style="zoom:50%;">
+
+<h3 id="2、Object类是所有类的原始基类"><a href="#2、Object类是所有类的原始基类" class="headerlink" title="2、Object类是所有类的原始基类"></a>2、Object类是所有类的原始基类</h3><p>基于此特性，当我们知道object类具有的属性和方法后，那么我们就可以利用他们很方便地做一些操作。</p>
+<p>Object类有equals方法，那么很容易用这种语法instance1.equals(instance2)来判断两个对象是否相同（注：等号判断的是”指针”相同）。</p>
+<p>Object类有toString方法，那么很容易在派生类中重写该方法来实现打印一个对象（注意：当x是对象变量时，print(x)就是print(x.toString())）。</p>
+<p>Object类有hashCode方法，该方法默认是根据对象在堆上的存储地址来计算并返回一个哈希值。有些类重写了hashCode方法，例如String类将hashCode方法重写为根据字符串内容计算哈希值（算法：字符串哈希）。</p>
+<p>在c++中，虽然没有某个类是所有类的原始基类，但是c++中有万能指针<code>void *</code>，任何类对象指针都可以转换成万能指针。</p>
+<h3 id="3、ArrayList泛型类"><a href="#3、ArrayList泛型类" class="headerlink" title="3、ArrayList泛型类"></a>3、ArrayList泛型类</h3><p>java的泛型类与c++中的模板类操作几乎一样，但实现原理却有着很大的不同，java是擦拭法实现的 C++是膨胀法实现的 。java的ArrayList就类似于c++中的vector，不同的是，java没有操作符重载，因此不能像c++那样重载[]操作符来实现随机访问，而要使用get和set方法。此外，java泛型类中保存的必须是对象，不能是8大基本类型。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">c++:<br>vector&lt;<span class="hljs-built_in">int</span>&gt; <span class="hljs-constructor">A(10)</span>;<br><span class="hljs-built_in">int</span> v = A<span class="hljs-literal">[<span class="hljs-number">0</span>]</span>;		<span class="hljs-comment">// v == 0</span><br>A<span class="hljs-literal">[<span class="hljs-number">0</span>]</span> = <span class="hljs-number">2</span>;<br><br>java:<br>ArrayList&lt;Integer&gt; A = <span class="hljs-keyword">new</span> ArrayList&lt;Integer&gt;(<span class="hljs-number">10</span>);<br><span class="hljs-comment">// 往A中添加一个对象。与c++不一样，如果缺少此句add，后面的get和set都会在运行时报错。</span><br><span class="hljs-comment">// 基于此特点，在java中定义泛型类对象时一般不指定初始容量。（指定是为了避免扩容引起的复制）</span><br><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">A</span>.</span></span>add(<span class="hljs-number">5</span>);<br><span class="hljs-built_in">int</span> v = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">A</span>.</span></span>get(<span class="hljs-number">0</span>);<br><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">A</span>.</span></span>set(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>);<br><br></code></pre></td></tr></table></figure>
+
+<img src="/2023/01/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7I%E7%AC%AC12%E7%89%88_%E7%BB%A7%E6%89%BF/image-20230120124941345.png" srcset="/img/loading.gif" lazyload alt="image-20230120124941345" style="zoom:50%;">
+
+<h4 id="4、对象包装器与自动装箱"><a href="#4、对象包装器与自动装箱" class="headerlink" title="4、对象包装器与自动装箱"></a>4、对象包装器与自动装箱</h4><p>在上例，我们使用了Integer类，这就是int基本类型的包装器类。java中存在Integer、Long、Float、Double、Short、Byte、Character和Boolean这8个包装器类，其中前6个包装器类都继承自Number类。包装器类是不可变的，因此一旦构造了包装器类对象后就不能改变包装在其中的值。包装器类也是final的，因此不可被继承。</p>
+<p>我们还用到了自动装箱和自动拆箱特性（编译器特性，在编译时完成），在算术表达式中也适用。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-comment">// 自动装箱</span><br><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">A</span>.</span></span>add(<span class="hljs-number">5</span>)就是<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">A</span>.</span></span>add(<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Integer</span>.</span></span>valueof(<span class="hljs-number">5</span>))<br><br><span class="hljs-comment">// 自动拆箱</span><br><span class="hljs-built_in">int</span> v = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">A</span>.</span></span>get(<span class="hljs-number">0</span>)就是 <span class="hljs-built_in">int</span> v = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">A</span>.</span></span>get(<span class="hljs-number">0</span>).<span class="hljs-built_in">int</span><span class="hljs-constructor">Value()</span><br><br><span class="hljs-comment">// 算术表达式适用</span><br>Integer n = <span class="hljs-number">3</span>;<br>n++就是n = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Integer</span>.</span></span>value<span class="hljs-constructor">Of(<span class="hljs-params">n</span>.<span class="hljs-params">intValue</span>()</span>+<span class="hljs-number">1</span>)<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="5、抽象类"><a href="#5、抽象类" class="headerlink" title="5、抽象类"></a>5、抽象类</h3><p>在java中，包含一个以上抽象方法的类必须被声明为抽象类（java的抽象方法在c++中被称为纯虚函数），java使用abstract定义抽象方法和抽象类，抽象方法只需要声明即可，不需要具体实现。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-comment">// 包含一个以上抽象方法的类必须被声明为抽象类</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> &#123;<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>)</span>;	<span class="hljs-comment">// 不需要具体实现</span><br>	<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">g</span>(<span class="hljs-params"></span>)</span> &#123;<br>		System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">&quot;Haha&quot;</span>);<br>	&#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>抽象类的派生类具体实现了抽象基类的抽象方法后，如果不存在抽象方法，则该派生类可以不声明为抽象类，否则都要声明该派生类为抽象类。</p>
+<h3 id="6、反射（reflection-自省）"><a href="#6、反射（reflection-自省）" class="headerlink" title="6、反射（reflection/自省）"></a>6、反射（reflection/自省）</h3><p>反射又叫做自省(xing)，是指程序可以检查类具有哪些属性和方法等等的一种能力。由该定义可知，c++的模板提供了一种微弱的编译时反射的能力，在编译期检查类是否满足某些条件（sfinae特性）。c++本身并没有提供运行时反射的能力，要想在c++中使用反射则必须要使用第三方实现的反射库。</p>
+<p>以下是助c++程序员理解程序运行时反射能力的示例：在c++中实现简单的反射机制也并不困难，只要利用宏，在类定义的时候额外保存该类的一些信息即可（字段数量，字段名，方法数量，方法名，字段地址偏移，函数地址等等）。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs cpp">c++:<br><span class="hljs-function"><span class="hljs-keyword">void</span> * <span class="hljs-title">getInstance</span><span class="hljs-params">(string className)</span> </span>&#123;<br>	<span class="hljs-comment">// 你怎么根据参数返回类的一个实例？</span><br>	<span class="hljs-comment">// if显然是不行的，因为新增一个类后，这里也要新增if分支。if (className == &quot;A&quot;) return new A;</span><br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">printMethods</span><span class="hljs-params">(string className)</span> </span>&#123;<br>	<span class="hljs-comment">// 你怎么根据参数打印某个类的所有方法？</span><br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">execMethods</span><span class="hljs-params">(string className, string methodName)</span> </span>&#123;<br>	<span class="hljs-comment">// 你怎么根据参数准确调用一个类的方法？</span><br>&#125;<br><br><span class="hljs-comment">// 伪代码简单实现反射机制：以字段为例,下面所有与反射相关的定义都可以写成宏封装起来，避免视觉上臃肿！</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> &#123;</span><br><span class="hljs-keyword">private</span>:<br>	<span class="hljs-comment">// 让友元访问</span><br>	<span class="hljs-keyword">friend</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Flection</span>;</span><br>	<span class="hljs-comment">// 类信息与对象无关肯定是static的。</span><br>	<span class="hljs-keyword">static</span> vector&lt;string&gt; fieldName;<br>	<span class="hljs-keyword">static</span> vector&lt;<span class="hljs-keyword">int</span>&gt; fieldOffset;<br>	<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">reflect_init</span><span class="hljs-params">()</span> </span>&#123;<br>		Flection::AllClass.<span class="hljs-built_in">push_back</span>(<span class="hljs-keyword">new</span> <span class="hljs-built_in">ClassDescriptor</span>(<span class="hljs-string">&quot;A&quot;</span>));<br>		A::fieldName.<span class="hljs-built_in">push_back</span>(<span class="hljs-string">&quot;a&quot;</span>);<br>		A::fieldOffset.<span class="hljs-built_in">push_back</span>(<span class="hljs-built_in">offsetof</span>(A, a));<br>	&#125;<br>	<br><span class="hljs-keyword">public</span>:<br>	<span class="hljs-built_in">A</span>() : <span class="hljs-built_in">refelct_init</span>() &#123;	<span class="hljs-comment">// 可以在别处调用防止每创建一个对象都要调用该函数，如在main函数中调用。</span><br>	<br>	&#125;<br>	<br>	<span class="hljs-keyword">int</span> a;<br>&#125;;<br><span class="hljs-comment">// 如上所示，我们就有其他方法（在友元类中实现）可以知道类A有哪些字段，还知道他们的偏移量，这就可以让我们通过地址来访问和设置对应值。</span><br></code></pre></td></tr></table></figure>
+
+<p>在java中利用反射可以做以下事情：</p>
+<ul>
+<li>在运行时分析类的能力</li>
+<li>在运行时检查对象</li>
+<li>利用Method对象调用类的方法</li>
+</ul>
+<h4 id="6-1、Class类"><a href="#6-1、Class类" class="headerlink" title="6.1、Class类"></a>6.1、Class类</h4><p>在运行时，jvm会为所有对象维护一个运行时类型标识，这样才能正确的执行调用的方法。java中还提供了一个类名叫Class的类，这个类可以访问到保存的这些类型信息。<strong>注意：Class类实际上是一个泛型类。</strong></p>
+<p>Object类的getClass方法就会返回一个Class对象，或者直接用.class语法返回Class对象。如果类在包里，则包名也会作为类名的一部分。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.println(b.get<span class="hljs-constructor">Class()</span>.get<span class="hljs-constructor">Name()</span> + <span class="hljs-string">&quot; &quot;</span> + b.get<span class="hljs-constructor">Name()</span>);<br><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.println(<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Base</span>.</span></span><span class="hljs-keyword">class</span>.get<span class="hljs-constructor">Name()</span> + <span class="hljs-string">&quot; &quot;</span> + b.get<span class="hljs-constructor">Name()</span>);<br><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.println(d.get<span class="hljs-constructor">Class()</span>.get<span class="hljs-constructor">Name()</span> + <span class="hljs-string">&quot; &quot;</span> + d.get<span class="hljs-constructor">Name()</span>);<br><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.println(<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Derive</span>.</span></span><span class="hljs-keyword">class</span>.get<span class="hljs-constructor">Name()</span> + <span class="hljs-string">&quot; &quot;</span> + d.get<span class="hljs-constructor">Name()</span>);<br></code></pre></td></tr></table></figure>
+
+<img src="/2023/01/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7I%E7%AC%AC12%E7%89%88_%E7%BB%A7%E6%89%BF/image-20230120142036275.png" srcset="/img/loading.gif" lazyload alt="image-20230120142036275" style="zoom:50%;">
+
+<img src="/2023/01/18/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7I%E7%AC%AC12%E7%89%88_%E7%BB%A7%E6%89%BF/image-20230120142120348.png" srcset="/img/loading.gif" lazyload alt="image-20230120142120348" style="zoom:50%;">
+
+<p>jvm为每个类型管理一个唯一的class对象，因此可以用等号判断类对象是否一样，但逻辑上与instanceof有区别。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">Derive instanceof Base返回<span class="hljs-literal">true</span><br><br><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Derive</span>.</span></span><span class="hljs-keyword">class</span><span class="hljs-operator"> == </span><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Base</span>.</span></span><span class="hljs-keyword">class</span>返回<span class="hljs-literal">false</span><br>Base d = <span class="hljs-keyword">new</span> <span class="hljs-constructor">Derive()</span>;<br>d.get<span class="hljs-constructor">Class()</span><span class="hljs-operator"> == </span><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Base</span>.</span></span><span class="hljs-keyword">class</span>返回<span class="hljs-literal">false</span><br></code></pre></td></tr></table></figure>
+
+<p>Class类有静态方法forName(String)来返回某个类的Class对象，而Class类对象可以利用getConstructor()方法获取对应类的构造器方法的封装器Constructor，因而可借封装器的newInstance方法来构造新实例，提供给newInstance方法的参数就是用来区分调用类中哪个版本的构造器。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">Class cl = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Class</span>.</span></span><span class="hljs-keyword">for</span><span class="hljs-constructor">Name(<span class="hljs-string">&quot;Derive&quot;</span>)</span>;<br>Object obj = cl.get<span class="hljs-constructor">Constructor()</span>.<span class="hljs-keyword">new</span><span class="hljs-constructor">Instance()</span>;<br></code></pre></td></tr></table></figure>
+
+<h4 id="6-2、Field类"><a href="#6-2、Field类" class="headerlink" title="6.2、Field类"></a>6.2、Field类</h4><p>用Class对象的getDeclaredFields方法返回Field数组类型的对象，数组中的每个Field类型的对象提供了类中对应的一个公开字段的信息。</p>
+<p>Field类对象有getType和getName方法返回字段的类型和名字。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">Class cl = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Class</span>.</span></span><span class="hljs-keyword">for</span><span class="hljs-constructor">Name(<span class="hljs-string">&quot;Derive&quot;</span>)</span>;<br>Field<span class="hljs-literal">[]</span> fields = cl.get<span class="hljs-constructor">DeclaredFields()</span>;<br><span class="hljs-keyword">for</span> (Field field : fields) &#123;<br>	Class <span class="hljs-keyword">type</span> = field.get<span class="hljs-constructor">Type()</span>;<br>	String name = field.get<span class="hljs-constructor">Name()</span>;<br>	<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">System</span>.</span></span>out.println(<span class="hljs-keyword">type</span>.get<span class="hljs-constructor">Name()</span> + <span class="hljs-string">&quot; &quot;</span> + name);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="6-3、Method类"><a href="#6-3、Method类" class="headerlink" title="6.3、Method类"></a>6.3、Method类</h4><p>用Class对象的getDeclaredMethods方法返回Method数组类型的对象，数组中的每个Method类型的对象提供了类中对应的一个公开方法的信息。</p>
+<p>Method类对象有getReturnType和getParameterTypes方法返回这个方法的返回值类型和参数，getName方法返回方法的名字，invoke调用该方法。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">Class cl = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Class</span>.</span></span><span class="hljs-keyword">for</span><span class="hljs-constructor">Name(<span class="hljs-string">&quot;Derive&quot;</span>)</span>;<br>Method<span class="hljs-literal">[]</span> methods = cl.get<span class="hljs-constructor">DeclaredMethods()</span>;<br><span class="hljs-keyword">for</span> (Method <span class="hljs-keyword">method</span> : methods) &#123;<br>	Class returnType = <span class="hljs-keyword">method</span>.get<span class="hljs-constructor">ReturnType()</span>;<br>	Class<span class="hljs-literal">[]</span> paramTypes = <span class="hljs-keyword">method</span>.get<span class="hljs-constructor">ParameterTypes()</span>;<br>	String name = <span class="hljs-keyword">method</span>.get<span class="hljs-constructor">Name()</span>;<br>	<br>	<span class="hljs-comment">// method.invoke执行方法：执行set修改器方法就可以改变属性值了，隐式参数不要忘记传递！</span><br>	<span class="hljs-keyword">method</span>.invoke(obj, ...);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="6-4、Constructor类"><a href="#6-4、Constructor类" class="headerlink" title="6.4、Constructor类"></a>6.4、Constructor类</h4><p>用Class对象的getDeclaredConstructors方法返回Constructor数组类型的对象，数组中的每个Constructor类型的对象提供了类中对应的一个公开字段的信息。</p>
+<p>Constructor类对象有getParameterTypesType和getName方法返回这个构造器的参数类型和构造器的名字。</p>
+<figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs coq"><span class="hljs-keyword">Class</span> cl = <span class="hljs-keyword">Class</span>.forName(<span class="hljs-string">&quot;Derive&quot;</span>);<br>Constructor[] <span class="hljs-built_in">constructor</span> = cl.getDeclaredConstructors();<br><span class="hljs-keyword">for</span> (Constructor <span class="hljs-built_in">constructor</span> : <span class="hljs-built_in">constructor</span>) &#123;<br>	<span class="hljs-keyword">Class</span> name = <span class="hljs-built_in">constructor</span>.getName();<br>	<span class="hljs-keyword">Class</span>[] paramTypes = <span class="hljs-built_in">constructor</span>.getParameterTypes();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/java/">java</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-info">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/01/16/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7I%E7%AC%AC12%E7%89%88_%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/">
+                        <span class="hidden-mobile">Java核心技术卷I第12版_对象与类</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

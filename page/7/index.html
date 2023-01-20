@@ -192,6 +192,71 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/10/15/mysql%E4%B8%BB%E4%BB%8E%E7%83%AD%E5%A4%87/" target="_self">
+          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="mysql主从热备">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/10/15/mysql%E4%B8%BB%E4%BB%8E%E7%83%AD%E5%A4%87/" target="_self">
+          mysql主从热备
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/10/15/mysql%E4%B8%BB%E4%BB%8E%E7%83%AD%E5%A4%87/" target="_self">
+          
+          
+            
+          
+          mysql主从热备原理【主库对于每一个从库创建一个I/O线程，将binlog发送给从库】
+【从库建立一个I/O线程将收到的主库的binlog放到中继日志relaylog中】
+【从库创建一个SQL线程执行中继日志，相当于执行跟主库相同的SQL语句来保证和主库一致】
+一、主库db的更新事件(update、insert、delete)被写到二进制日志文件binlog中
+二、从库发起连接，连接到主库
+三、
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-10-15 15:25" pubdate>
+              2021-10-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+            
+              <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/mysql/">mysql</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+            
+              <a href="/tags/mysql/">mysql</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2021/10/11/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/" target="_self">
           <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="欧拉函数">
         </a>
@@ -721,72 +786,6 @@ sudo service network-manager restart重启服务，发现依然无法DNS。
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/Ubuntu/">Ubuntu</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/09/27/mongoDB%E5%AE%89%E8%A3%85/" target="_self">
-          <img src="/img/default_index_img.png" srcset="/img/loading.gif" lazyload alt="mongoDB安装">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/09/27/mongoDB%E5%AE%89%E8%A3%85/" target="_self">
-          mongoDB安装
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/09/27/mongoDB%E5%AE%89%E8%A3%85/" target="_self">
-          
-          
-            
-          
-          安装步骤链接
-systemctl start mongod启动mongoDB，默认监听127.0.0.1:27017
-连接数据库
-
-
-show databases和mysql一样展示所有数据库。
-mongoDB不需要创建database
-use db1和mysql一样使用db1数据库。需要注意的是，mongoDB这里的数据库只是一个命名空间而已。
-db.createCollection(&quot
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-09-27 20:38" pubdate>
-              2021-09-27
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
-            
-              <a href="/tags/mongoDB/">mongoDB</a>
             
           </div>
         

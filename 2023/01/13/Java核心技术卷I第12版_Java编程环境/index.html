@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      17
+      18
        分钟
     </span>
   
@@ -238,7 +238,7 @@
           <article class="post-content mx-auto">
             <!-- SEO header -->
             <h1 style="display: none">Java核心技术卷I第12版_Java编程环境</h1>
-	    <time updated datetime="2023-01-16 00:40"></time>
+	    <time updated datetime="2023-01-18 14:52"></time>
             
             <div class="markdown-body">
               <h3 id="JRE"><a href="#JRE" class="headerlink" title="JRE"></a>JRE</h3><p>Java Runtime Environment，Java运行环境，包括Java虚拟机（jvm）、Java核心类库和支持文件。由于JRE并不包含开发环境，所以没有包含任何开发工具，如编译器、调试器和其它工具。</p>
@@ -277,7 +277,7 @@
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css">mkdir <span class="hljs-attribute">src</span><br>cd <span class="hljs-attribute">src</span><br>jar xvf ../<span class="hljs-attribute">src</span><span class="hljs-selector-class">.zip</span><br></code></pre></td></tr></table></figure>
 
 <h4 id="5、第一个java程序：HelloWorld"><a href="#5、第一个java程序：HelloWorld" class="headerlink" title="5、第一个java程序：HelloWorld"></a>5、第一个java程序：HelloWorld</h4><p>简单来说整个流程就是：javac将.java源代码文件编译成.class文件，然后jvm加载.class文件运行程序。</p>
-<p>注：运行时不要加.class后缀。用java Helloworld.class是错误的！</p>
+<p>注：<strong>运行时不要加.class后缀。用java Helloworld.class是错误的！另外，class文件是根据类名生成的，并不是根据java文件名，因此，一个java源代码文件在定义了多个类的情况下会生成对应的多个class文件！</strong></p>
 <p><img src="/2023/01/13/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7I%E7%AC%AC12%E7%89%88_Java%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/image-20230113223340230.png" srcset="/img/loading.gif" lazyload alt="image-20230113223340230"></p>
 <p><img src="/2023/01/13/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7I%E7%AC%AC12%E7%89%88_Java%E7%BC%96%E7%A8%8B%E7%8E%AF%E5%A2%83/image-20230113223042782.png" srcset="/img/loading.gif" lazyload alt="image-20230113223042782"></p>
 <h4 id="6、class文件中的字节码"><a href="#6、class文件中的字节码" class="headerlink" title="6、class文件中的字节码"></a>6、class文件中的字节码</h4><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-number">1</span>、vim二进制打开.<span class="hljs-keyword">class</span>文件<br>vim -b <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">HelloWorld</span>.</span></span><span class="hljs-keyword">class</span> <br><span class="hljs-number">2</span>、vim中转换为<span class="hljs-number">16</span>进制<br>%!xxd<br><span class="hljs-number">3</span>、vim中恢复为<span class="hljs-number">2</span>进制<br>%!xxd -r<br></code></pre></td></tr></table></figure>
