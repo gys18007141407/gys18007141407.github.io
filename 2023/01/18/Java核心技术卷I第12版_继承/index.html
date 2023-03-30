@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.7k 字
+      2.8k 字
     </span>
   
 
@@ -238,13 +238,13 @@
           <article class="post-content mx-auto">
             <!-- SEO header -->
             <h1 style="display: none">Java核心技术卷I第12版_继承</h1>
-	    <time updated datetime="2023-01-20 15:04"></time>
+	    <time updated datetime="2023-01-21 22:34"></time>
             
             <div class="markdown-body">
-              <h3 id="一、语法"><a href="#一、语法" class="headerlink" title="一、语法"></a>一、语法</h3><p>与c++不同，java中有且只有public继承方式。因此，Base类中声明为private的属性不能被Derive类访问。</p>
+              <h3 id="一、语法"><a href="#一、语法" class="headerlink" title="一、语法"></a>一、语法</h3><p>与c++不同，java中有且只有public继承方式。public-&gt;public，protected-&gt;protected。</p>
 <p>与c++不同，java中只有单一继承没有多重继承，java中派生类的基类只能有一个。</p>
 <p>在派生类中使用基类的属性或方法（包括构造器方法）是通过super来访问的，例如。而在c++中是指定作用域，如Base::getName()。</p>
-<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs isbl"><span class="hljs-variable">java</span>:<br><span class="hljs-variable">super.getName</span>()、<span class="hljs-function"><span class="hljs-title">super</span>()、<span class="hljs-title">super</span>(<span class="hljs-number">2</span>)</span><br><br><span class="hljs-variable">c</span>++:基类构造器方法是在派生类构造器的初始化列表中调用的<br><span class="hljs-variable">Base</span>::<span class="hljs-function"><span class="hljs-title">getName</span>()、<span class="hljs-title">Base</span>()、<span class="hljs-title">Base</span>(<span class="hljs-number">2</span>)</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs isbl"><span class="hljs-variable">java</span>:<br>属性：<span class="hljs-variable">super.a</span><br>普通方法：<span class="hljs-variable">super.getName</span>()<br>构造器方法：<span class="hljs-function"><span class="hljs-title">super</span>()、<span class="hljs-title">super</span>(<span class="hljs-number">2</span>)</span><br><br><span class="hljs-variable">c</span>++:基类构造器方法是在派生类构造器的初始化列表中调用的<br>属性：<span class="hljs-variable">Base</span>::<span class="hljs-variable">a</span><br>普通方法：<span class="hljs-variable">Base</span>::<span class="hljs-function"><span class="hljs-title">getName</span>()</span><br>构造器方法：<span class="hljs-function"><span class="hljs-title">Base</span>()、<span class="hljs-title">Base</span>(<span class="hljs-number">2</span>)</span><br></code></pre></td></tr></table></figure>
 
 <p>如果在构造派生类时没有显式地调用基类的构造器方法，那么基类必须要有一个无参构造器方法，该构造器方法会在派生类构造前调用。需要注意的是，<strong>super调用基类构造器必须是派生类构造器中的第一句</strong>。</p>
 <p>要让一个类不能被继承，只需要在class前加final关键字即可。<strong>注：枚举和记录总是final的</strong></p>
@@ -340,6 +340,12 @@
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2023/01/21/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E5%8D%B7I%E7%AC%AC12%E7%89%88_%E6%8E%A5%E5%8F%A3Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%92%8C%E5%86%85%E9%83%A8%E7%B1%BB/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Java核心技术卷I第12版_接口Lambda表达式和内部类</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
